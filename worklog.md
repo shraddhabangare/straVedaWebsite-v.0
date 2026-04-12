@@ -1,4 +1,59 @@
 ---
+Task ID: 29-cursor-navbar
+Agent: Main Agent
+Task: Phase 29 — Fix cursor behavior on navbar: turn black + shrink when hovering over navbar
+
+Work Log:
+- Read current inverted-cursor.tsx (88 lines), CustomCursor.tsx (61 lines), Navbar.tsx (413 lines)
+- Identified that cursor uses mix-blend-difference which creates unpredictable colors on the semi-transparent navbar
+- Designed solution: React Context (CursorContext) for cursor↔navbar communication
+- Created cursor-context.tsx with CursorProvider, useCursorStyle hook, CursorStyle type ('default' | 'nav' | 'link')
+- Updated CustomCursor.tsx to wrap app in CursorProvider
+- Updated inverted-cursor.tsx to consume context: nav mode = smaller (36px) + solid color (no blend)
+- Updated Navbar.tsx: onMouseEnter/onMouseLeave on inner rounded container sets cursor style
+- Made nav cursor theme-aware: dark color (#1a1a2e) on light navbar, light color (#f0f0f5) on dark navbar
+- Smooth size interpolation via requestAnimationFrame lerp (0.15 factor)
+
+Changes Made:
+
+1. Created /src/lib/cursor-context.tsx:
+   - CursorStyle type: 'default' | 'nav' | 'link'
+   - CursorProvider: React context provider with useState + useCallback
+   - useCursorStyle: context consumer hook
+   - Reusable for future cursor states (link hover, button hover, etc.)
+
+2. Updated /src/components/ui/inverted-cursor.tsx:
+   - Consumes useCursorStyle() context for current style
+   - Size map: default=60px, nav=36px, link=48px
+   - Nav color: theme-aware (#1a1a2e light / #f0f0f5 dark)
+   - Nav blend: no mix-blend-difference (solid color for reliability)
+   - Default/link: keeps mix-blend-difference (white inverted cursor)
+   - Smooth size transition via RAF lerp animation (0.15 factor, snap at 0.5px)
+   - Added useTheme import for dark mode detection
+
+3. Updated /src/components/straveda/CustomCursor.tsx:
+   - Imported CursorProvider from cursor-context
+   - Wrapped children in CursorProvider (inside desktop-only check)
+   - Updated JSDoc comments to document nav cursor behavior
+
+4. Updated /src/components/straveda/Navbar.tsx:
+   - Imported useCursorStyle hook
+   - Added onMouseEnter={() => setCursorStyle('nav')} on inner motion.div
+   - Added onMouseLeave={() => setCursorStyle('default')} on inner motion.div
+   - Events on the visible rounded container (not outer header padding)
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+
+Stage Summary:
+- Cursor now turns solid dark (#1a1a2e) and shrinks to 36px when hovering the navbar
+- In dark mode, cursor turns light (#f0f0f5) on navbar for visibility
+- Smooth size interpolation via lerp (60px ↔ 36px)
+- CursorContext reusable for future cursor states (link hover, button hover, etc.)
+- Zero lint errors, stable dev server
+
+---
 Task ID: 28-a
 Agent: Full-Stack Developer
 Task: Add newsletter subscription form to footer + backend API endpoint

@@ -2,6 +2,7 @@
 
 import { ReactNode, useCallback, useRef, useSyncExternalStore } from 'react';
 import { Cursor as InvertedCursor } from '@/components/ui/inverted-cursor';
+import { CursorProvider } from '@/lib/cursor-context';
 
 interface CustomCursorProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ interface CustomCursorProps {
  * - Uses the `useSyncExternalStore` pattern for SSR-safe pointer detection.
  * - Inverted white cursor (60px) with mix-blend-difference for visibility
  *   on both light and dark backgrounds.
+ * - Turns black & shrinks on navbar hover via CursorContext.
  * - Hides the native cursor on desktop via CSS (see globals.css).
  */
 export default function CustomCursor({ children }: CustomCursorProps) {
@@ -51,11 +53,13 @@ export default function CustomCursor({ children }: CustomCursorProps) {
     return <>{children}</>;
   }
 
-  // ─── Desktop: render the inverted cursor wrapping children ────────
+  // ─── Desktop: render the cursor context + inverted cursor wrapping children ────────
   return (
-    <div className="relative" style={{ cursor: 'none' }}>
-      <InvertedCursor size={60} />
-      {children}
-    </div>
+    <CursorProvider>
+      <div className="relative" style={{ cursor: 'none' }}>
+        <InvertedCursor defaultSize={60} />
+        {children}
+      </div>
+    </CursorProvider>
   );
 }

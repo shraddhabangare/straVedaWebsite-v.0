@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Menu, X, Search } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import ThemeToggle from '@/components/straveda/ThemeToggle';
+import { useCursorStyle } from '@/lib/cursor-context';
 
 interface NavbarProps {
   currentPage: string;
@@ -25,6 +26,7 @@ const stickyEase = [0.25, 0.1, 0.25, 1] as const;
 
 export default function Navbar({ currentPage, onNavigate, onSearchToggle }: NavbarProps) {
   const { theme } = useTheme();
+  const { setCursorStyle } = useCursorStyle();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -117,6 +119,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
             boxShadow: 'none',
             transition: 'background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, box-shadow 0.4s ease',
           }}
+          onMouseEnter={() => setCursorStyle('nav')}
+          onMouseLeave={() => setCursorStyle('default')}
         >
           {/* Scroll-driven backdrop blur + background + shadow */}
           <StickyHeaderEffects
