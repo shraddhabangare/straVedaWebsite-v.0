@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, X, User, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
+import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 const categories = ['All', 'Architecture', 'Strategy', 'Cloud', 'Leadership'] as const;
 type FilterCategory = (typeof categories)[number];
@@ -140,11 +141,17 @@ function BlogPostModal({
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
+
+    // Also listen for global 'close-all' custom event from keyboard nav
+    const handleCloseAll = () => onClose();
+    window.addEventListener('close-all', handleCloseAll);
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('close-all', handleCloseAll);
       document.body.style.overflow = '';
     };
-  }, [handleKeyDown]);
+  }, [handleKeyDown, onClose]);
 
   return (
     <motion.div
@@ -237,6 +244,7 @@ export default function InsightsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
+  const heroScrolled = useScrollGradient(100);
 
   const filteredPosts = useMemo(() => {
     if (activeCategory === 'All') return posts;
@@ -285,7 +293,9 @@ export default function InsightsPage() {
           >
             Insights & Perspectives
           </motion.p>
-          <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-white leading-tight">
+          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+            style={{ transitionDuration: '0.6s' }}
+          >
             <TextReveal delay={0.2} stagger={0.08}>Enterprise thinking for modern organizations.</TextReveal>
           </h1>
           <motion.div

@@ -11,6 +11,8 @@ import FloatingCTA from '@/components/straveda/FloatingCTA'
 import CustomCursor from '@/components/straveda/CustomCursor'
 import CookieConsent from '@/components/straveda/CookieConsent'
 import ScrollProgress from '@/components/straveda/ScrollProgress'
+import SearchOverlay from '@/components/straveda/SearchOverlay'
+import KeyboardHint from '@/components/straveda/KeyboardHint'
 
 const pages = ['home', 'services', 'about', 'insights', 'contact'] as const
 type Page = typeof pages[number]
@@ -47,6 +49,7 @@ function PageLoader() {
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const handleNavigate = useCallback((page: string) => {
     const validPage = page as Page
@@ -59,6 +62,69 @@ export default function Home() {
     }
   }, [])
 
+  // ── Keyboard navigation ──
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement
+      // Skip when user is typing in an input or textarea
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+        return
+      }
+
+      const idx = pages.indexOf(currentPage)
+
+      switch (e.key) {
+        case 'ArrowRight': {
+          e.preventDefault()
+          const next = e.shiftKey
+            ? (idx - 1 + pages.length) % pages.length
+            : (idx + 1) % pages.length
+          handleNavigate(pages[next])
+          break
+        }
+        case 'ArrowLeft': {
+          e.preventDefault()
+          const next = e.shiftKey
+            ? (idx + 1) % pages.length
+            : (idx - 1 + pages.length) % pages.length
+          handleNavigate(pages[next])
+          break
+        }
+        case 'Home': {
+          e.preventDefault()
+          handleNavigate('home')
+          break
+        }
+        case 'End': {
+          e.preventDefault()
+          handleNavigate('contact')
+          break
+        }
+        case 'Escape': {
+          // Dispatch custom event to close any open modals/panels
+          window.dispatchEvent(new CustomEvent('close-all'))
+          break
+        }
+        case '1': case '2': case '3': case '4': case '5': {
+          if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+            const pageIdx = parseInt(e.key) - 1
+            if (pageIdx >= 0 && pageIdx < pages.length) {
+              e.preventDefault()
+              handleNavigate(pages[pageIdx])
+            }
+          }
+          break
+        }
+        default:
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentPage, handleNavigate])
+
+  // ── Update document title & announce to screen readers ──
   useEffect(() => {
     const titles: Record<Page, string> = {
       home: 'Straveda — Enterprise IT Consulting & Technology Strategy',
@@ -77,9 +143,14 @@ export default function Home() {
       <div className="noise-overlay min-h-screen flex flex-col bg-black text-white">
         <Preloader />
         <ScrollProgress />
-        <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+        <Navbar currentPage={currentPage} onNavigate={handleNavigate} onSearchToggle={() => setSearchOpen(prev => !prev)} />
 
-        <main className="flex-1">
+        {/* Screen reader live region for page navigation announcements */}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {currentPage.charAt(0).toUpperCase() + currentPage.slice(1)} page
+        </div>
+
+        <main className="flex-1" role="main" tabIndex={0}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -96,10 +167,12 @@ export default function Home() {
         </main>
 
         <Footer onNavigate={handleNavigate} />
+        <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} onNavigate={(page) => { setSearchOpen(false); handleNavigate(page); }} />
         <BackToTop />
         <FloatingCTA onNavigate={handleNavigate} />
         <CustomCursor />
         <CookieConsent />
+        <KeyboardHint />
       </div>
     </SmoothScroll>
   )

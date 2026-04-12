@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Diamond, Hexagon, ShieldCheck, Linkedin, Award } from 'lucide-react';
 import TextReveal from '@/components/straveda/TextReveal';
+import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -53,6 +54,7 @@ const stats = [
 /* ------------------------------------------------------------------ */
 
 function HeroSection() {
+  const heroScrolled = useScrollGradient(100);
   return (
     <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
       <motion.div
@@ -73,7 +75,9 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className="mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+        style={{ transitionDuration: '0.6s' }}
+      >
         <TextReveal delay={0.3} stagger={0.04}>Building tomorrow&apos;s enterprise, one solution at a time.</TextReveal>
       </h1>
 
@@ -466,6 +470,111 @@ function ExpertiseSection() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Core Competencies — Animated Skill Bars Section                    */
+/* ------------------------------------------------------------------ */
+
+const coreCompetencies = [
+  { label: 'Enterprise Architecture', percentage: 95 },
+  { label: 'Cloud & DevOps', percentage: 90 },
+  { label: 'Technology Strategy', percentage: 92 },
+  { label: 'Project Management', percentage: 88 },
+  { label: 'Red Hat Middleware', percentage: 96 },
+  { label: 'Agile Delivery', percentage: 93 },
+];
+
+function AnimatedPercentage({ target }: { target: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1200;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, [inView, target]);
+
+  return <span ref={ref}>{count}%</span>;
+}
+
+function CoreCompetenciesSection() {
+  return (
+    <section className="relative bg-noise-subtle px-6 py-16" style={{ background: '#0a0a0a' }}>
+      <div className="mx-auto max-w-4xl">
+        {/* Section Header */}
+        <div className="mb-12 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            Core Competencies
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+          >
+            Measurable expertise across the stack.
+          </motion.h2>
+        </div>
+
+        {/* Skill Bars */}
+        <div className="space-y-8">
+          {coreCompetencies.map((skill, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease }}
+            >
+              {/* Label Row */}
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-[16px] font-normal text-white">{skill.label}</span>
+                <span className="text-[16px] font-semibold" style={{ color: '#FF4800' }}>
+                  <AnimatedPercentage target={skill.percentage} />
+                </span>
+              </div>
+
+              {/* Track */}
+              <div
+                className="h-2 w-full rounded-full"
+                style={{ background: 'rgba(255,255,255,0.05)' }}
+              >
+                {/* Fill Bar */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${skill.percentage}%` }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 1.2, delay: i * 0.1, ease }}
+                  className="h-2 rounded-full"
+                  style={{
+                    background: 'linear-gradient(90deg, #FF4800, #2B2358)',
+                  }}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Our Journey — Timeline Section                                     */
 /* ------------------------------------------------------------------ */
 
@@ -821,6 +930,7 @@ export default function AboutPage() {
       <TeamSection />
       <StatsStrip />
       <ExpertiseSection />
+      <CoreCompetenciesSection />
       <TimelineSection />
       <PartnersSection />
     </main>

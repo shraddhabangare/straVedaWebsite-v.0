@@ -1127,3 +1127,64 @@ html {
     cursor: none !important;
   }
 }
+
+/* ============================================
+   Pulse Glow Animation (for CTAs)
+   ============================================ */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 72, 0, 0.15); }
+  50% { box-shadow: 0 0 30px rgba(255, 72, 0, 0.3); }
+}
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ============================================
+   Float Y Animation (for BackToTop)
+   ============================================ */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float-y {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+/* ============================================
+   Rotating Border Animation (for hero CTA)
+   ============================================ */
+@keyframes borderRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.rotating-border {
+  position: relative;
+  overflow: hidden;
+}
+.rotating-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #FF4800, #ff6a33, #FF4800);
+  background-size: 200% 200%;
+  animation: borderRotate 3s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================
+   Infinite Scroll X Animation (marquee)
+   ============================================ */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.infinite-scroll-x {
+  animation: marqueeScroll 20s linear infinite;
+}

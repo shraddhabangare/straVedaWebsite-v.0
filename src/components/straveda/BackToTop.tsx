@@ -28,7 +28,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full cursor-pointer shadow-lg transition-shadow duration-300 hover:shadow-xl btn-shine"
+          className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full cursor-pointer shadow-lg transition-shadow duration-300 hover:shadow-xl btn-shine animate-float-y"
           style={{
             background: '#FF4800',
             border: 'none',

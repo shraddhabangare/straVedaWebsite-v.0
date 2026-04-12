@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown, Container, Cloud, Database, Layers, Network, Code, Shield } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
+import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -159,6 +160,7 @@ const cardVariants = {
 /* ------------------------------------------------------------------ */
 
 function HeroSection() {
+  const heroScrolled = useScrollGradient(100);
   return (
     <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
       <motion.div
@@ -179,7 +181,9 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className="mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+        style={{ transitionDuration: '0.6s' }}
+      >
         <TextReveal delay={0.3} stagger={0.04}>Comprehensive enterprise services built to modernize and deliver.</TextReveal>
       </h1>
 

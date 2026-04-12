@@ -48,6 +48,15 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
     return () => window.removeEventListener('resize', check)
   }, [])
 
+  // Close expanded panel on 'close-all' custom event (Escape key from keyboard nav)
+  useEffect(() => {
+    const handleCloseAll = () => {
+      if (isExpanded) setIsExpanded(false)
+    }
+    window.addEventListener('close-all', handleCloseAll)
+    return () => window.removeEventListener('close-all', handleCloseAll)
+  }, [isExpanded])
+
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev)
     setShowTooltip(false)
@@ -376,7 +385,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
               onClick={handleToggle}
               onMouseEnter={() => { if (!isMobile) setShowTooltip(true) }}
               onMouseLeave={() => setShowTooltip(false)}
-              className="fixed w-12 h-12 md:w-14 md:h-14 right-4 md:right-6 rounded-full bg-[#FF4800] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,72,0,0.4)] orange-pulse transition-shadow duration-200 hover:shadow-[0_4px_30px_rgba(255,72,0,0.6)] z-[47]"
+              className="fixed w-12 h-12 md:w-14 md:h-14 right-4 md:right-6 rounded-full bg-[#FF4800] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,72,0,0.4)] orange-pulse pulse-glow transition-shadow duration-200 hover:shadow-[0_4px_30px_rgba(255,72,0,0.6)] z-[47]"
               style={{ bottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
               aria-label={isExpanded ? 'Close quick contact' : 'Open quick contact'}
             >

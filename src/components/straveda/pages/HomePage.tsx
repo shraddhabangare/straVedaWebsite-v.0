@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useScrollGradient } from '@/hooks/useScrollGradient';
 import {
   ChevronDown,
   ChevronLeft,
@@ -288,6 +289,7 @@ function TestimonialsCarousel() {
 }
 
 export default function HomePage({ onNavigate }: HomePageProps) {
+  const heroScrolled = useScrollGradient(100);
 
 
   return (
@@ -325,11 +327,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
           {/* Headline — word-by-word reveal */}
           <h1
-            className="mb-6 font-semibold leading-[0.92] text-white"
+            className={`mb-6 font-semibold leading-[0.92] transition-all duration-600 ease-in-out ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
             style={{
               fontSize: 'clamp(64px, 9vw, 128px)',
               fontWeight: 600,
               lineHeight: 0.92,
+              transitionDuration: '0.6s',
             }}
           >
             <TextReveal delay={0.3} stagger={0.08}>We architect solutions to build and deploy IT assets efficiently</TextReveal>
@@ -363,7 +366,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3, ease }}
                 onClick={() => onNavigate('contact')}
-                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine"
+                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine rotating-border"
                 style={{ background: '#FF4800' }}
               >
                 Start a project
@@ -1544,6 +1547,303 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ═══════════════════════════════════════════════ */}
+      {/* SECTION — CLIENT SUCCESS STORIES                */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-20 gradient-mesh">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-14 text-center"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              CLIENT STORIES
+            </p>
+            <h2
+              className="text-[36px] font-medium text-white"
+              style={{ fontWeight: 500 }}
+            >
+              Real results from real partnerships.
+            </h2>
+          </motion.div>
+
+          {/* Success Story Cards Grid */}
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+          >
+            {/* Story 1 — Financial Services */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #FF4800',
+              }}
+            >
+              {/* Industry Badge */}
+              <span
+                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
+              >
+                Financial Services
+              </span>
+
+              {/* Challenge Quote */}
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+                &ldquo;Our legacy systems were failing under peak load. We needed a partner who understood enterprise-grade reliability.&rdquo;
+              </p>
+
+              {/* Solution Summary */}
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                Straveda designed a cloud-native architecture with automated failover, reducing deployment times from weeks to hours.
+              </p>
+
+              {/* Metric Badges */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  <MetricCounter target={98} suffix="%" decimals={0} /> faster deployment
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  60% cost reduction
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  <MetricCounter target={15} suffix="M+" decimals={0} /> users served
+                </span>
+              </div>
+
+              {/* Client Quote */}
+              <div
+                className="mb-4 w-full"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+              />
+              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+                &ldquo;Straveda didn&apos;t just fix our problems — they future-proofed our entire platform.&rdquo;
+              </p>
+              <p className="text-[14px] font-semibold text-white">
+                Robert Chen
+              </p>
+              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+                CTO · National Financial Group
+              </p>
+
+              {/* View Case Study Link */}
+              <button
+                onClick={() => onNavigate('services')}
+                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
+                style={{ color: '#FF4800' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
+              >
+                View case study
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+
+            {/* Story 2 — Healthcare */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #FF4800',
+              }}
+            >
+              {/* Industry Badge */}
+              <span
+                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
+              >
+                Healthcare
+              </span>
+
+              {/* Challenge Quote */}
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+                &ldquo;Patient data was siloed across 12 regional offices. Critical information wasn&apos;t reaching doctors in time.&rdquo;
+              </p>
+
+              {/* Solution Summary */}
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                Built a unified integration platform connecting all regional systems with real-time data synchronization and HIPAA-compliant APIs.
+              </p>
+
+              {/* Metric Badges */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  99.99% uptime
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  $<MetricCounter target={4} suffix=".2M" decimals={1} /> savings
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  <MetricCounter target={200} suffix="+" decimals={0} /> integrations
+                </span>
+              </div>
+
+              {/* Client Quote */}
+              <div
+                className="mb-4 w-full"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+              />
+              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+                &ldquo;The integration platform saved lives. Doctors now have instant access to patient histories.&rdquo;
+              </p>
+              <p className="text-[14px] font-semibold text-white">
+                Dr. Sarah Mitchell
+              </p>
+              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+                VP of Technology · MedCare Health Systems
+              </p>
+
+              {/* View Case Study Link */}
+              <button
+                onClick={() => onNavigate('services')}
+                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
+                style={{ color: '#FF4800' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
+              >
+                View case study
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+
+            {/* Story 3 — Government */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #FF4800',
+              }}
+            >
+              {/* Industry Badge */}
+              <span
+                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
+              >
+                Government
+              </span>
+
+              {/* Challenge Quote */}
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+                &ldquo;We had critical security vulnerabilities and zero modernization roadmap. Compliance deadlines were looming.&rdquo;
+              </p>
+
+              {/* Solution Summary */}
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                Delivered an Agile PMO framework with security-first architecture, enabling continuous compliance and rapid feature delivery.
+              </p>
+
+              {/* Metric Badges */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  3x faster delivery
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  Zero downtime migration
+                </span>
+                <span
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  style={{ background: 'rgba(255,72,0,0.12)' }}
+                >
+                  <MetricCounter target={500} suffix="+" decimals={0} /> team trained
+                </span>
+              </div>
+
+              {/* Client Quote */}
+              <div
+                className="mb-4 w-full"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+              />
+              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+                &ldquo;They turned a failing program into a model for modern government IT. Truly exceptional partners.&rdquo;
+              </p>
+              <p className="text-[14px] font-semibold text-white">
+                James Patterson
+              </p>
+              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+                Director of IT · Federal Agency
+              </p>
+
+              {/* View Case Study Link */}
+              <button
+                onClick={() => onNavigate('services')}
+                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
+                style={{ color: '#FF4800' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
+              >
+                View case study
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* FINAL CTA BANNER                                 */}
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24 relative overflow-hidden"

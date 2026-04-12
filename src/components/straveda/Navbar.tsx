@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
+  onSearchToggle: () => void;
 }
 
 const NAV_LINKS = [
@@ -18,7 +19,7 @@ const NAV_LINKS = [
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
-export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
+export default function Navbar({ currentPage, onNavigate, onSearchToggle }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -43,6 +44,15 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     };
   }, [mobileOpen]);
 
+  // ── Close mobile menu on 'close-all' custom event (Escape key from page.tsx) ──
+  useEffect(() => {
+    const handleCloseAll = () => {
+      if (mobileOpen) setMobileOpen(false);
+    };
+    window.addEventListener('close-all', handleCloseAll);
+    return () => window.removeEventListener('close-all', handleCloseAll);
+  }, [mobileOpen]);
+
   const handleMobileLinkClick = useCallback(
     (page: string) => {
       setMobileOpen(false);
@@ -56,6 +66,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   return (
     <>
       <nav
+        role="banner"
         className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 md:px-10 transition-shadow duration-300"
         style={{
           background: scrolled
@@ -118,8 +129,19 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           ))}
         </div>
 
-        {/* ── CTA + Hamburger ── */}
+        {/* ── Search + CTA + Hamburger ── */}
         <div className="flex items-center gap-3">
+          {/* Search icon — desktop */}
+          <motion.button
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.55, ease }}
+            onClick={onSearchToggle}
+            className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
+            aria-label="Open search"
+          >
+            <Search className="h-[18px] w-[18px]" />
+          </motion.button>
           <motion.button
             initial={{ opacity: 0, y: -16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -214,10 +236,29 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 ))}
               </div>
 
+              {/* Mobile search button */}
+              <motion.button
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.35, delay: 0.4, ease }}
+                className="flex items-center gap-3 py-3 text-base transition-colors duration-200 w-full"
+                style={{
+                  color: '#A1A1A1',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                }}
+                onClick={() => {
+                  setMobileOpen(false);
+                  onSearchToggle();
+                }}
+              >
+                <Search className="h-[18px] w-[18px]" />
+                Search
+              </motion.button>
+
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.4, ease }}
+                transition={{ duration: 0.35, delay: 0.45, ease }}
                 className="mt-8 w-full text-white transition-all duration-200 cursor-pointer"
                 style={{
                   backgroundColor: '#FF4800',
