@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useCallback, useRef, useSyncExternalStore } from 'react';
-import { Cursor as InvertedCursor } from '@/components/ui/inverted-cursor';
+import { Cursor as PremiumCursor } from '@/components/ui/inverted-cursor';
 import { CursorProvider } from '@/lib/cursor-context';
 
 interface CustomCursorProps {
@@ -9,14 +9,17 @@ interface CustomCursorProps {
 }
 
 /**
- * Straveda-branded custom cursor wrapper.
+ * Straveda-branded premium custom cursor wrapper.
  *
  * - Only renders the custom cursor on fine-pointer (desktop) devices.
  *   Touch/touchpad devices get children only — no cursor overlay.
  * - Uses the `useSyncExternalStore` pattern for SSR-safe pointer detection.
- * - Inverted white cursor (60px) with mix-blend-difference for visibility
- *   on both light and dark backgrounds.
- * - Turns black & shrinks on navbar hover via CursorContext.
+ * - Ultra-smooth dual-element cursor: outer ring + inner dot.
+ * - Lerp-interpolated movement via requestAnimationFrame (60fps+).
+ * - GPU-accelerated via translate3d — zero layout thrashing.
+ * - Velocity-based stretch/skew on fast mouse movement.
+ * - Cursor modes: default (inverted), nav (solid small), link (inverted large),
+ *   text (tall thin outline for text selection).
  * - Hides the native cursor on desktop via CSS (see globals.css).
  */
 export default function CustomCursor({ children }: CustomCursorProps) {
@@ -53,13 +56,11 @@ export default function CustomCursor({ children }: CustomCursorProps) {
     return <>{children}</>;
   }
 
-  // ─── Desktop: render the cursor context + inverted cursor wrapping children ────────
+  // ─── Desktop: cursor context + premium cursor (fixed, no container) ─
   return (
     <CursorProvider>
-      <div className="relative" style={{ cursor: 'none' }}>
-        <InvertedCursor defaultSize={60} />
-        {children}
-      </div>
+      <PremiumCursor />
+      {children}
     </CursorProvider>
   );
 }

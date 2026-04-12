@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 
-export type CursorStyle = 'default' | 'nav' | 'link';
+export type CursorStyle = 'default' | 'nav' | 'link' | 'text';
 
 interface CursorContextType {
   cursorStyle: CursorStyle;
