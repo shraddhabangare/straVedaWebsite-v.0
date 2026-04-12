@@ -2,8 +2,11 @@
 
 import { useState, useCallback, useEffect, lazy, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import SmoothScroll from '@/components/straveda/SmoothScroll'
+import Preloader from '@/components/straveda/Preloader'
 import Navbar from '@/components/straveda/Navbar'
 import Footer from '@/components/straveda/Footer'
+import BackToTop from '@/components/straveda/BackToTop'
 
 const pages = ['home', 'services', 'about', 'insights', 'contact'] as const
 type Page = typeof pages[number]
@@ -65,26 +68,30 @@ export default function Home() {
   const CurrentPageComponent = pageComponents[currentPage]
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
-      <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+    <SmoothScroll>
+      <div className="noise-overlay min-h-screen flex flex-col bg-black text-white">
+        <Preloader />
+        <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
 
-      <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentPage}
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          >
-            <Suspense fallback={<PageLoader />}>
-              <CurrentPageComponent onNavigate={handleNavigate} />
-            </Suspense>
-          </motion.div>
-        </AnimatePresence>
-      </main>
+        <main className="flex-1">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Suspense fallback={<PageLoader />}>
+                <CurrentPageComponent onNavigate={handleNavigate} />
+              </Suspense>
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      <Footer onNavigate={handleNavigate} />
-    </div>
+        <Footer onNavigate={handleNavigate} />
+        <BackToTop />
+      </div>
+    </SmoothScroll>
   )
 }

@@ -93,3 +93,38 @@ Stage Summary:
 - All animations converted to Framer Motion
 - Memory usage significantly reduced
 - Server stable with multiple consecutive requests
+
+---
+Task ID: 4a-style
+Agent: Main Agent
+Task: Enhance styling foundation — globals.css and layout.tsx
+
+Work Log:
+- Read existing globals.css (214 lines) and layout.tsx (43 lines)
+- Updated globals.css with 11 new style enhancements:
+  1. Lenis smooth scroll CSS classes (html.lenis, lenis-smooth, lenis-stopped)
+  2. Noise/grain texture overlay (.noise-overlay::before with SVG turbulence)
+  3. Glow border animation (.glow-border with gradient mask composite)
+  4. Enhanced card hover effects (.card-hover with translateY + orange shadow)
+  5. Glassmorphism utility (.glass with backdrop-filter blur)
+  6. Text gradient utility (.text-gradient-orange)
+  7. Shimmer loading effect (@keyframes shimmer + .shimmer)
+  8. Enhanced scrollbar (updated thumb hover to #FF4800)
+  9. CTA button pulse (@keyframes cta-pulse + .cta-pulse)
+  10. Selection style (::selection with orange tint)
+  11. Smooth focus ring for inputs (box-shadow orange ring)
+- Preserved all existing styles (btn-flair, magnetic, section-divider, card-lift, nav-link-underline, orange-pulse, bounce-slow, text-gradient-mask)
+- Updated layout.tsx:
+  - Added Viewport export with themeColor #000000, width device-width, max-scale 5
+  - Added favicon icon links (favicon.ico, shortcut, apple-touch-icon)
+  - Enhanced metadata description with more detail
+  - Added Twitter card metadata
+  - Added additional SEO keywords
+  - Added <head> with favicon link for broader compatibility
+- ESLint passes with zero errors
+- Dev server compiles and returns 200
+
+Stage Summary:
+- globals.css expanded with 11 new utility classes (Lenis, noise, glow-border, card-hover, glass, text-gradient-orange, shimmer, scrollbar, cta-pulse, selection, focus-ring)
+- layout.tsx enhanced with viewport meta, favicon, Twitter cards, richer SEO metadata
+- All new styling utilities ready for component integration

@@ -94,25 +94,154 @@
   }
 }
 
-/* Custom scrollbar */
+/* ============================================
+   Lenis Smooth Scroll CSS Classes
+   ============================================ */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ============================================
+   Noise / Grain Texture Overlay
+   ============================================ */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============================================
+   Glow Border Animation
+   ============================================ */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #FF4800, transparent, #FF4800);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Enhanced Card Hover Effects
+   ============================================ */
+.card-hover {
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 72, 0, 0.1);
+}
+
+/* ============================================
+   Glassmorphism Utility
+   ============================================ */
+.glass {
+  background: rgba(43, 35, 88, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   Text Gradient Utilities
+   ============================================ */
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FF4800, #ff6a33);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================
+   Shimmer Loading Effect
+   ============================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.05) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ============================================
+   Enhanced Scrollbar
+   ============================================ */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: #000000;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #27272A;
   border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #FF4800;
 }
 
-/* Button flair animation */
+/* ============================================
+   CTA Button Pulse
+   ============================================ */
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 72, 0, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(255, 72, 0, 0); }
+}
+.cta-pulse {
+  animation: cta-pulse 2.5s ease-in-out infinite;
+}
+
+/* ============================================
+   Selection Style
+   ============================================ */
+::selection {
+  background: rgba(255, 72, 0, 0.3);
+  color: #FFFFFF;
+}
+
+/* ============================================
+   Smooth Focus Ring for Inputs
+   ============================================ */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 72, 0, 0.3);
+}
+
+/* ============================================
+   Button Flair Animation
+   ============================================ */
 .btn-flair {
   position: relative;
   overflow: hidden;
@@ -136,17 +265,23 @@
   height: 0;
 }
 
-/* Magnetic cursor effect */
+/* ============================================
+   Magnetic Cursor Effect
+   ============================================ */
 .magnetic {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Section divider */
+/* ============================================
+   Section Divider
+   ============================================ */
 .section-divider {
   border-top: 1px solid #27272A;
 }
 
-/* Card hover lift */
+/* ============================================
+   Card Hover Lift
+   ============================================ */
 .card-lift {
   transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -157,7 +292,9 @@
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
 }
 
-/* Nav link underline animation */
+/* ============================================
+   Nav Link Underline Animation
+   ============================================ */
 .nav-link-underline {
   position: relative;
 }
@@ -177,7 +314,9 @@
   width: 100%;
 }
 
-/* Orange dot pulse */
+/* ============================================
+   Orange Dot Pulse
+   ============================================ */
 @keyframes orange-pulse {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(255, 72, 0, 0.4);
@@ -191,7 +330,9 @@
   animation: orange-pulse 2s ease-in-out infinite;
 }
 
-/* Scroll indicator bounce */
+/* ============================================
+   Scroll Indicator Bounce
+   ============================================ */
 @keyframes bounce-slow {
   0%, 100% {
     transform: translateY(0);
@@ -205,7 +346,9 @@
   animation: bounce-slow 2s ease-in-out infinite;
 }
 
-/* Gradient mask for text */
+/* ============================================
+   Gradient Mask for Text
+   ============================================ */
 .text-gradient-mask {
   -webkit-background-clip: text;
   background-clip: text;

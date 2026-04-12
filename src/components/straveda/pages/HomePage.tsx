@@ -147,7 +147,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="text-[20px] font-normal"
             style={{ color: '#A1A1A1' }}
           >
-            Less complexity, more agility.
+            Less complexity, more{" "}
+            <span className="text-gradient-orange" style={{ fontWeight: 500 }}>agility.</span>
           </motion.p>
 
           {/* Buttons */}
@@ -157,7 +158,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.3, ease }}
               onClick={() => onNavigate('contact')}
-              className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
+              className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
               style={{ background: '#FF4800' }}
             >
               Start a project
@@ -260,7 +261,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 1 — Enterprise Architecture */}
             <motion.div
               variants={cardVariants}
-              className="card-lift rounded-xl p-8"
+              className="card-hover glow-border rounded-xl p-8"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -302,7 +303,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 2 — Technology Strategy */}
             <motion.div
               variants={cardVariants}
-              className="card-lift rounded-xl p-8"
+              className="card-hover glow-border rounded-xl p-8"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -344,7 +345,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 3 — Management Consulting */}
             <motion.div
               variants={cardVariants}
-              className="card-lift rounded-xl p-8"
+              className="card-hover glow-border rounded-xl p-8"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -386,7 +387,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 4 — Software Solutions */}
             <motion.div
               variants={cardVariants}
-              className="card-lift rounded-xl p-8"
+              className="card-hover glow-border rounded-xl p-8"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -445,6 +446,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="flex w-full flex-col justify-center lg:w-[40%]"
           >
             <Counter target={14} suffix="+" />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="mt-3 h-[3px] w-8 rounded-full"
+              style={{ background: '#FF4800', transformOrigin: 'left' }}
+            />
             <p className="mt-3 text-[16px]" style={{ color: '#A1A1A1' }}>
               Years of Enterprise Excellence
             </p>
@@ -543,8 +552,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* ── Decorative gradient divider ── */}
+      <div className="relative h-px w-full overflow-hidden" style={{ background: '#000000' }}>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, transparent, #FF4800, transparent)', transformOrigin: 'center' }}
+        />
+      </div>
+
       {/* ═══════════════════════════════════════════════ */}
-      {/* SECTION 1D — TESTIMONIALS (Dark Indigo)         */}
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
@@ -587,7 +607,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 1 */}
             <motion.div
               variants={testimonialCardVariants}
-              className="rounded-xl p-8"
+              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
               style={{ background: '#1e1a3f' }}
             >
               <span
@@ -626,7 +646,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 2 */}
             <motion.div
               variants={testimonialCardVariants}
-              className="rounded-xl p-8"
+              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
               style={{ background: '#1e1a3f' }}
             >
               <span
@@ -648,7 +668,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="mb-6 text-[17px] italic leading-[1.7] text-white"
               >
                 The technology strategy they delivered gave us a clear roadmap.
-                We shipped 3x faster within the first quarter.
+                We shipped{" "}
+                <span className="text-gradient-orange" style={{ fontWeight: 500 }}>3x faster</span>{" "}within the first quarter.
               </p>
               <div
                 className="mb-4 w-full"
@@ -665,7 +686,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 3 */}
             <motion.div
               variants={testimonialCardVariants}
-              className="rounded-xl p-8"
+              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
               style={{ background: '#1e1a3f' }}
             >
               <span
@@ -687,7 +708,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="mb-6 text-[17px] italic leading-[1.7] text-white"
               >
                 Their management consulting approach eliminated bottlenecks
-                we&apos;d struggled with for years. True enterprise partners.
+                we&apos;d struggled with for years.{" "}
+                <span className="text-gradient-orange" style={{ fontWeight: 500 }}>True enterprise partners.</span>
               </p>
               <div
                 className="mb-4 w-full"
@@ -704,8 +726,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* ── Decorative gradient divider ── */}
+      <div className="relative h-px w-full overflow-hidden" style={{ background: '#2B2358' }}>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, transparent, #FF4800, transparent)', transformOrigin: 'center' }}
+        />
+      </div>
+
       {/* ═══════════════════════════════════════════════ */}
-      {/* SECTION 1E — CONTACT CTA                         */}
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
@@ -729,7 +762,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </p>
           <button
             onClick={() => onNavigate('contact')}
-            className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
+            className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
             style={{ background: '#FF4800' }}
           >
             Start a project
