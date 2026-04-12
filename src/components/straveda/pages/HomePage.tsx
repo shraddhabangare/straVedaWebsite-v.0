@@ -18,6 +18,8 @@ import {
   Zap,
   TrendingUp,
   Building2,
+  Shield,
+  CircleDollarSign,
 } from 'lucide-react';
 import Marquee from '@/components/straveda/Marquee';
 import TiltCard from '@/components/straveda/TiltCard';
@@ -69,6 +71,34 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
     <span ref={ref} className="text-white" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
       {count}
       {suffix}
+    </span>
+  );
+}
+
+function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffix: string; decimals?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 2000;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = eased * target;
+      setCount(decimals > 0 ? parseFloat(value.toFixed(decimals)) : Math.round(value));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, [inView, target, decimals]);
+
+  return (
+    <span ref={ref} className="counter-display text-white" style={{ fontSize: '48px', fontWeight: 700, lineHeight: 1 }}>
+      {count}{suffix}
     </span>
   );
 }
@@ -127,12 +157,13 @@ const testimonials = [
 function TestimonialsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Single auto-play timer that resets on manual navigation
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
   const goTo = (index: number) => {
     setCurrentIndex(index);
@@ -145,14 +176,6 @@ function TestimonialsCarousel() {
   const goNext = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
-
-  // Reset auto-play timer on manual navigation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
 
   const t = testimonials[currentIndex];
 
@@ -1033,8 +1056,105 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════ */}
+      {/* RESULTS THAT SPEAK — METRICS BANNER               */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-16 gradient-mesh-indigo">
+        {/* Subtle decorative gradient glow */}
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '700px',
+            height: '700px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,72,0,0.06) 0%, rgba(43,35,88,0.08) 40%, transparent 70%)',
+          }}
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-14 text-center"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              RESULTS THAT SPEAK
+            </p>
+            <h2
+              className="text-[36px] font-medium text-white"
+              style={{ fontWeight: 500 }}
+            >
+              Numbers that define our impact.
+            </h2>
+          </motion.div>
+
+          {/* Metrics Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            {/* Metric 1 — 200+ Projects Delivered */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative rounded-xl p-6 md:p-8"
+            >
+              <TrendingUp className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
+              <MetricCounter target={200} suffix="+" />
+              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
+                Projects Delivered
+              </span>
+            </motion.div>
+
+            {/* Metric 2 — 99.9% Uptime Achieved */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative rounded-xl p-6 md:p-8"
+            >
+              <Shield className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
+              <MetricCounter target={99.9} suffix="%" decimals={1} />
+              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
+                Uptime Achieved
+              </span>
+            </motion.div>
+
+            {/* Metric 3 — 40% Cost Reduction */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative rounded-xl p-6 md:p-8"
+            >
+              <CircleDollarSign className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
+              <MetricCounter target={40} suffix="%" />
+              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
+                Cost Reduction
+              </span>
+            </motion.div>
+
+            {/* Metric 4 — 3x Faster Delivery */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative rounded-xl p-6 md:p-8"
+            >
+              <Zap className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
+              <MetricCounter target={3} suffix="x" />
+              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
+                Faster Delivery
+              </span>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Decorative gradient divider ── */}
       <div className="relative h-px w-full overflow-hidden" style={{ background: '#000000' }}>
+
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}

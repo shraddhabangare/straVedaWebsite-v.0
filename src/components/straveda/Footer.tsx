@@ -80,7 +80,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer ref={footerRef} className="mt-auto bg-noise-subtle" style={{ background: '#2B2358' }}>
+    <footer ref={footerRef} className="relative mt-auto bg-noise-subtle" style={{ background: '#2B2358' }}>
       {/* ── Orange accent top border (animated from left) ── */}
       <motion.div
         initial={{ scaleX: 0 }}

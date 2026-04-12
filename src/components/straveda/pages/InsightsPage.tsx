@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, X, User, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 
+const categories = ['All', 'Architecture', 'Strategy', 'Cloud', 'Leadership'] as const;
+type FilterCategory = (typeof categories)[number];
+
 const featuredPost = {
   category: 'ENTERPRISE ARCHITECTURE',
+  filterCategory: 'Architecture' as FilterCategory,
   title: 'The Case for Open Standards in Modern Enterprise Architecture',
   date: 'March 2024',
   excerpt:
@@ -25,6 +29,7 @@ const featuredPost = {
 const posts = [
   {
     category: 'TECHNOLOGY STRATEGY',
+    filterCategory: 'Strategy' as FilterCategory,
     title: 'How to Align IT Investment with Business Goals',
     date: 'February 2024',
     excerpt:
@@ -39,6 +44,7 @@ const posts = [
   },
   {
     category: 'MANAGEMENT',
+    filterCategory: 'Leadership' as FilterCategory,
     title: 'Eliminating Enterprise Delivery Bottlenecks',
     date: 'January 2024',
     excerpt:
@@ -54,6 +60,7 @@ const posts = [
   },
   {
     category: 'SOFTWARE SOLUTIONS',
+    filterCategory: 'Cloud' as FilterCategory,
     title: 'Red Hat Middleware: Lowering TCO at Scale',
     date: 'December 2023',
     excerpt:
@@ -68,6 +75,7 @@ const posts = [
   },
   {
     category: 'ENTERPRISE ARCHITECTURE',
+    filterCategory: 'Architecture' as FilterCategory,
     title: 'Microservices vs. Monolith: An Enterprise Decision Framework',
     date: 'November 2023',
     excerpt:
@@ -83,6 +91,7 @@ const posts = [
   },
   {
     category: 'TECHNOLOGY STRATEGY',
+    filterCategory: 'Strategy' as FilterCategory,
     title: 'Building a Digital Transformation Roadmap That Works',
     date: 'October 2023',
     excerpt:
@@ -97,6 +106,7 @@ const posts = [
   },
   {
     category: 'MANAGEMENT',
+    filterCategory: 'Leadership' as FilterCategory,
     title: 'Agile PMO: Bridging Traditional Governance and Modern Delivery',
     date: 'September 2023',
     excerpt:
@@ -112,15 +122,6 @@ const posts = [
 ];
 
 const ease = [0.4, 0, 0.2, 1] as const;
-
-const postCardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease },
-  },
-};
 
 function BlogPostModal({
   post,
@@ -235,6 +236,12 @@ export default function InsightsPage() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
+
+  const filteredPosts = useMemo(() => {
+    if (activeCategory === 'All') return posts;
+    return posts.filter((p) => p.filterCategory === activeCategory);
+  }, [activeCategory]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -357,43 +364,86 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* 4C — POST GRID */}
+      {/* 4C — POST GRID WITH CATEGORY FILTER */}
       <section className="px-6 py-16 md:py-24 bg-black">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.1 } },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {posts.map((post, index) => (
-              <motion.article
-                key={index}
-                variants={postCardVariants}
-                className="bg-[#2B2358] rounded-xl p-6 border border-white/[0.06] hover:bg-[#1e1a3f] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group card-glow"
-                onClick={() => setSelectedPost(index)}
-              >
-                <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
-                  {post.category}
-                </span>
-                <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-white leading-snug mb-3">
-                  {post.title}
-                </h3>
-                <p className="text-[#A1A1A1] text-[13px] mb-3">{post.date}</p>
-                <p className="text-[#A1A1A1] text-[14px] sm:text-[15px] leading-relaxed mb-5">
-                  {post.excerpt}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-[#A1A1A1] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
-                  Read
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
-              </motion.article>
-            ))}
-          </motion.div>
+          {/* Category Filter Bar */}
+          <div className="section-glow-top mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, ease }}
+            >
+              {/* Category pills */}
+              <div className="flex flex-wrap gap-2 mb-5">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setActiveCategory(category)}
+                    className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 ${
+                      activeCategory === category
+                        ? 'bg-[#FF4800] text-white'
+                        : 'bg-transparent border border-white/10 text-[#A1A1A1] hover:border-[#FF4800]/40 hover:text-white'
+                    }`}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Count indicator */}
+              <p className="text-[13px] text-[#52525B]">
+                Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Post grid with AnimatePresence for filter transitions */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredPosts.map((post, index) => {
+                const originalIndex = posts.indexOf(post);
+                return (
+                  <motion.article
+                    key={post.title}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                      transition: { duration: 0.4, delay: index * 0.05, ease },
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.95,
+                      y: 10,
+                      transition: { duration: 0.25, ease },
+                    }}
+                    className="bg-[#2B2358] rounded-xl p-6 border border-white/[0.06] hover:bg-[#1e1a3f] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group card-glow"
+                    onClick={() => setSelectedPost(originalIndex)}
+                  >
+                    <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
+                      {post.category}
+                    </span>
+                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-white leading-snug mb-3">
+                      {post.title}
+                    </h3>
+                    <p className="text-[#A1A1A1] text-[13px] mb-3">{post.date}</p>
+                    <p className="text-[#A1A1A1] text-[14px] sm:text-[15px] leading-relaxed mb-5">
+                      {post.excerpt}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-[#A1A1A1] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
+                      Read
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </motion.article>
+                );
+              })}
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 

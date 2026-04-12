@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown } from 'lucide-react';
+import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown, Container, Cloud, Database, Layers, Network, Code, Shield } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
 
@@ -428,6 +428,142 @@ function FAQSection() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Technology Stack Section                                            */
+/* ------------------------------------------------------------------ */
+
+const techStack = [
+  {
+    name: 'Red Hat Enterprise Linux',
+    description: 'Enterprise-grade Linux platform for mission-critical workloads with military-grade security.',
+    icon: <Server size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'JBoss EAP',
+    description: 'Enterprise application server for building, deploying, and hosting Java applications.',
+    icon: <Layers size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'OpenShift',
+    description: 'Enterprise Kubernetes platform for containerized application development and deployment.',
+    icon: <Container size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Docker',
+    description: 'Containerization platform enabling consistent application environments across any infrastructure.',
+    icon: <Code size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Kubernetes',
+    description: 'Production-grade container orchestration for automated deployment, scaling, and management.',
+    icon: <Network size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'AWS',
+    description: 'Amazon Web Services cloud platform providing on-demand computing, storage, and analytics.',
+    icon: <Cloud size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Azure',
+    description: 'Microsoft Azure cloud platform for building, deploying, and managing enterprise applications.',
+    icon: <Shield size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'PostgreSQL',
+    description: 'Advanced open-source relational database with powerful querying and extensibility features.',
+    icon: <Database size={32} className="text-[#FF4800]" />,
+  },
+];
+
+const techCardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+  },
+};
+
+function TechStackSection() {
+  return (
+    <section className="gradient-mesh-indigo py-20 relative">
+      {/* Subtle dot-grid-dense pattern background */}
+      <div className="absolute inset-0 dot-grid-dense pointer-events-none" />
+      <div className="container-wide px-6 relative z-10">
+        {/* Section header */}
+        <div className="mb-14 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            TECHNOLOGY STACK
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-white"
+          >
+            Technologies we master.
+          </motion.h2>
+        </div>
+
+        {/* Technology cards grid */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+        >
+          {techStack.map((tech, i) => (
+            <motion.div
+              key={i}
+              variants={techCardVariants}
+              className="card-glow group relative overflow-hidden rounded-xl p-6"
+              style={{
+                background: 'rgba(43, 35, 88, 0.4)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+              }}
+            >
+              {/* Subtle gradient overlay */}
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 72, 0, 0.05) 0%, transparent 60%)',
+                }}
+              />
+              <div className="relative z-10 flex flex-col gap-4">
+                {/* Icon */}
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF4800]/10 transition-colors group-hover:bg-[#FF4800]/20">
+                  {tech.icon}
+                </div>
+                {/* Name */}
+                <h3 className="text-base font-semibold text-white leading-tight">
+                  {tech.name}
+                </h3>
+                {/* Description */}
+                <p className="text-sm leading-relaxed text-[#A1A1A1]">
+                  {tech.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Services Page — Main Export                                        */
 /* ------------------------------------------------------------------ */
 
@@ -442,6 +578,7 @@ export default function ServicesPage() {
 
       <WhyStravedaSection />
       <FAQSection />
+      <TechStackSection />
     </main>
   );
 }

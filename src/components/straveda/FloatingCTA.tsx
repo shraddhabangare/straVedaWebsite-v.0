@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageSquare, X, Send, Loader2, CheckCircle2 } from 'lucide-react'
+import { MessageSquare, X, Send, Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 
 interface FloatingCTAProps {
   onNavigate: (page: string) => void
@@ -28,6 +28,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [statusMessage, setStatusMessage] = useState('')
+  const [isMobile, setIsMobile] = useState(true)
 
   // Show the FAB after 3-second delay on initial load
   useEffect(() => {
@@ -35,6 +36,16 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
       setIsVisible(true)
     }, 3000)
     return () => clearTimeout(timer)
+  }, [])
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const check = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [])
 
   const handleToggle = useCallback(() => {
@@ -45,6 +56,11 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
   const handleClose = useCallback(() => {
     setIsExpanded(false)
   }, [])
+
+  const handleNavigateToContact = useCallback(() => {
+    setIsExpanded(false)
+    onNavigate('contact')
+  }, [onNavigate])
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -104,13 +120,9 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
 
   return (
     <>
-      {/* Hidden on mobile — md and above only */}
-      <div className="md:hidden" aria-hidden="true" />
-
-      {/* Desktop FAB + Panel */}
       <AnimatePresence>
         {isVisible && (
-          <div className="hidden md:block fixed bottom-6 right-6 z-[45]">
+          <>
             {/* Backdrop overlay when expanded */}
             <AnimatePresence>
               {isExpanded && (
@@ -119,23 +131,111 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="fixed inset-0 bg-black/40"
+                  className="fixed inset-0 bg-black/40 z-[44]"
                   onClick={handleClose}
                   aria-hidden="true"
-                  style={{ zIndex: -1 }}
                 />
               )}
             </AnimatePresence>
 
-            {/* Expanded Panel */}
+            {/* Mobile Panel — slides up from bottom */}
             <AnimatePresence>
-              {isExpanded && (
+              {isExpanded && isMobile && (
                 <motion.div
+                  key="mobile-panel"
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  exit={{ y: '100%' }}
+                  transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] as const }}
+                  className="fixed bottom-0 right-4 z-[46] rounded-t-2xl p-6"
+                  style={{
+                    width: 'calc(100vw - 2rem)',
+                    maxWidth: '320px',
+                    background: 'rgba(43, 35, 88, 0.98)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderBottom: 'none',
+                    boxShadow: '0 -10px 40px rgba(0, 0, 0, 0.5)',
+                  }}
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-5">
+                    <h3 className="text-white text-[16px] font-semibold">Quick Contact</h3>
+                    <button
+                      onClick={handleClose}
+                      className="text-[#A1A1A1] hover:text-white transition-colors p-1 rounded-lg hover:bg-white/[0.06]"
+                      aria-label="Close quick contact panel"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Mobile: Name input */}
+                  <div className="mb-3">
+                    <label htmlFor="cta-mobile-name" className="sr-only">
+                      Name
+                    </label>
+                    <input
+                      id="cta-mobile-name"
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors"
+                    />
+                  </div>
+
+                  {/* Mobile: Email input */}
+                  <div className="mb-4">
+                    <label htmlFor="cta-mobile-email" className="sr-only">
+                      Email
+                    </label>
+                    <input
+                      id="cta-mobile-email"
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="Your email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors"
+                    />
+                  </div>
+
+                  {/* Mobile: Send quick message button */}
+                  <button
+                    onClick={handleNavigateToContact}
+                    className="w-full bg-[#FF4800] hover:bg-[#e63f00] text-white text-[14px] font-medium rounded-lg py-2.5 transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2"
+                  >
+                    <Send className="w-4 h-4" />
+                    Send quick message
+                  </button>
+
+                  {/* Mobile: Go to Contact Page link */}
+                  <button
+                    onClick={handleNavigateToContact}
+                    className="w-full text-center text-[#FF4800] text-[13px] font-medium mt-3 hover:underline transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    Go to Contact Page
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Desktop Panel — full form with inline status */}
+            <AnimatePresence>
+              {isExpanded && !isMobile && (
+                <motion.div
+                  key="desktop-panel"
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute bottom-[72px] right-0 w-[320px] rounded-2xl p-6"
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
+                  className="fixed bottom-[72px] right-6 w-[320px] rounded-2xl p-6 z-[46]"
                   style={{
                     background: 'rgba(43, 35, 88, 0.98)',
                     backdropFilter: 'blur(16px)',
@@ -257,10 +357,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
 
                   {/* Link to full contact page */}
                   <button
-                    onClick={() => {
-                      setIsExpanded(false)
-                      onNavigate('contact')
-                    }}
+                    onClick={handleNavigateToContact}
                     className="w-full text-center text-[#FF4800] text-[13px] font-medium mt-2 hover:underline transition-colors"
                   >
                     Go to full contact form
@@ -269,28 +366,29 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
               )}
             </AnimatePresence>
 
-            {/* Collapsed FAB Button */}
+            {/* FAB — visible on all screen sizes */}
             <motion.button
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as const }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleToggle}
-              onMouseEnter={() => setShowTooltip(true)}
+              onMouseEnter={() => { if (!isMobile) setShowTooltip(true) }}
               onMouseLeave={() => setShowTooltip(false)}
-              className="relative w-14 h-14 rounded-full bg-[#FF4800] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,72,0,0.4)] orange-pulse transition-shadow duration-200 hover:shadow-[0_4px_30px_rgba(255,72,0,0.6)]"
-              aria-label={isExpanded ? 'Close quick contact' : 'Open quick contact — Need help?'}
+              className="fixed w-12 h-12 md:w-14 md:h-14 right-4 md:right-6 rounded-full bg-[#FF4800] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,72,0,0.4)] orange-pulse transition-shadow duration-200 hover:shadow-[0_4px_30px_rgba(255,72,0,0.6)] z-[47]"
+              style={{ bottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
+              aria-label={isExpanded ? 'Close quick contact' : 'Open quick contact'}
             >
               {isExpanded ? (
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 md:w-6 md:h-6" />
               ) : (
-                <MessageSquare className="w-6 h-6" />
+                <MessageSquare className="w-5 h-5 md:w-6 md:h-6" />
               )}
 
-              {/* Tooltip */}
+              {/* Tooltip — desktop only */}
               <AnimatePresence>
-                {showTooltip && !isExpanded && (
+                {showTooltip && !isExpanded && !isMobile && (
                   <motion.span
                     initial={{ opacity: 0, x: 8 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -305,7 +403,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                 )}
               </AnimatePresence>
             </motion.button>
-          </div>
+          </>
         )}
       </AnimatePresence>
     </>

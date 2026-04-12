@@ -466,6 +466,193 @@ function ExpertiseSection() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Our Journey — Timeline Section                                     */
+/* ------------------------------------------------------------------ */
+
+const milestones = [
+  {
+    year: '2010',
+    title: 'Founded in Plano, TX',
+    description: 'Straveda LLC established with a mission to deliver enterprise-grade IT consulting.',
+  },
+  {
+    year: '2013',
+    title: 'First Fortune 500 Client',
+    description: 'Secured our first major enterprise architecture engagement with a Fortune 500 financial services firm.',
+  },
+  {
+    year: '2016',
+    title: 'Red Hat Partnership',
+    description: 'Became an official Red Hat partner, expanding our middleware and virtualization capabilities.',
+  },
+  {
+    year: '2019',
+    title: '100 Projects Delivered',
+    description: 'Reached the milestone of 100 successfully delivered enterprise projects across 5 industries.',
+  },
+  {
+    year: '2024',
+    title: 'Industry Recognition',
+    description: 'Recognized as a top enterprise IT consulting firm with 99.9% client satisfaction.',
+  },
+];
+
+function TimelineSection() {
+  return (
+    <section className="relative px-6 py-20 lg:py-28">
+      {/* Line grid pattern background */}
+      <div className="pointer-events-none absolute inset-0 line-grid opacity-40" />
+
+      {/* Subtle decorative glow */}
+      <div
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2"
+        style={{
+          width: '600px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(255,72,0,0.04) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section Header */}
+        <div className="mb-16 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            OUR JOURNEY
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[42px] font-medium text-white"
+            style={{ fontWeight: 500 }}
+          >
+            Milestones that shaped us.
+          </motion.h2>
+        </div>
+
+        {/* Timeline Container */}
+        <div className="relative">
+          {/* Vertical connecting line — mobile */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 1.5, ease }}
+            className="absolute top-0 bottom-0 left-[23px] w-[2px] origin-top lg:hidden"
+            style={{ background: '#FF4800' }}
+          />
+
+          {/* Vertical connecting line — desktop (center) */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 1.5, ease }}
+            className="absolute top-0 bottom-0 left-1/2 hidden w-[2px] -translate-x-1/2 origin-top lg:block"
+            style={{ background: '#FF4800' }}
+          />
+
+          {/* Milestones */}
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="space-y-12 lg:space-y-16"
+          >
+            {milestones.map((milestone, i) => {
+              const isLeft = i % 2 === 0;
+
+              return (
+                <motion.div
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 40 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.7, ease },
+                    },
+                  }}
+                  className="relative"
+                >
+                  {/* Desktop layout: alternating left/right */}
+                  <div className={`flex items-start gap-8 lg:gap-16 ${isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                    {/* Content side */}
+                    <div className={`hidden w-[calc(50%-40px)] lg:block ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
+                      <div
+                        className="frosted-card rounded-xl p-6"
+                      >
+                        <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
+                        <h3 className="mt-2 text-[20px] font-medium text-white" style={{ fontWeight: 500 }}>
+                          {milestone.title}
+                        </h3>
+                        <p className="mt-2 text-[16px] leading-relaxed text-[#A1A1A1]">
+                          {milestone.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Center dot — desktop */}
+                    <div className="hidden flex-shrink-0 items-center justify-center lg:flex">
+                      <div
+                        className="relative z-10 h-[12px] w-[12px] rounded-full"
+                        style={{
+                          border: '2px solid #FF4800',
+                          background: '#000000',
+                        }}
+                      />
+                    </div>
+
+                    {/* Empty spacer for opposite side — desktop */}
+                    <div className="hidden w-[calc(50%-40px)] lg:block" />
+
+                    {/* Mobile layout */}
+                    <div className="flex gap-6 lg:hidden">
+                      {/* Dot */}
+                      <div className="relative z-10 mt-1 flex-shrink-0">
+                        <div
+                          className="h-[12px] w-[12px] rounded-full"
+                          style={{
+                            border: '2px solid #FF4800',
+                            background: '#000000',
+                          }}
+                        />
+                      </div>
+                      {/* Content */}
+                      <div className="frosted-card flex-1 rounded-xl p-6">
+                        <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
+                        <h3 className="mt-2 text-[20px] font-medium text-white" style={{ fontWeight: 500 }}>
+                          {milestone.title}
+                        </h3>
+                        <p className="mt-2 text-[16px] leading-relaxed text-[#A1A1A1]">
+                          {milestone.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Partners & Certifications Section                                  */
 /* ------------------------------------------------------------------ */
 
@@ -634,6 +821,7 @@ export default function AboutPage() {
       <TeamSection />
       <StatsStrip />
       <ExpertiseSection />
+      <TimelineSection />
       <PartnersSection />
     </main>
   );
