@@ -1,15 +1,22 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { useCursorStyle } from '@/lib/cursor-context'
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
   const { setCursorStyle } = useCursorStyle()
+  const { resolvedTheme } = useTheme()
 
   const updateScroll = useCallback(() => {
     const scrollY = window.scrollY
@@ -17,10 +24,9 @@ export default function BackToTop() {
     const scrollPercent = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0
 
     setVisible(scrollY > 300)
-    setProgress(scrollPercent)
+    setScrollProgress(scrollPercent)
   }, [])
 
-  // Initialize scroll state on mount using requestAnimationFrame
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
       updateScroll()
@@ -36,13 +42,18 @@ export default function BackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // SVG circle dimensions
-  const size = 56
-  const strokeWidth = 3
-  const radius = (size - strokeWidth) / 2
-  const circumference = 2 * Math.PI * radius
-  const displayProgress = isHovered ? 1 : progress
-  const strokeDashoffset = circumference - displayProgress * circumference
+  // SVG circular progress ring specs
+  const radius = 18
+  const strokeWidth = 2
+  const circumference = 2 * Math.PI * radius // ≈ 113.097
+  const svgSize = 44
+  const center = svgSize / 2
+  const displayProgress = isHovered ? 1 : scrollProgress
+  const strokeDashoffset = circumference * (1 - displayProgress)
+
+  const isDark = mounted && resolvedTheme === 'dark'
+  const trackColor = isDark ? '#374151' : '#e5e7eb'
+  const progressColor = '#FF4800'
 
   return (
     <AnimatePresence>
@@ -61,27 +72,28 @@ export default function BackToTop() {
         >
           {/* SVG progress ring */}
           <motion.svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            style={{ position: 'absolute', top: 0, left: 0 }}
+            width={svgSize}
+            height={svgSize}
+            viewBox={`0 0 ${svgSize} ${svgSize}`}
+            className="absolute"
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
           >
-            {/* Background track circle */}
+            {/* Track circle */}
             <circle
-              cx={size / 2}
-              cy={size / 2}
+              cx={center}
+              cy={center}
               r={radius}
               fill="transparent"
-              stroke="rgba(255, 72, 0, 0.08)"
+              stroke={trackColor}
               strokeWidth={strokeWidth}
             />
-            {/* Progress ring */}
+            {/* Progress circle */}
             <circle
-              cx={size / 2}
-              cy={size / 2}
+              cx={center}
+              cy={center}
               r={radius}
               fill="transparent"
-              stroke="rgba(255, 72, 0, 0.3)"
+              stroke={progressColor}
               strokeWidth={strokeWidth}
               strokeLinecap="round"
               strokeDasharray={circumference}
@@ -100,7 +112,7 @@ export default function BackToTop() {
           <motion.div
             animate={{ scale: isHovered ? 1.1 : 1 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 hover:shadow-xl"
+            className="flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 hover:shadow-xl"
             style={{
               background: '#FF4800',
               boxShadow: isHovered

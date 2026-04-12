@@ -111,11 +111,11 @@ function LogoCard({ logo, className, children, ...props }: LogoCardProps) {
     >
       <img
         alt={logo.alt}
-        className="pointer-events-none h-5 select-none opacity-50 transition-opacity duration-300 group-hover:opacity-100 dark:brightness-0 dark:invert sm:h-5 md:h-[22px]"
-        height="auto"
+        className="pointer-events-none h-5 select-none opacity-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105 dark:brightness-0 dark:invert sm:h-5 md:h-6"
+        height={24}
         loading="lazy"
         src={logo.src}
-        width="auto"
+        width={120}
       />
       {children}
     </div>

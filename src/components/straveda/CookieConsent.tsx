@@ -25,7 +25,7 @@ export default function CookieConsent() {
       setTimeout(() => {
         setCanInteract(true);
       }, 50);
-    }, 4000);
+    }, 6000);
     return () => clearTimeout(showTimer);
   }, []);
 
@@ -56,7 +56,7 @@ export default function CookieConsent() {
               duration: 0.6,
               ease: [0.4, 0, 0.2, 1],
             }}
-            className="fixed bottom-24 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-full sm:max-w-2xl z-30"
+            className="fixed bottom-28 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-full sm:max-w-2xl z-30"
           >
           <div
             className="relative rounded-2xl overflow-hidden"

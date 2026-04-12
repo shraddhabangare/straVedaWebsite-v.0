@@ -42,6 +42,7 @@ import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
 import LogoCloud from '@/components/ui/logo-cloud-2';
+import SectionProgress from '@/components/straveda/SectionProgress';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -123,6 +124,33 @@ function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffi
 
   return (
     <span ref={ref} className="counter-display text-[#1a1a2e]" style={{ fontSize: '48px', fontWeight: 700, lineHeight: 1 }}>
+      {count}{suffix}
+    </span>
+  );
+}
+
+function StatCounter({ target, suffix }: { target: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 2000;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, [inView, target]);
+
+  return (
+    <span ref={ref} className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
       {count}{suffix}
     </span>
   );
@@ -242,8 +270,9 @@ function TestimonialsCarousel() {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
+              whileHover={{ scale: 1.01, boxShadow: '0 0 50px rgba(255,72,0,0.05), 0 8px 32px rgba(0,0,0,0.08)' }}
               transition={{ duration: 0.5, ease }}
-              className="rounded-2xl p-8 md:p-10"
+              className="rounded-2xl p-8 md:p-10 cursor-default"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, #f8f8fc 50%, #FFFFFF 100%)',
                 borderLeft: '3px solid #FF4800',
@@ -397,6 +426,7 @@ function FAQSection() {
 
   return (
     <section
+      id="section-faq"
       className="glow-hover py-24 bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.06]"
     >
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
@@ -505,7 +535,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1A — ANIMATED WEBGL HERO (light theme) */}
       {/* ═══════════════════════════════════════════════ */}
-      <AnimatedHero onNavigate={onNavigate} />
+      <div id="section-hero">
+        <AnimatedHero onNavigate={onNavigate} />
+      </div>
 
       {/* Wave divider — Hero to Marquee */}
       <WaveDivider color="#FFFFFF" />
@@ -520,6 +552,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <div className="divider-gradient dark:opacity-30" />
       <motion.section
+        id="section-partners"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -545,6 +578,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1B — SERVICES TEASER                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
+        id="section-services"
         className="py-24 section-glow-top"
         style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
       >
@@ -776,7 +810,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* WHAT SETS US APART — BENTO GRID                  */}
       {/* ═══════════════════════════════════════════════ */}
-      <section className="py-24 section-glow-top dot-grid-dense" style={{ background: '#f8f8fc' }}>
+      <section id="section-capabilities" className="py-24 section-glow-top dot-grid-dense" style={{ background: '#f8f8fc' }}>
         {/* Grid pattern overlay for texture */}
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -823,17 +857,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     transition: { duration: 0.6, ease },
                   },
                 }}
-                className={`rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
+                className={`relative overflow-hidden rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
                 style={{
                   background: '#FFFFFF',
                   border: '1px solid rgba(0,0,0,0.06)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,72,0,0.2)';
-                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(255,72,0,0.08)';
+                  const isLarge = item.size === 'large';
+                  e.currentTarget.style.borderColor = isLarge ? 'rgba(255,72,0,0.35)' : 'rgba(255,72,0,0.2)';
+                  e.currentTarget.style.boxShadow = isLarge
+                    ? '0 0 0 1px rgba(255,72,0,0.15), 0 8px 30px rgba(255,72,0,0.12), inset 0 1px 0 rgba(255,72,0,0.05)'
+                    : '0 8px 30px rgba(255,72,0,0.08)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
                   if (iconContainer) iconContainer.style.transform = 'scale(1.1)';
+                  const dot = e.currentTarget.querySelector('.bento-hover-dot');
+                  if (dot) (dot as HTMLElement).style.opacity = '1';
+                  const glow = e.currentTarget.querySelector('.bento-gradient-glow');
+                  if (glow) (glow as HTMLElement).style.opacity = '1';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
@@ -841,8 +882,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   e.currentTarget.style.transform = 'translateY(0)';
                   const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
                   if (iconContainer) iconContainer.style.transform = 'scale(1)';
+                  const dot = e.currentTarget.querySelector('.bento-hover-dot');
+                  if (dot) (dot as HTMLElement).style.opacity = '0';
+                  const glow = e.currentTarget.querySelector('.bento-gradient-glow');
+                  if (glow) (glow as HTMLElement).style.opacity = '0';
                 }}
               >
+                {/* Brand orange dot — top-right corner on hover */}
+                <div
+                  className="bento-hover-dot pointer-events-none absolute top-3 right-3 h-[6px] w-[6px] rounded-full transition-opacity duration-300"
+                  style={{ background: '#FF4800', opacity: 0 }}
+                />
+                {/* Large card gradient border glow */}
+                {item.size === 'large' && (
+                  <div
+                    className="bento-gradient-glow pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 40%, rgba(255,72,0,0.02) 100%)',
+                    }}
+                  />
+                )}
                 <div
                   className="bento-icon-wrap mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300"
                   style={{ background: 'rgba(255,72,0,0.08)' }}
@@ -868,6 +927,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1C — ABOUT / STATS                      */}
       {/* ═══════════════════════════════════════════════ */}
       <section
+        id="section-about"
         className="relative py-24 bg-[#f8f8fc] dark:bg-[#0a0a14] bg-animated-gradient"
       >
         {/* Decorative orange dot pattern */}
@@ -941,9 +1001,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <div className="mt-10 flex w-full max-w-md items-stretch">
               {/* Stat 1 */}
               <div className="flex flex-1 flex-col">
-                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
-                  7
-                </span>
+                <StatCounter target={7} suffix="" />
                 <span
                   className="mt-1 text-[13px] text-[#6b7280] dark:text-[#9ca3af]"
                 >
@@ -959,9 +1017,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 2 */}
               <div className="flex flex-1 flex-col">
-                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
-                  100%
-                </span>
+                <StatCounter target={100} suffix="%" />
                 <span
                   className="mt-1 text-[13px] text-[#6b7280] dark:text-[#9ca3af]"
                 >
@@ -995,6 +1051,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1D — HOW WE WORK                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
+        id="section-process"
         className="relative py-24 bg-white dark:bg-[#0a0a14] section-glow-top"
       >
         {/* Subtle decorative glow */}
@@ -1066,11 +1123,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:pl-0"
+              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:pl-0"
             >
               <span
-                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
-                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
+                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
+                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
               >
                 01
               </span>
@@ -1111,11 +1168,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 xl:border-l-0 xl:pl-8 xl:pb-0"
+              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 xl:border-l-0 xl:pl-8 xl:pb-0"
             >
               <span
-                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
-                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
+                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
+                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
               >
                 02
               </span>
@@ -1156,11 +1213,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:border-l-0 xl:pl-8 xl:pb-0"
+              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:border-l-0 xl:pl-8 xl:pb-0"
             >
               <span
-                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
-                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
+                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
+                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
               >
                 03
               </span>
@@ -1188,11 +1245,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="relative border-l-2 border-[#FF4800] pl-8 xl:border-l-0 xl:pl-8"
+              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 xl:border-l-0 xl:pl-8"
             >
               <span
-                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
-                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
+                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
+                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
               >
                 04
               </span>
@@ -1354,6 +1411,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* TESTIMONIALS — CLIENT FEEDBACK                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
+        id="section-testimonials"
         className="relative overflow-hidden py-24 section-glow-top"
         style={{ background: '#f8f8fc' }}
       >
@@ -2105,6 +2163,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </p>
         </motion.div>
       </section>
+
+      {/* Section progress indicator */}
+      <SectionProgress />
     </div>
   );
 }

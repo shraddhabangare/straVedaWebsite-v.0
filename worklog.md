@@ -1,3 +1,110 @@
+## PROJECT STATUS SUMMARY (as of Phase 35)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 35** with enhanced homepage styling (animated stat counters, bento hover effects, testimonial glow), new interactive features (section progress dots, enhanced back-to-top with progress ring), and UX fixes (cookie banner repositioned, logo sizing normalized).
+
+### Completed Features (Phase 35)
+122. StatCounter component: Animated counting for stat numbers using useInView + requestAnimationFrame
+123. Stats section: "7 Experts" and "100% Satisfaction" now animate from 0→target on scroll into view
+124. Bento grid hover: Brand orange 6px dot appears in top-right corner on card hover
+125. Bento large card: Enhanced gradient border glow with multi-layered box-shadow on hover
+126. Bento cards: Added relative overflow-hidden for clean decorative element containment
+127. Testimonials carousel: whileHover scale(1.01) + radial orange glow shadow on hover
+128. Process section step badges: Repositioned as absolute background decorations (80px, opacity 0.04)
+129. SectionProgress component: Fixed right-side dots tracking 8 homepage sections via IntersectionObserver
+130. SectionProgress: Click-to-scroll navigation, hover tooltips, dark mode support, hidden on mobile
+131. BackToTop progress ring: SVG circular progress (radius 18px, circumference ~113) fills on scroll
+132. BackToTop theme-aware: Track ring gray (#e5e7eb/#374151), progress ring brand orange (#FF4800)
+133. Cookie banner fix: Delayed to 6s (was 4s), pushed to bottom-28 (was bottom-24)
+134. Logo cloud fix: Consistent h-6 sizing + scale(1.05) hover on all partner logos
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- All changes scoped to HomePage.tsx, SectionProgress.tsx, BackToTop.tsx, CookieConsent.tsx, logo-cloud-2.tsx
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- Some SVG logos from svgl.app may not load if URLs change
+- Headless browser (agent-browser) doesn't fully render animated content for VLM QA
+
+### Recommended Next Steps
+1. Visual QA in dark mode
+2. Replace placeholder images with real content
+3. Database integration for contact form
+4. Accessibility audit
+
+---
+Task ID: 35-a
+Agent: Frontend Styling Expert
+Task: Homepage section styling enhancements
+
+Work Log:
+- Read worklog.md for project context (Phase 34, stable, VLM 9/10)
+- Read HomePage.tsx (2110 lines) to understand current structure across all sections
+- Identified 5 enhancement targets: bento grid, stats/about, FAQ, testimonials, process section
+- Verified FAQ section already has all requested enhancements (left border, AnimatePresence, orange toggle)
+
+Changes Made:
+
+1. StatCounter Component (new, ~25 lines, after MetricCounter):
+   - Uses useInView + requestAnimationFrame for animated counting
+   - Renders at 28px with counter-hover-gradient class to match existing stat styling
+   - 2-second cubic ease-out animation, counts from 0→target
+   - Dark mode support via dark:text-[#f0f0f5]
+
+2. Stats/About Section (replaced static numbers):
+   - Static "7" → <StatCounter target={7} suffix="" />
+   - Static "100%" → <StatCounter target={100} suffix="%" />
+   - "Cost-Effective Solutions" kept as-is (text, not a number)
+
+3. Bento Grid Cards Enhancement:
+   - Added relative overflow-hidden to all cards for decorative element containment
+   - Added 6px brand orange dot (.bento-hover-dot) at top-right corner, opacity 0→1 on hover
+   - Large card: Enhanced hover with multi-layered box-shadow (gradient border glow effect)
+     * Outer ring: 0 0 0 1px rgba(255,72,0,0.15)
+     * Drop shadow: 0 8px 30px rgba(255,72,0,0.12)
+     * Inner highlight: inset 0 1px 0 rgba(255,72,0,0.05)
+   - Large card: Added gradient overlay div (.bento-gradient-glow) with linear-gradient(135deg, orange 4%)
+   - Normal cards: Kept existing hover border + shadow effects
+   - All hover transitions maintained via transition-all duration-300
+
+4. FAQ Section (verified, no changes needed):
+   - Already has 3px #FF4800 left border on active item
+   - Already uses AnimatePresence with height/opacity transitions
+   - Already has bg-[#FF4800] text-white on active toggle icon
+
+5. Testimonials Carousel Card Hover:
+   - Added whileHover={{ scale: 1.01, boxShadow: '...' }} to carousel card
+   - Shadow on hover: 0 0 50px rgba(255,72,0,0.05) + 0 8px 32px rgba(0,0,0,0.08)
+   - Added cursor-default class for consistent cursor on card hover
+   - Existing 3px #FF4800 left border maintained
+
+6. Process Section Step Badges:
+   - Repositioned all 4 step numbers (01, 02, 03, 04) from inline to absolute positioning
+   - Now positioned at -top-4 right-0 as background decorations
+   - Size increased from 64px to 80px for more prominent watermark effect
+   - Opacity reduced from 0.08 to 0.04 (light) / 0.08 (dark) for subtlety
+   - Added pointer-events-none and overflow-hidden on all step cards
+   - Matches WhyStravedaSection pattern from services page
+
+Final QA:
+- ESLint: zero errors (verified with bun run lint)
+- All changes in HomePage.tsx only
+- No modifications to AnimatedHero, Navbar, Footer, CookieConsent, or other components
+- Existing animations, content, and structure preserved
+
+Stage Summary:
+- 5 homepage sections enhanced with polish styling
+- StatCounter provides animated number counting for About/Stats section
+- Bento grid cards have orange hover dot + gradient border glow on large card
+- Testimonial carousel cards have subtle scale + orange glow on hover
+- Process step badges repositioned as decorative background watermarks
+- FAQ section verified complete (no changes needed)
+- Zero lint errors, all changes in single file
+
+---
+
 ## PROJECT STATUS SUMMARY (as of Phase 34)
 
 ### Current Project Status
@@ -2807,4 +2914,70 @@ Stage Summary:
 - 4 wave dividers placed at strategic section transitions for visual flow
 - Testimonial section enhanced with subtle decorative gradient and accent circle
 - Technology partner logos now scale up on hover with smooth transition
+- Zero lint errors, stable dev server
+
+---
+Task ID: 35-b
+Agent: Full-Stack Developer
+Task: Add section progress indicator + enhanced back-to-top
+
+Work Log:
+- Read worklog.md for project context (Phase 34, stable with 122 features)
+- Read existing BackToTop.tsx (116 lines with SVG ring, cursor integration)
+- Read existing HomePage.tsx (2110 lines with 8 trackable sections)
+- Created /src/components/straveda/SectionProgress.tsx — vertical progress dots indicator
+- Enhanced /src/components/straveda/BackToTop.tsx — new SVG progress ring with theme-aware track
+- Updated /src/components/straveda/pages/HomePage.tsx — added section IDs + SectionProgress import
+
+Changes Made:
+
+1. Created /src/components/straveda/SectionProgress.tsx (149 lines):
+   - Fixed position on right side: fixed right-4 top-1/2 -translate-y-1/2 z-40
+   - Hidden on mobile: hidden lg:flex
+   - Tracks 8 sections via IntersectionObserver (threshold 0.3, rootMargin -10%)
+   - Sections: Hero, Partners, Services, About, Capabilities, Process, Testimonials, FAQ
+   - Inactive dot: 16px circle, 2px border (#d1d5db light / #4b5563 dark)
+   - Active dot: 20px filled circle, #FF4800 with orange glow shadow
+   - Tooltip on hover: section name label, dark tooltip bg, appears left of dot
+   - Click scrolls to section (smooth scrollIntoView)
+   - useTheme for dark mode dot colors
+   - useSyncExternalStore for SSR-safe mounted detection (avoids lint error)
+   - No external packages, pure CSS transitions (0.3s ease)
+
+2. Enhanced /src/components/straveda/BackToTop.tsx (129 lines):
+   - Kept all existing functionality (smooth scroll, show/hide threshold, cursor integration)
+   - Replaced old SVG ring (56px, 3px stroke, orange-tinted track) with new spec:
+     - Track: gray circle (#e5e7eb light / #374151 dark), 2px stroke-width
+     - Progress: brand orange (#FF4800), 2px stroke-width, round linecap
+     - Radius: 18px, SVG viewBox 44x44, centered on 40px (h-10 w-10) button
+     - circumference = 2 * PI * 18 ≈ 113.097
+     - dashoffset = circumference * (1 - scrollProgress)
+   - Added useTheme for dark mode track color
+   - Added useSyncExternalStore for SSR-safe mounted detection
+   - Hover: progress ring fills to 100% (smooth 0.4s cubic-bezier transition)
+   - Normal scroll: ring updates with 0.1s ease-out
+
+3. Updated /src/components/straveda/pages/HomePage.tsx:
+   - Added import: import SectionProgress from @/components/straveda/SectionProgress
+   - Wrapped AnimatedHero in <div id="section-hero"> for IntersectionObserver
+   - Added id="section-partners" to Logo Cloud motion.section
+   - Added id="section-services" to Services Teaser section
+   - Added id="section-capabilities" to Bento Grid section
+   - Added id="section-about" to About/Stats section
+   - Added id="section-process" to How We Work section
+   - Added id="section-testimonials" to Testimonials section
+   - Added id="section-faq" to FAQ section
+   - Placed <SectionProgress /> after last section, before closing </div>
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- No new packages installed
+
+Stage Summary:
+- SectionProgress.tsx: minimal vertical dot indicator on right side, tracks 8 sections
+- BackToTop.tsx: enhanced with theme-aware SVG progress ring (18px radius, 2px stroke)
+- HomePage.tsx: 8 section IDs added for IntersectionObserver, SectionProgress integrated
+- All existing functionality preserved (cursor integration, smooth scroll, animations)
+- SSR-safe with useSyncExternalStore pattern
 - Zero lint errors, stable dev server
