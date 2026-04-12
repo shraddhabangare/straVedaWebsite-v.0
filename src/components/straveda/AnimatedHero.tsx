@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Building2, Star } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/straveda/MagneticButton';
-import StravedaWebGLHero from '@/components/straveda/StravedaWebGLHero';
-import StravedaAurora from '@/components/straveda/StravedaAurora';
+import StravedaHeroBackground from '@/components/straveda/StravedaHeroBackground';
 import TextCursorProximity from '@/components/ui/text-cursor-proximity';
 
 const ease = [0.4, 0, 0.2, 1] as const;
@@ -16,15 +16,52 @@ interface AnimatedHeroProps {
 }
 
 /**
- * Premium Hero with WebGL Shader Background + Animated Text Rotation
- * Light theme that transitions to dark as user scrolls
- * Enhanced with hero-1 decorative borders, pill badge, staggered entrance animations
- * Text cursor proximity effect on headline, mouse-following gradient glow, word stagger
+ * Premium Hero with Combined Gradient Animation + Grain Shader Background
+ * Fully theme-aware: Light (white/orange) and Dark (black/orange/purple) modes.
+ *
+ * Visual layers (bottom → top):
+ *   z-0  StravedaHeroBackground (gradient orbs + grain shader + vignette)
+ *   z-[1] Floating decorative dots
+ *   z-[2] Mouse-following gradient glow
+ *   z-[3] Decorative side borders (inner lines)
+ *   z-10 Content (text, CTAs, social proof)
+ *   z-[5] Bottom gradient fade
+ *   z-10 Scroll indicator
  */
 export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
   const [titleNumber, setTitleNumber] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
+  const { theme, resolvedTheme } = useTheme();
+
+  // SSR-safe client detection
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+
+  const isDark = mounted && (resolvedTheme === 'dark' || theme === 'dark');
+
+  // ── Color tokens ──
+  const colors = useMemo(() => ({
+    headline: isDark ? '#f0f0f5' : '#1a1a2e',
+    headlineHover: '#FF4800',
+    tagline: isDark ? '#a1a1aa' : '#4a4a5a',
+    badgeText: isDark ? '#e5e5ea' : '#1a1a2e',
+    badgeBg: isDark ? 'rgba(0, 0, 0, 0.55)' : 'rgba(255, 255, 255, 0.92)',
+    badgeBorder: 'rgba(255, 72, 0, 0.25)',
+    badgeDivider: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.1)',
+    ratingNum: isDark ? '#f0f0f5' : '#1a1a2e',
+    ratingLabel: isDark ? '#9ca3af' : '#6b7280',
+    scrollText: isDark ? '#6b7280' : '#6b7280',
+    scrollBorder: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(43, 35, 88, 0.3)',
+    statLine: 'rgba(255, 72, 0, 0.5)',
+    secondaryBtnBorder: isDark ? 'rgba(255, 72, 0, 0.35)' : 'rgba(43, 35, 88, 0.3)',
+    secondaryBtnText: isDark ? '#f0f0f5' : '#2B2358',
+    secondaryBtnBg: isDark ? 'rgba(255, 72, 0, 0.08)' : 'rgba(255, 255, 255, 0.7)',
+    borderLine: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+  }), [isDark]);
 
   const titles = useMemo(
     () => ['agility.', 'resilience.', 'innovation.', 'scalability.', 'excellence.'],
@@ -87,7 +124,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Inline CSS animations (cannot modify globals.css) */}
+      {/* Inline CSS animations */}
       <style>{`
         @keyframes hero-word-appear {
           from { opacity: 0; transform: translateY(8px); }
@@ -110,34 +147,28 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         }
       `}</style>
 
-      {/* WebGL Shader Background */}
-      <StravedaWebGLHero />
-
-      {/* Digital Aurora Overlay — brand colors only */}
-      <div
-        className="absolute inset-0 z-[1] opacity-40 pointer-events-none"
-        aria-hidden="true"
-      >
-        <StravedaAurora />
-      </div>
+      {/* ═══ HERO BACKGROUND — Gradient Orbs + Grain Shader ═══ */}
+      <StravedaHeroBackground />
 
       {/* Mouse-following gradient glow */}
       <div
         ref={gradientRef}
-        className="fixed pointer-events-none w-96 h-96 rounded-full opacity-0 z-[2]"
+        className="fixed pointer-events-none w-96 h-96 rounded-full opacity-0"
         style={{
+          zIndex: 2,
           background:
-            'radial-gradient(circle, rgba(255,72,0,0.07) 0%, transparent 100%)',
+            'radial-gradient(circle, rgba(255,72,0,0.08) 0%, transparent 100%)',
           transition: 'opacity 0.5s ease-out',
           filter: 'blur(32px)',
         }}
         aria-hidden="true"
       />
 
-      {/* Floating decorative elements — subtle background dots */}
+      {/* Floating decorative dots */}
       <div
-        className="absolute top-[22%] right-[14%] w-2 h-2 rounded-full z-[1]"
+        className="absolute top-[22%] right-[14%] w-2 h-2 rounded-full"
         style={{
+          zIndex: 1,
           background: '#FF4800',
           animation: 'hero-float-1 6s ease-in-out infinite',
           animationDelay: '1s',
@@ -145,17 +176,19 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         aria-hidden="true"
       />
       <div
-        className="absolute top-[58%] right-[9%] w-1.5 h-1.5 rounded-full z-[1]"
+        className="absolute top-[58%] right-[9%] w-1.5 h-1.5 rounded-full"
         style={{
-          background: '#2B2358',
+          zIndex: 1,
+          background: isDark ? '#FF4800' : '#2B2358',
           animation: 'hero-float-2 8s ease-in-out infinite',
           animationDelay: '2.5s',
         }}
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-[28%] left-[7%] w-1.5 h-1.5 rounded-full z-[1]"
+        className="absolute bottom-[28%] left-[7%] w-1.5 h-1.5 rounded-full"
         style={{
+          zIndex: 1,
           background: '#FF4800',
           animation: 'hero-float-3 7s ease-in-out infinite',
           animationDelay: '4s',
@@ -163,32 +196,60 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         aria-hidden="true"
       />
 
-      {/* Decorative Side Borders — hero-1 style */}
+      {/* Decorative Side Borders */}
       <div
         aria-hidden="true"
         className="absolute inset-0 mx-auto hidden min-h-screen w-full max-w-[860px] lg:block"
+        style={{ zIndex: 3 }}
       >
-        <div className="absolute inset-y-0 left-0 z-10 h-full w-px bg-foreground/15 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]" />
-        <div className="absolute inset-y-0 right-0 z-10 h-full w-px bg-foreground/15 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]" />
+        <div
+          className="absolute inset-y-0 left-0 h-full w-px"
+          style={{
+            background: colors.borderLine,
+            maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)',
+          }}
+        />
+        <div
+          className="absolute inset-y-0 right-0 h-full w-px"
+          style={{
+            background: colors.borderLine,
+            maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)',
+          }}
+        />
       </div>
 
       {/* Content Faded Borders — inner gradient lines */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-[1] size-full overflow-hidden"
+        className="absolute inset-0 size-full overflow-hidden"
+        style={{ zIndex: 3 }}
       >
-        <div className="absolute inset-y-0 left-4 w-px bg-linear-to-b from-transparent via-border to-border md:left-8" />
-        <div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
-        <div className="absolute inset-y-0 left-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:left-12" />
-        <div className="absolute inset-y-0 right-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:right-12" />
+        <div
+          className="absolute inset-y-0 left-4 w-px md:left-8"
+          style={{ background: `linear-gradient(to bottom, transparent, ${colors.borderLine}, ${colors.borderLine})` }}
+        />
+        <div
+          className="absolute inset-y-0 right-4 w-px md:right-8"
+          style={{ background: `linear-gradient(to bottom, transparent, ${colors.borderLine}, ${colors.borderLine})` }}
+        />
+        <div
+          className="absolute inset-y-0 left-8 w-px md:left-12"
+          style={{ background: `linear-gradient(to bottom, transparent, ${colors.borderLine}80, ${colors.borderLine}80)` }}
+        />
+        <div
+          className="absolute inset-y-0 right-8 w-px md:right-12"
+          style={{ background: `linear-gradient(to bottom, transparent, ${colors.borderLine}80, ${colors.borderLine}80)` }}
+        />
       </div>
 
-      {/* Content overlay */}
+      {/* ═══ CONTENT ═══ */}
       <div
         ref={containerRef}
         className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 text-left lg:px-8"
       >
-        {/* Enhanced Pill Badge — hero-1 style with hover arrow */}
+        {/* Pill Badge */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -197,11 +258,12 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           <span
             className={cn(
               'group inline-flex items-center gap-3 rounded-full border px-3 py-1.5 shadow-sm',
-              'cursor-default transition-all duration-300 hover:shadow-md'
+              'cursor-default transition-all duration-300 hover:shadow-md',
+              'backdrop-blur-sm'
             )}
             style={{
-              background: 'rgba(255,255,255,0.9)',
-              borderColor: 'rgba(255,72,0,0.2)',
+              background: colors.badgeBg,
+              borderColor: colors.badgeBorder,
             }}
           >
             <Building2
@@ -210,13 +272,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             />
             <span
               className="text-xs font-medium"
-              style={{ color: '#1a1a2e' }}
+              style={{ color: colors.badgeText }}
             >
               Enterprise IT Consulting
             </span>
             <span
               className="block h-5 w-px shrink-0"
-              style={{ background: 'rgba(0,0,0,0.1)' }}
+              style={{ background: colors.badgeDivider }}
             />
             <ArrowRight
               className="size-3 shrink-0 transition-transform duration-150 ease-out group-hover:translate-x-1"
@@ -225,7 +287,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           </span>
         </motion.div>
 
-        {/* Animated Headline with rotating words + cursor proximity + staggered entrance */}
+        {/* Animated Headline with rotating words + cursor proximity */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -235,6 +297,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             fontSize: 'clamp(48px, 8vw, 110px)',
             fontWeight: 600,
             lineHeight: 0.95,
+            color: colors.headline,
           }}
         >
           <span className="block">
@@ -245,7 +308,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               falloff="exponential"
               styles={{
                 transform: { from: 'scale(1)', to: 'scale(1.05)' },
-                color: { from: '#1a1a2e', to: '#FF4800' },
+                color: { from: colors.headline, to: colors.headlineHover },
               }}
             />
           </span>
@@ -257,12 +320,12 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               falloff="exponential"
               styles={{
                 transform: { from: 'scale(1)', to: 'scale(1.05)' },
-                color: { from: '#1a1a2e', to: '#FF4800' },
+                color: { from: colors.headline, to: colors.headlineHover },
               }}
             />
             {' '}
           </span>
-          {/* Rotating word — left-aligned under "more" */}
+          {/* Rotating word */}
           <span className="relative flex w-full justify-start overflow-hidden text-left md:pb-4 md:pt-1">
             &nbsp;
             {titles.map((title, index) => (
@@ -284,13 +347,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           </span>
         </motion.h1>
 
-        {/* Tagline with word stagger animation */}
+        {/* Tagline with word stagger */}
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease }}
           className="max-w-[600px] text-left text-[18px] font-normal leading-relaxed md:text-[20px]"
-          style={{ color: '#4a4a5a' }}
+          style={{ color: colors.tagline }}
         >
           {taglineWords.map((word, i) => (
             <span
@@ -304,7 +367,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           ))}
         </motion.p>
 
-        {/* CTA Buttons — enhanced with rounded-full */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -323,12 +386,11 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           </MagneticButton>
           <motion.button
             onClick={() => onNavigate('services')}
-            className="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] px-7 py-3.5 text-[14px] font-medium transition-all duration-200 hover:scale-[1.02] hover:border-[#FF4800]/50"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] px-7 py-3.5 text-[14px] font-medium transition-all duration-200 hover:scale-[1.02] hover:border-[#FF4800]/50 backdrop-blur-sm"
             style={{
-              borderColor: 'rgba(43,35,88,0.3)',
-              color: '#2B2358',
-              background: 'rgba(255,255,255,0.7)',
-              backdropFilter: 'blur(8px)',
+              borderColor: colors.secondaryBtnBorder,
+              color: colors.secondaryBtnText,
+              background: colors.secondaryBtnBg,
             }}
           >
             View our services
@@ -345,7 +407,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         >
           <div
             className="mb-5 w-full max-w-[400px]"
-            style={{ borderTop: '1px solid rgba(0,0,0,0.1)' }}
+            style={{ borderTop: `1px solid ${colors.borderLine}` }}
           />
           <div className="flex items-center gap-[10px]">
             <div className="flex items-center gap-[2px]">
@@ -359,11 +421,14 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             </div>
             <span
               className="text-[15px] font-semibold"
-              style={{ color: '#1a1a2e' }}
+              style={{ color: colors.ratingNum }}
             >
               5.0
             </span>
-            <span className="text-[14px]" style={{ color: '#6b7280' }}>
+            <span
+              className="text-[14px]"
+              style={{ color: colors.ratingLabel }}
+            >
               Google Reviews
             </span>
           </div>
@@ -372,8 +437,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
 
       {/* Bottom gradient fade to blend into next section */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
+        style={{
+          zIndex: 5,
+          background: isDark
+            ? 'linear-gradient(to bottom, transparent, #0a0a14)'
+            : 'linear-gradient(to bottom, transparent, var(--background))',
+        }}
       />
 
       {/* Scroll Indicator */}
@@ -390,13 +460,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         >
           <span
             className="text-[11px] uppercase tracking-widest"
-            style={{ color: '#6b7280' }}
+            style={{ color: colors.scrollText }}
           >
             Scroll
           </span>
           <div
             className="flex h-8 w-5 items-start justify-center rounded-full pt-1.5"
-            style={{ border: '2px solid rgba(43,35,88,0.3)' }}
+            style={{ border: `2px solid ${colors.scrollBorder}` }}
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}

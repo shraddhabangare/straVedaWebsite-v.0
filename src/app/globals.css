@@ -2514,3 +2514,45 @@ html.dark .icon-pulse-gentle {
 html.dark .partner-name:hover {
   color: #FF4800;
 }
+
+/* ═══════════════════════════════════════════════════════════ */
+/* HERO GRADIENT ANIMATION KEYFRAMES                          */
+/* Combines background-gradient-animation + paper-design grain  */
+/* ═══════════════════════════════════════════════════════════ */
+@keyframes hero-move-vertical {
+  0% { transform: translateY(-50%); }
+  50% { transform: translateY(50%); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes hero-move-circle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hero-move-horizontal {
+  0% { transform: translateX(-50%) translateY(-10%); }
+  50% { transform: translateX(50%) translateY(10%); }
+  100% { transform: translateX(-50%) translateY(-10%); }
+}
+
+.animate-hero-first {
+  animation: hero-move-vertical 30s ease infinite;
+}
+
+.animate-hero-second {
+  animation: hero-move-circle 20s reverse infinite;
+}
+
+.animate-hero-third {
+  animation: hero-move-circle 40s linear infinite;
+}
+
+.animate-hero-fourth {
+  animation: hero-move-horizontal 40s ease infinite;
+}
+
+.animate-hero-fifth {
+  animation: hero-move-circle 20s ease infinite;
+}

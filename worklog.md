@@ -1,3 +1,78 @@
+## PROJECT STATUS SUMMARY (as of Phase 34)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 34** with a completely redesigned hero background combining animated gradient orbs + WebGL grain shader, full light/dark mode support, and a VLM-verified 9/10 rating.
+
+### Completed Features (Phase 34)
+111. Installed @paper-design/shaders-react for WebGL grain gradient effects
+112. Created background-gradient-animation.tsx: 5 animated gradient orbs + interactive mouse-following pointer orb + SVG goo filter
+113. Created paper-design-shader-background.tsx: GrainGradient wrapper with brand colors
+114. Created StravedaHeroBackground.tsx: Combined component fusing gradient orbs + grain shader + vignette
+115. Hero gradient keyframes added to globals.css: move-vertical, move-circle, move-horizontal (5 animation classes)
+116. AnimatedHero full dark mode support: All text, badges, CTA buttons, borders, scroll indicator theme-aware
+117. Light mode palette: White base → soft orange/peach/lavender orbs (soft-light blending) → subtle grain overlay
+118. Dark mode palette: Deep black base → vibrant orange/purple orbs (hard-light blending) → rich grain overlay
+119. Removed old StravedaWebGLHero + StravedaAurora from hero (replaced by StravedaHeroBackground)
+120. SSR-safe patterns: useSyncExternalStore for mounted detection, useMemo for Safari detection
+121. Mouse-following gradient orb: Smooth interpolation (1/20 lerp) for responsive pointer tracking
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- VLM QA: Hero rated 9/10 — "visually cohesive, on-brand, highly professional"
+- Gradient orbs use brand colors (#FF4800, #2B2358) with theme-appropriate blending
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- Some SVG logos from svgl.app may not load if URLs change
+- Two WebGL contexts (GrainGradient) may impact performance on low-end devices
+
+### Recommended Next Steps
+1. Visual QA in dark mode
+2. Performance audit (WebGL grain shader + gradient animation)
+3. Replace placeholder images with real content
+4. Database integration for contact form
+
+---
+Task ID: 34-hero-redesign
+Agent: Main Agent
+Task: Phase 34 — Redesign hero background with gradient animation + grain shader, full dark mode
+
+Work Log:
+- Installed @paper-design/shaders-react package
+- Created /src/components/ui/background-gradient-animation.tsx (standalone gradient orbs component)
+- Created /src/components/ui/paper-design-shader-background.tsx (standalone grain shader wrapper)
+- Created /src/components/straveda/StravedaHeroBackground.tsx (combined hero background)
+- Added 5 keyframe animations + utility classes to globals.css
+- Rewrote /src/components/straveda/AnimatedHero.tsx:
+  - Replaced StravedaWebGLHero + StravedaAurora with StravedaHeroBackground
+  - Added useTheme + full dark mode color tokens for all UI elements
+  - Pill badge, headlines, tagline, CTA buttons, social proof, scroll indicator all theme-aware
+  - SSR-safe: useSyncExternalStore for mounted, useMemo for Safari detection
+- Fixed 4 ESLint errors (react-hooks/set-state-in-effect) using useSyncExternalStore + useMemo
+
+Design Decisions:
+- Light mode: white base, soft-light blending, orange/peach/lavender orbs, 12% grain opacity
+- Dark mode: black base, hard-light blending, orange/purple orbs, 35% grain opacity
+- Vignette overlay for depth (different opacity per mode)
+- CSS custom properties scoped to container element (not document.body)
+- SVG goo filter for blob-merging effect on gradient orbs
+- GrainGradient uses corner shape, 15° rotation, 0.8 speed for organic movement
+
+Final QA:
+- ESLint: zero errors
+- Dev server: GET / 200
+- VLM: 9/10 — "soft, blended gradient", "premium, organic feel", "exceptionally readable"
+
+Stage Summary:
+- Hero completely redesigned with dual-effect background (gradient orbs + WebGL grain)
+- Full light/dark mode support across all hero UI elements
+- VLM-verified 9/10 professional quality
+- Brand colors (black, white, orange, purple) used throughout
+- Zero lint errors, stable dev server
+
+---
+
 ## PROJECT STATUS SUMMARY (as of Phase 33)
 
 ### Current Project Status
