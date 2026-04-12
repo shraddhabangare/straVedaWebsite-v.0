@@ -6,6 +6,7 @@ import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldC
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
+import ServicesHoverModal from '@/components/straveda/ServicesHoverModal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
@@ -852,6 +853,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
+      <ServicesHoverModal onNavigate={onNavigate} />
 
       {services.map((service, index) => (
         <div key={service.id}>

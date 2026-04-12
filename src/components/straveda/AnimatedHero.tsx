@@ -2,9 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { MoveRight, PhoneCall, ArrowRight } from 'lucide-react';
-import { Star } from 'lucide-react';
-import TextReveal from '@/components/straveda/TextReveal';
+import { ArrowRight, Building2, Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import StravedaWebGLHero from '@/components/straveda/StravedaWebGLHero';
 
@@ -17,6 +16,7 @@ interface AnimatedHeroProps {
 /**
  * Premium Hero with WebGL Shader Background + Animated Text Rotation
  * Light theme that transitions to dark as user scrolls
+ * Enhanced with hero-1 decorative borders, pill badge, and staggered entrance animations
  */
 export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -37,29 +37,72 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
       {/* WebGL Shader Background */}
       <StravedaWebGLHero />
 
+      {/* Decorative Side Borders — hero-1 style */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 mx-auto hidden min-h-screen w-full max-w-[860px] lg:block"
+      >
+        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 left-0 z-10 h-full w-px bg-foreground/15" />
+        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 right-0 z-10 h-full w-px bg-foreground/15" />
+      </div>
+
+      {/* Content Faded Borders — inner gradient lines */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-[1] size-full overflow-hidden"
+      >
+        <div className="absolute inset-y-0 left-4 w-px bg-linear-to-b from-transparent via-border to-border md:left-8" />
+        <div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
+        <div className="absolute inset-y-0 left-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:left-12" />
+        <div className="absolute inset-y-0 right-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:right-12" />
+      </div>
+
       {/* Content overlay */}
       <div className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 lg:px-8">
-        {/* Eyebrow */}
+
+        {/* Enhanced Pill Badge — hero-1 style with hover arrow */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease }}
+          transition={{ duration: 0.5, delay: 0.5, ease }}
         >
           <span
-            className="inline-block mb-6 px-5 py-2 rounded-full text-[12px] font-semibold uppercase tracking-[0.14em]"
+            className={cn(
+              'group mx-auto inline-flex w-fit items-center gap-3 rounded-full border px-3 py-1.5 shadow-sm',
+              'cursor-default transition-all duration-300 hover:shadow-md'
+            )}
             style={{
-              background: 'rgba(255,72,0,0.15)',
-              color: '#FF4800',
-              border: '1px solid rgba(255,72,0,0.25)',
+              background: 'rgba(255,255,255,0.9)',
+              borderColor: 'rgba(255,72,0,0.2)',
             }}
           >
-            Enterprise IT Consulting
+            <Building2
+              className="size-3 shrink-0"
+              style={{ color: '#FF4800' }}
+            />
+            <span
+              className="text-xs font-medium"
+              style={{ color: '#1a1a2e' }}
+            >
+              Enterprise IT Consulting
+            </span>
+            <span
+              className="block h-5 w-px shrink-0"
+              style={{ background: 'rgba(0,0,0,0.1)' }}
+            />
+            <ArrowRight
+              className="size-3 shrink-0 transition-transform duration-150 ease-out group-hover:translate-x-1"
+              style={{ color: '#FF4800' }}
+            />
           </span>
         </motion.div>
 
-        {/* Animated Headline with rotating words */}
-        <h1
-          className="mb-6 font-semibold leading-[0.95] hero-text-transition"
+        {/* Animated Headline with rotating words + staggered entrance */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease }}
+          className="mb-6 mt-6 font-semibold leading-[0.95] hero-text-transition"
           style={{
             fontSize: 'clamp(48px, 8vw, 110px)',
             fontWeight: 600,
@@ -91,28 +134,30 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               </motion.span>
             ))}
           </span>
-        </h1>
+        </motion.h1>
 
         {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8, ease }}
+          transition={{ duration: 0.5, delay: 0.2, ease }}
           className="text-[18px] md:text-[20px] font-normal leading-relaxed max-w-[600px]"
           style={{ color: '#4a4a5a' }}
         >
           Enterprise architecture, technology strategy, and management consulting for forward-thinking organizations. Based in Plano, Texas.
         </motion.p>
 
-        {/* Buttons */}
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        {/* CTA Buttons — enhanced with rounded-full */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3, ease }}
+          className="mt-10 flex flex-wrap items-center gap-4"
+        >
           <MagneticButton>
             <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.0, ease }}
               onClick={() => onNavigate('contact')}
-              className="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg shadow-lg shadow-orange-500/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-xl shadow-lg shadow-orange-500/25"
               style={{ background: '#FF4800' }}
             >
               Start a project
@@ -120,11 +165,8 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             </motion.button>
           </MagneticButton>
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.12, ease }}
             onClick={() => onNavigate('services')}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border-[1.5px] px-7 py-3.5 text-[14px] font-medium transition-all duration-200 hover:scale-[1.02]"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] px-7 py-3.5 text-[14px] font-medium transition-all duration-200 hover:scale-[1.02] hover:border-[#FF4800]/50"
             style={{
               borderColor: 'rgba(43,35,88,0.3)',
               color: '#2B2358',
@@ -135,13 +177,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             View our services
             <ArrowRight className="h-4 w-4" />
           </motion.button>
-        </div>
+        </motion.div>
 
         {/* Social Proof */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.3, ease }}
+          transition={{ duration: 0.5, delay: 0.4, ease }}
           className="mt-10"
         >
           <div
@@ -178,7 +220,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.6 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
