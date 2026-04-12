@@ -25,7 +25,7 @@ export default function CookieConsent() {
       setTimeout(() => {
         setCanInteract(true);
       }, 50);
-    }, 2000);
+    }, 4000);
     return () => clearTimeout(showTimer);
   }, []);
 
