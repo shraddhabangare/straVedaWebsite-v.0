@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useCallback, useRef, useSyncExternalStore } from 'react';
-import { CustomCursor as CursorDot } from '@/components/ui/custom-cursor';
+import { Cursor as InvertedCursor } from '@/components/ui/inverted-cursor';
 
 interface CustomCursorProps {
   children: ReactNode;
@@ -13,7 +13,8 @@ interface CustomCursorProps {
  * - Only renders the custom cursor on fine-pointer (desktop) devices.
  *   Touch/touchpad devices get children only — no cursor overlay.
  * - Uses the `useSyncExternalStore` pattern for SSR-safe pointer detection.
- * - Brand color: #FF4800 (orange) with difference blend mode.
+ * - Inverted white cursor (60px) with mix-blend-difference for visibility
+ *   on both light and dark backgrounds.
  * - Hides the native cursor on desktop via CSS (see globals.css).
  */
 export default function CustomCursor({ children }: CustomCursorProps) {
@@ -50,11 +51,11 @@ export default function CustomCursor({ children }: CustomCursorProps) {
     return <>{children}</>;
   }
 
-  // ─── Desktop: render the branded cursor alongside children ────────
+  // ─── Desktop: render the inverted cursor wrapping children ────────
   return (
-    <>
-      <CursorDot variant="default" text="" className="bg-[#FF4800]" />
+    <div className="relative" style={{ cursor: 'none' }}>
+      <InvertedCursor size={60} />
       {children}
-    </>
+    </div>
   );
 }

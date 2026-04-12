@@ -33,15 +33,13 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
   // ── Scroll-driven animations using Framer Motion ──
   const { scrollY } = useScroll();
 
-  // Header padding transitions: "1.5rem 0" at top → "0.75rem 0" when scrolled (compact)
-  const headerPadding = useTransform(scrollY, [0, 80], ['1.5rem 0', '0.75rem 0']);
-  // Header margin transitions: "0 8%" at top → "0 15%" when scrolled (navbar shrinks/narrows)
-  const headerMargin = useTransform(scrollY, [0, 80], ['0 8%', '0 15%']);
-  // Nav content height: 64px at top → 52px when scrolled (compact)
-  const navHeight = useTransform(scrollY, [0, 80], [64, 52]);
-  // Wordmark font size: 18px at top → 15px when scrolled
-  const wordmarkSize = useTransform(scrollY, [0, 80], [18, 15]);
-  // Nav link font size: 14px at top → 13px when scrolled
+  // Header padding transitions: "1.25rem 0" at top → "0.75rem 0" when scrolled (subtle compact)
+  const headerPadding = useTransform(scrollY, [0, 80], ['1.25rem 0', '0.75rem 0']);
+  // Nav content height: 64px at top → 60px when scrolled (minimal shrink)
+  const navHeight = useTransform(scrollY, [0, 80], [64, 60]);
+  // Wordmark font size: 18px at top → 16px when scrolled (minimal shrink)
+  const wordmarkSize = useTransform(scrollY, [0, 80], [18, 16]);
+  // Nav link font size: 14px at top → 13px when scrolled (very subtle)
   const navLinkSize = useTransform(scrollY, [0, 80], [14, 13]);
 
   // ── Hydration guard ──
@@ -91,9 +89,9 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
   const shadowStyle = 'shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]';
 
   if (!mounted) {
-    // SSR skeleton — prevents layout shift
+    // SSR skeleton — prevents layout shift (matches initial navbar dimensions: py-5 h-16 mx-[8%])
     return (
-      <header className="fixed top-4 left-0 right-0 z-50 px-0 md:px-0">
+      <header className="fixed top-4 left-0 right-0 z-50 py-5">
         <div className="mx-[8%]">
           <div className="rounded-3xl border border-transparent bg-transparent h-16 flex items-center justify-between px-6 md:px-8" />
         </div>
@@ -111,9 +109,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
       >
         {/* Inner rounded container */}
         <motion.div
-          className="rounded-3xl border border-border/40 transition-shadow duration-500"
+          className="rounded-3xl border border-border/40 transition-shadow duration-500 mx-[8%]"
           style={{
-            margin: headerMargin,
             background: bgSemi,
             backdropFilter: 'none',
             WebkitBackdropFilter: 'none',

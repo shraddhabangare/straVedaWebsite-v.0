@@ -110,9 +110,10 @@ function Project({ index, title, subtitle, setModal }: ProjectRowProps) {
 interface ModalProps {
   modal: { active: boolean; index: number };
   projects: Project[];
+  containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
-function Modal({ modal, projects }: ModalProps) {
+function Modal({ modal, projects, containerRef }: ModalProps) {
   const { active, index } = modal;
   const modalContainer = useRef<HTMLDivElement>(null);
   const cursor = useRef<HTMLDivElement>(null);
@@ -148,17 +149,25 @@ function Modal({ modal, projects }: ModalProps) {
     });
 
     const handleMouseMove = (e: MouseEvent) => {
-      const { pageX, pageY } = e;
-      xMoveContainer(pageX);
-      yMoveContainer(pageY);
-      xMoveCursor(pageX);
-      yMoveCursor(pageY);
-      xMoveCursorLabel(pageX);
-      yMoveCursorLabel(pageY);
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const relativeX = e.clientX - rect.left;
+      const relativeY = e.clientY - rect.top;
+
+      // Desktop: offset modal image to the right of the cursor
+      const isDesktop = window.innerWidth >= 768;
+      const containerOffsetX = isDesktop ? 250 : 0;
+
+      xMoveContainer(relativeX + containerOffsetX);
+      yMoveContainer(relativeY);
+      xMoveCursor(relativeX);
+      yMoveCursor(relativeY);
+      xMoveCursorLabel(relativeX);
+      yMoveCursorLabel(relativeY);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [containerRef]);
 
   return (
     <>
@@ -220,6 +229,7 @@ function Modal({ modal, projects }: ModalProps) {
 
 export function Component() {
   const [modal, setModal] = useState({ active: false, index: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="relative overflow-hidden bg-[#f9f9f9] py-10 md:py-16">
@@ -242,7 +252,7 @@ export function Component() {
         </div>
 
         {/* Project rows + Modal */}
-        <div className="relative flex min-h-[50vh] items-center justify-center md:min-h-screen">
+        <div ref={containerRef} className="relative flex min-h-[50vh] items-center justify-center md:min-h-screen">
           <div className="flex w-full flex-col items-center justify-center">
             {projects.map((project, index) => (
               <Project
@@ -254,7 +264,7 @@ export function Component() {
               />
             ))}
           </div>
-          <Modal modal={modal} projects={projects} />
+          <Modal containerRef={containerRef} modal={modal} projects={projects} />
         </div>
       </div>
     </section>

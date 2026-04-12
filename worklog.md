@@ -1,4 +1,108 @@
 ---
+Task ID: 27-main
+Agent: Main Agent
+Task: Phase 27 — Fix service hover alignment, navbar scroll behavior, add inverted cursor
+
+Work Log:
+- Reviewed worklog.md for project state (Phase 26, 76 features, stable)
+- ESLint: zero errors at start
+- Dev server: compiling successfully
+- Launched 3 parallel agents (27-a, 27-b, 27-c) for concurrent development
+
+Changes Made:
+
+1. Service Hover Card Alignment Fix (Task 27-a):
+   - Root cause: GSAP quickTo used pageX/pageY (viewport coords) for absolute-positioned modal inside relative container
+   - Added containerRef prop to Modal component, passed from parent Component export
+   - Switched to container-relative coordinates: clientX - rect.left, clientY - rect.top
+   - Added 250px right offset for modal image on desktop (>=768px)
+   - Cursor circle and "View" label continue tracking mouse directly (no offset)
+
+2. Navbar Scroll & Spacing Fix (Task 27-b):
+   - Removed scroll-driven margin shrink (was 8%→15%, causing navbar to narrow)
+   - Fixed margin to constant mx-[8%] class
+   - Reduced nav height transition: 64→52px changed to 64→60px (minimal 4px shrink)
+   - Reduced wordmark size transition: 18→15px changed to 18→16px
+   - Updated initial padding: 1.5rem 0 → 1.25rem 0
+   - Updated SSR skeleton to match new dimensions (py-5)
+   - Verified all links are clickable (no pointer-events-none blocking)
+
+3. Custom Inverted Cursor (Task 27-c):
+   - Created /components/ui/inverted-cursor.tsx: 60px white circle with mix-blend-difference
+   - Smooth lerp animation (0.2 factor) following mouse within container
+   - Updated CustomCursor.tsx wrapper to use InvertedCursor instead of old CursorDot
+   - Container-based mouse tracking: wraps children in relative div for coordinate calculation
+   - SSR-safe desktop-only detection preserved (useSyncExternalStore pattern)
+   - Native cursor hiding CSS already present in globals.css
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+
+Stage Summary:
+- Service hover modal now positions correctly relative to container, 250px right offset on desktop
+- Navbar maintains fixed width on scroll (no margin shrink), minimal height transition only
+- New inverted cursor (60px white, mix-blend-difference) replaces old orange dot cursor
+- Zero lint errors, stable dev server
+
+## PROJECT STATUS SUMMARY (as of Phase 27)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 27** with three critical UX fixes: properly aligned service hover cards, stable navbar behavior on scroll, and a new inverted cursor effect.
+
+### Completed Features (All Phases)
+1-76. (All previous Phase 26 features preserved)
+77. Service hover alignment: Container-relative mouse coordinates with 250px desktop offset
+78. Navbar stability: Fixed width (mx-[8%]), minimal scroll transitions (64→60px height)
+79. Inverted cursor: 60px white circle with mix-blend-difference, smooth lerp animation
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Newsletter API logs to console only
+
+### Recommended Next Steps
+1. Visual QA of all Phase 27 changes
+2. Replace placeholder images with real content
+3. Database integration for newsletter + contact form
+4. Performance audit
+5. Accessibility audit
+
+---
+Task ID: 27-a
+Agent: Full-Stack Developer
+Task: Fix service hover card alignment — modal image positioned too far from service rows
+
+Work Log:
+- Read and analyzed services-with-animated-hover-modal.tsx (265 lines)
+- Identified root cause: GSAP quickTo used `pageX`/`pageY` (viewport/document coordinates) to set `left`/`top` CSS properties on elements with `position: absolute` inside a `position: relative` parent container
+- Since absolute positioning is relative to the parent, the `pageX`/`pageY` values caused the modal image to appear far below the mouse cursor (offset by the container's position on the page)
+
+Fix Applied:
+1. Added `containerRef` prop to `ModalProps` interface (type: `React.RefObject<HTMLDivElement | null>`)
+2. Created `containerRef = useRef<HTMLDivElement>(null)` in the parent `Component` export
+3. Attached `containerRef` to the relative-positioned parent div (`relative flex min-h-[50vh]...`)
+4. Passed `containerRef` to `<Modal>` component
+5. Updated `handleMouseMove` to calculate container-relative coordinates:
+   - `relativeX = e.clientX - rect.left`
+   - `relativeY = e.clientY - rect.top`
+6. Added 250px right offset for the modal image on desktop (`window.innerWidth >= 768`)
+7. Cursor circle and "View" label continue following mouse directly (no offset)
+8. Added `containerRef` to useEffect dependency array
+9. ESLint: zero errors
+10. Dev server: compiled successfully, GET / 200
+
+Stage Summary:
+- Fixed modal positioning by switching from page-absolute (pageX/pageY) to container-relative coordinates (clientX - rect.left, clientY - rect.top)
+- Modal image now appears correctly near the service rows, offset 250px to the right on desktop
+- Cursor circle and "View" label continue tracking the mouse precisely
+- Zero lint errors, stable dev server
+
+---
 Task ID: 26-main
 Agent: Main Agent (cron webDevReview)
 Task: Phase 26 — QA + dark mode for hover modal, footer marquee, contact page polish, scroll progress enhancement
@@ -1836,3 +1940,50 @@ Stage Summary:
 - Navbar redesigned with StickyHeader pattern: rounded-3xl, scroll-driven frosted glass, full-screen mobile menu
 - Dark mode fixes: smooth body transitions, hardcoded color overrides, Phase 21 component dark mode CSS
 - Zero new lint errors, stable dev server
+---
+Task ID: 27-b
+Agent: Main Agent
+Task: Fix navbar issues — scroll shrink, mouse interaction, spacing, font size
+
+Work Log:
+- Read current Navbar.tsx (412 lines) to understand scroll-driven animation system
+- Identified 3 root issues from task description
+
+Changes Made:
+
+1. Removed scroll-driven margin shrink:
+   - Deleted `headerMargin` useTransform (was: scrollY → ['0 8%', '0 15%'])
+   - Removed `margin: headerMargin` from inner motion.div style prop
+   - Added static `mx-[8%]` className to inner motion.div for consistent width
+   - Navbar now maintains fixed 8% side margins at all scroll positions
+
+2. Minimized scroll-driven size changes:
+   - navHeight: [64, 52] → [64, 60] (only 4px shrink instead of 12px)
+   - wordmarkSize: [18, 15] → [18, 16] (only 2px shrink instead of 3px)
+   - navLinkSize: [14, 13] kept as-is (already very subtle)
+
+3. Reduced initial padding:
+   - headerPadding: ['1.5rem 0', '0.75rem 0'] → ['1.25rem 0', '0.75rem 0']
+
+4. Updated SSR skeleton:
+   - Added `py-5` (1.25rem) to header to match new initial padding
+   - Skeleton now matches hydrated navbar dimensions, reducing layout shift
+
+5. Verified nav link clickability:
+   - All nav links, wordmark, search button, CTA button, hamburger — none have pointer-events-none
+   - Only StickyHeaderEffects overlay has pointer-events-none (correct — visual-only layer)
+   - Custom cursor component (CursorDot) uses pointer-events-none (correct — doesn't block clicks)
+   - Native cursor hidden via CSS cursor:none on (pointer: fine) — cosmetic only, doesn't affect click events
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+
+Stage Summary:
+- Navbar no longer shrinks width on scroll — fixed 8% side margins always
+- Scroll-driven height shrink reduced from 12px to 4px (64→60px)
+- Scroll-driven wordmark shrink reduced from 3px to 2px (18→16px)
+- Initial top padding reduced from 1.5rem to 1.25rem
+- SSR skeleton updated to match new dimensions
+- All nav links verified clickable — no pointer-events blocking
+- Zero lint errors, dev server stable
