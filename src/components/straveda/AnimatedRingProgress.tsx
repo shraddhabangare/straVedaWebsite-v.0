@@ -50,9 +50,9 @@ export default function AnimatedRingProgress({
     requestAnimationFrame(step);
   }, [inView, value, duration, decimals]);
 
-  // Unique gradient IDs to avoid SVG conflicts
-  const gradientId = useMemo(() => `ring-gradient-${Math.random().toString(36).slice(2, 9)}`, []);
-  const glowId = useMemo(() => `ring-glow-${Math.random().toString(36).slice(2, 9)}`, []);
+  // Unique gradient IDs to avoid SVG conflicts — deterministic based on label
+  const gradientId = useMemo(() => `ring-gradient-${label.replace(/[^a-z0-9]/gi, '').slice(0, 8)}`, [label]);
+  const glowId = useMemo(() => `ring-glow-${label.replace(/[^a-z0-9]/gi, '').slice(0, 8)}`, [label]);
 
   return (
     <div ref={ref} className="flex flex-col items-center">
@@ -91,7 +91,7 @@ export default function AnimatedRingProgress({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#e5e7eb"
+            className="text-border"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
@@ -129,7 +129,7 @@ export default function AnimatedRingProgress({
             style={{
               fontSize: size >= 140 ? '28px' : size >= 120 ? '24px' : '20px',
               lineHeight: 1,
-              color: '#1a1a2e',
+              color: 'var(--foreground)',
             }}
           >
             {count}{suffix}
@@ -139,8 +139,7 @@ export default function AnimatedRingProgress({
 
       {/* Label */}
       <span
-        className="mt-4 block text-center text-[13px] md:text-[14px] font-medium"
-        style={{ color: '#6b7280' }}
+        className="mt-4 block text-center text-[13px] md:text-[14px] font-medium text-muted-foreground"
       >
         {label}
       </span>

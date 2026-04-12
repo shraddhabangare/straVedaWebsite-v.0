@@ -159,8 +159,8 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
         aria-hidden="true"
         className="absolute inset-0 mx-auto hidden min-h-screen w-full max-w-[860px] lg:block"
       >
-        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 left-0 z-10 h-full w-px bg-foreground/15" />
-        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 right-0 z-10 h-full w-px bg-foreground/15" />
+        <div className="absolute inset-y-0 left-0 z-10 h-full w-px bg-foreground/15 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]" />
+        <div className="absolute inset-y-0 right-0 z-10 h-full w-px bg-foreground/15 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]" />
       </div>
 
       {/* Content Faded Borders — inner gradient lines */}
@@ -221,7 +221,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease }}
-          className="mt-6 mb-6 font-semibold leading-[0.95] hero-text-transition"
+          className="mt-6 mb-6 font-semibold leading-[0.95]"
           style={{
             fontSize: 'clamp(48px, 8vw, 110px)',
             fontWeight: 600,
@@ -364,7 +364,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
       {/* Bottom gradient fade to blend into next section */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, #FFFFFF)' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--background)) }}
       />
 
       {/* Scroll Indicator */}
