@@ -234,7 +234,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 text-[14px] font-medium text-white transition-all duration-200 shadow-lg shadow-orange-500/15 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="glow-hover w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 text-[14px] font-medium text-white transition-all duration-200 shadow-lg shadow-orange-500/15 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ background: '#FF4800' }}
                   >
                     {isSubmitting ? (

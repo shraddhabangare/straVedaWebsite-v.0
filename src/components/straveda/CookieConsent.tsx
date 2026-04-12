@@ -9,15 +9,20 @@ const STORAGE_KEY = 'straveda-cookie-consent';
 export default function CookieConsent() {
   const [mounted, setMounted] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [canInteract, setCanInteract] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem(STORAGE_KEY);
     if (consent) return;
 
-    const timer = setTimeout(() => {
+    const showTimer = setTimeout(() => {
       setMounted(true);
+      // Enable pointer events just after the entrance animation begins
+      setTimeout(() => {
+        setCanInteract(true);
+      }, 50);
     }, 2000);
-    return () => clearTimeout(timer);
+    return () => clearTimeout(showTimer);
   }, []);
 
   const handleAccept = () => {
@@ -31,19 +36,24 @@ export default function CookieConsent() {
   };
 
   return (
-    <AnimatePresence>
-      {mounted && !dismissed && (
-        <motion.div
-          key="cookie-consent"
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{
-            duration: 0.5,
-            ease: [0.4, 0, 0.2, 1],
-          }}
-          className="fixed bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-full sm:max-w-2xl z-30"
-        >
+    <div
+      className={
+        canInteract ? '' : 'pointer-events-none'
+      }
+    >
+      <AnimatePresence>
+        {mounted && !dismissed && (
+          <motion.div
+            key="cookie-consent"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            transition={{
+              duration: 0.6,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+            className="fixed bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-full sm:max-w-2xl z-30"
+          >
           <div
             className="relative rounded-2xl overflow-hidden"
             style={{
@@ -139,7 +149,8 @@ export default function CookieConsent() {
             </div>
           </div>
         </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

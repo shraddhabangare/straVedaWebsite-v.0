@@ -1643,3 +1643,129 @@ html {
 .bento-large-border:hover::before {
   opacity: 1;
 }
+
+/* ============================================
+   Phase 19-b: Premium Styling & Micro-interactions
+   ============================================ */
+
+/* Gradient wave divider */
+.gradient-wave-divider {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+.gradient-wave-divider::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,72,0,0.03) 0%, transparent 50%, rgba(43,35,88,0.02) 100%);
+}
+
+/* Subtle grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Animated gradient border */
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.animated-border {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from var(--angle, 0deg), #FF4800, #2B2358, #FF4800);
+  border-radius: 14px;
+  z-index: -1;
+  animation: borderRotate 4s linear infinite;
+}
+.animated-border::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: white;
+  border-radius: 11px;
+  z-index: -1;
+}
+
+/* Smooth link underline animation */
+.link-hover-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: #FF4800;
+  transition: width 0.3s ease;
+}
+.link-hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Glow pulse on hover */
+.glow-hover {
+  transition: box-shadow 0.3s ease;
+}
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(255,72,0,0.15), 0 0 40px rgba(255,72,0,0.05);
+}
+
+/* Pulsing dot indicator (for availability status) */
+@keyframes availabilityPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: availabilityPulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Phase 19-b: Additional Premium Utilities
+   ============================================ */
+
+/* Premium glass card */
+.glass-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Text gradient utility (updated: orange → indigo) */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #FF4800 0%, #2B2358 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer loading effect (updated: orange tint) */
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,72,0,0.08) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}

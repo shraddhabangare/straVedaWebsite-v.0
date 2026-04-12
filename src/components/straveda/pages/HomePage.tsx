@@ -37,6 +37,7 @@ import TextReveal from '@/components/straveda/TextReveal';
 import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
 import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
+import ImpactMetrics from '@/components/straveda/ImpactMetrics';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 
 interface HomePageProps {
@@ -127,13 +128,15 @@ function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffi
 const testimonials = [
   {
     name: 'James R.',
-    role: 'Senior VP · Accenture',
+    role: 'Senior VP',
+    company: 'Accenture',
     quote: 'Straveda transformed our legacy infrastructure in record time. Their enterprise architecture expertise is unmatched.',
     stars: 5,
   },
   {
     name: 'Sarah M.',
-    role: 'Director of Engineering · Deloitte',
+    role: 'Director of Engineering',
+    company: 'Deloitte',
     quote: (
       <>
         The technology strategy they delivered gave us a clear roadmap.
@@ -145,7 +148,8 @@ const testimonials = [
   },
   {
     name: 'David K.',
-    role: 'CTO · IBM Global Services',
+    role: 'CTO',
+    company: 'IBM Global Services',
     quote: (
       <>
         Their management consulting approach eliminated bottlenecks
@@ -157,23 +161,34 @@ const testimonials = [
   },
   {
     name: 'Emily T.',
-    role: 'VP of Technology · Northrop Grumman',
+    role: 'VP of Technology',
+    company: 'Northrop Grumman',
     quote: 'Straveda\'s technology strategy roadmap transformed our IT investment approach. We now have a clear 3-year vision aligned with business outcomes.',
     stars: 5,
   },
   {
     name: 'Michael B.',
-    role: 'CIO · State of Texas',
+    role: 'CIO',
+    company: 'State of Texas',
     quote: 'The enterprise architecture modernization eliminated our legacy debt. We\'re now running 99.99% uptime across all critical systems.',
     stars: 5,
   },
   {
     name: 'Priya K.',
-    role: 'Director of Operations · Deloitte',
+    role: 'Director of Operations',
+    company: 'Deloitte',
     quote: 'Their management consulting team embedded seamlessly with our staff. Knowledge transfer was exceptional — we\'re now self-sufficient.',
     stars: 5,
   },
 ];
+
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n.charAt(0))
+    .join('')
+    .toUpperCase();
+}
 
 function TestimonialsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -217,7 +232,7 @@ function TestimonialsCarousel() {
         </button>
 
         {/* Card */}
-        <div className="mx-12 w-full" style={{ maxWidth: '600px' }}>
+        <div className="mx-12 w-full" style={{ maxWidth: '640px' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -227,8 +242,9 @@ function TestimonialsCarousel() {
               transition={{ duration: 0.5, ease }}
               className="rounded-2xl p-8 md:p-10"
               style={{
-                background: '#f8f8fc',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, #f8f8fc 50%, #FFFFFF 100%)',
                 borderLeft: '3px solid #FF4800',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
               }}
             >
               {/* Large quote mark */}
@@ -252,24 +268,54 @@ function TestimonialsCarousel() {
 
               {/* Quote text */}
               <p
-                className="mb-6 text-[20px] italic leading-[1.8] text-[#1a1a2e]"
+                className="mb-8 text-[20px] italic leading-[1.8] text-[#1a1a2e]"
               >
                 {t.quote}
               </p>
 
               {/* Divider */}
               <div
-                className="mb-4 w-full"
+                className="mb-5 w-full"
                 style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}
               />
 
-              {/* Author */}
-              <p className="text-[16px] font-semibold text-[#1a1a2e]">
-                {t.name}
-              </p>
-              <p className="text-[14px]" style={{ color: '#6b7280' }}>
-                {t.role}
-              </p>
+              {/* Author row with avatar, name, role, and company */}
+              <div className="flex items-center gap-4">
+                {/* Avatar circle with initials */}
+                <div
+                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    background: 'linear-gradient(135deg, #FF4800 0%, #2B2358 100%)',
+                  }}
+                >
+                  <span className="text-[16px] font-bold" style={{ color: '#FFFFFF' }}>
+                    {getInitials(t.name)}
+                  </span>
+                </div>
+
+                {/* Name, role, and company */}
+                <div className="flex flex-col">
+                  <p className="text-[16px] font-semibold text-[#1a1a2e]">
+                    {t.name}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[14px]" style={{ color: '#6b7280' }}>
+                      {t.role}
+                    </p>
+                    <span style={{ color: '#d1d5db' }}>·</span>
+                    {/* Company logo placeholder badge */}
+                    <span
+                      className="inline-flex items-center rounded px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider"
+                      style={{
+                        background: 'rgba(255,72,0,0.08)',
+                        color: '#FF4800',
+                      }}
+                    >
+                      {t.company}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -287,19 +333,23 @@ function TestimonialsCarousel() {
         </button>
       </div>
 
-      {/* Dots indicator */}
+      {/* Dots indicator with active scale animation */}
       <div className="mt-8 flex items-center justify-center gap-3">
         {testimonials.map((_, i) => (
           <motion.button
             key={i}
             onClick={() => goTo(i)}
             className="rounded-full"
+            animate={{
+              scale: i === currentIndex ? 1.4 : 1,
+              background: i === currentIndex ? '#FF4800' : '#d1d5db',
+            }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ scale: 1.5 }}
             style={{
               width: '8px',
               height: '8px',
-              background: i === currentIndex ? '#FF4800' : '#d1d5db',
             }}
-            whileHover={{ scale: 1.3 }}
             aria-label={`Go to testimonial ${i + 1}`}
           />
         ))}
@@ -344,7 +394,7 @@ function FAQSection() {
 
   return (
     <section
-      className="py-24"
+      className="glow-hover py-24"
       style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
     >
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
@@ -626,7 +676,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </p>
               <button
                 onClick={() => onNavigate('services')}
-                className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
@@ -672,7 +722,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </p>
               <button
                 onClick={() => onNavigate('services')}
-                className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
@@ -718,7 +768,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </p>
               <button
                 onClick={() => onNavigate('services')}
-                className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
@@ -764,7 +814,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </p>
               <button
                 onClick={() => onNavigate('services')}
-                className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
@@ -786,6 +836,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* WHAT SETS US APART — BENTO GRID                  */}
       {/* ═══════════════════════════════════════════════ */}
       <section className="py-24 section-glow-top dot-grid-dense" style={{ background: '#f8f8fc' }}>
+        {/* Grid pattern overlay for texture */}
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
           <motion.div
@@ -1225,6 +1277,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* IMPACT METRICS — ANIMATED COUNTERS               */}
+      {/* ═══════════════════════════════════════════════ */}
+      <ImpactMetrics />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* RESULTS THAT SPEAK — METRICS BANNER               */}

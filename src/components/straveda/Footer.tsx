@@ -80,24 +80,20 @@ export default function Footer({ onNavigate }: FooterProps) {
 
   return (
     <footer ref={footerRef} className="relative mt-auto bg-noise-subtle" style={{ background: 'linear-gradient(135deg, #fafafa, #f5f5fa)' }}>
-      {/* ── Orange accent top border (animated from left) ── */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 0.8, ease }}
+      {/* ── Gradient top line (3px, #FF4800 → transparent) ── */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[3px] z-10"
         style={{
-          height: 2,
-          backgroundColor: '#FF4800',
-          transformOrigin: 'left',
+          background: 'linear-gradient(90deg, #FF4800 0%, rgba(255,72,0,0.1) 60%, transparent 100%)',
         }}
       />
 
-      {/* ── Dot pattern background overlay ── */}
+      {/* ── Dot pattern background overlay (opacity 0.03) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
+          backgroundImage: 'radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
         }}
       />
 
@@ -112,16 +108,22 @@ export default function Footer({ onNavigate }: FooterProps) {
           <a
             href="#"
             onClick={handleBackToTop}
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest transition-colors duration-200"
+            className="group inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-lg transition-all duration-300"
             style={{ color: '#9ca3af' }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = '#FF4800';
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(255,72,0,0.15)';
+              e.currentTarget.style.background = 'rgba(255,72,0,0.05)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = '#9ca3af';
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.background = 'transparent';
             }}
           >
-            <ArrowUp size={14} />
+            <ArrowUp size={14} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
             Back to top
           </a>
         </motion.div>
@@ -150,9 +152,14 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </a>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b7280' }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b7280' }}>
               Exceptional value. Cost-effective solutions.
             </p>
+            {/* Availability status */}
+            <div className="flex items-center gap-2 mb-6">
+              <span className="pulse-dot" />
+              <span className="text-[13px]" style={{ color: '#6b7280' }}>Available for projects</span>
+            </div>
 
             {/* ── Social media icons ── */}
             <div className="flex items-center gap-2">
@@ -213,7 +220,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#1a1a2e';
+                      e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = '#6b7280';
@@ -252,7 +259,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#1a1a2e';
+                      e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = '#6b7280';
@@ -291,7 +298,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#1a1a2e';
+                      e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = '#6b7280';

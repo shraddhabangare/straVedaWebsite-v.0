@@ -25,10 +25,10 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // ── Scroll shadow detection ──
+  // ── Scroll detection (>80px triggers styled navbar) ──
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -69,17 +69,24 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
     <>
       <nav
         role="banner"
-        className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 md:px-10 transition-shadow duration-300"
+        className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 md:px-10"
         style={{
           background: scrolled
-            ? 'rgba(255, 255, 255, 0.97)'
-            : 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-          boxShadow: scrolled
-            ? '0 4px 30px rgba(0, 0, 0, 0.06)'
+            ? 'rgba(255, 255, 255, 0.85)'
+            : 'transparent',
+          backdropFilter: scrolled
+            ? 'blur(12px)'
             : 'none',
+          WebkitBackdropFilter: scrolled
+            ? 'blur(12px)'
+            : 'none',
+          borderBottom: scrolled
+            ? '1px solid rgba(0, 0, 0, 0.06)'
+            : '1px solid transparent',
+          boxShadow: scrolled
+            ? '0 1px 3px rgba(0, 0, 0, 0.04)'
+            : 'none',
+          transition: 'background 300ms ease-out, backdrop-filter 300ms ease-out, -webkit-backdrop-filter 300ms ease-out, border-bottom 300ms ease-out, box-shadow 300ms ease-out',
         }}
       >
         {/* ── Wordmark ── */}
