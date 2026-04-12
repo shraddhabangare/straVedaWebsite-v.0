@@ -12,6 +12,11 @@ import {
   Star,
   ArrowRight,
 } from 'lucide-react';
+import Marquee from '@/components/straveda/Marquee';
+import TiltCard from '@/components/straveda/TiltCard';
+import MagneticButton from '@/components/straveda/MagneticButton';
+import ParticleField from '@/components/straveda/ParticleField';
+import TextReveal from '@/components/straveda/TextReveal';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -71,18 +76,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 }
 
 export default function HomePage({ onNavigate }: HomePageProps) {
-  const headlineWords = [
-    'We',
-    'architect',
-    'solutions',
-    'to',
-    'build',
-    'and',
-    'deploy',
-    'IT',
-    'assets',
-    'efficiently.',
-  ];
+
 
   return (
     <div>
@@ -93,7 +87,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         className="relative flex min-h-screen items-center bg-black"
         style={{ background: '#000000' }}
       >
-        <div className="mx-auto w-full max-w-[860px] px-6 py-24 lg:px-8">
+        <ParticleField />
+        <div className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 lg:px-8">
           {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -106,7 +101,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             CONSULTING
           </motion.p>
 
-          {/* Headline — word-by-word stagger */}
+          {/* Headline — word-by-word reveal */}
           <h1
             className="mb-6 font-semibold leading-[0.92] text-white"
             style={{
@@ -115,28 +110,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               lineHeight: 0.92,
             }}
           >
-            {headlineWords.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.3 + i * 0.08,
-                  ease,
-                }}
-                className="inline-block mr-[0.3em]"
-              >
-                {word === 'efficiently.' ? (
-                  <>
-                    efficiently
-                    <span style={{ color: '#FF4800' }}>.</span>
-                  </>
-                ) : (
-                  word
-                )}
-              </motion.span>
-            ))}
+            <TextReveal delay={0.3} stagger={0.08}>We architect solutions to build and deploy IT assets efficiently</TextReveal>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 1.1, ease }}
+              style={{ color: '#FF4800', display: 'inline-block', marginLeft: '-0.15em' }}
+            >
+              .
+            </motion.span>
           </h1>
 
           {/* Tagline */}
@@ -153,16 +135,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
           {/* Buttons */}
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.3, ease }}
-              onClick={() => onNavigate('contact')}
-              className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
-              style={{ background: '#FF4800' }}
-            >
-              Start a project
-            </motion.button>
+            <MagneticButton>
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.3, ease }}
+                onClick={() => onNavigate('contact')}
+                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
+                style={{ background: '#FF4800' }}
+              >
+                Start a project
+              </motion.button>
+            </MagneticButton>
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -221,6 +205,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ═══════════════════════════════════════════════ */}
+      {/* MARQUEE TICKER                                   */}
+      {/* ═══════════════════════════════════════════════ */}
+      <Marquee />
+
+      {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1B — SERVICES TEASER                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
@@ -259,6 +248,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4"
           >
             {/* Card 1 — Enterprise Architecture */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
@@ -299,8 +289,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
+            </TiltCard>
 
-            {/* Card 2 — Technology Strategy */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
@@ -341,8 +332,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
+            </TiltCard>
 
-            {/* Card 3 — Management Consulting */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
@@ -383,8 +375,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
+            </TiltCard>
 
-            {/* Card 4 — Software Solutions */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
@@ -425,6 +418,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
+            </TiltCard>
           </motion.div>
         </div>
       </section>
@@ -605,6 +599,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
           >
             {/* Card 1 */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={testimonialCardVariants}
               className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
@@ -642,8 +637,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 Senior VP &middot; Accenture
               </p>
             </motion.div>
+            </TiltCard>
 
             {/* Card 2 */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={testimonialCardVariants}
               className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
@@ -682,8 +679,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 Director of Engineering &middot; Deloitte
               </p>
             </motion.div>
+            </TiltCard>
 
             {/* Card 3 */}
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={testimonialCardVariants}
               className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
@@ -722,6 +721,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 CTO &middot; IBM Global Services
               </p>
             </motion.div>
+            </TiltCard>
           </motion.div>
         </div>
       </section>
@@ -760,13 +760,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <p className="mt-4 text-[18px]" style={{ color: '#A1A1A1' }}>
             Let Straveda architect your path forward.
           </p>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
-            style={{ background: '#FF4800' }}
-          >
-            Start a project
-          </button>
+          <MagneticButton>
+            <button
+              onClick={() => onNavigate('contact')}
+              className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
+              style={{ background: '#FF4800' }}
+            >
+              Start a project
+            </button>
+          </MagneticButton>
           <p className="mt-5 text-[14px]" style={{ color: '#52525B' }}>
             Or email us at{' '}
             <a

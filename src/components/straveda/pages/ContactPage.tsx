@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Clock, Linkedin, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import TextReveal from '@/components/straveda/TextReveal';
+import MagneticButton from '@/components/straveda/MagneticButton';
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
@@ -78,7 +80,6 @@ export default function ContactPage() {
     }
   }
 
-  const heroHeadline = "Let's architect your path forward."
 
   const inputClasses =
     'w-full bg-[#1e1a3f] border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-4 py-3.5 text-[15px] placeholder-[#52525B] outline-none transition-colors'
@@ -100,17 +101,7 @@ export default function ContactPage() {
             Get in Touch
           </motion.p>
           <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-white leading-tight">
-            {heroHeadline.split(' ').map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.08, ease }}
-                className="inline-block"
-              >
-                {word}&nbsp;
-              </motion.span>
-            ))}
+            <TextReveal delay={0.2} stagger={0.08}>Let&apos;s architect your path forward.</TextReveal>
           </h1>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -247,20 +238,22 @@ export default function ContactPage() {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  'Send message'
-                )}
-              </button>
+              <MagneticButton>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Send message'
+                  )}
+                </button>
+              </MagneticButton>
 
               <p className="text-[#52525B] text-[12px] text-center">
                 We respect your privacy. No spam, ever.

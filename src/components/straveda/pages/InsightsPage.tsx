@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import TextReveal from '@/components/straveda/TextReveal';
 
 const posts = [
   {
@@ -60,8 +61,6 @@ const postCardVariants = {
 };
 
 export default function InsightsPage() {
-  const heroHeadline = 'Enterprise thinking for modern organizations.';
-
   return (
     <div className="bg-black min-h-screen">
       {/* 4A — HERO */}
@@ -76,17 +75,7 @@ export default function InsightsPage() {
             Insights & Perspectives
           </motion.p>
           <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-white leading-tight">
-            {heroHeadline.split(' ').map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.08, ease }}
-                className="inline-block"
-              >
-                {word}&nbsp;
-              </motion.span>
-            ))}
+            <TextReveal delay={0.2} stagger={0.08}>Enterprise thinking for modern organizations.</TextReveal>
           </h1>
           <motion.div
             initial={{ scaleX: 0 }}

@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Diamond, Hexagon, ShieldCheck } from 'lucide-react';
+import TextReveal from '@/components/straveda/TextReveal';
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -52,8 +53,6 @@ const stats = [
 /* ------------------------------------------------------------------ */
 
 function HeroSection() {
-  const headlineText = "Building tomorrow's enterprise, one solution at a time.";
-
   return (
     <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
       <motion.div
@@ -75,17 +74,7 @@ function HeroSection() {
       </motion.div>
 
       <h1 className="mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
-        {headlineText.split(' ').map((word, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + i * 0.04, ease }}
-            className="inline-block mr-[0.3em]"
-          >
-            {word}
-          </motion.span>
-        ))}
+        <TextReveal delay={0.3} stagger={0.04}>Building tomorrow&apos;s enterprise, one solution at a time.</TextReveal>
       </h1>
 
       <motion.p

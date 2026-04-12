@@ -7,6 +7,8 @@ import Preloader from '@/components/straveda/Preloader'
 import Navbar from '@/components/straveda/Navbar'
 import Footer from '@/components/straveda/Footer'
 import BackToTop from '@/components/straveda/BackToTop'
+import CustomCursor from '@/components/straveda/CustomCursor'
+import ScrollProgress from '@/components/straveda/ScrollProgress'
 
 const pages = ['home', 'services', 'about', 'insights', 'contact'] as const
 type Page = typeof pages[number]
@@ -48,6 +50,7 @@ export default function Home() {
     const validPage = page as Page
     if (pages.includes(validPage)) {
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      window.dispatchEvent(new CustomEvent('page-change'))
       setTimeout(() => {
         setCurrentPage(validPage)
       }, 50)
@@ -71,6 +74,7 @@ export default function Home() {
     <SmoothScroll>
       <div className="noise-overlay min-h-screen flex flex-col bg-black text-white">
         <Preloader />
+        <ScrollProgress />
         <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
 
         <main className="flex-1">
@@ -91,6 +95,7 @@ export default function Home() {
 
         <Footer onNavigate={handleNavigate} />
         <BackToTop />
+        <CustomCursor />
       </div>
     </SmoothScroll>
   )

@@ -1,8 +1,8 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Linkedin, Mail, MapPin } from 'lucide-react';
+import { useRef, useState, CSSProperties } from 'react';
+import { Linkedin, Mail, MapPin, Twitter, Github, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -45,13 +45,43 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+const linkItemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, delay: i * 0.06, ease },
+  }),
+};
+
+const socialIcons = [
+  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter/X' },
+  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+];
+
 export default function Footer({ onNavigate }: FooterProps) {
   const footerRef = useRef<HTMLElement>(null);
   const isInView = useInView(footerRef, { once: true, margin: '-50px' });
+  const [brandHovered, setBrandHovered] = useState(false);
+
+  const brandStyle: CSSProperties = {
+    fontFamily: 'Geist, sans-serif',
+    fontWeight: 500,
+    fontSize: 20,
+    transition: 'text-shadow 0.3s ease',
+    textShadow: brandHovered ? '0 0 20px rgba(255, 72, 0, 0.4), 0 0 40px rgba(255, 72, 0, 0.15)' : 'none',
+  };
+
+  const handleBackToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onNavigate('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer ref={footerRef} className="mt-auto" style={{ background: '#2B2358' }}>
-      {/* ── Orange accent top border ── */}
+      {/* ── Orange accent top border (animated from left) ── */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
@@ -59,12 +89,47 @@ export default function Footer({ onNavigate }: FooterProps) {
         style={{
           height: 2,
           backgroundColor: '#FF4800',
-          transformOrigin: 'center',
+          transformOrigin: 'left',
         }}
       />
 
+      {/* ── Dot pattern background overlay ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      />
+
+      {/* ── Back to top ── */}
+      <div className="relative">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease }}
+          className="flex justify-end px-6 md:px-10 pt-8 max-w-7xl mx-auto"
+        >
+          <a
+            href="#"
+            onClick={handleBackToTop}
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest transition-colors duration-200"
+            style={{ color: '#52525B' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#FF4800';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#52525B';
+            }}
+          >
+            <ArrowUp size={14} />
+            Back to top
+          </a>
+        </motion.div>
+      </div>
+
       {/* ── Main grid ── */}
-      <div className="mx-auto max-w-7xl px-6 md:px-10 py-12 md:py-16">
+      <div className="relative mx-auto max-w-7xl px-6 md:px-10 py-10 md:py-14">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -79,35 +144,48 @@ export default function Footer({ onNavigate }: FooterProps) {
                 e.preventDefault();
                 onNavigate('home');
               }}
+              onMouseEnter={() => setBrandHovered(true)}
+              onMouseLeave={() => setBrandHovered(false)}
               className="inline-block text-white text-xl font-medium tracking-tight select-none mb-3"
-              style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 20 }}
+              style={brandStyle}
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </a>
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#A1A1A1' }}>
               Exceptional value. Cost-effective solutions.
             </p>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200"
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                color: '#A1A1A1',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#FF4800';
-                e.currentTarget.style.color = '#FFFFFF';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.color = '#A1A1A1';
-              }}
-            >
-              <Linkedin size={18} />
-            </a>
+
+            {/* ── Social media icons ── */}
+            <div className="flex items-center gap-2">
+              {socialIcons.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    color: '#A1A1A1',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = '#FF4800';
+                    e.currentTarget.style.transform = 'scale(1.15)';
+                    e.currentTarget.style.boxShadow = '0 0 12px rgba(255, 72, 0, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.color = '#A1A1A1';
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
           </motion.div>
 
           {/* ── Column 2: Explore ── */}
@@ -119,8 +197,14 @@ export default function Footer({ onNavigate }: FooterProps) {
               Explore
             </h3>
             <ul className="space-y-3">
-              {FOOTER_LINKS.explore.map(({ label, page }) => (
-                <li key={label}>
+              {FOOTER_LINKS.explore.map(({ label, page }, i) => (
+                <motion.li
+                  key={label}
+                  custom={i}
+                  variants={linkItemVariants}
+                  initial="hidden"
+                  animate={isInView ? 'visible' : 'hidden'}
+                >
                   <a
                     href={`#${page}`}
                     onClick={(e) => {
@@ -138,7 +222,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   >
                     {label}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -152,8 +236,14 @@ export default function Footer({ onNavigate }: FooterProps) {
               Services
             </h3>
             <ul className="space-y-3">
-              {FOOTER_LINKS.services.map(({ label, page }) => (
-                <li key={label}>
+              {FOOTER_LINKS.services.map(({ label, page }, i) => (
+                <motion.li
+                  key={label}
+                  custom={i}
+                  variants={linkItemVariants}
+                  initial="hidden"
+                  animate={isInView ? 'visible' : 'hidden'}
+                >
                   <a
                     href={`#${page}`}
                     onClick={(e) => {
@@ -171,7 +261,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   >
                     {label}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -185,8 +275,14 @@ export default function Footer({ onNavigate }: FooterProps) {
               Resources
             </h3>
             <ul className="space-y-3">
-              {FOOTER_LINKS.resources.map(({ label, page }) => (
-                <li key={label}>
+              {FOOTER_LINKS.resources.map(({ label, page }, i) => (
+                <motion.li
+                  key={label}
+                  custom={i}
+                  variants={linkItemVariants}
+                  initial="hidden"
+                  animate={isInView ? 'visible' : 'hidden'}
+                >
                   <a
                     href={`#${page}`}
                     onClick={(e) => {
@@ -204,7 +300,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   >
                     {label}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -265,19 +361,35 @@ export default function Footer({ onNavigate }: FooterProps) {
           <p className="text-xs" style={{ color: '#52525B' }}>
             &copy; 2024 Straveda LLC. All rights reserved.
           </p>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="text-xs transition-colors duration-200 cursor-pointer"
-            style={{ color: '#52525B' }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#FF4800';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#52525B';
-            }}
-          >
-            Privacy Policy
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => onNavigate('contact')}
+              className="text-xs transition-colors duration-200 cursor-pointer"
+              style={{ color: '#52525B' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#FF4800';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#52525B';
+              }}
+            >
+              Privacy Policy
+            </button>
+            <span style={{ color: '#3f3f46' }}>&middot;</span>
+            <button
+              onClick={() => onNavigate('contact')}
+              className="text-xs transition-colors duration-200 cursor-pointer"
+              style={{ color: '#52525B' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#FF4800';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#52525B';
+              }}
+            >
+              Terms of Service
+            </button>
+          </div>
         </div>
       </motion.div>
     </footer>

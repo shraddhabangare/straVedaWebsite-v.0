@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight } from 'lucide-react';
+import MagneticButton from '@/components/straveda/MagneticButton';
+import TextReveal from '@/components/straveda/TextReveal';
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -129,8 +131,6 @@ const cardVariants = {
 /* ------------------------------------------------------------------ */
 
 function HeroSection() {
-  const headlineText = 'Comprehensive enterprise services built to modernize and deliver.';
-
   return (
     <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
       <motion.div
@@ -152,17 +152,7 @@ function HeroSection() {
       </motion.div>
 
       <h1 className="mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
-        {headlineText.split(' ').map((word, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + i * 0.04, ease }}
-            className="inline-block mr-[0.3em]"
-          >
-            {word}
-          </motion.span>
-        ))}
+        <TextReveal delay={0.3} stagger={0.04}>Comprehensive enterprise services built to modernize and deliver.</TextReveal>
       </h1>
 
       <motion.p
@@ -219,17 +209,18 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
       </ul>
       <div className="mt-3 flex flex-wrap gap-3">
         {service.cta.map((cta, i) => (
-          <button
-            key={i}
-            className={
-              i === 0
-                ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00]'
-                : 'group flex items-center gap-1 text-sm font-medium text-[#FF4800] transition-colors hover:text-[#ff6b33]'
-            }
-          >
-            {cta}
-            {i > 0 && <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />}
-          </button>
+          <MagneticButton key={i}>
+            <button
+              className={
+                i === 0
+                  ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00]'
+                  : 'group flex items-center gap-1 text-sm font-medium text-[#FF4800] transition-colors hover:text-[#ff6b33]'
+              }
+            >
+              {cta}
+              {i > 0 && <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />}
+            </button>
+          </MagneticButton>
         ))}
       </div>
     </motion.div>

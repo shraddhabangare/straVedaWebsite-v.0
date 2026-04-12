@@ -354,3 +354,36 @@ input:focus, textarea:focus, select:focus {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* ============================================
+   Particle Float Animation (Hero Background)
+   ============================================ */
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.15;
+  }
+  90% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+.particle-dot {
+  animation: particleFloat var(--particle-duration, 20s) var(--particle-delay, 0s) infinite linear;
+}
+
+/* ============================================
+   Custom Cursor — hide native cursor on desktop
+   ============================================ */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
