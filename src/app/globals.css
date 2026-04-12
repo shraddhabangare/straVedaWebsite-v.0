@@ -1382,3 +1382,264 @@ html {
 .glow-text:hover {
   text-shadow: 0 0 30px rgba(255, 72, 0, 0.5), 0 0 60px rgba(255, 72, 0, 0.2), 0 0 80px rgba(255, 72, 0, 0.1);
 }
+
+/* ============================================
+   Phase 17: Enhanced Visual Utilities
+   ============================================ */
+
+/* 1. Smooth section transitions - subtle parallax offset */
+.section-parallax {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* 2. Text shadow for readability on varied backgrounds */
+.text-shadow-subtle {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. Enhanced focus ring for accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid rgba(255, 72, 0, 0.5);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* 4. Smooth reveal for scroll-triggered elements */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 5. Premium card style - subtle inner shadow */
+.card-premium {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              0 1px 3px rgba(0, 0, 0, 0.04),
+              0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-premium:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+              0 4px 12px rgba(0, 0, 0, 0.06),
+              0 12px 28px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+}
+
+/* 6. Gradient divider line */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 72, 0, 0.3), transparent);
+}
+
+/* 7. Animated background gradient (very subtle) */
+@keyframes bgShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.bg-animated-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #fafafa 50%, #FFFFFF 100%);
+  background-size: 200% 200%;
+  animation: bgShift 15s ease-in-out infinite;
+}
+
+/* 8. Smooth scale-in animation */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 9. Image hover zoom effect */
+.img-zoom-container {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.img-zoom-container img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-zoom-container:hover img {
+  transform: scale(1.05);
+}
+
+/* 10. Stagger delay utility for children */
+.stagger-children > *:nth-child(1) { transition-delay: 0ms; }
+.stagger-children > *:nth-child(2) { transition-delay: 80ms; }
+.stagger-children > *:nth-child(3) { transition-delay: 160ms; }
+.stagger-children > *:nth-child(4) { transition-delay: 240ms; }
+.stagger-children > *:nth-child(5) { transition-delay: 320ms; }
+.stagger-children > *:nth-child(6) { transition-delay: 400ms; }
+
+/* 11. Subtle noise texture for premium feel */
+.bg-texture {
+  position: relative;
+}
+.bg-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.012;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  border-radius: inherit;
+}
+
+/* 12. Scroll-driven opacity using CSS custom properties */
+.opacity-scroll {
+  opacity: calc(1 - var(--scroll-progress, 0) * 2);
+}
+
+/* 13. Smooth hover color transition for all interactive elements */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 14. Badge/tag component styling */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+.tag-orange {
+  background: rgba(255, 72, 0, 0.08);
+  color: #FF4800;
+  border: 1px solid rgba(255, 72, 0, 0.15);
+}
+.tag-orange:hover {
+  background: rgba(255, 72, 0, 0.15);
+  border-color: rgba(255, 72, 0, 0.3);
+}
+
+/* 15. Link with arrow hover animation */
+.link-with-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+.link-with-arrow:hover {
+  gap: 10px;
+  color: #FF4800;
+}
+
+/* ============================================
+   Phase 8: HomePage Polish Utilities
+   ============================================ */
+
+/* Premium Service Card — top gradient accent line + hover bottom border */
+.card-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF4800 0%, rgba(255,72,0,0.3) 60%, transparent 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-premium::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FF4800;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.card-premium:hover::before {
+  opacity: 1;
+}
+.card-premium:hover::after {
+  transform: scaleX(1);
+}
+
+/* Divider Gradient — subtle orange gradient separator */
+.divider-gradient {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 72, 0, 0.2) 30%, rgba(255, 72, 0, 0.3) 50%, rgba(255, 72, 0, 0.2) 70%, transparent 100%);
+}
+
+/* Animated Background Gradient — slow-shifting gradient */
+@keyframes bgGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-animated-gradient {
+  background: linear-gradient(135deg, #f8f8fc 0%, rgba(255,72,0,0.03) 25%, #f8f8fc 50%, rgba(255,72,0,0.02) 75%, #f8f8fc 100%);
+  background-size: 400% 400%;
+  animation: bgGradientShift 12s ease infinite;
+}
+
+/* Gentle Icon Pulse — subtle scale pulse for step icons */
+@keyframes iconPulseGentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.icon-pulse-gentle {
+  animation: iconPulseGentle 3s ease-in-out infinite;
+}
+
+/* Counter Hover Gradient — text gradient on hover */
+.counter-hover-gradient {
+  transition: all 0.3s ease;
+}
+.counter-hover-gradient:hover {
+  background: linear-gradient(135deg, #1a1a2e 0%, #FF4800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Partner text shadow on hover */
+.partner-name {
+  transition: all 0.3s ease;
+}
+.partner-name:hover {
+  text-shadow: 0 0 20px rgba(255, 72, 0, 0.15);
+}
+
+/* Bento Large Card Gradient Border */
+.bento-large-border {
+  position: relative;
+}
+.bento-large-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,72,0,0.25) 0%, rgba(255,72,0,0.05) 50%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.bento-large-border:hover::before {
+  opacity: 1;
+}

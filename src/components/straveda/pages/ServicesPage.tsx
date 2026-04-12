@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown, Container, Cloud, Database, Layers, Network, Code, Shield } from 'lucide-react';
+import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown, Container, Cloud, Database, Layers, Network, Code, Shield, Globe, TrendingUp, CircleDollarSign, Users } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
@@ -103,6 +103,20 @@ const whyCards = [
     title: 'Guaranteed Satisfaction',
     body: 'Customer satisfaction is not a goal — it is our guarantee. We stand behind every engagement.',
   },
+];
+
+const benefits = [
+  { title: 'Open Standards', description: 'No vendor lock-in. We build on open-source and open-standards technology.', icon: Globe },
+  { title: 'Proven Track Record', description: '14+ years delivering enterprise solutions for Fortune 500 companies.', icon: TrendingUp },
+  { title: 'Cost Effective', description: 'Exceptional value per dollar invested with zero hidden costs.', icon: CircleDollarSign },
+  { title: 'Knowledge Transfer', description: 'We upskill your teams and transfer knowledge for long-term self-sufficiency.', icon: Users },
+];
+
+const processSteps = [
+  { step: '01', title: 'Assess', description: 'Evaluate your current architecture and identify opportunities' },
+  { step: '02', title: 'Plan', description: 'Create a tailored roadmap aligned with your business goals' },
+  { step: '03', title: 'Execute', description: 'Implement solutions using proven enterprise frameworks' },
+  { step: '04', title: 'Optimize', description: 'Continuously improve performance and reduce technical debt' },
 ];
 
 const faqItems = [
@@ -216,10 +230,12 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="relative flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow border border-[#e5e7eb]"
+      className="relative flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow card-premium border border-[#e5e7eb] hover:shadow-[0_8px_30px_rgba(255,72,0,0.1)]"
     >
-      {/* Large semi-transparent number indicator */}
-      <span className="absolute top-6 left-6 text-[80px] font-bold leading-none text-[#1a1a2e]/[0.04] select-none pointer-events-none">
+      {/* Top gradient accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-xl bg-gradient-to-r from-[#FF4800] via-[rgba(255,72,0,0.4)] to-transparent" />
+      {/* Large semi-transparent number indicator with gradient */}
+      <span className="absolute top-6 left-6 text-[80px] font-bold leading-none select-none pointer-events-none text-gradient-orange" style={{ opacity: 0.07 }}>
         {service.number}
       </span>
       {service.icon}
@@ -292,14 +308,22 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <section className="relative overflow-hidden">
       <div
-        className="px-6 py-20 md:py-28"
+        className="relative px-6 py-20 md:py-28"
         style={{
-          background: 'linear-gradient(135deg, #FF4800, #e63f00)',
+          background: 'linear-gradient(135deg, #2B2358 0%, #1e1a3f 100%)',
         }}
       >
+        {/* Dot grid pattern overlay */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
         {/* Decorative subtle circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/[0.04] -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/[0.03] translate-y-1/2 -translate-x-1/4" />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/[0.03] -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#FF4800]/[0.04] translate-y-1/2 -translate-x-1/4" />
 
         <div className="relative z-10 mx-auto max-w-4xl flex flex-col items-center text-center">
           <motion.h2
@@ -316,7 +340,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.15, ease }}
-            className="text-white/80 text-lg max-w-2xl mb-10"
+            className="text-white/70 text-lg max-w-2xl mb-10"
           >
             Let&apos;s discuss how our expertise can modernize your IT landscape and accelerate your business outcomes.
           </motion.p>
@@ -327,7 +351,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.3, ease }}
               onClick={() => onNavigate('contact')}
-              className="rounded-lg bg-white px-8 py-4 text-base font-semibold text-[#FF4800] transition-all duration-200 hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:scale-[1.02]"
+              className="rounded-lg bg-[#FF4800] px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-[#e03e00] hover:shadow-[0_8px_32px_rgba(255,72,0,0.3)] hover:scale-[1.02]"
             >
               Start a project
               <ArrowRight className="ml-2 inline-block w-4 h-4" />
@@ -551,6 +575,201 @@ const techCardVariants = {
   },
 };
 
+/* ------------------------------------------------------------------ */
+/*  Why Choose Straveda Section (Benefits Grid)                          */
+/* ------------------------------------------------------------------ */
+
+function WhyChooseSection() {
+  return (
+    <section className="bg-[#f8f8fc] px-6 py-24 relative">
+      <div className="mx-auto max-w-5xl relative z-10">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6, ease }}
+          className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+        >
+          WHY STRAVEDA
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7, delay: 0.15, ease }}
+          className="mb-14 text-center text-[36px] font-medium text-[#1a1a2e]"
+        >
+          Why leading enterprises choose us
+        </motion.h2>
+
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid gap-6 sm:grid-cols-2"
+        >
+          {benefits.map((card, i) => (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              className="card-premium flex flex-col items-start gap-4 rounded-xl bg-white p-6 border border-[#e5e7eb]"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: 'rgba(255,72,0,0.08)' }}>
+                <card.icon size={24} className="text-[#FF4800]" />
+              </div>
+              <h4 className="text-[18px] font-medium text-[#1a1a2e]">{card.title}</h4>
+              <p className="text-[15px] leading-relaxed text-[#6b7280]">{card.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Our Approach — Process Timeline                                     */
+/* ------------------------------------------------------------------ */
+
+const stepVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+  },
+};
+
+function OurApproachSection() {
+  return (
+    <section className="bg-white px-6 py-24 relative overflow-hidden">
+      {/* Subtle decorative glow */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#FF4800]/[0.03] blur-3xl" />
+      <div className="mx-auto max-w-6xl relative z-10">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6, ease }}
+          className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+        >
+          OUR APPROACH
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7, delay: 0.15, ease }}
+          className="mb-16 text-center text-[36px] font-medium text-[#1a1a2e]"
+        >
+          A proven 4-step process
+        </motion.h2>
+
+        {/* Desktop: horizontal layout with connecting line */}
+        <div className="hidden lg:block relative">
+          {/* Connecting gradient line */}
+          <div className="absolute top-10 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-[2px] bg-gradient-to-r from-[#FF4800] via-[#FF4800]/30 to-transparent" />
+
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.2 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            className="grid grid-cols-4 gap-8"
+          >
+            {processSteps.map((item, i) => (
+              <motion.div key={i} variants={stepVariants} className="relative flex flex-col items-center text-center">
+                {/* Large decorative step number */}
+                <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-[48px] font-bold text-[#FF4800] select-none pointer-events-none" style={{ opacity: 0.12 }}>{item.step}</span>
+                {/* Step circle with number */}
+                <div className="relative z-10 mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#FF4800]/20 bg-white">
+                  <span className="text-[20px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
+                </div>
+                <h3 className="mb-2 text-[20px] font-medium text-[#1a1a2e]">{item.title}</h3>
+                <p className="text-[15px] leading-relaxed text-[#6b7280] max-w-[200px]">{item.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Tablet: 2x2 layout with connecting line */}
+        <div className="hidden md:grid lg:hidden grid-cols-2 gap-8 relative">
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            {processSteps.map((item, i) => (
+              <motion.div key={i} variants={stepVariants} className="relative flex items-start gap-5 py-4">
+                {/* Connecting vertical line */}
+                {i < processSteps.length - 1 && (
+                  <div className="absolute top-10 left-[15px] w-[2px] h-[calc(100%)] bg-gradient-to-b from-[#FF4800]/30 to-transparent" />
+                )}
+                {/* Large decorative step number */}
+                <span className="absolute -top-2 left-0 text-[48px] font-bold text-[#FF4800] select-none pointer-events-none" style={{ opacity: 0.12 }}>{item.step}</span>
+                {/* Step circle */}
+                <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#FF4800]/20 bg-white">
+                  <span className="text-[12px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
+                </div>
+                <div className="pt-0.5">
+                  <h3 className="mb-1 text-[20px] font-medium text-[#1a1a2e]">{item.title}</h3>
+                  <p className="text-[15px] leading-relaxed text-[#6b7280]">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Mobile: vertical layout with connecting line */}
+        <div className="md:hidden relative">
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            className="flex flex-col gap-10"
+          >
+            {processSteps.map((item, i) => (
+              <motion.div key={i} variants={stepVariants} className="relative flex items-start gap-5">
+                {/* Connecting vertical line */}
+                {i < processSteps.length - 1 && (
+                  <div className="absolute top-8 left-[15px] w-[2px] h-[calc(100%+40px)] bg-gradient-to-b from-[#FF4800]/40 to-transparent" />
+                )}
+                {/* Step circle */}
+                <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#FF4800]/20 bg-white">
+                  <span className="text-[12px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
+                </div>
+                <div className="pt-0.5">
+                  <h3 className="mb-1 text-[18px] font-medium text-[#1a1a2e]">{item.title}</h3>
+                  <p className="text-[15px] leading-relaxed text-[#6b7280]">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Technology Stack Section                                            */
+/* ------------------------------------------------------------------ */
+
 function TechStackSection() {
   return (
     <section className="bg-white py-20 relative">
@@ -645,6 +864,8 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
       ))}
 
       <WhyStravedaSection />
+      <OurApproachSection />
+      <WhyChooseSection />
       <FAQSection />
       <ServiceComparison />
       <TechStackSection />

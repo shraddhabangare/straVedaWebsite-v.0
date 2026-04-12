@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search } from 'lucide-react';
+import ThemeToggle from '@/components/straveda/ThemeToggle';
 
 interface NavbarProps {
   currentPage: string;
@@ -132,6 +133,16 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
 
         {/* ── Search + CTA + Hamburger ── */}
         <div className="flex items-center gap-3">
+          {/* Theme toggle — desktop */}
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5, ease }}
+            className="hidden md:block"
+          >
+            <ThemeToggle />
+          </motion.div>
+
           {/* Search icon — desktop */}
           <motion.button
             initial={{ opacity: 0, y: -16 }}

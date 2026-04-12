@@ -26,6 +26,7 @@ import {
   Brain,
   Globe,
   GitBranch,
+  Plus,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Marquee from '@/components/straveda/Marquee';
@@ -307,6 +308,153 @@ function TestimonialsCarousel() {
   );
 }
 
+const faqs = [
+  {
+    question: 'What industries do you serve?',
+    answer: 'We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates seamlessly across industries.',
+  },
+  {
+    question: 'How long does a typical engagement last?',
+    answer: 'Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone.',
+  },
+  {
+    question: 'Do you work with existing IT teams?',
+    answer: 'Absolutely. We embed within your teams to upskill, mentor, and transfer knowledge. Our goal is to make your organization self-sufficient.',
+  },
+  {
+    question: 'What makes Straveda different?',
+    answer: 'We deliver exceptional value per dollar invested with zero hidden costs. Our open-standards approach avoids vendor lock-in, and we guarantee customer satisfaction.',
+  },
+  {
+    question: 'Can you handle enterprise-scale deployments?',
+    answer: 'Yes. We specialize in Red Hat Enterprise Middleware and large-scale architecture. Our team has deployed solutions serving millions of users across Fortune 500 companies.',
+  },
+  {
+    question: 'How do we get started?',
+    answer: 'Simple — reach out via our contact form or email us at info@straveda.com. We offer a free initial consultation to assess your needs and propose a tailored approach.',
+  },
+];
+
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section
+      className="py-24"
+      style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
+    >
+      <div className="mx-auto max-w-3xl px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease }}
+          className="mb-14 text-center"
+        >
+          <p
+            className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+            style={{ color: '#FF4800' }}
+          >
+            FREQUENTLY ASKED QUESTIONS
+          </p>
+          <h2
+            className="text-[42px] font-medium text-[#1a1a2e]"
+            style={{ fontWeight: 500 }}
+          >
+            Questions? We&apos;ve got answers.
+          </h2>
+        </motion.div>
+
+        {/* Accordion */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease },
+                },
+              }}
+              className="overflow-hidden"
+              style={{
+                borderLeft: openIndex === index ? '3px solid #FF4800' : '3px solid transparent',
+                transition: 'border-color 0.3s ease',
+              }}
+            >
+              {/* Question */}
+              <button
+                onClick={() => toggle(index)}
+                className="flex w-full items-center justify-between px-5 py-5 text-left transition-colors duration-200"
+                style={{
+                  borderBottom: '1px solid rgba(0,0,0,0.06)',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,72,0,0.02)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                aria-expanded={openIndex === index}
+              >
+                <span
+                  className="pr-4 text-[16px] font-medium text-[#1a1a2e]"
+                  style={{ fontWeight: 500 }}
+                >
+                  {faq.question}
+                </span>
+                <motion.span
+                  animate={{ rotate: openIndex === index ? 45 : 0 }}
+                  transition={{ duration: 0.3, ease }}
+                  className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    background: openIndex === index ? '#FF4800' : 'rgba(0,0,0,0.04)',
+                    color: openIndex === index ? '#FFFFFF' : '#6b7280',
+                    transition: 'background 0.3s ease, color 0.3s ease',
+                  }}
+                >
+                  <Plus className="h-4 w-4" />
+                </motion.span>
+              </button>
+
+              {/* Answer */}
+              <AnimatePresence initial={false}>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <p
+                      className="px-5 pb-5 text-[15px] leading-relaxed"
+                      style={{ color: '#6b7280' }}
+                    >
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage({ onNavigate }: HomePageProps) {
   const heroScrolled = useScrollGradient(100);
 
@@ -326,30 +474,30 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* TECHNOLOGY PARTNERS                             */}
       {/* ═══════════════════════════════════════════════ */}
-      <section className="py-8 bg-white border-y border-[rgba(0,0,0,0.04)]">
+      <div className="divider-gradient" />
+      <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="mb-6 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af]">
             Technology Partners
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
-              <span key={name} className="text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-colors duration-300 select-none tracking-wide">
+              <span key={name} className="partner-name text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-colors duration-300 select-none tracking-wide">
                 {name}
               </span>
             ))}
           </div>
         </div>
       </section>
+      <div className="divider-gradient" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* TRUSTED BY INDUSTRY LEADERS                     */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-12"
+        className="py-24"
         style={{
           background: '#FFFFFF',
-          borderTop: '1px solid rgba(0,0,0,0.04)',
-          borderBottom: '1px solid rgba(0,0,0,0.04)',
         }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -396,7 +544,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="flex items-center justify-center"
               >
                 <span
-                  className={`text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none ${logo.className}`}
+                  className={`partner-name text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none ${logo.className}`}
                   style={{ color: '#9ca3af' }}
                 >
                   {logo.name}
@@ -406,6 +554,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+      <div className="divider-gradient" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1B — SERVICES TEASER                    */}
@@ -449,14 +598,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border rounded-xl p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
-                background: '#FFFFFF',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Braces className="mb-5 h-7 w-7 text-[#FF4800]" />
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <Braces className="h-7 w-7 text-[#FF4800]" />
+              </div>
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -493,14 +644,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border rounded-xl p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
-                background: '#FFFFFF',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Compass className="mb-5 h-7 w-7 text-[#FF4800]" />
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <Compass className="h-7 w-7 text-[#FF4800]" />
+              </div>
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -537,14 +690,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border rounded-xl p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
-                background: '#FFFFFF',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <ClipboardCheck className="mb-5 h-7 w-7 text-[#FF4800]" />
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <ClipboardCheck className="h-7 w-7 text-[#FF4800]" />
+              </div>
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -581,14 +736,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border rounded-xl p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
-                background: '#FFFFFF',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Server className="mb-5 h-7 w-7 text-[#FF4800]" />
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <Server className="h-7 w-7 text-[#FF4800]" />
+              </div>
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -628,7 +785,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* WHAT SETS US APART — BENTO GRID                  */}
       {/* ═══════════════════════════════════════════════ */}
-      <section className="py-24" style={{ background: '#f8f8fc' }}>
+      <section className="py-24 section-glow-top dot-grid-dense" style={{ background: '#f8f8fc' }}>
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
           <motion.div
@@ -674,7 +831,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     transition: { duration: 0.6, ease },
                   },
                 }}
-                className={`rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8' : ''}`}
+                className={`rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
                 style={{
                   background: '#FFFFFF',
                   border: '1px solid rgba(0,0,0,0.06)',
@@ -683,15 +840,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   e.currentTarget.style.borderColor = 'rgba(255,72,0,0.2)';
                   e.currentTarget.style.boxShadow = '0 8px 30px rgba(255,72,0,0.08)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
+                  const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
+                  if (iconContainer) iconContainer.style.transform = 'scale(1.1)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
+                  const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
+                  if (iconContainer) iconContainer.style.transform = 'scale(1)';
                 }}
               >
                 <div
-                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl"
+                  className="bento-icon-wrap mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300"
                   style={{ background: 'rgba(255,72,0,0.08)' }}
                 >
                   <item.icon className="h-6 w-6" style={{ color: '#FF4800' }} />
@@ -715,9 +876,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1C — ABOUT / STATS                      */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24"
+        className="relative py-24 bg-animated-gradient"
         style={{ background: '#f8f8fc' }}
       >
+        {/* Decorative orange dot pattern */}
+        <div
+          className="pointer-events-none absolute top-8 right-8 h-48 w-48 opacity-30"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,72,0,0.15) 1.5px, transparent 1.5px)',
+            backgroundSize: '16px 16px',
+          }}
+        />
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 lg:flex-row lg:px-8">
           {/* LEFT — 40% */}
           <motion.div
@@ -727,7 +896,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             transition={{ duration: 0.8, ease }}
             className="flex w-full flex-col justify-center lg:w-[40%]"
           >
-            <Counter target={14} suffix="+" />
+            <div className="counter-hover-gradient inline-block"><Counter target={14} suffix="+" /></div>
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -781,7 +950,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <div className="mt-10 flex w-full max-w-md items-stretch">
               {/* Stat 1 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
                   7
                 </span>
                 <span
@@ -800,7 +969,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 2 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
                   100%
                 </span>
                 <span
@@ -819,7 +988,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 3 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
                   Cost-Effective
                 </span>
                 <span
@@ -838,7 +1007,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1D — HOW WE WORK                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="relative py-24"
+        className="relative py-24 section-glow-top"
         style={{ background: '#FFFFFF' }}
       >
         {/* Subtle decorative glow */}
@@ -893,7 +1062,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 1.2, delay: 0.3, ease }}
-              className="pointer-events-none absolute top-[40px] right-0 hidden h-px w-[calc(100%-120px)] xl:block"
+              className="pointer-events-none absolute top-[40px] right-0 hidden h-[1.5px] w-[calc(100%-120px)] xl:block"
               style={{
                 background: 'linear-gradient(90deg, #FF4800, rgba(255,72,0,0.15))',
                 transformOrigin: 'left',
@@ -914,12 +1083,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               <span
                 className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
               >
                 01
               </span>
               <div className="mt-2 flex items-center gap-3">
-                <Search className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <Search className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
                   className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
@@ -959,12 +1128,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               <span
                 className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
               >
                 02
               </span>
               <div className="mt-2 flex items-center gap-3">
-                <Target className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <Target className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
                   className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
@@ -1004,12 +1173,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               <span
                 className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
               >
                 03
               </span>
               <div className="mt-2 flex items-center gap-3">
-                <Zap className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <Zap className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
                   className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
@@ -1036,12 +1205,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               <span
                 className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
               >
                 04
               </span>
               <div className="mt-2 flex items-center gap-3">
-                <TrendingUp className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <TrendingUp className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
                   className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
@@ -1060,7 +1229,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* RESULTS THAT SPEAK — METRICS BANNER               */}
       {/* ═══════════════════════════════════════════════ */}
-      <section className="relative py-16 gradient-mesh-indigo">
+      <section className="relative py-24 gradient-mesh-indigo section-glow-top">
         {/* Subtle decorative gradient glow */}
         <div
           className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -1179,7 +1348,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* TESTIMONIALS — CLIENT FEEDBACK                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24"
+        className="py-24 section-glow-top"
         style={{ background: '#f8f8fc' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -1231,7 +1400,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1F — CASE STUDIES                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24"
+        className="py-24 section-glow-top"
         style={{ background: '#f8f8fc' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -1843,6 +2012,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* FAQ SECTION                                     */}
+      {/* ═══════════════════════════════════════════════ */}
+      <FAQSection />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SUBSCRIBE SECTION                                */}

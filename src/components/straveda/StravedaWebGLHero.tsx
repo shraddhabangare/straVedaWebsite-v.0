@@ -4,11 +4,12 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * WebGL Shader Hero — Straveda branded (light theme)
- * Ultra-subtle, premium wave patterns on a clean white background.
- * - Soft gradient from #fafafa to #f5f5f8
- * - Very faint orange/indigo wave lines (~0.025 intensity)
- * - Subtle radial spotlight glow from center-right (warm orange)
+ * WebGL Shader Hero — Straveda branded (pure white theme)
+ * Ultra-subtle, premium effects on a truly white (#FFFFFF) background.
+ * - Pure white base (#FFFFFF)
+ * - Near-imperceptible geometric mesh/grid shimmer
+ * - Ultra-faint warm orange (#FF4800) glow in upper-right corner
+ * - Nearly invisible moving wave lines (~5% opacity)
  * - Scroll controls wave amplitude only (gentler when scrolled)
  */
 export default function StravedaWebGLHero() {
@@ -42,7 +43,7 @@ export default function StravedaWebGLHero() {
       }
     `;
 
-    // Premium subtle shader: faint moving light patterns on near-white background
+    // Premium subtle shader: barely-perceptible effects on pure white
     const fragmentShader = `
       precision highp float;
       uniform vec2 resolution;
@@ -57,59 +58,48 @@ export default function StravedaWebGLHero() {
         float scrollAmp = 1.0 - scrollProgress * 0.6;
         float t = time * 0.5;
 
-        // === Soft background gradient: #fafafa top-left → #f5f5f8 bottom-right ===
-        vec3 topColor = vec3(0.980, 0.980, 0.980); // #fafafa
-        vec3 bottomColor = vec3(0.961, 0.961, 0.973); // #f5f5f8
-        float bgGradient = uv.y * 0.6 + uv.x * 0.4;
-        vec3 bgColor = mix(topColor, bottomColor, bgGradient);
+        // === Pure white background (#FFFFFF) ===
+        vec3 bgColor = vec3(1.0);
 
-        // === Subtle radial spotlight glow from center-right (warm orange) ===
-        vec2 glowCenter = vec2(0.35, 0.45); // center-right in UV space
+        // === Ultra-faint geometric mesh grid (premium shimmer) ===
+        vec2 gridUV = p * 2.5 + vec2(t * 0.02, t * 0.015);
+        float gridX = abs(fract(gridUV.x) - 0.5);
+        float gridY = abs(fract(gridUV.y) - 0.5);
+        float gridLine = min(gridX, gridY);
+        float mesh = 1.0 - smoothstep(0.46, 0.5, gridLine);
+        // Fade mesh near edges for softness
+        float meshFade = smoothstep(0.0, 0.35, uv.x) * smoothstep(1.0, 0.65, uv.x)
+                        * smoothstep(0.0, 0.35, uv.y) * smoothstep(1.0, 0.55, uv.y);
+        bgColor -= vec3(mesh * 0.018 * meshFade);
+
+        // === Near-imperceptible warm orange glow (upper-right) ===
+        vec2 glowCenter = vec2(0.72, 0.78); // upper-right in UV space
         float glowDist = length(uv - glowCenter);
-        float spotlight = exp(-glowDist * glowDist * 4.5) * 0.04;
-        // Subtle pulse to keep it alive
-        spotlight *= 0.85 + 0.15 * sin(time * 0.4);
+        float spotlight = exp(-glowDist * glowDist * 8.0) * 0.008;
+        // Ultra-subtle pulse
+        spotlight *= 0.9 + 0.1 * sin(time * 0.3);
         bgColor += vec3(1.0, 0.28, 0.0) * spotlight; // #FF4800 tint
 
-        // === Ultra-subtle wave lines ===
-        float waveIntensity = 0.025 * scrollAmp;
+        // === Nearly invisible moving wave lines ===
+        float waveIntensity = 0.008 * scrollAmp;
 
-        // Orange wave lines (brand #FF4800)
+        // Faint orange wave lines (brand #FF4800)
         float orangeWave = 0.0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
           float fi = float(i);
           float freq = 1.0 + fi * 0.35;
           float phase = t * (0.4 + fi * 0.12) + fi * 1.7;
           float amp = (0.38 + fi * 0.08) * scrollAmp;
           float y = p.y + sin((p.x + phase) * freq) * amp;
           float line = waveIntensity / (abs(y) + 0.01);
-          // Feather the line width
-          line *= smoothstep(0.0, 0.15, abs(y));
-          orangeWave += line * 0.6;
+          line *= smoothstep(0.0, 0.2, abs(y));
+          orangeWave += line * 0.5;
         }
+        bgColor += vec3(1.0, 0.28, 0.0) * orangeWave;
 
-        // Indigo wave lines (secondary #2B2358)
-        float indigoWave = 0.0;
-        for (int i = 0; i < 3; i++) {
-          float fi = float(i);
-          float freq = 0.9 + fi * 0.4;
-          float phase = t * (0.3 + fi * 0.1) + fi * 2.3;
-          float amp = (0.35 + fi * 0.06) * scrollAmp;
-          float y = p.y + sin((p.x + phase) * freq + 0.5) * amp;
-          float line = (waveIntensity * 0.8) / (abs(y) + 0.01);
-          line *= smoothstep(0.0, 0.18, abs(y));
-          indigoWave += line * 0.5;
-        }
-
-        // Blend waves into background
-        vec3 orangeColor = vec3(1.0, 0.28, 0.0);
-        vec3 indigoColor = vec3(0.17, 0.14, 0.34);
-        bgColor += orangeColor * orangeWave;
-        bgColor += indigoColor * indigoWave;
-
-        // === Subtle edge softening — very gentle vignette ===
-        float vignette = 1.0 - length(p) * 0.08;
-        bgColor *= max(vignette, 0.92);
+        // === Ultra-gentle edge softening ===
+        float vignette = 1.0 - length(p) * 0.03;
+        bgColor *= max(vignette, 0.97);
 
         gl_FragColor = vec4(bgColor, 1.0);
       }
@@ -120,8 +110,8 @@ export default function StravedaWebGLHero() {
       refs.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
       refs.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Clean white clear color matching light theme
-      refs.renderer.setClearColor(new THREE.Color(0xfafafa));
+      // Pure white clear color (#FFFFFF)
+      refs.renderer.setClearColor(new THREE.Color(0xFFFFFF));
 
       refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
 

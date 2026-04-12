@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Diamond, Hexagon, ShieldCheck, Globe, Award } from 'lucide-react';
+import { Diamond, Hexagon, ShieldCheck } from 'lucide-react';
 import TextReveal from '@/components/straveda/TextReveal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
@@ -146,8 +146,9 @@ function MissionSection() {
 
 function ValuesSection() {
   return (
-    <section className="bg-white px-6 py-20 lg:py-28 section-glow-top">
+    <section className="bg-white px-6 py-24 section-glow-top">
       <div className="mx-auto max-w-6xl">
+        {/* Section Header */}
         <div className="mb-12 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -167,6 +168,15 @@ function ValuesSection() {
           >
             Our core values.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
+          >
+            The principles that guide every engagement and every decision.
+          </motion.p>
         </div>
 
         <motion.div
@@ -190,9 +200,18 @@ function ValuesSection() {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="flex flex-col items-start gap-4 rounded-xl bg-white p-8 border border-[#e5e7eb] shadow-sm hover:shadow-md hover:border-[#FF4800]/20 transition-all duration-300"
+              whileHover={{ y: -4 }}
+              className="card-premium flex flex-col items-start gap-5 rounded-2xl bg-white p-8"
             >
-              {card.icon}
+              {/* Icon with gradient background container */}
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-2xl"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,72,0,0.12), rgba(255,72,0,0.04))',
+                }}
+              >
+                {card.icon}
+              </div>
               <h4 className="text-lg font-semibold text-[#1a1a2e]">{card.title}</h4>
               <p className="text-sm leading-relaxed text-[#6b7280]">{card.body}</p>
             </motion.div>
@@ -208,34 +227,30 @@ function ValuesSection() {
 /* ------------------------------------------------------------------ */
 
 const teamMembers = [
-  { name: 'Raj Patel', role: 'Founder & CEO', specialty: 'Enterprise Architecture & Strategy', initials: 'RP' },
-  { name: 'Anika Sharma', role: 'VP of Technology', specialty: 'Red Hat Middleware & Cloud', initials: 'AS' },
-  { name: 'Marcus Chen', role: 'Director of Consulting', specialty: 'Digital Transformation', initials: 'MC' },
-  { name: 'Elena Vasquez', role: 'Senior Consultant', specialty: 'Program & Project Management', initials: 'EV' },
-  { name: 'David Okonkwo', role: 'Solutions Architect', specialty: 'Microservices & API Design', initials: 'DO' },
-  { name: 'Sarah Kim', role: 'Agile Coach', specialty: 'PMO & Delivery Frameworks', initials: 'SK' },
-  { name: 'James Mitchell', role: 'Technical Lead', specialty: 'Integration & ESB Platforms', initials: 'JM' },
+  { name: 'Raj Patel', role: 'Founder & CEO', bio: '20+ years in enterprise architecture and technology leadership.' },
+  { name: 'Sarah Chen', role: 'VP of Engineering', bio: 'Expert in cloud-native architecture and DevOps transformation.' },
+  { name: 'Marcus Johnson', role: 'Director of Strategy', bio: 'Specializes in IT roadmap alignment and digital transformation.' },
+  { name: 'Priya Sharma', role: 'Senior Consultant', bio: 'Red Hat certified expert in middleware and integration.' },
+  { name: 'David Kim', role: 'Project Director', bio: 'PMP-certified with 15+ years managing enterprise programs.' },
+  { name: 'Emily Torres', role: 'Solutions Architect', bio: 'Designs scalable microservices and API-first architectures.' },
 ];
+
+function getInitials(name: string) {
+  return name.split(' ').map((n) => n[0]).join('');
+}
 
 function TeamSection() {
   return (
-    <section
-      className="relative px-6 py-20 lg:py-28 section-glow-top"
-      style={{
-        background: '#f8f8fc',
-      }}
-    >
-      {/* subtle gradient overlay */}
+    <section className="relative bg-white px-6 py-24">
+      {/* Subtle gradient overlay */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,72,0,0.03) 0%, transparent 70%)',
         }}
       />
-      {/* Line grid pattern */}
-      <div className="pointer-events-none absolute inset-0 line-grid opacity-20" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="mb-14 text-center">
           <motion.p
@@ -252,16 +267,16 @@ function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(2rem,4vw,2.625rem)] font-medium text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.625rem)] font-semibold text-[#1a1a2e]"
           >
-            Meet the experts behind Straveda.
+            Meet Our Team
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-[18px] text-[#6b7280]"
+            className="mx-auto mt-4 max-w-2xl text-[16px] text-[#6b7280]"
           >
             Decades of combined enterprise experience. One shared commitment to excellence.
           </motion.p>
@@ -271,64 +286,48 @@ function TeamSection() {
         <motion.div
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.1 } },
+            visible: { transition: { staggerChildren: 0.12 } },
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {teamMembers.map((member, i) => (
             <motion.div
               key={i}
               variants={{
-                hidden: { opacity: 0, y: 40 },
+                hidden: { opacity: 0, y: 50 },
                 visible: {
                   opacity: 1,
                   y: 0,
                   transition: { duration: 0.6, ease },
                 },
               }}
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="relative p-6 rounded-xl transition-all duration-300 bg-white border border-[#e5e7eb] shadow-sm hover:shadow-md"
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 72, 0, 0.3)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.06)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
-              }}
+              whileHover={{ y: -6 }}
+              className="card-premium flex flex-col items-center rounded-2xl bg-white p-6 text-center"
             >
-              {/* Initials Avatar */}
+              {/* Circular Avatar — 120px with initials */}
               <div
-                className="mb-4 flex h-16 w-16 items-center justify-center rounded-full text-[20px] font-bold text-white"
+                className="mb-5 flex h-[120px] w-[120px] items-center justify-center rounded-full text-[36px] font-bold text-white shadow-lg"
                 style={{
-                  background: 'linear-gradient(135deg, #FF4800, #e03e00)',
+                  background: 'linear-gradient(135deg, #FF4800, #d93d00)',
+                  boxShadow: '0 8px 24px rgba(255, 72, 0, 0.25)',
                 }}
               >
-                {member.initials}
+                {getInitials(member.name)}
               </div>
 
               {/* Name */}
               <h3 className="text-[18px] font-semibold text-[#1a1a2e]">{member.name}</h3>
 
               {/* Role */}
-              <p className="mt-1 text-[14px] font-medium uppercase tracking-wide text-[#FF4800]">
+              <p className="mt-1 text-[14px] font-medium text-[#FF4800]">
                 {member.role}
               </p>
 
-              {/* Specialty */}
-              <p className="mt-2 text-[14px] text-[#6b7280]">{member.specialty}</p>
-
-              {/* LinkedIn Icon */}
-              <a
-                href="#"
-                aria-label={`${member.name} LinkedIn`}
-                className="absolute bottom-6 right-6 text-[#9ca3af] transition-colors duration-200 hover:text-[#FF4800]"
-              >
-                <Globe size={18} />
-              </a>
+              {/* Bio */}
+              <p className="mt-3 text-[14px] leading-relaxed text-[#6b7280]">{member.bio}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -573,51 +572,18 @@ function CoreCompetenciesSection() {
 /* ------------------------------------------------------------------ */
 
 const milestones = [
-  {
-    year: '2010',
-    title: 'Founded in Plano, TX',
-    description: 'Straveda LLC established with a mission to deliver enterprise-grade IT consulting.',
-  },
-  {
-    year: '2013',
-    title: 'First Fortune 500 Client',
-    description: 'Secured our first major enterprise architecture engagement with a Fortune 500 financial services firm.',
-  },
-  {
-    year: '2016',
-    title: 'Red Hat Partnership',
-    description: 'Became an official Red Hat partner, expanding our middleware and virtualization capabilities.',
-  },
-  {
-    year: '2019',
-    title: '100 Projects Delivered',
-    description: 'Reached the milestone of 100 successfully delivered enterprise projects across 5 industries.',
-  },
-  {
-    year: '2024',
-    title: 'Industry Recognition',
-    description: 'Recognized as a top enterprise IT consulting firm with 99.9% client satisfaction.',
-  },
+  { year: '2010', title: 'Founded', description: 'Straveda LLC established in Plano, Texas with a focus on enterprise middleware.' },
+  { year: '2014', title: 'Red Hat Partnership', description: 'Became an official Red Hat partner, delivering certified middleware solutions.' },
+  { year: '2017', title: 'Cloud Expansion', description: 'Expanded into cloud strategy and container orchestration services.' },
+  { year: '2020', title: '100+ Projects', description: 'Surpassed 100 successful enterprise project deliveries.' },
+  { year: '2023', title: 'AI Integration', description: 'Launched AI-powered IT assessment and optimization services.' },
+  { year: '2024', title: 'Industry Leader', description: 'Recognized as a top enterprise IT consultancy in the Southwest region.' },
 ];
 
 function TimelineSection() {
   return (
-    <section className="relative px-6 py-20 lg:py-28 bg-white">
-      {/* Line grid pattern background */}
-      <div className="pointer-events-none absolute inset-0 line-grid opacity-20" />
-
-      {/* Subtle decorative glow */}
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2"
-        style={{
-          width: '600px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,72,0,0.03) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="relative mx-auto max-w-6xl">
+    <section className="relative bg-[#f8f8fc] px-6 py-24">
+      <div className="relative mx-auto max-w-4xl">
         {/* Section Header */}
         <div className="mb-16 text-center">
           <motion.p
@@ -634,120 +600,82 @@ function TimelineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[42px] font-medium text-[#1a1a2e]"
-            style={{ fontWeight: 500 }}
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
           >
-            Milestones that shaped us.
+            Our Journey
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
+          >
+            Key milestones that have defined our growth and commitment to excellence.
+          </motion.p>
         </div>
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Vertical connecting line — mobile */}
+          {/* Vertical connecting line */}
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 1.5, ease }}
-            className="absolute top-0 bottom-0 left-[23px] w-[2px] origin-top lg:hidden"
-            style={{ background: '#FF4800' }}
-          />
-
-          {/* Vertical connecting line — desktop (center) */}
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 1.5, ease }}
-            className="absolute top-0 bottom-0 left-1/2 hidden w-[2px] -translate-x-1/2 origin-top lg:block"
-            style={{ background: '#FF4800' }}
+            className="absolute top-0 bottom-0 left-[24px] w-[3px] origin-top"
+            style={{ background: 'linear-gradient(180deg, #FF4800, #ff6b33)' }}
           />
 
           {/* Milestones */}
           <motion.div
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.1 } },
+              visible: { transition: { staggerChildren: 0.12 } },
             }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="space-y-12 lg:space-y-16"
+            className="space-y-10 lg:space-y-14"
           >
-            {milestones.map((milestone, i) => {
-              const isLeft = i % 2 === 0;
-
-              return (
-                <motion.div
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 40 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.7, ease },
-                    },
-                  }}
-                  className="relative"
-                >
-                  {/* Desktop layout: alternating left/right */}
-                  <div className={`flex items-start gap-8 lg:gap-16 ${isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                    {/* Content side */}
-                    <div className={`hidden w-[calc(50%-40px)] lg:block ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
-                      <div
-                        className="rounded-xl p-6 bg-white border border-[#e5e7eb] shadow-sm"
-                      >
-                        <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                        <h3 className="mt-2 text-[20px] font-medium text-[#1a1a2e]" style={{ fontWeight: 500 }}>
-                          {milestone.title}
-                        </h3>
-                        <p className="mt-2 text-[16px] leading-relaxed text-[#6b7280]">
-                          {milestone.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Center dot — desktop */}
-                    <div className="hidden flex-shrink-0 items-center justify-center lg:flex">
-                      <div
-                        className="relative z-10 h-[12px] w-[12px] rounded-full"
-                        style={{
-                          border: '2px solid #FF4800',
-                          background: '#FFFFFF',
-                        }}
-                      />
-                    </div>
-
-                    {/* Empty spacer for opposite side — desktop */}
-                    <div className="hidden w-[calc(50%-40px)] lg:block" />
-
-                    {/* Mobile layout */}
-                    <div className="flex gap-6 lg:hidden">
-                      {/* Dot */}
-                      <div className="relative z-10 mt-1 flex-shrink-0">
-                        <div
-                          className="h-[12px] w-[12px] rounded-full"
-                          style={{
-                            border: '2px solid #FF4800',
-                            background: '#FFFFFF',
-                          }}
-                        />
-                      </div>
-                      {/* Content */}
-                      <div className="rounded-xl p-6 bg-white border border-[#e5e7eb] shadow-sm">
-                        <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                        <h3 className="mt-2 text-[20px] font-medium text-[#1a1a2e]" style={{ fontWeight: 500 }}>
-                          {milestone.title}
-                        </h3>
-                        <p className="mt-2 text-[16px] leading-relaxed text-[#6b7280]">
-                          {milestone.description}
-                        </p>
-                      </div>
-                    </div>
+            {milestones.map((milestone, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, x: -30 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: { duration: 0.6, ease },
+                  },
+                }}
+                className="relative flex gap-6 lg:gap-8"
+              >
+                {/* Year Badge — orange circle on timeline */}
+                <div className="relative z-10 flex flex-shrink-0 items-start pt-1">
+                  <div
+                    className="flex h-[50px] w-[50px] items-center justify-center rounded-full text-[15px] font-bold text-white shadow-md"
+                    style={{
+                      background: 'linear-gradient(135deg, #FF4800, #d93d00)',
+                      boxShadow: '0 4px 12px rgba(255, 72, 0, 0.3)',
+                    }}
+                  >
+                    {milestone.year.slice(-2)}
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+
+                {/* Content Card */}
+                <div className="card-premium flex-1 rounded-2xl bg-white p-6 lg:p-8">
+                  <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
+                  <h3 className="mt-1 text-[18px] font-semibold text-[#1a1a2e]">
+                    {milestone.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-[#6b7280]">
+                    {milestone.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
