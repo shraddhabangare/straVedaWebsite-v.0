@@ -2378,3 +2378,39 @@ html {
   mask: linear-gradient(#0a0a14 0 0) content-box, linear-gradient(#0a0a14 0 0);
   -webkit-mask: linear-gradient(#0a0a14 0 0) content-box, linear-gradient(#0a0a14 0 0);
 }
+
+/* ============================================
+   Dark mode: Services Animated Hover Modal
+   Phase 26-a — Scoped overrides for hardcoded
+   light-mode classes inside the modal section.
+   ============================================ */
+
+/* Section background: light #f9f9f9 → dark #0f0f1a */
+.dark .bg-\[\#f9f9f9\] {
+  background-color: #0f0f1a;
+}
+
+/* Project row borders: rgb(201,201,201) → subtle white divider */
+.dark .border-\[rgb\(201\,201\,201\)\] {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Title text inside the modal section: #1a1a2e → light foreground */
+.dark .bg-\[\#f9f9f9\] .text-\[\#1a1a2e\] {
+  color: #f0f0f5;
+}
+
+/* Subtitle text: #9ca3af → slightly brighter in dark */
+.dark .bg-\[\#f9f9f9\] .text-\[\#9ca3af\] {
+  color: #a1a1aa;
+}
+
+/* Description / "Explore" text: #6b7280 → muted light */
+.dark .bg-\[\#f9f9f9\] .text-\[\#6b7280\] {
+  color: #9ca3af;
+}
+
+/* Modal image container shadow for dark mode */
+.dark .bg-\[\#f9f9f9\] .shadow-2xl {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}

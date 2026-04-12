@@ -60,6 +60,110 @@ const benefitCards = [
   },
 ]
 
+/* ─── Floating Label Input ────────────────────────────────────────── */
+function FloatingInput({
+  id,
+  name,
+  type = 'text',
+  required = false,
+  value,
+  onChange,
+  label,
+}: {
+  id: string
+  name: string
+  type?: string
+  required?: boolean
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  label: string
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div className="floating-input-group relative">
+      <input
+        id={id}
+        name={name}
+        type={type}
+        required={required}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`floating-input w-full bg-white border text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 ${
+          focused
+            ? 'border-[#FF4800]'
+            : 'border-[#e5e7eb] hover:border-[#d1d5db]'
+        }`}
+      />
+      <label
+        htmlFor={id}
+        className={`floating-label absolute left-4 transition-all duration-200 ease-out pointer-events-none ${
+          isActive
+            ? 'floating-label-active'
+            : 'floating-label-inactive'
+        }`}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
+
+/* ─── Floating Label Textarea ─────────────────────────────────────── */
+function FloatingTextarea({
+  id,
+  name,
+  required = false,
+  value,
+  onChange,
+  label,
+  rows = 5,
+}: {
+  id: string
+  name: string
+  required?: boolean
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  label: string
+  rows?: number
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div className="floating-input-group relative">
+      <textarea
+        id={id}
+        name={name}
+        required={required}
+        rows={rows}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`floating-input w-full bg-white border text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 resize-none ${
+          focused
+            ? 'border-[#FF4800]'
+            : 'border-[#e5e7eb] hover:border-[#d1d5db]'
+        }`}
+      />
+      <label
+        htmlFor={id}
+        className={`floating-label absolute left-4 transition-all duration-200 ease-out pointer-events-none ${
+          isActive
+            ? 'floating-label-active'
+            : 'floating-label-inactive'
+        }`}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
+
 export default function ContactPage() {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -96,18 +200,76 @@ export default function ContactPage() {
     }
   }
 
-
   const inputClasses =
-    'w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] placeholder-[#9ca3af] outline-none transition-colors'
+    'w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors'
 
   return (
     <div className="bg-white min-h-screen">
+      {/* ─── Inline styles for floating labels & animations ─── */}
+      <style>{`
+        /* ── Floating Label ── */
+        .floating-label-inactive {
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 15px;
+          color: #9ca3af;
+        }
+        .floating-label-active {
+          top: 0;
+          transform: translateY(-50%);
+          font-size: 11px;
+          font-weight: 500;
+          color: #FF4800;
+          background: white;
+          padding: 0 6px;
+          letter-spacing: 0.02em;
+        }
+        /* For textarea, default position is different */
+        textarea ~ .floating-label-inactive {
+          top: 16px;
+          transform: translateY(0);
+        }
+        textarea ~ .floating-label-active {
+          top: 0;
+          transform: translateY(-50%);
+        }
+        /* ── Decorative Dots stagger ── */
+        @keyframes accent-dot-fade {
+          0% { opacity: 0; transform: scale(0.4); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        .accent-dot {
+          opacity: 0;
+          animation: accent-dot-fade 0.6s ease-out forwards;
+        }
+        .accent-dot:nth-child(1) { animation-delay: 0.8s; }
+        .accent-dot:nth-child(2) { animation-delay: 1.0s; }
+        .accent-dot:nth-child(3) { animation-delay: 1.2s; }
+        /* ── Map pin pulse ── */
+        @keyframes map-pin-pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.15); opacity: 0.7; }
+        }
+        .map-pin-pulse {
+          animation: map-pin-pulse 2.5s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* HERO */}
       <section
-        className="relative flex items-center justify-center bg-white"
+        className="relative flex items-center justify-center bg-white overflow-hidden"
         style={{ minHeight: '50vh' }}
       >
-        <div className="max-w-5xl mx-auto px-6 text-center">
+        {/* Floating accent blob — top-right */}
+        <div
+          className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, rgba(255,72,0,0.05) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -123,9 +285,15 @@ export default function ContactPage() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.6, ease }}
-            style={{ transformOrigin: 'left center' }}
+            style={{ transformOrigin: 'center center' }}
             className="h-[2px] w-16 bg-[#FF4800] mx-auto mt-8"
           />
+          {/* Decorative accent dots */}
+          <div className="flex items-center justify-center gap-2 mt-4" aria-hidden="true">
+            <span className="accent-dot w-[6px] h-[6px] rounded-full bg-[#FF4800]" />
+            <span className="accent-dot w-[6px] h-[6px] rounded-full bg-[#2B2358]" />
+            <span className="accent-dot w-[6px] h-[6px] rounded-full bg-[#FF4800]" />
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -188,83 +356,60 @@ export default function ContactPage() {
               onSubmit={handleSubmit}
               className="bg-white rounded-xl p-8 space-y-5 border border-[#e5e7eb] shadow-sm magnetic-border"
             >
-              <div>
-                <label htmlFor="name" className="sr-only">
-                  Full Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  placeholder="Full Name *"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={inputClasses}
-                />
-              </div>
+              <FloatingInput
+                id="name"
+                name="name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                label="Full Name *"
+              />
 
-              <div>
-                <label htmlFor="company" className="sr-only">
-                  Company
-                </label>
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  required
-                  placeholder="Company *"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className={inputClasses}
-                />
-              </div>
+              <FloatingInput
+                id="company"
+                name="company"
+                type="text"
+                required
+                value={formData.company}
+                onChange={handleChange}
+                label="Company *"
+              />
 
-              <div>
-                <label htmlFor="email" className="sr-only">
-                  Work Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="Work Email *"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={inputClasses}
-                />
-              </div>
+              <FloatingInput
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                label="Work Email *"
+              />
 
-              <div>
-                <label htmlFor="phone" className="sr-only">
-                  Phone
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="Phone (optional)"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className={inputClasses}
-                />
-              </div>
+              <FloatingInput
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                label="Phone (optional)"
+              />
 
-              <div>
-                <label htmlFor="service" className="sr-only">
-                  Service Interest
-                </label>
+              <div className="floating-input-group relative">
                 <select
                   id="service"
                   name="service"
                   required
                   value={formData.service}
                   onChange={handleChange}
-                  className={`${inputClasses} appearance-none cursor-pointer`}
+                  className={`${inputClasses} appearance-none cursor-pointer ${
+                    formData.service
+                      ? 'text-[#1a1a2e] border-[#FF4800]'
+                      : 'text-[#9ca3af] border-[#e5e7eb] hover:border-[#d1d5db]'
+                  } transition-colors duration-200`}
                 >
                   <option value="" disabled className="bg-white text-[#9ca3af]">
-                    Service Interest *
+                    Select a service...
                   </option>
                   {serviceOptions.map((option) => (
                     <option key={option} value={option} className="bg-white text-[#1a1a2e]">
@@ -272,23 +417,26 @@ export default function ContactPage() {
                     </option>
                   ))}
                 </select>
+                <label
+                  htmlFor="service"
+                  className={`floating-label absolute left-4 transition-all duration-200 ease-out pointer-events-none ${
+                    formData.service
+                      ? 'floating-label-active'
+                      : 'floating-label-inactive'
+                  }`}
+                >
+                  Service Interest *
+                </label>
               </div>
 
-              <div>
-                <label htmlFor="message" className="sr-only">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder="Tell us about your challenge... *"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className={`${inputClasses} resize-none`}
-                />
-              </div>
+              <FloatingTextarea
+                id="message"
+                name="message"
+                required
+                value={formData.message}
+                onChange={handleChange}
+                label="Tell us about your challenge... *"
+              />
 
               <MagneticButton>
                 <button
@@ -400,7 +548,7 @@ export default function ContactPage() {
               </a>
             </motion.div>
 
-            {/* Map Placeholder */}
+            {/* Map Placeholder — Enhanced */}
             <motion.div
               custom={5}
               variants={infoItemVariants}
@@ -409,7 +557,15 @@ export default function ContactPage() {
               viewport={{ once: true, margin: '-100px' }}
               className="my-8"
             >
-              <div className="relative rounded-xl border border-[#e5e7eb] bg-[#f8f8fc] overflow-hidden h-48 flex flex-col items-center justify-center gap-3">
+              <div className="relative rounded-xl border border-[#e5e7eb] bg-[#f8f8fc] overflow-hidden h-48 flex flex-col items-center justify-center gap-2">
+                {/* Subtle radial gradient for depth */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(255,72,0,0.04) 0%, transparent 70%)',
+                  }}
+                  aria-hidden="true"
+                />
                 {/* Subtle grid pattern */}
                 <div
                   className="absolute inset-0 opacity-[0.35]"
@@ -418,12 +574,21 @@ export default function ContactPage() {
                       'linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)',
                     backgroundSize: '24px 24px',
                   }}
+                  aria-hidden="true"
                 />
                 <div className="relative z-10 flex flex-col items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4800]/10">
-                    <MapPin className="h-5 w-5 text-[#FF4800]" />
+                    <MapPin className="h-5 w-5 text-[#FF4800] map-pin-pulse" />
                   </div>
                   <p className="text-[14px] font-medium text-[#1a1a2e]">Plano, TX 75024 · United States</p>
+                  <a
+                    href="https://maps.google.com/?q=Plano+TX+75024"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[12px] text-[#FF4800] hover:text-[#e63f00] font-medium underline underline-offset-2 transition-colors"
+                  >
+                    View on Google Maps
+                  </a>
                 </div>
               </div>
             </motion.div>

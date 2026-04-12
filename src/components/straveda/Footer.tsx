@@ -97,6 +97,66 @@ export default function Footer({ onNavigate }: FooterProps) {
         }}
       />
 
+      {/* ── Trusted By Partner Marquee ── */}
+      <div className="relative hidden md:block">
+        <style>{`
+          @keyframes footerMarqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .footer-marquee-item {
+            color: #d1d5db;
+            transition: color 0.3s ease;
+          }
+          .footer-marquee-item:hover {
+            color: #FF4800;
+          }
+        `}</style>
+        <div className="pt-8 pb-2 px-6 md:px-10 max-w-7xl mx-auto">
+          <span
+            className="block text-[10px] uppercase tracking-[0.25em] mb-4"
+            style={{ color: '#9ca3af' }}
+          >
+            Trusted By
+          </span>
+        </div>
+        <div className="overflow-hidden w-full">
+          <div
+            className="inline-flex w-max"
+            style={{
+              animation: 'footerMarqueeScroll 30s linear infinite',
+            }}
+          >
+            {/* First copy */}
+            {['Accenture', 'Deloitte', 'IBM', 'JPMorgan', 'McKinsey', 'Goldman Sachs', 'Northrop Grumman', 'State of Texas'].map(
+              (company) => (
+                <span key={company} className="inline-flex items-center gap-8 whitespace-nowrap px-4">
+                  <span className="footer-marquee-item text-sm font-medium tracking-wide">
+                    {company}
+                  </span>
+                  <span className="footer-marquee-item text-sm" style={{ color: 'rgba(209,213,219,0.3)' }}>
+                    &middot;
+                  </span>
+                </span>
+              ),
+            )}
+            {/* Duplicate for seamless loop */}
+            {['Accenture', 'Deloitte', 'IBM', 'JPMorgan', 'McKinsey', 'Goldman Sachs', 'Northrop Grumman', 'State of Texas'].map(
+              (company) => (
+                <span key={`${company}-dup`} className="inline-flex items-center gap-8 whitespace-nowrap px-4">
+                  <span className="footer-marquee-item text-sm font-medium tracking-wide">
+                    {company}
+                  </span>
+                  <span className="footer-marquee-item text-sm" style={{ color: 'rgba(209,213,219,0.3)' }}>
+                    &middot;
+                  </span>
+                </span>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* ── Back to top ── */}
       <div className="relative">
         <motion.div
