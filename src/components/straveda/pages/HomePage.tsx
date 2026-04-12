@@ -29,6 +29,8 @@ import ParticleField from '@/components/straveda/ParticleField';
 import TextReveal from '@/components/straveda/TextReveal';
 import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
 import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
+import AnimatedHero from '@/components/straveda/AnimatedHero';
+import SubscribeSection from '@/components/straveda/SubscribeSection';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -297,139 +299,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <div>
       {/* ═══════════════════════════════════════════════ */}
-      {/* SECTION 1A — HERO (100vh, black background)     */}
+      {/* SECTION 1A — ANIMATED WEBGL HERO (light theme) */}
       {/* ═══════════════════════════════════════════════ */}
-      <section
-        className="relative flex min-h-screen items-center bg-black hero-lines"
-        style={{ background: '#000000' }}
-      >
-        <ParticleField />
-        {/* Subtle gradient glow behind hero */}
-        <div
-          className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: '800px',
-            height: '800px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,72,0,0.03) 0%, rgba(43,35,88,0.03) 40%, transparent 70%)',
-          }}
-        />
-        <div className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 lg:px-8">
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease }}
-            className="mb-6 text-[11px] font-medium uppercase tracking-[0.14em]"
-            style={{ color: '#A1A1A1' }}
-          >
-            <span style={{ color: '#FF4800' }}>—</span> ENTERPRISE IT
-            CONSULTING
-          </motion.p>
-
-          {/* Headline — word-by-word reveal */}
-          <h1
-            className={`mb-6 font-semibold leading-[0.92] transition-all duration-600 ease-in-out ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
-            style={{
-              fontSize: 'clamp(64px, 9vw, 128px)',
-              fontWeight: 600,
-              lineHeight: 0.92,
-              transitionDuration: '0.6s',
-            }}
-          >
-            <TextReveal delay={0.3} stagger={0.08}>We architect solutions to build and deploy IT assets efficiently</TextReveal>
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 1.1, ease }}
-              style={{ color: '#FF4800', display: 'inline-block', marginLeft: '-0.15em' }}
-            >
-              .
-            </motion.span>
-          </h1>
-
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.1, ease }}
-            className="text-[20px] font-normal"
-            style={{ color: '#A1A1A1' }}
-          >
-            Less complexity, more{" "}
-            <span className="text-gradient-orange" style={{ fontWeight: 500 }}>agility.</span>
-          </motion.p>
-
-          {/* Buttons */}
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <MagneticButton>
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.3, ease }}
-                onClick={() => onNavigate('contact')}
-                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine rotating-border"
-                style={{ background: '#FF4800' }}
-              >
-                Start a project
-              </motion.button>
-            </MagneticButton>
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.42, ease }}
-              onClick={() => onNavigate('services')}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border-[1.5px] border-white bg-transparent px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:border-[#FF4800]/60 hover:bg-white/5 btn-shine"
-            >
-              View our services
-              <ArrowRight className="h-4 w-4" />
-            </motion.button>
-          </div>
-
-          {/* Social Proof */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.55, ease }}
-            className="mt-8"
-          >
-            <div
-              className="mb-6 w-full"
-              style={{ borderTop: '1px solid #27272A' }}
-            />
-            <div className="flex items-center gap-[10px]">
-              <div className="flex items-center gap-[2px]">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-current"
-                    style={{ color: '#FBBF24' }}
-                  />
-                ))}
-              </div>
-              <span className="text-[15px] font-semibold text-white">
-                5.0
-              </span>
-              <span className="text-[14px]" style={{ color: '#A1A1A1' }}>
-                Google Reviews
-              </span>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <ChevronDown
-            className="bounce-slow h-5 w-5"
-            style={{ color: '#A1A1A1' }}
-          />
-        </motion.div>
-      </section>
+      <AnimatedHero onNavigate={onNavigate} />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* MARQUEE TICKER                                   */}
@@ -1847,6 +1719,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* SUBSCRIBE SECTION                                */}
+      {/* ═══════════════════════════════════════════════ */}
+      <SubscribeSection onNavigate={onNavigate} />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* FINAL CTA BANNER                                 */}

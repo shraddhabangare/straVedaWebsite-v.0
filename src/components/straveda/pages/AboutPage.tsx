@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Diamond, Hexagon, ShieldCheck, Linkedin, Award } from 'lucide-react';
+import { Diamond, Hexagon, ShieldCheck, Globe, Award } from 'lucide-react';
 import TextReveal from '@/components/straveda/TextReveal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
@@ -333,7 +333,7 @@ function TeamSection() {
                 aria-label={`${member.name} LinkedIn`}
                 className="absolute bottom-6 right-6 text-[#52525B] transition-colors duration-200 hover:text-[#FF4800]"
               >
-                <Linkedin size={18} />
+                <Globe size={18} />
               </a>
             </motion.div>
           ))}

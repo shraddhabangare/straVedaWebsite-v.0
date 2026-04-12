@@ -14,7 +14,7 @@ import ScrollProgress from '@/components/straveda/ScrollProgress'
 import SearchOverlay from '@/components/straveda/SearchOverlay'
 import KeyboardHint from '@/components/straveda/KeyboardHint'
 
-const pages = ['home', 'services', 'about', 'insights', 'contact'] as const
+const pages = ['home', 'services', 'about', 'insights', 'contact', 'testimonials'] as const
 type Page = typeof pages[number]
 
 const pageComponents: Record<Page, React.LazyExoticComponent<React.ComponentType<{ onNavigate: (page: string) => void }>>> = {
@@ -23,6 +23,7 @@ const pageComponents: Record<Page, React.LazyExoticComponent<React.ComponentType
   about: lazy(() => import('@/components/straveda/pages/AboutPage')),
   insights: lazy(() => import('@/components/straveda/pages/InsightsPage')),
   contact: lazy(() => import('@/components/straveda/pages/ContactPage')),
+  testimonials: lazy(() => import('@/components/straveda/pages/TestimonialsPage')),
 }
 
 const pageVariants = {
@@ -105,7 +106,7 @@ export default function Home() {
           window.dispatchEvent(new CustomEvent('close-all'))
           break
         }
-        case '1': case '2': case '3': case '4': case '5': {
+        case '1': case '2': case '3': case '4': case '5': case '6': {
           if (!e.ctrlKey && !e.metaKey && !e.altKey) {
             const pageIdx = parseInt(e.key) - 1
             if (pageIdx >= 0 && pageIdx < pages.length) {
@@ -132,6 +133,7 @@ export default function Home() {
       about: 'About — Straveda',
       insights: 'Insights — Straveda',
       contact: 'Contact — Straveda',
+      testimonials: 'Testimonials — Straveda',
     }
     document.title = titles[currentPage]
   }, [currentPage])

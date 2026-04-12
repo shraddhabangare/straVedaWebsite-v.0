@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Linkedin, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Clock, Globe, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import MagneticButton from '@/components/straveda/MagneticButton';
@@ -344,7 +344,7 @@ export default function ContactPage() {
                 className="text-[#A1A1A1] hover:text-[#FF4800] transition-colors"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5" />
+                <Globe className="w-5 h-5" />
               </a>
             </motion.div>
 

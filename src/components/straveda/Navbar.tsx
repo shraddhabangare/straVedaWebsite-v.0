@@ -13,6 +13,7 @@ interface NavbarProps {
 const NAV_LINKS = [
   { label: 'Services', page: 'services' },
   { label: 'About', page: 'about' },
+  { label: 'Testimonials', page: 'testimonials' },
   { label: 'Insights', page: 'insights' },
   { label: 'Contact', page: 'contact' },
 ] as const;

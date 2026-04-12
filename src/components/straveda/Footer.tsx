@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, CSSProperties } from 'react';
-import { Linkedin, Mail, MapPin, Twitter, Github, ArrowUp } from 'lucide-react';
+import { Mail, MapPin, Code, ArrowUp, Globe } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -55,9 +55,8 @@ const linkItemVariants = {
 };
 
 const socialIcons = [
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter/X' },
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Globe, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: Code, href: 'https://github.com', label: 'GitHub' },
 ];
 
 export default function Footer({ onNavigate }: FooterProps) {
