@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, CSSProperties } from 'react';
-import { Mail, MapPin, Code, ArrowUp, Globe } from 'lucide-react';
+import { Mail, MapPin, Code, ArrowUp, Globe, CheckCircle, Loader2 } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -59,10 +59,43 @@ const socialIcons = [
   { icon: Code, href: 'https://github.com', label: 'GitHub' },
 ];
 
+type SubscribeStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export default function Footer({ onNavigate }: FooterProps) {
   const footerRef = useRef<HTMLElement>(null);
   const isInView = useInView(footerRef, { once: true, margin: '-50px' });
   const [brandHovered, setBrandHovered] = useState(false);
+  const [email, setEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<SubscribeStatus>('idle');
+  const [subscribeError, setSubscribeError] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setSubscribeStatus('loading');
+    setSubscribeError('');
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubscribeStatus('success');
+        setEmail('');
+      } else {
+        setSubscribeStatus('error');
+        setSubscribeError(data.message || 'Something went wrong.');
+      }
+    } catch {
+      setSubscribeStatus('error');
+      setSubscribeError('Network error. Please try again.');
+    }
+  };
 
   const brandStyle: CSSProperties = {
     fontFamily: 'Geist, sans-serif',
@@ -252,6 +285,88 @@ export default function Footer({ onNavigate }: FooterProps) {
                   <Icon size={18} />
                 </a>
               ))}
+            </div>
+
+            {/* ── Newsletter subscription form ── */}
+            <div className="mt-6">
+              <h3
+                className="text-xs font-semibold uppercase tracking-widest mb-1.5"
+                style={{ color: '#FF4800' }}
+              >
+                Stay Updated
+              </h3>
+              <p className="text-[13px] mb-3" style={{ color: '#6b7280' }}>
+                Get the latest insights delivered to your inbox.
+              </p>
+
+              {subscribeStatus === 'success' ? (
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} style={{ color: '#22c55e' }} />
+                  <span className="text-sm font-medium" style={{ color: '#22c55e' }}>
+                    You&rsquo;re in!
+                  </span>
+                </div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (subscribeStatus === 'error') setSubscribeStatus('idle');
+                    }}
+                    placeholder="Enter your email"
+                    className="flex-1 rounded-lg border px-4 py-2.5 text-sm outline-none transition-all duration-200"
+                    style={{
+                      borderColor: subscribeStatus === 'error' ? '#ef4444' : 'rgba(0,0,0,0.1)',
+                      color: '#1a1a2e',
+                      minWidth: 0,
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#FF4800';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,72,0,0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = subscribeStatus === 'error' ? '#ef4444' : 'rgba(0,0,0,0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                    disabled={subscribeStatus === 'loading'}
+                    aria-label="Email address"
+                  />
+                  <button
+                    type="submit"
+                    disabled={subscribeStatus === 'loading'}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 whitespace-nowrap cursor-pointer disabled:cursor-not-allowed"
+                    style={{
+                      background: subscribeStatus === 'loading' ? '#cc3d00' : '#FF4800',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (subscribeStatus !== 'loading') {
+                        e.currentTarget.style.background = '#e63f00';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = subscribeStatus === 'loading' ? '#cc3d00' : '#FF4800';
+                    }}
+                  >
+                    {subscribeStatus === 'loading' ? (
+                      <>
+                        <Loader2 size={14} className="animate-spin" />
+                        Subscribing&hellip;
+                      </>
+                    ) : (
+                      'Subscribe'
+                    )}
+                  </button>
+                </form>
+              )}
+
+              {subscribeStatus === 'error' && subscribeError && (
+                <p className="text-xs mt-2" style={{ color: '#ef4444' }}>
+                  {subscribeError}
+                </p>
+              )}
             </div>
           </motion.div>
 

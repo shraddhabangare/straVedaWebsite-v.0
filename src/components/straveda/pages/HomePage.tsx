@@ -40,6 +40,7 @@ import AnimatedHero from '@/components/straveda/AnimatedHero';
 import ImpactMetrics from '@/components/straveda/ImpactMetrics';
 import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
+import WaveDivider from '@/components/straveda/WaveDivider';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -518,6 +519,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <AnimatedHero onNavigate={onNavigate} />
 
+      {/* Wave divider — Hero to Marquee */}
+      <WaveDivider color="#FFFFFF" />
+
       {/* ═══════════════════════════════════════════════ */}
       {/* MARQUEE TICKER                                   */}
       {/* ═══════════════════════════════════════════════ */}
@@ -534,7 +538,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
-              <span key={name} className="partner-name text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-colors duration-300 select-none tracking-wide">
+              <span
+                key={name}
+                className="partner-name inline-block text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-all duration-300 select-none tracking-wide"
+                style={{ transform: 'scale(1)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+              >
                 {name}
               </span>
             ))}
@@ -836,6 +846,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* Wave divider — Services Teaser to Bento Grid */}
+      <WaveDivider color="#f8f8fc" flip />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* WHAT SETS US APART — BENTO GRID                  */}
@@ -1283,6 +1296,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* Wave divider — Stats/About to ImpactMetrics */}
+      <WaveDivider color="#FFFFFF" />
+
       {/* ═══════════════════════════════════════════════ */}
       {/* IMPACT METRICS — ANIMATED COUNTERS               */}
       {/* ═══════════════════════════════════════════════ */}
@@ -1414,14 +1430,29 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         />
       </div>
 
+      {/* Wave divider — ImpactMetrics to Testimonials */}
+      <WaveDivider color="#FFFFFF" flip />
+
       {/* ═══════════════════════════════════════════════ */}
       {/* TESTIMONIALS — CLIENT FEEDBACK                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24 section-glow-top"
+        className="relative overflow-hidden py-24 section-glow-top"
         style={{ background: '#f8f8fc' }}
       >
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+        {/* Decorative radial gradient — subtle orange glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at 70% 30%, rgba(255,72,0,0.04) 0%, transparent 50%)',
+          }}
+        />
+        {/* Decorative circle — top-right corner */}
+        <div
+          className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full"
+          style={{ background: 'rgba(255,72,0,0.05)' }}
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}

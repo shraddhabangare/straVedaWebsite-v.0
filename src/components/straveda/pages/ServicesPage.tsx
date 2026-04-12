@@ -11,6 +11,69 @@ import { Component as AnimatedHoverModal } from '@/components/ui/services-with-a
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
+/*  Component-level Styles                                             */
+/* ------------------------------------------------------------------ */
+
+function ServicesPageStyles() {
+  return (
+    <style>{`
+      @property --gradient-angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      .service-card-glow {
+        position: relative;
+        isolation: isolate;
+      }
+      .service-card-glow::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: conic-gradient(
+          from var(--gradient-angle, 0deg),
+          transparent 50%,
+          #FF4800 78%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: -1;
+      }
+      .service-card-glow:hover::before {
+        opacity: 1;
+        animation: rotate-gradient-border 3s linear infinite;
+      }
+      @keyframes rotate-gradient-border {
+        to { --gradient-angle: 360deg; }
+      }
+
+      .faq-item-hover {
+        transition: box-shadow 0.3s ease;
+      }
+      .faq-item-hover:hover {
+        box-shadow: inset 3px 0 12px -4px rgba(255, 72, 0, 0.15);
+      }
+
+      @keyframes float-dot-1 {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+      }
+      @keyframes float-dot-2 {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+      }
+      @keyframes float-dot-3 {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+      }
+    `}</style>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
@@ -184,7 +247,11 @@ const cardVariants = {
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center overflow-hidden">
+      {/* Decorative floating geometric shapes */}
+      <div className="pointer-events-none absolute top-[20%] right-[15%] h-[6px] w-[6px] rounded-full bg-[#FF4800]" style={{ opacity: 0.15, animation: 'float-dot-1 4s ease-in-out infinite' }} />
+      <div className="pointer-events-none absolute bottom-[25%] left-[10%] h-[8px] w-[8px] rounded-full bg-[#2B2358]" style={{ opacity: 0.1, animation: 'float-dot-2 5s ease-in-out infinite' }} />
+      <div className="pointer-events-none absolute top-[60%] right-[8%] h-[4px] w-[4px] rounded-full bg-[#FF4800]" style={{ opacity: 0.2, animation: 'float-dot-3 3.5s ease-in-out infinite' }} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -232,7 +299,7 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="relative flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow card-premium border border-[#e5e7eb] hover:shadow-[0_8px_30px_rgba(255,72,0,0.1)]"
+      className="service-card-glow relative flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow card-premium border border-[#e5e7eb] hover:shadow-[0_8px_30px_rgba(255,72,0,0.1)]"
     >
       {/* Top gradient accent line */}
       <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-xl bg-gradient-to-r from-[#FF4800] via-[rgba(255,72,0,0.4)] to-transparent" />
@@ -410,8 +477,12 @@ function WhyStravedaSection() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className="flex flex-col items-start gap-4 rounded-xl bg-white p-8 border border-[#e5e7eb] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20"
+              className="relative flex flex-col items-start gap-4 rounded-xl bg-white p-8 border border-[#e5e7eb] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20 overflow-hidden"
             >
+              {/* Decorative step number behind card */}
+              <span className="absolute -top-2 -right-2 text-[80px] font-bold leading-none select-none pointer-events-none text-[#FF4800]" style={{ opacity: 0.04 }}>
+                0{i + 1}
+              </span>
               {card.icon}
               <h4 className="text-lg font-semibold text-[#1a1a2e]">{card.title}</h4>
               <p className="text-sm leading-relaxed text-[#6b7280]">{card.body}</p>
@@ -476,7 +547,7 @@ function FAQSection() {
               <motion.div
                 key={i}
                 variants={cardVariants}
-                className="rounded-xl border border-[#e5e7eb] bg-white transition-colors hover:border-[#FF4800]/20 shadow-sm"
+                className="faq-item-hover rounded-xl border border-[#e5e7eb] bg-white transition-colors hover:border-[#FF4800]/20 shadow-sm"
               >
                 {/* Question row */}
                 <button
@@ -855,6 +926,7 @@ function TechStackSection() {
 export default function ServicesPage({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <main className="min-h-screen bg-white">
+      <ServicesPageStyles />
       <HeroSection />
 
       {/* Animated Hover Modal — row-based service showcase with GSAP mouse-following */}
