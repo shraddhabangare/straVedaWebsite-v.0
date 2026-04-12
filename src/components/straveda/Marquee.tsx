@@ -30,14 +30,14 @@ export default function Marquee({
       items.map((item) => (
         <span key={item} className="inline-flex items-center gap-4 whitespace-nowrap">
           <span
-            className="text-[14px] font-semibold uppercase tracking-widest"
-            style={{ color: 'rgba(0,0,0,0.12)' }}
+            className="text-[15px] font-semibold uppercase tracking-widest"
+            style={{ color: 'rgba(0,0,0,0.18)' }}
           >
             {item}
           </span>
           <span
-            className="text-[14px]"
-            style={{ color: 'rgba(0,0,0,0.06)' }}
+            className="text-[15px]"
+            style={{ color: 'rgba(0,0,0,0.1)' }}
           >
             &middot;
           </span>

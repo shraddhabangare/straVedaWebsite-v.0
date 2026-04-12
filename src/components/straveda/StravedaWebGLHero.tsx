@@ -5,8 +5,11 @@ import * as THREE from 'three';
 
 /**
  * WebGL Shader Hero — Straveda branded (light theme)
- * Creates an animated wave field using orange (#FF4800) and indigo (#2B2358) colors
- * on a white/light background, providing a premium visual backdrop.
+ * Ultra-subtle, premium wave patterns on a clean white background.
+ * - Soft gradient from #fafafa to #f5f5f8
+ * - Very faint orange/indigo wave lines (~0.025 intensity)
+ * - Subtle radial spotlight glow from center-right (warm orange)
+ * - Scroll controls wave amplitude only (gentler when scrolled)
  */
 export default function StravedaWebGLHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -39,7 +42,7 @@ export default function StravedaWebGLHero() {
       }
     `;
 
-    // Straveda-themed fragment shader: orange + indigo waves on light background
+    // Premium subtle shader: faint moving light patterns on near-white background
     const fragmentShader = `
       precision highp float;
       uniform vec2 resolution;
@@ -47,53 +50,68 @@ export default function StravedaWebGLHero() {
       uniform float scrollProgress;
 
       void main() {
+        vec2 uv = gl_FragCoord.xy / resolution;
         vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
-        // Animate based on scroll — waves slow down and spread as user scrolls
-        float scrollInfluence = 1.0 - scrollProgress * 0.5;
-        float t = time * 0.8 * scrollInfluence;
+        // Scroll controls wave amplitude — gentler when scrolled down
+        float scrollAmp = 1.0 - scrollProgress * 0.6;
+        float t = time * 0.5;
 
-        // Wave distortion
-        float d = length(p) * 0.04;
+        // === Soft background gradient: #fafafa top-left → #f5f5f8 bottom-right ===
+        vec3 topColor = vec3(0.980, 0.980, 0.980); // #fafafa
+        vec3 bottomColor = vec3(0.961, 0.961, 0.973); // #f5f5f8
+        float bgGradient = uv.y * 0.6 + uv.x * 0.4;
+        vec3 bgColor = mix(topColor, bottomColor, bgGradient);
 
-        float rx = p.x * (1.0 + d);
-        float gx = p.x;
-        float bx = p.x * (1.0 - d);
+        // === Subtle radial spotlight glow from center-right (warm orange) ===
+        vec2 glowCenter = vec2(0.35, 0.45); // center-right in UV space
+        float glowDist = length(uv - glowCenter);
+        float spotlight = exp(-glowDist * glowDist * 4.5) * 0.04;
+        // Subtle pulse to keep it alive
+        spotlight *= 0.85 + 0.15 * sin(time * 0.4);
+        bgColor += vec3(1.0, 0.28, 0.0) * spotlight; // #FF4800 tint
 
-        // Orange channel (primary brand #FF4800)
-        float r = 0.04 / abs(p.y + sin((rx + t) * 1.0) * (0.4 + scrollProgress * 0.2));
+        // === Ultra-subtle wave lines ===
+        float waveIntensity = 0.025 * scrollAmp;
 
-        // Indigo channel (secondary brand #2B2358)  
-        float g = 0.03 / abs(p.y + sin((gx + t * 0.7) * 1.2) * (0.35 + scrollProgress * 0.15));
+        // Orange wave lines (brand #FF4800)
+        float orangeWave = 0.0;
+        for (int i = 0; i < 4; i++) {
+          float fi = float(i);
+          float freq = 1.0 + fi * 0.35;
+          float phase = t * (0.4 + fi * 0.12) + fi * 1.7;
+          float amp = (0.38 + fi * 0.08) * scrollAmp;
+          float y = p.y + sin((p.x + phase) * freq) * amp;
+          float line = waveIntensity / (abs(y) + 0.01);
+          // Feather the line width
+          line *= smoothstep(0.0, 0.15, abs(y));
+          orangeWave += line * 0.6;
+        }
 
-        // Blue-purple channel for depth
-        float b = 0.035 / abs(p.y + sin((bx + t * 1.3) * 0.9) * (0.45 + scrollProgress * 0.1));
+        // Indigo wave lines (secondary #2B2358)
+        float indigoWave = 0.0;
+        for (int i = 0; i < 3; i++) {
+          float fi = float(i);
+          float freq = 0.9 + fi * 0.4;
+          float phase = t * (0.3 + fi * 0.1) + fi * 2.3;
+          float amp = (0.35 + fi * 0.06) * scrollAmp;
+          float y = p.y + sin((p.x + phase) * freq + 0.5) * amp;
+          float line = (waveIntensity * 0.8) / (abs(y) + 0.01);
+          line *= smoothstep(0.0, 0.18, abs(y));
+          indigoWave += line * 0.5;
+        }
 
-        // Light background blend — transition from light to darker as scroll progresses
-        float backgroundFade = 1.0 - scrollProgress * 0.4;
+        // Blend waves into background
+        vec3 orangeColor = vec3(1.0, 0.28, 0.0);
+        vec3 indigoColor = vec3(0.17, 0.14, 0.34);
+        bgColor += orangeColor * orangeWave;
+        bgColor += indigoColor * indigoWave;
 
-        // Mix: on white background, the waves create color fields
-        vec3 waveColor = vec3(r, g, b);
-        vec3 lightBg = vec3(0.97, 0.97, 0.98) * backgroundFade;
-        vec3 darkBg = vec3(0.02, 0.02, 0.04) * scrollProgress * 0.6;
+        // === Subtle edge softening — very gentle vignette ===
+        float vignette = 1.0 - length(p) * 0.08;
+        bgColor *= max(vignette, 0.92);
 
-        // Smooth blend based on scroll position
-        vec3 bgColor = mix(lightBg, darkBg, scrollProgress);
-        
-        // Add subtle gradient overlay matching Straveda brand
-        float gradientStrength = 0.08 + scrollProgress * 0.12;
-        float brandGradient = smoothstep(-0.8, 0.8, p.x + sin(time * 0.3) * 0.2);
-        bgColor += vec3(1.0, 0.28, 0.0) * brandGradient * gradientStrength * 0.15;
-        bgColor += vec3(0.17, 0.14, 0.34) * (1.0 - brandGradient) * gradientStrength * 0.1;
-
-        // Composite waves over background
-        vec3 finalColor = bgColor + waveColor * 0.85 * (1.0 - scrollProgress * 0.3);
-
-        // Vignette effect
-        float vignette = 1.0 - length(p) * 0.15;
-        finalColor *= vignette;
-
-        gl_FragColor = vec4(finalColor, 1.0);
+        gl_FragColor = vec4(bgColor, 1.0);
       }
     `;
 
@@ -102,8 +120,8 @@ export default function StravedaWebGLHero() {
       refs.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
       refs.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Start with light background, will transition to dark on scroll
-      refs.renderer.setClearColor(new THREE.Color(0xf8f8f9));
+      // Clean white clear color matching light theme
+      refs.renderer.setClearColor(new THREE.Color(0xfafafa));
 
       refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
 
@@ -140,7 +158,7 @@ export default function StravedaWebGLHero() {
     };
 
     const animate = () => {
-      if (refs.uniforms) refs.uniforms.time.value += 0.008;
+      if (refs.uniforms) refs.uniforms.time.value += 0.006;
       if (refs.renderer && refs.scene && refs.camera) {
         refs.renderer.render(refs.scene, refs.camera);
       }
@@ -155,27 +173,13 @@ export default function StravedaWebGLHero() {
       refs.uniforms.resolution.value = [width, height];
     };
 
-    // Handle scroll — update shader scrollProgress uniform
+    // Handle scroll — update shader scrollProgress uniform (amplitude control only)
     const handleScroll = () => {
       if (!refs.uniforms) return;
       const heroHeight = window.innerHeight;
       const scrollY = window.scrollY;
       const progress = Math.min(scrollY / heroHeight, 1.0);
       refs.uniforms.scrollProgress.value = progress;
-
-      // Update clear color to transition from light to dark
-      if (refs.renderer) {
-        const lightR = 248 / 255;
-        const lightG = 248 / 255;
-        const lightB = 249 / 255;
-        const darkR = 2 / 255;
-        const darkG = 2 / 255;
-        const darkB = 4 / 255;
-        const r = lightR + (darkR - lightR) * progress;
-        const g = lightG + (darkG - lightG) * progress;
-        const b = lightB + (darkB - lightB) * progress;
-        refs.renderer.setClearColor(new THREE.Color(r, g, b));
-      }
     };
 
     initScene();

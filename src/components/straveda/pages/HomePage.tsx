@@ -21,7 +21,13 @@ import {
   Building2,
   Shield,
   CircleDollarSign,
+  Activity,
+  Cloud,
+  Brain,
+  Globe,
+  GitBranch,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Marquee from '@/components/straveda/Marquee';
 import TiltCard from '@/components/straveda/TiltCard';
 import MagneticButton from '@/components/straveda/MagneticButton';
@@ -51,6 +57,15 @@ const cardVariants = {
     transition: { duration: 0.7, ease },
   },
 };
+
+const bentoItems: { title: string; description: string; size: 'large' | 'normal'; icon: LucideIcon }[] = [
+  { title: "Real-Time Monitoring", description: "24/7 infrastructure monitoring with instant alerts and automated remediation.", size: "large", icon: Activity },
+  { title: "Cloud Native", description: "Built for Kubernetes, Docker, and serverless from day one.", size: "normal", icon: Cloud },
+  { title: "Security First", description: "Zero-trust architecture with compliance automation.", size: "normal", icon: Shield },
+  { title: "AI-Powered Insights", description: "Machine learning analytics that predict issues before they impact your business.", size: "normal", icon: Brain },
+  { title: "Global Scale", description: "Multi-region deployment with 99.99% SLA guarantee.", size: "normal", icon: Globe },
+  { title: "DevOps Automation", description: "CI/CD pipelines, IaC, and GitOps workflows that ship faster.", size: "normal", icon: GitBranch },
+];
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -307,6 +322,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* MARQUEE TICKER                                   */}
       {/* ═══════════════════════════════════════════════ */}
       <Marquee />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* TECHNOLOGY PARTNERS                             */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="py-8 bg-white border-y border-[rgba(0,0,0,0.04)]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <p className="mb-6 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af]">
+            Technology Partners
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
+              <span key={name} className="text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-colors duration-300 select-none tracking-wide">
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════════ */}
       {/* TRUSTED BY INDUSTRY LEADERS                     */}
@@ -588,6 +621,92 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </button>
             </motion.div>
             </TiltCard>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* WHAT SETS US APART — BENTO GRID                  */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="py-24" style={{ background: '#f8f8fc' }}>
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-14"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              WHAT SETS US APART
+            </p>
+            <h2
+              className="text-[42px] font-medium text-[#1a1a2e]"
+              style={{ fontWeight: 500 }}
+            >
+              Enterprise-grade capabilities.
+            </h2>
+          </motion.div>
+
+          {/* Bento Grid */}
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+          >
+            {bentoItems.map((item) => (
+              <motion.div
+                key={item.title}
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.6, ease },
+                  },
+                }}
+                className={`rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8' : ''}`}
+                style={{
+                  background: '#FFFFFF',
+                  border: '1px solid rgba(0,0,0,0.06)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255,72,0,0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(255,72,0,0.08)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <div
+                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={{ background: 'rgba(255,72,0,0.08)' }}
+                >
+                  <item.icon className="h-6 w-6" style={{ color: '#FF4800' }} />
+                </div>
+                <h3
+                  className="mb-2 text-[20px] font-medium text-[#1a1a2e]"
+                  style={{ fontWeight: 500 }}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>

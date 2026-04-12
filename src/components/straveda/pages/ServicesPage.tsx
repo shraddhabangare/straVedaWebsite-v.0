@@ -12,7 +12,7 @@ import { useScrollGradient } from '@/hooks/useScrollGradient';
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-interface ServiceBlock {
+interface ServiceBlockData {
   id: string;
   badge: string;
   title: string;
@@ -21,9 +21,10 @@ interface ServiceBlock {
   icon: React.ReactNode;
   cta: string[];
   graphicLeft: boolean;
+  number: string;
 }
 
-const services: ServiceBlock[] = [
+const services: ServiceBlockData[] = [
   {
     id: 'enterprise-architecture',
     badge: 'ENTERPRISE ARCHITECTURE',
@@ -37,6 +38,7 @@ const services: ServiceBlock[] = [
     icon: <Braces size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
     cta: ['Start a project', 'Learn more'],
     graphicLeft: true,
+    number: '01',
   },
   {
     id: 'technology-strategy',
@@ -51,6 +53,7 @@ const services: ServiceBlock[] = [
     icon: <Compass size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
     cta: ['Start a project'],
     graphicLeft: false,
+    number: '02',
   },
   {
     id: 'management-consulting',
@@ -65,6 +68,7 @@ const services: ServiceBlock[] = [
     icon: <ClipboardCheck size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
     cta: ['Start a project'],
     graphicLeft: true,
+    number: '03',
   },
   {
     id: 'software-solutions',
@@ -79,6 +83,7 @@ const services: ServiceBlock[] = [
     icon: <Server size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
     cta: ['Start a project'],
     graphicLeft: false,
+    number: '04',
   },
 ];
 
@@ -204,15 +209,19 @@ function HeroSection() {
 /*  Service Detail Block                                               */
 /* ------------------------------------------------------------------ */
 
-function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
+function ServiceBlock({ service }: { service: ServiceBlockData; index: number }) {
   const direction = service.graphicLeft ? -1 : 1;
 
   const Graphic = (
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow border border-[#e5e7eb]"
+      className="relative flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow border border-[#e5e7eb]"
     >
+      {/* Large semi-transparent number indicator */}
+      <span className="absolute top-6 left-6 text-[80px] font-bold leading-none text-[#1a1a2e]/[0.04] select-none pointer-events-none">
+        {service.number}
+      </span>
       {service.icon}
     </motion.div>
   );
@@ -265,13 +274,68 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      className={`flex flex-col gap-8 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-16 xl:px-24 bg-[#f8f8fc] ${
+      className={`relative flex flex-col gap-8 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-16 xl:px-24 bg-[#f8f8fc] ${
         service.graphicLeft ? '' : 'lg:flex-row-reverse'
       }`}
     >
       <div className="w-full lg:w-1/2">{service.graphicLeft ? Graphic : Content}</div>
       <div className="w-full lg:w-1/2">{service.graphicLeft ? Content : Graphic}</div>
     </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  CTA Banner Section                                                 */
+/* ------------------------------------------------------------------ */
+
+function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
+  return (
+    <section className="relative overflow-hidden">
+      <div
+        className="px-6 py-20 md:py-28"
+        style={{
+          background: 'linear-gradient(135deg, #FF4800, #e63f00)',
+        }}
+      >
+        {/* Decorative subtle circles */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/[0.04] -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/[0.03] translate-y-1/2 -translate-x-1/4" />
+
+        <div className="relative z-10 mx-auto max-w-4xl flex flex-col items-center text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease }}
+            className="text-[clamp(1.75rem,4vw,2.75rem)] font-semibold text-white leading-tight mb-5"
+          >
+            Ready to transform your enterprise?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.15, ease }}
+            className="text-white/80 text-lg max-w-2xl mb-10"
+          >
+            Let&apos;s discuss how our expertise can modernize your IT landscape and accelerate your business outcomes.
+          </motion.p>
+          <MagneticButton>
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: 0.3, ease }}
+              onClick={() => onNavigate('contact')}
+              className="rounded-lg bg-white px-8 py-4 text-base font-semibold text-[#FF4800] transition-all duration-200 hover:bg-white/90 hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:scale-[1.02]"
+            >
+              Start a project
+              <ArrowRight className="ml-2 inline-block w-4 h-4" />
+            </motion.button>
+          </MagneticButton>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -565,19 +629,26 @@ function TechStackSection() {
 /*  Services Page — Main Export                                        */
 /* ------------------------------------------------------------------ */
 
-export default function ServicesPage() {
+export default function ServicesPage({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
 
       {services.map((service, index) => (
-        <ServiceBlock key={service.id} service={service} index={index} />
+        <div key={service.id}>
+          <ServiceBlock service={service} index={index} />
+          {/* Subtle horizontal divider between service blocks */}
+          {index < services.length - 1 && (
+            <div className="max-w-7xl mx-auto h-px bg-[rgba(0,0,0,0.04)]" />
+          )}
+        </div>
       ))}
 
       <WhyStravedaSection />
       <FAQSection />
       <ServiceComparison />
       <TechStackSection />
+      <CTABanner onNavigate={onNavigate} />
     </main>
   );
 }

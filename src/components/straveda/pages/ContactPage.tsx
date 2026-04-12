@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Globe, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Clock, Globe, CheckCircle2, Loader2, Award, FolderGit2, ThumbsUp } from 'lucide-react';
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import MagneticButton from '@/components/straveda/MagneticButton';
@@ -44,6 +44,21 @@ const infoItemVariants = {
     transition: { duration: 0.5, delay: i * 0.1, ease },
   }),
 }
+
+const benefitCards = [
+  {
+    icon: <Award size={20} className="text-[#FF4800]" />,
+    title: '14+ Years Experience',
+  },
+  {
+    icon: <FolderGit2 size={20} className="text-[#FF4800]" />,
+    title: '200+ Projects Delivered',
+  },
+  {
+    icon: <ThumbsUp size={20} className="text-[#FF4800]" />,
+    title: '100% Client Satisfaction',
+  },
+]
 
 export default function ContactPage() {
   const [formData, setFormData] = useState<FormData>(initialFormData)
@@ -87,7 +102,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* 5A — HERO */}
+      {/* HERO */}
       <section
         className="relative flex items-center justify-center bg-white"
         style={{ minHeight: '50vh' }}
@@ -123,8 +138,44 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 5B — CONTACT SECTION */}
-      <section className="px-6 py-24 bg-[#f8f8fc]">
+      {/* WHY CHOOSE STRAVEDA — Benefit Cards */}
+      <section className="px-6 pb-8 pt-4 bg-[#f8f8fc]">
+        <div className="max-w-6xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, ease }}
+            className="text-center text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-6"
+          >
+            Why choose Straveda?
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.6, ease }}
+            className="flex flex-wrap justify-center gap-4 sm:gap-6"
+          >
+            {benefitCards.map((card, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                className="flex items-center gap-3 rounded-lg bg-white px-5 py-3.5 border border-[#e5e7eb] shadow-sm"
+              >
+                {card.icon}
+                <span className="text-[14px] font-medium text-[#1a1a2e] whitespace-nowrap">{card.title}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CONTACT SECTION */}
+      <section className="px-6 pt-16 pb-24 bg-[#f8f8fc]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* LEFT — Contact Form */}
           <motion.div
@@ -243,7 +294,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2 btn-shine"
+                  className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2 btn-shine cta-pulse"
                 >
                   {isSubmitting ? (
                     <>
@@ -348,9 +399,37 @@ export default function ContactPage() {
               </a>
             </motion.div>
 
-            {/* Divider */}
+            {/* Map Placeholder */}
             <motion.div
               custom={5}
+              variants={infoItemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-100px' }}
+              className="my-8"
+            >
+              <div className="relative rounded-xl border border-[#e5e7eb] bg-[#f8f8fc] overflow-hidden h-48 flex flex-col items-center justify-center gap-3">
+                {/* Subtle grid pattern */}
+                <div
+                  className="absolute inset-0 opacity-[0.35]"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                  }}
+                />
+                <div className="relative z-10 flex flex-col items-center gap-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4800]/10">
+                    <MapPin className="h-5 w-5 text-[#FF4800]" />
+                  </div>
+                  <p className="text-[14px] font-medium text-[#1a1a2e]">Plano, TX 75024 · United States</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Divider */}
+            <motion.div
+              custom={6}
               variants={infoItemVariants}
               initial="hidden"
               whileInView="visible"
@@ -368,7 +447,7 @@ export default function ContactPage() {
               ].map((item, index) => (
                 <motion.div
                   key={item}
-                  custom={6 + index}
+                  custom={7 + index}
                   variants={infoItemVariants}
                   initial="hidden"
                   whileInView="visible"
@@ -384,7 +463,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 5C — PROJECT REQUEST WIZARD */}
+      {/* PROJECT REQUEST WIZARD */}
       <section className="px-6 py-24 bg-white">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.p

@@ -46,11 +46,11 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           transition={{ duration: 0.6, delay: 0.1, ease }}
         >
           <span
-            className="inline-block mb-6 px-4 py-1.5 rounded-full text-[11px] font-medium uppercase tracking-[0.14em]"
+            className="inline-block mb-6 px-5 py-2 rounded-full text-[12px] font-semibold uppercase tracking-[0.14em]"
             style={{
-              background: 'rgba(255,72,0,0.12)',
+              background: 'rgba(255,72,0,0.15)',
               color: '#FF4800',
-              border: '1px solid rgba(255,72,0,0.2)',
+              border: '1px solid rgba(255,72,0,0.25)',
             }}
           >
             Enterprise IT Consulting
@@ -167,6 +167,12 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           </div>
         </motion.div>
       </div>
+
+      {/* Bottom gradient fade to blend into next section */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 z-[5] pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, #FFFFFF)' }}
+      />
 
       {/* Scroll Indicator */}
       <motion.div

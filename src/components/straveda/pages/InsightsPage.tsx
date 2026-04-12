@@ -7,8 +7,10 @@ import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
-const categories = ['All', 'Architecture', 'Strategy', 'Cloud', 'Leadership'] as const;
+const categories = ['All', 'Architecture', 'Cloud', 'Security', 'DevOps', 'Strategy', 'AI/ML'] as const;
 type FilterCategory = (typeof categories)[number];
+
+const featuredTopics = ['All', 'Architecture', 'Cloud', 'Security', 'DevOps', 'Strategy', 'AI/ML'] as const;
 
 const featuredPost = {
   category: 'ENTERPRISE ARCHITECTURE',
@@ -244,12 +246,14 @@ export default function InsightsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
+  const [activeTopic, setActiveTopic] = useState<string>('All');
   const heroScrolled = useScrollGradient(100);
 
   const filteredPosts = useMemo(() => {
-    if (activeCategory === 'All') return posts;
-    return posts.filter((p) => p.filterCategory === activeCategory);
-  }, [activeCategory]);
+    const topic = activeTopic === 'All' ? 'All' : activeTopic;
+    if (topic === 'All') return posts;
+    return posts.filter((p) => p.filterCategory === topic);
+  }, [activeTopic]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -282,7 +286,7 @@ export default function InsightsPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* 4A — HERO */}
+      {/* HERO */}
       <section className="relative flex items-center justify-center bg-white" style={{ minHeight: '50vh' }}>
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.p
@@ -317,7 +321,38 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* 4B — FEATURED POST */}
+      {/* FEATURED TOPICS — Horizontal Scrollable Tag Row */}
+      <section className="px-6 pt-6 pb-2 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, ease }}
+          >
+            <div
+              className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin"
+              style={{ scrollbarWidth: 'thin' }}
+            >
+              {featuredTopics.map((topic) => (
+                <button
+                  key={topic}
+                  onClick={() => setActiveTopic(topic)}
+                  className={`flex-shrink-0 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all duration-200 whitespace-nowrap ${
+                    activeTopic === topic
+                      ? 'bg-[#FF4800] text-white shadow-sm'
+                      : 'bg-[#f8f8fc] text-[#6b7280] hover:bg-[#FF4800] hover:text-white border border-transparent'
+                  }`}
+                >
+                  {topic}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FEATURED POST */}
       <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -374,7 +409,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* 4C — POST GRID WITH CATEGORY FILTER */}
+      {/* POST GRID WITH CATEGORY FILTER */}
       <section className="px-6 py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Category Filter Bar */}
@@ -391,7 +426,7 @@ export default function InsightsPage() {
                   <motion.button
                     key={category}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => { setActiveCategory(category); setActiveTopic(category); }}
                     className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 ${
                       activeCategory === category
                         ? 'bg-[#FF4800] text-white'
@@ -432,7 +467,7 @@ export default function InsightsPage() {
                       y: 10,
                       transition: { duration: 0.25, ease },
                     }}
-                    className="bg-white rounded-xl p-6 border border-[#e5e7eb] hover:bg-[#f8f8fc] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md"
+                    className="bg-white rounded-xl p-8 border border-[#e5e7eb] hover:bg-[#f8f8fc] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md min-h-[320px] flex flex-col"
                     onClick={() => setSelectedPost(originalIndex)}
                   >
                     <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
@@ -442,7 +477,7 @@ export default function InsightsPage() {
                       {post.title}
                     </h3>
                     <p className="text-[#9ca3af] text-[13px] mb-3">{post.date}</p>
-                    <p className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed mb-5">
+                    <p className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed mb-5 flex-1">
                       {post.excerpt}
                     </p>
                     <span className="inline-flex items-center gap-1.5 text-[#6b7280] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
@@ -467,7 +502,7 @@ export default function InsightsPage() {
         )}
       </AnimatePresence>
 
-      {/* 4D — NEWSLETTER CTA */}
+      {/* NEWSLETTER CTA */}
       <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
         <div className="max-w-3xl mx-auto">
           <motion.div
