@@ -11,12 +11,12 @@ interface CursorProps {
 export const Cursor: React.FC<CursorProps> = ({ defaultSize = 60 }) => {
   const cursorRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  // @ts-ignore
-  const requestRef = useRef<number>()
+  const requestRef = useRef<number>(0)
   const previousPos = useRef({ x: -100, y: -100 })
+  const positionRef = useRef({ x: -100, y: -100 })
+  const animSizeRef = useRef(defaultSize)
 
   const [visible, setVisible] = useState(false)
-  const [position, setPosition] = useState({ x: -100, y: -100 })
   const [animSize, setAnimSize] = useState(defaultSize)
 
   const { cursorStyle } = useCursorStyle()
@@ -32,7 +32,7 @@ export const Cursor: React.FC<CursorProps> = ({ defaultSize = 60 }) => {
 
   const targetSize = SIZE_MAP[cursorStyle]
 
-  // Color config: nav cursor is black on light, white on dark (for visibility)
+  // Color config: nav cursor is dark on light bg, light on dark bg (for visibility)
   const getNavColor = () => isDark ? '#f0f0f5' : '#1a1a2e'
 
   const cursorBg = cursorStyle === 'nav'
@@ -41,7 +41,12 @@ export const Cursor: React.FC<CursorProps> = ({ defaultSize = 60 }) => {
 
   const blendClass = cursorStyle === 'nav' ? '' : 'mix-blend-difference'
 
-  // Smoothly interpolate cursor size
+  // Keep animSizeRef in sync with state for the animation loop
+  useEffect(() => {
+    animSizeRef.current = animSize
+  }, [animSize])
+
+  // Smoothly interpolate cursor size via lerp
   useEffect(() => {
     let frame: number
     const lerp = () => {
@@ -55,64 +60,60 @@ export const Cursor: React.FC<CursorProps> = ({ defaultSize = 60 }) => {
     return () => cancelAnimationFrame(frame)
   }, [targetSize])
 
-  const animate = () => {
-    if (!cursorRef.current) return
-
-    const currentX = previousPos.current.x
-    const currentY = previousPos.current.y
-    const halfSize = animSize / 2
-    const targetX = position.x - halfSize
-    const targetY = position.y - halfSize
-
-    const deltaX = (targetX - currentX) * 0.2
-    const deltaY = (targetY - currentY) * 0.2
-
-    const newX = currentX + deltaX
-    const newY = currentY + deltaY
-
-    previousPos.current = { x: newX, y: newY }
-    cursorRef.current.style.transform = `translate(${newX}px, ${newY}px)`
-
-    requestRef.current = requestAnimationFrame(animate)
-  }
-
+  // Animation loop + document-level mouse tracking — runs once, never restarts
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    const animate = () => {
+      if (!cursorRef.current) return
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect()
-      setVisible(true)
-      setPosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      })
+      const pos = positionRef.current
+      const currentX = previousPos.current.x
+      const currentY = previousPos.current.y
+      const halfSize = animSizeRef.current / 2
+      const targetX = pos.x - halfSize
+      const targetY = pos.y - halfSize
+
+      const deltaX = (targetX - currentX) * 0.2
+      const deltaY = (targetY - currentY) * 0.2
+
+      const newX = currentX + deltaX
+      const newY = currentY + deltaY
+
+      previousPos.current = { x: newX, y: newY }
+      cursorRef.current.style.transform = `translate(${newX}px, ${newY}px)`
+
+      requestRef.current = requestAnimationFrame(animate)
     }
 
-    const handleMouseEnter = () => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const container = containerRef.current
+      if (!container) return
+      const rect = container.getBoundingClientRect()
       setVisible(true)
+      positionRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      }
     }
 
     const handleMouseLeave = () => {
       setVisible(false)
     }
 
-    container.addEventListener("mousemove", handleMouseMove)
-    container.addEventListener("mouseenter", handleMouseEnter)
-    container.addEventListener("mouseleave", handleMouseLeave)
+    // Use DOCUMENT-level listeners so cursor tracks over fixed/absolute/z-indexed elements
+    document.addEventListener("mousemove", handleMouseMove)
+    document.addEventListener("mouseleave", handleMouseLeave)
 
     requestRef.current = requestAnimationFrame(animate)
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove)
-      container.removeEventListener("mouseenter", handleMouseEnter)
-      container.removeEventListener("mouseleave", handleMouseLeave)
+      document.removeEventListener("mousemove", handleMouseMove)
+      document.removeEventListener("mouseleave", handleMouseLeave)
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
     }
-  }, [position, animSize])
+  }, []) // Empty deps — runs once, all mutable state via refs
 
   return (
-    <div ref={containerRef} className="absolute inset-0 cursor-none">
+    <div ref={containerRef} className="absolute inset-0">
       <div
         ref={cursorRef}
         className={`pointer-events-none absolute z-50 rounded-full ${blendClass}`}
