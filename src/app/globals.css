@@ -380,6 +380,278 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
+   Animated Gradient Border (Rotating)
+   ============================================ */
+@keyframes gradientRotate {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gradient-border-animate {
+  position: relative;
+  border-radius: inherit;
+}
+.gradient-border-animate::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--gradient-angle, 0deg), #FF4800, transparent 40%, transparent 60%, #FF4800);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradientRotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.gradient-border-animate:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Subtle Gradient Mesh Background
+   ============================================ */
+.gradient-mesh {
+  background:
+    radial-gradient(at 20% 80%, rgba(255, 72, 0, 0.04) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(43, 35, 88, 0.08) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 72, 0, 0.02) 0%, transparent 70%),
+    #000000;
+}
+
+.gradient-mesh-indigo {
+  background:
+    radial-gradient(at 10% 90%, rgba(255, 72, 0, 0.05) 0%, transparent 40%),
+    radial-gradient(at 90% 10%, rgba(43, 35, 88, 0.15) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(43, 35, 88, 0.06) 0%, transparent 60%),
+    #0a0a0a;
+}
+
+/* ============================================
+   Dot Grid Pattern Background
+   ============================================ */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dot-grid-dense {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ============================================
+   Line Grid Pattern Background
+   ============================================ */
+.line-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ============================================
+   Enhanced Card Glow on Hover
+   ============================================ */
+.card-glow {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.card-glow:hover {
+  border-color: rgba(255, 72, 0, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 72, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   Card Spotlight Effect (follows cursor)
+   ============================================ */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.card-spotlight::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 72, 0, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+}
+.card-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* ============================================
+   Frosted Glass Card
+   ============================================ */
+.frosted-card {
+  background: rgba(43, 35, 88, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.frosted-card:hover {
+  background: rgba(43, 35, 88, 0.45);
+  border-color: rgba(255, 72, 0, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+   Animated Underline Link
+   ============================================ */
+.animated-underline {
+  position: relative;
+  text-decoration: none;
+}
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, #FF4800, #ff6a33);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   Text Reveal Mask (for hero text effects)
+   ============================================ */
+.text-reveal-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* ============================================
+   Section Glow Accents
+   ============================================ */
+.section-glow-top {
+  position: relative;
+}
+.section-glow-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 72, 0, 0.4), transparent);
+}
+
+.section-glow-bottom {
+  position: relative;
+}
+.section-glow-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 72, 0, 0.4), transparent);
+}
+
+/* ============================================
+   Fade In Up Animation
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================
+   Subtle Float Animation
+   ============================================ */
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 6s ease-in-out infinite;
+}
+
+/* ============================================
+   Gradient Text (Indigo to Orange)
+   ============================================ */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FF4800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-subtle {
+  background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================
+   Button Hover Shine Effect
+   ============================================ */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+.btn-shine:hover::before {
+  left: 100%;
+}
+
+/* ============================================
+   Smooth Number Counter Display
+   ============================================ */
+.counter-display {
+ font-variant-numeric: tabular-nums;
+ letter-spacing: -0.02em;
+}
+
+/* ============================================
    Custom Cursor — hide native cursor on desktop
    ============================================ */
 @media (pointer: fine) {

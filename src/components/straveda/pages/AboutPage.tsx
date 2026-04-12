@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Diamond, Hexagon, ShieldCheck } from 'lucide-react';
+import { Diamond, Hexagon, ShieldCheck, Linkedin, Award } from 'lucide-react';
 import TextReveal from '@/components/straveda/TextReveal';
 
 /* ------------------------------------------------------------------ */
@@ -95,8 +95,10 @@ function HeroSection() {
 
 function MissionSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28">
-      <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20">
+    <section className="bg-black px-6 py-20 lg:py-28 relative">
+      {/* Subtle decorative accent */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255, 72, 0, 0.03) 0%, transparent 70%)' }} />
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 relative z-10">
         {/* LEFT */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -140,7 +142,7 @@ function MissionSection() {
 
 function ValuesSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28">
+    <section className="bg-black px-6 py-20 lg:py-28 section-glow-top">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
           <motion.p
@@ -189,6 +191,146 @@ function ValuesSection() {
               {card.icon}
               <h4 className="text-lg font-semibold text-white">{card.title}</h4>
               <p className="text-sm leading-relaxed text-[#A1A1A1]">{card.body}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Team Section                                                       */
+/* ------------------------------------------------------------------ */
+
+const teamMembers = [
+  { name: 'Raj Patel', role: 'Founder & CEO', specialty: 'Enterprise Architecture & Strategy', initials: 'RP' },
+  { name: 'Anika Sharma', role: 'VP of Technology', specialty: 'Red Hat Middleware & Cloud', initials: 'AS' },
+  { name: 'Marcus Chen', role: 'Director of Consulting', specialty: 'Digital Transformation', initials: 'MC' },
+  { name: 'Elena Vasquez', role: 'Senior Consultant', specialty: 'Program & Project Management', initials: 'EV' },
+  { name: 'David Okonkwo', role: 'Solutions Architect', specialty: 'Microservices & API Design', initials: 'DO' },
+  { name: 'Sarah Kim', role: 'Agile Coach', specialty: 'PMO & Delivery Frameworks', initials: 'SK' },
+  { name: 'James Mitchell', role: 'Technical Lead', specialty: 'Integration & ESB Platforms', initials: 'JM' },
+];
+
+function TeamSection() {
+  return (
+    <section
+      className="relative px-6 py-20 lg:py-28 section-glow-top"
+      style={{
+        background: '#0a0a0a',
+      }}
+    >
+      {/* subtle gradient overlay */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(43,35,88,0.25) 0%, transparent 70%)',
+        }}
+      />
+      {/* Line grid pattern */}
+      <div className="pointer-events-none absolute inset-0 line-grid opacity-40" />
+
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section Header */}
+        <div className="mb-14 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            THE TEAM
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[clamp(2rem,4vw,2.625rem)] font-medium text-white"
+          >
+            Meet the experts behind Straveda.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
+            className="mx-auto mt-4 max-w-2xl text-[18px] text-[#A1A1A1]"
+          >
+            Decades of combined enterprise experience. One shared commitment to excellence.
+          </motion.p>
+        </div>
+
+        {/* Cards Grid */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
+          {teamMembers.map((member, i) => (
+            <motion.div
+              key={i}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease },
+                },
+              }}
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="relative p-6 rounded-xl transition-all duration-300"
+              style={{
+                background: 'rgba(43, 35, 88, 0.4)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 72, 0, 0.3)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 40px rgba(255, 72, 0, 0.08)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+              }}
+            >
+              {/* Initials Avatar */}
+              <div
+                className="mb-4 flex h-16 w-16 items-center justify-center rounded-full text-[20px] font-bold text-white"
+                style={{
+                  background: 'linear-gradient(135deg, #FF4800, #2B2358)',
+                }}
+              >
+                {member.initials}
+              </div>
+
+              {/* Name */}
+              <h3 className="text-[18px] font-semibold text-white">{member.name}</h3>
+
+              {/* Role */}
+              <p className="mt-1 text-[14px] font-medium uppercase tracking-wide text-[#FF4800]">
+                {member.role}
+              </p>
+
+              {/* Specialty */}
+              <p className="mt-2 text-[14px] text-[#A1A1A1]">{member.specialty}</p>
+
+              {/* LinkedIn Icon */}
+              <a
+                href="#"
+                aria-label={`${member.name} LinkedIn`}
+                className="absolute bottom-6 right-6 text-[#52525B] transition-colors duration-200 hover:text-[#FF4800]"
+              >
+                <Linkedin size={18} />
+              </a>
             </motion.div>
           ))}
         </motion.div>
@@ -324,6 +466,162 @@ function ExpertiseSection() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Partners & Certifications Section                                  */
+/* ------------------------------------------------------------------ */
+
+const partners = [
+  { name: 'Red Hat', level: 'Enterprise Partner', color: '#EE0000', logo: 'RH' },
+  { name: 'Amazon Web Services', level: 'Advanced Partner', color: '#FF9900', logo: 'AWS' },
+  { name: 'Microsoft Azure', level: 'Certified Partner', color: '#0078D4', logo: 'Azure' },
+  { name: 'Docker', level: 'Technology Partner', color: '#2496ED', logo: 'Docker' },
+  { name: 'Kubernetes', level: 'Certified Provider', color: '#326CE5', logo: 'K8s' },
+  { name: 'Linux Foundation', level: 'Member Organization', color: '#FCC624', logo: 'LF' },
+];
+
+const certifications = [
+  'ITIL v4 Foundation',
+  'AWS Solutions Architect',
+  'Red Hat Certified Architect',
+];
+
+function PartnersSection() {
+  return (
+    <section className="relative bg-black px-6 py-20 lg:py-28">
+      {/* Decorative glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 40% at 50% 20%, rgba(255, 72, 0, 0.04) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section Header */}
+        <div className="mb-14 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            PARTNERS &amp; CERTIFICATIONS
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+          >
+            Technology partners we trust.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
+            className="mx-auto mt-4 max-w-2xl text-base text-[#A1A1A1]"
+          >
+            Our partnerships ensure we deliver the best enterprise solutions.
+          </motion.p>
+        </div>
+
+        {/* Partners Grid */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {partners.map((partner, i) => (
+            <motion.div
+              key={i}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease },
+                },
+              }}
+              whileHover={{ y: -3 }}
+              className="card-glow relative flex flex-col items-center rounded-xl p-8 transition-all duration-300"
+              style={{
+                background: 'rgba(43, 35, 88, 0.4)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor =
+                  'rgba(255, 72, 0, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor =
+                  'rgba(255, 255, 255, 0.06)';
+              }}
+            >
+              {/* Decorative top accent line */}
+              <div className="absolute left-1/2 top-0 h-[3px] w-10 -translate-x-1/2 rounded-b bg-[#FF4800]" />
+
+              {/* Logo Text */}
+              <span
+                className="mt-4 text-[26px] font-bold tracking-tight"
+                style={{ color: partner.color }}
+              >
+                {partner.logo}
+              </span>
+
+              {/* Partner Name */}
+              <h4 className="mt-2 text-[24px] font-bold text-white">{partner.name}</h4>
+
+              {/* Certification Level */}
+              <span className="mt-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
+                {partner.level}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Certifications Row */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+        >
+          {certifications.map((cert, i) => (
+            <motion.div
+              key={i}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease },
+                },
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-[#FF4800]/30 px-5 py-2 text-sm text-[#FF4800]"
+            >
+              <ShieldCheck size={16} className="shrink-0" />
+              <span>{cert}</span>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  About Page — Main Export                                           */
 /* ------------------------------------------------------------------ */
 
@@ -333,8 +631,10 @@ export default function AboutPage() {
       <HeroSection />
       <MissionSection />
       <ValuesSection />
+      <TeamSection />
       <StatsStrip />
       <ExpertiseSection />
+      <PartnersSection />
     </main>
   );
 }

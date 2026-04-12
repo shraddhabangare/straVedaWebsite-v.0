@@ -359,7 +359,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs" style={{ color: '#52525B' }}>
-            &copy; 2024 Straveda LLC. All rights reserved.
+            &copy; {new Date().getFullYear()} Straveda LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <button

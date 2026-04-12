@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
 
@@ -97,6 +98,33 @@ const whyCards = [
   },
 ];
 
+const faqItems = [
+  {
+    question: 'What industries do you serve?',
+    answer: 'We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates across industries.',
+  },
+  {
+    question: 'How long does a typical engagement last?',
+    answer: 'Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone.',
+  },
+  {
+    question: 'Do you work with existing IT teams?',
+    answer: 'Absolutely. We embed within your teams to upskill, mentor, and transfer knowledge. Our goal is to make your organization self-sufficient.',
+  },
+  {
+    question: 'What makes Straveda different from other consultancies?',
+    answer: 'We deliver exceptional value per dollar invested with zero hidden costs. Our open-standards approach avoids vendor lock-in, and we guarantee customer satisfaction.',
+  },
+  {
+    question: 'Can you handle enterprise-scale deployments?',
+    answer: 'Yes. We specialize in Red Hat Enterprise Middleware and large-scale architecture. Our team has deployed solutions serving millions of users across Fortune 500 companies.',
+  },
+  {
+    question: 'How do we get started?',
+    answer: 'Simple — reach out via our contact form or email us at info@straveda.com. We offer a free initial consultation to assess your needs and propose a tailored approach.',
+  },
+];
+
 /* ------------------------------------------------------------------ */
 /*  Animation helpers                                                  */
 /* ------------------------------------------------------------------ */
@@ -178,7 +206,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px]"
+      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow"
     >
       {service.icon}
     </motion.div>
@@ -213,7 +241,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
             <button
               className={
                 i === 0
-                  ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00]'
+                  ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00] btn-shine'
                   : 'group flex items-center gap-1 text-sm font-medium text-[#FF4800] transition-colors hover:text-[#ff6b33]'
               }
             >
@@ -248,8 +276,10 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
 
 function WhyStravedaSection() {
   return (
-    <section className="bg-black px-6 py-24">
-      <div className="mx-auto max-w-6xl text-center">
+    <section className="bg-black px-6 py-24 relative">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 dot-grid pointer-events-none opacity-50" />
+      <div className="mx-auto max-w-6xl text-center relative z-10">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -283,13 +313,114 @@ function WhyStravedaSection() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8"
+              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 card-glow"
             >
               {card.icon}
               <h4 className="text-lg font-semibold text-white">{card.title}</h4>
               <p className="text-sm leading-relaxed text-[#A1A1A1]">{card.body}</p>
             </motion.div>
           ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  FAQ Accordion Section                                              */
+/* ------------------------------------------------------------------ */
+
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (i: number) => {
+    setOpenIndex((prev) => (prev === i ? null : i));
+  };
+
+  return (
+    <section className="bg-black px-6 py-24 section-glow-top relative">
+      {/* Subtle gradient mesh background */}
+      <div className="absolute inset-0 pointer-events-none gradient-mesh" />
+      <div className="mx-auto max-w-3xl relative z-10">
+        {/* Header */}
+        <div className="mb-14 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          >
+            FAQ
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-white"
+          >
+            Frequently asked questions.
+          </motion.h2>
+        </div>
+
+        {/* FAQ Items */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="flex flex-col gap-4"
+        >
+          {faqItems.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <motion.div
+                key={i}
+                variants={cardVariants}
+                className="rounded-xl border border-white/[0.06] bg-[#2B2358] transition-colors hover:border-[#FF4800]/30 card-glow"
+              >
+                {/* Question row */}
+                <button
+                  onClick={() => toggle(i)}
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-[18px] font-medium leading-snug text-white">
+                    {item.question}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease }}
+                    className="flex-shrink-0 text-[#A1A1A1]"
+                  >
+                    <ChevronDown size={20} strokeWidth={2} />
+                  </motion.span>
+                </button>
+
+                {/* Answer */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key={`answer-${i}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-5 text-[16px] leading-relaxed text-[#A1A1A1]">
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
@@ -310,6 +441,7 @@ export default function ServicesPage() {
       ))}
 
       <WhyStravedaSection />
+      <FAQSection />
     </main>
   );
 }

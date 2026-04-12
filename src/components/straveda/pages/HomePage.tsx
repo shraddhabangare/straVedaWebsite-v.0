@@ -11,6 +11,11 @@ import {
   MapPin,
   Star,
   ArrowRight,
+  Search,
+  Target,
+  Zap,
+  TrendingUp,
+  Building2,
 } from 'lucide-react';
 import Marquee from '@/components/straveda/Marquee';
 import TiltCard from '@/components/straveda/TiltCard';
@@ -141,7 +146,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3, ease }}
                 onClick={() => onNavigate('contact')}
-                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
+                className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine"
                 style={{ background: '#FF4800' }}
               >
                 Start a project
@@ -152,7 +157,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.42, ease }}
               onClick={() => onNavigate('services')}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border-[1.5px] border-white bg-transparent px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:border-white/80 hover:bg-white/5"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border-[1.5px] border-white bg-transparent px-7 py-3.5 text-[14px] font-medium text-white transition-all duration-200 hover:border-[#FF4800]/60 hover:bg-white/5 btn-shine"
             >
               View our services
               <ArrowRight className="h-4 w-4" />
@@ -213,7 +218,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1B — SERVICES TEASER                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24"
+        className="py-24 section-glow-top"
         style={{ background: '#000000', borderTop: '1px solid #27272A' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -546,6 +551,228 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════ */}
+      {/* SECTION 1D — HOW WE WORK                        */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section
+        className="relative py-24"
+        style={{ background: '#000000' }}
+      >
+        {/* Subtle decorative glow */}
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '600px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,72,0,0.04) 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-16"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              HOW WE WORK
+            </p>
+            <h2
+              className="text-[42px] font-medium text-white"
+              style={{ fontWeight: 500, maxWidth: '640px' }}
+            >
+              A proven process for enterprise transformation.
+            </h2>
+          </motion.div>
+
+          {/* Steps Grid */}
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="relative grid grid-cols-1 gap-0 md:grid-cols-2 xl:grid-cols-4"
+          >
+            {/* Desktop connecting line (horizontal) */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 1.2, delay: 0.3, ease }}
+              className="pointer-events-none absolute top-[40px] right-0 hidden h-px w-[calc(100%-120px)] xl:block"
+              style={{
+                background: 'linear-gradient(90deg, #FF4800, rgba(255,72,0,0.15))',
+                transformOrigin: 'left',
+              }}
+            />
+
+            {/* Step 1 — Discovery */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:pl-0"
+            >
+              <span
+                className="mb-2 block"
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+              >
+                01
+              </span>
+              <div className="mt-2 flex items-center gap-3">
+                <Search className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <h3
+                  className="text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Discovery
+                </h3>
+              </div>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                We assess your current landscape, identify pain points, and define success metrics.
+              </p>
+            </motion.div>
+
+            {/* Mobile connecting line 1→2 */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, delay: 0.4, ease }}
+              className="pointer-events-none absolute bottom-0 left-[39px] hidden h-[calc(100%-120px)] w-px md:block xl:hidden"
+              style={{
+                background: 'linear-gradient(180deg, #FF4800, rgba(255,72,0,0.15))',
+                transformOrigin: 'top',
+              }}
+            />
+
+            {/* Step 2 — Strategy */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 xl:border-l-0 xl:pl-8 xl:pb-0"
+            >
+              <span
+                className="mb-2 block"
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+              >
+                02
+              </span>
+              <div className="mt-2 flex items-center gap-3">
+                <Target className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <h3
+                  className="text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Strategy
+                </h3>
+              </div>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                We craft a tailored roadmap aligned with your business goals and budget.
+              </p>
+            </motion.div>
+
+            {/* Mobile connecting line 2→3 */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, delay: 0.5, ease }}
+              className="pointer-events-none absolute top-[40px] left-[calc(50%-1px)] hidden h-[calc(100%-120px)] w-px md:block xl:hidden"
+              style={{
+                background: 'linear-gradient(180deg, #FF4800, rgba(255,72,0,0.15))',
+                transformOrigin: 'top',
+              }}
+            />
+
+            {/* Step 3 — Execution */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:border-l-0 xl:pl-8 xl:pb-0"
+            >
+              <span
+                className="mb-2 block"
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+              >
+                03
+              </span>
+              <div className="mt-2 flex items-center gap-3">
+                <Zap className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <h3
+                  className="text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Execution
+                </h3>
+              </div>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                Our experts implement solutions using proven frameworks and agile delivery.
+              </p>
+            </motion.div>
+
+            {/* Step 4 — Optimize */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease },
+                },
+              }}
+              className="relative border-l-2 border-[#FF4800] pl-8 xl:border-l-0 xl:pl-8"
+            >
+              <span
+                className="mb-2 block"
+                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+              >
+                04
+              </span>
+              <div className="mt-2 flex items-center gap-3">
+                <TrendingUp className="h-5 w-5" style={{ color: '#FF4800' }} />
+                <h3
+                  className="text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Optimize
+                </h3>
+              </div>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                We measure results, refine approaches, and ensure long-term sustainability.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Decorative gradient divider ── */}
       <div className="relative h-px w-full overflow-hidden" style={{ background: '#000000' }}>
         <motion.div
@@ -739,11 +966,350 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </div>
 
       {/* ═══════════════════════════════════════════════ */}
+      {/* SECTION 1F — CASE STUDIES                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
         style={{ background: '#000000' }}
       >
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-16"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              CASE STUDIES
+            </p>
+            <h2
+              className="text-[42px] font-medium text-white"
+              style={{ fontWeight: 500, maxWidth: '580px' }}
+            >
+              Real results for real enterprises.
+            </h2>
+            <p className="mt-4 text-[16px] leading-relaxed" style={{ color: '#A1A1A1', maxWidth: '520px' }}>
+              From financial services to government agencies, we deliver measurable outcomes that transform enterprise operations.
+            </p>
+          </motion.div>
+
+          {/* Case Study Cards Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+          >
+            {/* Card 1 — Fortune 500 Financial Services */}
+            <motion.div
+              variants={cardVariants}
+              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <div className="p-8">
+                {/* Card number */}
+                <span
+                  className="mb-2 block"
+                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                >
+                  01
+                </span>
+                {/* Industry badge */}
+                <span
+                  className="mb-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                  style={{ background: '#FF4800' }}
+                >
+                  <Building2 className="h-3 w-3" />
+                  Financial Services
+                </span>
+                {/* Company name */}
+                <h3
+                  className="mb-6 text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Fortune 500 Financial Services
+                </h3>
+                {/* Challenge */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Legacy middleware causing 60% downtime during peak hours
+                  </p>
+                </div>
+                {/* Solution */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Enterprise Architecture modernization with Red Hat middleware
+                  </p>
+                </div>
+                {/* Results */}
+                <div className="mb-6">
+                  <div className="mb-2 flex items-center gap-2">
+                    <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    99.9% uptime, 40% cost reduction, 3x faster deployments
+                  </p>
+                </div>
+                {/* Metric badges */}
+                <div className="flex flex-wrap gap-2">
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    99.9% uptime
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    -40% cost
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    3x deployments
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 2 — Global Healthcare Provider */}
+            <motion.div
+              variants={cardVariants}
+              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <div className="p-8">
+                {/* Card number */}
+                <span
+                  className="mb-2 block"
+                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                >
+                  02
+                </span>
+                {/* Industry badge */}
+                <span
+                  className="mb-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                  style={{ background: '#FF4800' }}
+                >
+                  <Building2 className="h-3 w-3" />
+                  Healthcare
+                </span>
+                {/* Company name */}
+                <h3
+                  className="mb-6 text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Global Healthcare Provider
+                </h3>
+                {/* Challenge */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Fragmented IT systems across 12 regional offices
+                  </p>
+                </div>
+                {/* Solution */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Technology Strategy roadmap + API integration platform
+                  </p>
+                </div>
+                {/* Results */}
+                <div className="mb-6">
+                  <div className="mb-2 flex items-center gap-2">
+                    <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Unified platform, 65% faster data sharing, $2.1M annual savings
+                  </p>
+                </div>
+                {/* Metric badges */}
+                <div className="flex flex-wrap gap-2">
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    Unified platform
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    65% faster
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    $2.1M saved
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 3 — Government Agency */}
+            <motion.div
+              variants={cardVariants}
+              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: '#2B2358',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <div className="p-8">
+                {/* Card number */}
+                <span
+                  className="mb-2 block"
+                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                >
+                  03
+                </span>
+                {/* Industry badge */}
+                <span
+                  className="mb-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
+                  style={{ background: '#FF4800' }}
+                >
+                  <Building2 className="h-3 w-3" />
+                  Government
+                </span>
+                {/* Company name */}
+                <h3
+                  className="mb-6 text-[22px] font-medium text-white"
+                  style={{ fontWeight: 500 }}
+                >
+                  Government Agency
+                </h3>
+                {/* Challenge */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Aging infrastructure with critical security vulnerabilities
+                  </p>
+                </div>
+                {/* Solution */}
+                <div className="mb-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Management Consulting + Agile PMO delivery framework
+                  </p>
+                </div>
+                {/* Results */}
+                <div className="mb-6">
+                  <div className="mb-2 flex items-center gap-2">
+                    <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
+                    <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
+                  </div>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                    Zero security incidents, 50% faster delivery cycles, 100% compliance
+                  </p>
+                </div>
+                {/* Metric badges */}
+                <div className="flex flex-wrap gap-2">
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    Zero incidents
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    50% faster
+                  </span>
+                  <span
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                  >
+                    100% compliant
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{ background: '#000000' }}
+      >
+        {/* Subtle decorative glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(255, 72, 0, 0.06) 0%, transparent 60%)',
+          }}
+        />
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -763,7 +1329,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <MagneticButton>
             <button
               onClick={() => onNavigate('contact')}
-              className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse"
+              className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine"
               style={{ background: '#FF4800' }}
             >
               Start a project

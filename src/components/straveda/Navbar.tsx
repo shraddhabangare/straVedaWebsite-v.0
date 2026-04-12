@@ -125,7 +125,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6, ease }}
             onClick={() => onNavigate('contact')}
-            className="hidden md:block text-white transition-all duration-200 cursor-pointer"
+            className="hidden md:block text-white transition-all duration-200 cursor-pointer btn-shine"
             style={{
               backgroundColor: '#FF4800',
               borderRadius: 8,

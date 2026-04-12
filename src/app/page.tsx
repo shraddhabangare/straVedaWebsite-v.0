@@ -7,7 +7,9 @@ import Preloader from '@/components/straveda/Preloader'
 import Navbar from '@/components/straveda/Navbar'
 import Footer from '@/components/straveda/Footer'
 import BackToTop from '@/components/straveda/BackToTop'
+import FloatingCTA from '@/components/straveda/FloatingCTA'
 import CustomCursor from '@/components/straveda/CustomCursor'
+import CookieConsent from '@/components/straveda/CookieConsent'
 import ScrollProgress from '@/components/straveda/ScrollProgress'
 
 const pages = ['home', 'services', 'about', 'insights', 'contact'] as const
@@ -95,7 +97,9 @@ export default function Home() {
 
         <Footer onNavigate={handleNavigate} />
         <BackToTop />
+        <FloatingCTA onNavigate={handleNavigate} />
         <CustomCursor />
+        <CookieConsent />
       </div>
     </SmoothScroll>
   )
