@@ -1,0 +1,239 @@
+{
+  "project": {
+    "name": "Straveda",
+    "type": "Next.js premium digital marketing website",
+    "goal": "Build a production-grade website that matches the reference experience exactly in layout, motion, interaction quality, and premium feel, while applying the Straveda color palette precisely.",
+    "visualDirection": "Premium, minimal, editorial, motion-led, conversion-focused"
+  },
+  "brandPalette": {
+    "primaryOrange": "#FF4800",
+    "pureWhite": "#FFFFFF",
+    "deepVioletBlue": "#2B2358",
+    "black": "#000000",
+    "usageRules": {
+      "orange": ["Primary CTA buttons", "Active highlights", "Key brand emphasis", "Hover states for action elements"],
+      "white": ["Primary backgrounds", "Text on dark surfaces", "Clean negative space sections"],
+      "deepVioletBlue": ["Secondary brand blocks", "Navigation accents", "Premium dark panels", "Supportive contrast backgrounds"],
+      "black": ["Text", "Dark theme panels", "Contrast sections", "Footer / strong visual anchors"]
+    }
+  },
+  "techStack": {
+    "framework": "Next.js App Router",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS",
+    "motion": ["GSAP", "ScrollTrigger", "Framer Motion", "Lenis"],
+    "imageOptimization": "next/image",
+    "fontOptimization": "next/font",
+    "seo": ["Metadata API", "robots.txt", "sitemap.ts", "Open Graph", "Twitter Cards", "JSON-LD"],
+    "deployment": ["Vercel", "CDN caching", "Image optimization", "Static generation wherever possible"]
+  },
+  "folderArchitecture": {
+    "root": ["app/", "components/", "lib/", "hooks/", "providers/", "data/", "public/", "styles/", "middleware.ts", "next.config.ts", "tailwind.config.ts", "tsconfig.json", "package.json"],
+    "app": {
+      "files": ["layout.tsx", "page.tsx", "loading.tsx", "error.tsx", "not-found.tsx", "robots.txt", "sitemap.ts", "manifest.ts", "favicon.ico", "icon.png", "apple-icon.png", "og-image.png"],
+      "routeGroups": {
+        "(site)": ["about/page.tsx", "services/page.tsx", "work/page.tsx", "insights/page.tsx", "contact/page.tsx"],
+        "api": ["contact/route.ts"]
+      }
+    },
+    "components": {
+      "layout": ["Navbar.tsx", "Footer.tsx", "PageShell.tsx"],
+      "sections": ["Hero.tsx", "Services.tsx", "Work.tsx", "Testimonials.tsx", "CTA.tsx", "BrandPsychology.tsx"],
+      "ui": ["Button.tsx", "Card.tsx", "Badge.tsx", "Input.tsx", "Textarea.tsx", "Link.tsx", "SectionLabel.tsx"],
+      "motion": ["FadeIn.tsx", "Stagger.tsx", "RevealImage.tsx", "Parallax.tsx", "SplitText.tsx", "ScrollProgress.tsx", "SectionPin.tsx", "PageTransition.tsx", "MagneticButton.tsx"],
+      "shared": ["Logo.tsx", "SocialLinks.tsx", "SectionHeading.tsx", "ThemeMark.tsx"]
+    },
+    "lib": {
+      "files": ["seo.ts", "constants.ts", "nav.ts", "site.ts", "utils.ts", "analytics.ts", "jsonld.ts"]
+    },
+    "hooks": {
+      "files": ["useLenis.ts", "useScrollProgress.ts", "useBreakpoint.ts", "usePrefersReducedMotion.ts", "useMagneticHover.ts"]
+    },
+    "providers": {
+      "files": ["AppProviders.tsx", "MotionProvider.tsx", "LenisProvider.tsx"]
+    },
+    "data": {
+      "files": ["services.ts", "projects.ts", "testimonials.ts", "faq.ts", "team.ts", "caseStudies.ts", "brandTokens.ts"]
+    },
+    "public": {
+      "folders": ["images/", "icons/", "fonts/", "videos/"]
+    },
+    "styles": {
+      "files": ["globals.css"]
+    }
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "title": "Folder Structure and App Foundation",
+      "goal": "Build the complete Next.js project architecture first.",
+      "tasks": [
+        "Create the exact app, components, lib, hooks, providers, data, public, and styles directories.",
+        "Set up app/layout.tsx, app/page.tsx, and the global route structure.",
+        "Add route groups for about, services, work, insights, and contact.",
+        "Add api/contact/route.ts for form submission.",
+        "Add loading.tsx, error.tsx, not-found.tsx, robots.txt, sitemap.ts, and manifest.ts."
+      ],
+      "output": "A fully structured Next.js architecture ready for implementation."
+    },
+    {
+      "phase": 2,
+      "title": "Global Design System",
+      "goal": "Lock the brand system before any page work.",
+      "tasks": [
+        "Apply the exact Straveda color palette everywhere.",
+        "Define reusable spacing, radius, shadow, and typography tokens.",
+        "Create shared button, badge, card, and section label components.",
+        "Define light and dark surface rules using white, orange, violet-blue, and black."
+      ],
+      "output": "Consistent brand tokens and reusable UI primitives."
+    },
+    {
+      "phase": 3,
+      "title": "Premium Reference-Style Page Mapping",
+      "goal": "Map the website into premium sections that follow the reference pacing.",
+      "tasks": [
+        "Home page: Navbar, Hero, Client Logos, Services Overview, Selected Work, Brand Psychology, Testimonials, CTA, Footer.",
+        "Services page: Hero, Service Pillars, Process Timeline, Benefits Grid, CTA.",
+        "Work page: Hero, Case Study Grid, Hover Previews, Results, CTA.",
+        "About page: Hero, Story, Values, Process, CTA.",
+        "Insights page: Hero, Articles Grid, Category Filters, Newsletter CTA.",
+        "Contact page: Hero, Form, FAQ, CTA."
+      ],
+      "output": "A premium section-by-section page architecture."
+    },
+    {
+      "phase": 4,
+      "title": "Complete Animation System",
+      "goal": "Implement the full motion language.",
+      "tasks": [
+        "Add Lenis smooth scrolling globally.",
+        "Connect Lenis to GSAP ScrollTrigger.",
+        "Create word-by-word hero text reveals.",
+        "Create staggered section reveals on scroll.",
+        "Create image reveal masks and scale transitions.",
+        "Create parallax depth for key visuals.",
+        "Create page transitions with Framer Motion.",
+        "Create magnetic hover motion for premium buttons."
+      ],
+      "output": "A complete motion system matching the premium reference feel."
+    },
+    {
+      "phase": 5,
+      "title": "Button Animation States",
+      "goal": "Define the exact interaction behavior for all CTAs.",
+      "tasks": [
+        "Primary button base state: orange background, white text, pill radius.",
+        "Primary button hover: slight scale up, deeper orange, elevated shadow.",
+        "Primary button active: slight scale down with fast response.",
+        "Secondary button base: transparent or white surface with black or violet-blue border.",
+        "Secondary button hover: smooth fill or border transition without layout shift.",
+        "Link buttons: subtle underline, color shift, and motion easing."
+      ],
+      "output": "Polished, high-conversion button interactions."
+    },
+    {
+      "phase": 6,
+      "title": "SEO and Performance Structure",
+      "goal": "Optimize for speed, crawlability, and discoverability.",
+      "tasks": [
+        "Set global metadata and title templates.",
+        "Add unique metadata per page with generateMetadata().",
+        "Add JSON-LD for organization and services.",
+        "Keep exactly one H1 per page.",
+        "Use semantic sections and descriptive alt text.",
+        "Generate robots and sitemap automatically.",
+        "Use next/image, next/font, route-level code splitting, and lazy loading.",
+        "Prefer server components and limit client components to motion and interactive areas."
+      ],
+      "output": "SEO-ready and performance-first website structure."
+    },
+    {
+      "phase": 7,
+      "title": "Final Validation",
+      "goal": "Verify premium quality and remove deviation.",
+      "tasks": [
+        "Check layout against the reference for spacing and hierarchy.",
+        "Verify every animation timing, easing, and sequence.",
+        "Check color accuracy against the palette screenshots.",
+        "Confirm responsive behavior on desktop, tablet, and mobile.",
+        "Confirm Core Web Vitals are optimized and interactions feel smooth."
+      ],
+      "output": "A production-ready Straveda website that is visually premium, fast, and motion-rich."
+    }
+  ],
+  "animationSystem": {
+    "globalRules": {
+      "referenceStyle": "Premium editorial motion",
+      "motionPriority": "Enhance perception, not decoration",
+      "tolerance": "No visible mismatch in layout, timing, easing, sequence, or rhythm",
+      "reducedMotionSupport": true,
+      "performanceRule": "Use transform and opacity for all animated transitions wherever possible"
+    },
+    "smoothScroll": {
+      "library": "Lenis",
+      "purpose": "Momentum-based premium scrolling",
+      "behavior": ["Soft easing on wheel and trackpad input", "No abrupt stops", "No jumpy motion", "Premium fluid scroll feel"]
+    },
+    "heroAnimations": {
+      "headline": ["Split by word or line", "Opacity from 0 to 1", "Y from 20 to 0", "Staggered reveal sequence"],
+      "subtext": ["Fade in after headline", "Slight upward motion", "Delayed entrance"],
+      "cta": ["Scale and fade in", "Hover lift", "Smooth border and background transition"],
+      "image": ["Reveal using clip-path or mask", "Scale from 1.08 to 1", "Optional parallax on scroll"]
+    },
+    "scrollTriggeredAnimations": {
+      "library": "GSAP ScrollTrigger",
+      "patterns": ["Fade in on viewport entry", "Translate up by 20 to 40 pixels", "Stagger lists and grids", "Pin selected sections when needed"],
+      "timing": {
+        "defaultDuration": 0.6,
+        "defaultStagger": 0.08,
+        "defaultEase": "power2.out"
+      }
+    },
+    "microInteractions": {
+      "buttons": ["Hover scale 1.02 to 1.05", "Border and fill transition", "Shadow deepening on hover", "Subtle magnetic pull effect on premium CTAs"],
+      "cards": ["Image zoom on hover", "Overlay fade in", "Text lift on hover"],
+      "links": ["Underline or color shift", "Smooth transition timing"]
+    },
+    "pageTransitions": {
+      "library": "Framer Motion",
+      "patterns": ["Fade out current route", "Fade in next route", "Slight vertical motion", "No white flash between pages"],
+      "sharedElements": ["Logo", "Primary CTA", "Selected project imagery where relevant"]
+    },
+    "parallax": {
+      "usage": ["Hero image depth", "Background layers", "Editorial reveal sections"],
+      "motion": "Subtle slower-than-scroll movement"
+    },
+    "staggerSystem": {
+      "usage": ["Headings", "Lists", "Feature grids", "Cards"],
+      "pattern": "Sequential delay between children to create premium rhythm"
+    },
+    "imageReveal": {
+      "effects": ["Mask reveal", "Clip-path animation", "Scale reveal", "Blur to sharp transition"]
+    }
+  },
+  "seoSystem": {
+    "metadata": {
+      "titleTemplate": "%s | Straveda",
+      "defaultTitle": "Straveda | Digital Marketing with Branding Psychology",
+      "defaultDescription": "Straveda builds premium digital marketing experiences using branding psychology, motion systems, and conversion-focused design."
+    },
+    "technicalSEO": ["Robots file at app/robots.txt", "Dynamic sitemap at app/sitemap.ts", "Unique page titles and descriptions", "One H1 per page", "Semantic section structure", "Descriptive alt text", "Internal links between pages", "JSON-LD for organization and services"],
+    "contentSEO": ["Service pages targeting high-intent keywords", "Case study pages with outcome-focused copy", "Insight articles for topical authority", "FAQ content for long-tail queries"]
+  },
+  "performanceSystem": {
+    "targets": ["Minimal JS on first load", "Fast LCP", "Low CLS", "Efficient INP"],
+    "rules": ["Prefer server components", "Use client components only when motion or interactivity is required", "Use next/image for all media", "Preload only critical fonts", "Lazy load below-the-fold sections", "Split heavy animation logic into isolated components", "Avoid blocking scripts on initial render"],
+    "optimizationTactics": ["Route-level code splitting", "Dynamic imports for non-critical widgets", "Asset compression", "Responsive images", "Caching headers", "CDN delivery"]
+  },
+  "implementationRules": {
+    "codingStandards": ["TypeScript strict mode", "Reusable components", "No duplicated animation logic", "Clean naming conventions", "No inline magic values unless intentional"],
+    "responsiveness": ["Mobile-first layout", "Consistent breakpoints", "Flexible grids", "Touch-friendly interactions"],
+    "accessibility": ["Keyboard navigation", "Focus states", "ARIA labels where needed", "Reduced motion support"]
+  },
+  "finalOutput": {
+    "result": "A fast, premium, SEO-ready, motion-rich Straveda Next.js website architecture",
+    "deliverable": "Production-grade codebase blueprint",
+    "priority": "Performance first, animation second, branding always"
+  }
+}
