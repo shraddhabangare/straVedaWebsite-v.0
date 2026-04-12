@@ -57,7 +57,8 @@ export default function Preloader() {
     <div className="fixed inset-0 z-[100] overflow-hidden" aria-hidden="true">
       {/* ── Top curtain ── */}
       <motion.div
-        className="absolute inset-x-0 top-0 h-1/2 bg-black"
+        className="absolute inset-x-0 top-0 h-1/2"
+        style={{ background: '#FFFFFF' }}
         initial={{ y: 0 }}
         animate={isExiting ? { y: '-100%' } : { y: 0 }}
         transition={
@@ -69,7 +70,8 @@ export default function Preloader() {
 
       {/* ── Bottom curtain ── */}
       <motion.div
-        className="absolute inset-x-0 bottom-0 h-1/2 bg-black"
+        className="absolute inset-x-0 bottom-0 h-1/2"
+        style={{ background: '#FFFFFF' }}
         initial={{ y: 0 }}
         animate={isExiting ? { y: '100%' } : { y: 0 }}
         transition={
@@ -112,7 +114,7 @@ export default function Preloader() {
             ease: [0.25, 0.1, 0.25, 1],
           }}
           className="text-[11px] md:text-xs font-medium tracking-[0.35em] uppercase mb-5 md:mb-7"
-          style={{ color: 'rgba(255, 255, 255, 0.35)' }}
+          style={{ color: 'rgba(0, 0, 0, 0.35)' }}
         >
           Enterprise IT Consulting
         </motion.p>
@@ -120,8 +122,8 @@ export default function Preloader() {
         {/* Brand name — clip-path wipe reveal synced with progress */}
         <div className="overflow-hidden">
           <motion.h1
-            className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extralight tracking-[-0.03em] text-white whitespace-nowrap"
-            style={{ clipPath: brandClipPath }}
+            className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extralight tracking-[-0.03em] whitespace-nowrap"
+            style={{ clipPath: brandClipPath, color: '#1a1a2e' }}
           >
             STR<span className="text-[#FF4800]">A</span>VEDA
           </motion.h1>
@@ -147,7 +149,7 @@ export default function Preloader() {
         <div className="mt-8 md:mt-12 w-[60%] max-w-[320px]">
           <div
             className="h-[2px] w-full rounded-full overflow-hidden"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.06)' }}
           >
             <motion.div
               className="h-full rounded-full"

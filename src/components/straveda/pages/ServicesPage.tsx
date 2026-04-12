@@ -163,7 +163,7 @@ const cardVariants = {
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -182,7 +182,7 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e]'}`}
         style={{ transitionDuration: '0.6s' }}
       >
         <TextReveal delay={0.3} stagger={0.04}>Comprehensive enterprise services built to modernize and deliver.</TextReveal>
@@ -192,7 +192,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8, ease }}
-        className="mt-6 max-w-2xl text-lg text-[#A1A1A1] sm:text-[20px]"
+        className="mt-6 max-w-2xl text-lg text-[#6b7280] sm:text-[20px]"
       >
         From architecture to execution — we cover the full stack of enterprise IT transformation.
       </motion.p>
@@ -211,7 +211,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow bg-noise-subtle glass-dark"
+      className="flex items-center justify-center rounded-xl bg-[#f8f8fc] p-12 lg:min-h-[340px] card-glow border border-[#e5e7eb]"
     >
       {service.icon}
     </motion.div>
@@ -226,13 +226,13 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
       <span className="inline-block w-fit rounded-full bg-[#FF4800]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
         {service.badge}
       </span>
-      <h3 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-medium leading-tight text-white">
+      <h3 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-medium leading-tight text-[#1a1a2e]">
         {service.title}
       </h3>
-      <p className="max-w-xl text-base leading-relaxed text-[#A1A1A1]">{service.body}</p>
+      <p className="max-w-xl text-base leading-relaxed text-[#6b7280]">{service.body}</p>
       <ul className="mt-1 flex flex-col gap-2">
         {service.capabilities.map((cap, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm text-[#D4D4D4]">
+          <li key={i} className="flex items-start gap-2 text-sm text-[#6b7280]">
             <span className="mt-0.5 text-[#FF4800]">
               <ArrowRight size={14} />
             </span>
@@ -265,7 +265,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      className={`flex flex-col gap-8 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-16 xl:px-24 ${
+      className={`flex flex-col gap-8 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-16 xl:px-24 bg-[#f8f8fc] ${
         service.graphicLeft ? '' : 'lg:flex-row-reverse'
       }`}
     >
@@ -281,9 +281,9 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
 
 function WhyStravedaSection() {
   return (
-    <section className="bg-black px-6 py-24 relative section-glow-bottom">
+    <section className="bg-white px-6 py-24 relative section-glow-bottom">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 dot-grid pointer-events-none opacity-50" />
+      <div className="absolute inset-0 dot-grid pointer-events-none opacity-30" />
       <div className="mx-auto max-w-6xl text-center relative z-10">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -299,7 +299,7 @@ function WhyStravedaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-14 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+          className="mb-14 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
         >
           Why enterprises choose us.
         </motion.h2>
@@ -318,11 +318,11 @@ function WhyStravedaSection() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 card-glow hover-scale"
+              className="flex flex-col items-start gap-4 rounded-xl bg-white p-8 border border-[#e5e7eb] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20"
             >
               {card.icon}
-              <h4 className="text-lg font-semibold text-white">{card.title}</h4>
-              <p className="text-sm leading-relaxed text-[#A1A1A1]">{card.body}</p>
+              <h4 className="text-lg font-semibold text-[#1a1a2e]">{card.title}</h4>
+              <p className="text-sm leading-relaxed text-[#6b7280]">{card.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -343,9 +343,7 @@ function FAQSection() {
   };
 
   return (
-    <section className="bg-black px-6 py-24 section-glow-top relative bg-noise-subtle">
-      {/* Subtle gradient mesh background */}
-      <div className="absolute inset-0 pointer-events-none gradient-mesh" />
+    <section className="bg-[#f8f8fc] px-6 py-24 section-glow-top relative">
       <div className="mx-auto max-w-3xl relative z-10">
         {/* Header */}
         <div className="mb-14 text-center">
@@ -363,7 +361,7 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-white"
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-[#1a1a2e]"
           >
             Frequently asked questions.
           </motion.h2>
@@ -386,7 +384,7 @@ function FAQSection() {
               <motion.div
                 key={i}
                 variants={cardVariants}
-                className="rounded-xl border border-white/[0.06] bg-[#2B2358] transition-colors hover:border-[#FF4800]/30 card-glow"
+                className="rounded-xl border border-[#e5e7eb] bg-white transition-colors hover:border-[#FF4800]/20 shadow-sm"
               >
                 {/* Question row */}
                 <button
@@ -394,13 +392,13 @@ function FAQSection() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-[18px] font-medium leading-snug text-white">
+                  <span className="text-[18px] font-medium leading-snug text-[#1a1a2e]">
                     {item.question}
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease }}
-                    className="flex-shrink-0 text-[#A1A1A1]"
+                    className="flex-shrink-0 text-[#9ca3af]"
                   >
                     <ChevronDown size={20} strokeWidth={2} />
                   </motion.span>
@@ -417,7 +415,7 @@ function FAQSection() {
                       transition={{ duration: 0.3, ease }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-[16px] leading-relaxed text-[#A1A1A1]">
+                      <p className="px-6 pb-5 text-[16px] leading-relaxed text-[#6b7280]">
                         {item.answer}
                       </p>
                     </motion.div>
@@ -491,9 +489,9 @@ const techCardVariants = {
 
 function TechStackSection() {
   return (
-    <section className="gradient-mesh-indigo py-20 relative">
+    <section className="bg-white py-20 relative">
       {/* Subtle dot-grid-dense pattern background */}
-      <div className="absolute inset-0 dot-grid-dense pointer-events-none" />
+      <div className="absolute inset-0 dot-grid-dense pointer-events-none opacity-20" />
       <div className="container-wide px-6 relative z-10">
         {/* Section header */}
         <div className="mb-14 text-center">
@@ -511,7 +509,7 @@ function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-white"
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-[#1a1a2e]"
           >
             Technologies we master.
           </motion.h2>
@@ -532,18 +530,13 @@ function TechStackSection() {
             <motion.div
               key={i}
               variants={techCardVariants}
-              className="card-glow group relative overflow-hidden rounded-xl p-6"
-              style={{
-                background: 'rgba(43, 35, 88, 0.4)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-              }}
+              className="card-glow group relative overflow-hidden rounded-xl p-6 bg-white border border-[#e5e7eb] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20"
             >
               {/* Subtle gradient overlay */}
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
-                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 72, 0, 0.05) 0%, transparent 60%)',
+                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 72, 0, 0.04) 0%, transparent 60%)',
                 }}
               />
               <div className="relative z-10 flex flex-col gap-4">
@@ -552,11 +545,11 @@ function TechStackSection() {
                   {tech.icon}
                 </div>
                 {/* Name */}
-                <h3 className="text-base font-semibold text-white leading-tight">
+                <h3 className="text-base font-semibold text-[#1a1a2e] leading-tight">
                   {tech.name}
                 </h3>
                 {/* Description */}
-                <p className="text-sm leading-relaxed text-[#A1A1A1]">
+                <p className="text-sm leading-relaxed text-[#6b7280]">
                   {tech.description}
                 </p>
               </div>
@@ -574,7 +567,7 @@ function TechStackSection() {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-white">
       <HeroSection />
 
       {services.map((service, index) => (

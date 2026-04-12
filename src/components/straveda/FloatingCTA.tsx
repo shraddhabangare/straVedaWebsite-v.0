@@ -140,7 +140,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="fixed inset-0 bg-black/40 z-[44]"
+                  className="fixed inset-0 bg-black/20 z-[44]"
                   onClick={handleClose}
                   aria-hidden="true"
                 />
@@ -160,20 +160,20 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                   style={{
                     width: 'calc(100vw - 2rem)',
                     maxWidth: '320px',
-                    background: 'rgba(43, 35, 88, 0.98)',
+                    background: 'rgba(255, 255, 255, 0.98)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(0, 0, 0, 0.06)',
                     borderBottom: 'none',
-                    boxShadow: '0 -10px 40px rgba(0, 0, 0, 0.5)',
+                    boxShadow: '0 -10px 40px rgba(0, 0, 0, 0.1)',
                   }}
                 >
                   {/* Header */}
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="text-white text-[16px] font-semibold">Quick Contact</h3>
+                    <h3 className="text-[16px] font-semibold" style={{ color: '#1a1a2e' }}>Quick Contact</h3>
                     <button
                       onClick={handleClose}
-                      className="text-[#A1A1A1] hover:text-white transition-colors p-1 rounded-lg hover:bg-white/[0.06]"
+                      className="text-[#6b7280] hover:text-[#1a1a2e] transition-colors p-1 rounded-lg hover:bg-black/[0.04]"
                       aria-label="Close quick contact panel"
                     >
                       <X className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                       placeholder="Your name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors"
+                      className="w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#9ca3af] outline-none transition-colors"
                     />
                   </div>
 
@@ -210,7 +210,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                       placeholder="Your email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors"
+                      className="w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#9ca3af] outline-none transition-colors"
                     />
                   </div>
 
@@ -246,19 +246,19 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                   transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
                   className="fixed bottom-[72px] right-6 w-[320px] rounded-2xl p-6 z-[46]"
                   style={{
-                    background: 'rgba(43, 35, 88, 0.98)',
+                    background: 'rgba(255, 255, 255, 0.98)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
+                    border: '1px solid rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0 25px 50px rgba(0, 0, 0, 0.12)',
                   }}
                 >
                   {/* Header */}
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="text-white text-[16px] font-semibold">Quick Contact</h3>
+                    <h3 className="text-[16px] font-semibold" style={{ color: '#1a1a2e' }}>Quick Contact</h3>
                     <button
                       onClick={handleClose}
-                      className="text-[#A1A1A1] hover:text-white transition-colors p-1 rounded-lg hover:bg-white/[0.06]"
+                      className="text-[#6b7280] hover:text-[#1a1a2e] transition-colors p-1 rounded-lg hover:bg-black/[0.04]"
                       aria-label="Close quick contact panel"
                     >
                       <X className="w-4 h-4" />
@@ -270,7 +270,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                     <motion.div
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-2 text-green-400 text-[13px] mb-4 bg-green-500/10 rounded-lg px-3 py-2"
+                      className="flex items-center gap-2 text-green-600 text-[13px] mb-4 bg-green-50 rounded-lg px-3 py-2"
                     >
                       <CheckCircle2 className="w-4 h-4 shrink-0" />
                       {statusMessage}
@@ -281,7 +281,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                     <motion.div
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-2 text-red-400 text-[13px] mb-4 bg-red-500/10 rounded-lg px-3 py-2"
+                      className="flex items-center gap-2 text-red-600 text-[13px] mb-4 bg-red-50 rounded-lg px-3 py-2"
                     >
                       <X className="w-4 h-4 shrink-0" />
                       {statusMessage}
@@ -303,7 +303,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                         value={formData.name}
                         onChange={handleChange}
                         disabled={isSubmitting}
-                        className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors disabled:opacity-50"
+                        className="w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#9ca3af] outline-none transition-colors disabled:opacity-50"
                       />
                     </div>
 
@@ -320,7 +320,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                         value={formData.email}
                         onChange={handleChange}
                         disabled={isSubmitting}
-                        className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors disabled:opacity-50"
+                        className="w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#9ca3af] outline-none transition-colors disabled:opacity-50"
                       />
                     </div>
 
@@ -337,7 +337,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                         value={formData.message}
                         onChange={handleChange}
                         disabled={isSubmitting}
-                        className="w-full bg-[#1e1a3f]/80 border border-white/[0.08] focus:border-[#FF4800] text-white rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#52525B] outline-none transition-colors resize-none disabled:opacity-50"
+                        className="w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-3.5 py-2.5 text-[14px] placeholder-[#9ca3af] outline-none transition-colors resize-none disabled:opacity-50"
                       />
                     </div>
 
@@ -360,7 +360,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                     </button>
                   </form>
 
-                  <p className="text-[#52525B] text-[11px] text-center mt-3">
+                  <p className="text-[11px] text-center mt-3" style={{ color: '#9ca3af' }}>
                     We&apos;ll respond within 1 business day.
                   </p>
 
@@ -403,7 +403,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-white text-[#2B2358] text-[12px] font-medium px-3 py-1.5 rounded-lg shadow-lg pointer-events-none"
+                    className="absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-white text-[#1a1a2e] text-[12px] font-medium px-3 py-1.5 rounded-lg shadow-lg pointer-events-none"
                   >
                     Need help?
                     {/* Tooltip arrow */}

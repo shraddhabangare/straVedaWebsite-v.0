@@ -56,7 +56,7 @@ const stats = [
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-black px-6 text-center">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e]'}`}
         style={{ transitionDuration: '0.6s' }}
       >
         <TextReveal delay={0.3} stagger={0.04}>Building tomorrow&apos;s enterprise, one solution at a time.</TextReveal>
@@ -85,7 +85,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8, ease }}
-        className="mt-6 max-w-2xl text-lg text-[#A1A1A1] sm:text-[20px]"
+        className="mt-6 max-w-2xl text-lg text-[#6b7280] sm:text-[20px]"
       >
         Since 2010, Straveda has been at the intersection of technology strategy and enterprise delivery — Plano, TX.
       </motion.p>
@@ -99,7 +99,7 @@ function HeroSection() {
 
 function MissionSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28 relative section-glow-bottom">
+    <section className="bg-[#f8f8fc] px-6 py-20 lg:py-28 relative section-glow-bottom">
       {/* Subtle decorative accent */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255, 72, 0, 0.03) 0%, transparent 70%)' }} />
       <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 relative z-10">
@@ -111,10 +111,10 @@ function MissionSection() {
           transition={{ duration: 0.8, ease }}
           className="flex flex-col items-start gap-3 lg:w-2/5"
         >
-          <span className="text-[clamp(3rem,8vw,6rem)] font-semibold leading-none tracking-tight text-white/80">
+          <span className="text-[clamp(3rem,8vw,6rem)] font-semibold leading-none tracking-tight text-[#1a1a2e]/80">
             2010
           </span>
-          <span className="text-sm text-[#A1A1A1]">Founded in Plano, Texas</span>
+          <span className="text-sm text-[#6b7280]">Founded in Plano, Texas</span>
           <div className="mt-1 h-[3px] w-8 bg-[#FF4800]" />
         </motion.div>
 
@@ -129,7 +129,7 @@ function MissionSection() {
           <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
             Our Mission
           </span>
-          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-relaxed text-white" style={{ lineHeight: 1.7 }}>
+          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-relaxed text-[#1a1a2e]" style={{ lineHeight: 1.7 }}>
             To provide exceptional value, deliver cost-effective solutions, and guarantee customer
             satisfaction — through standards-driven enterprise architecture and meticulous project
             execution.
@@ -146,7 +146,7 @@ function MissionSection() {
 
 function ValuesSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28 section-glow-top">
+    <section className="bg-white px-6 py-20 lg:py-28 section-glow-top">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
           <motion.p
@@ -163,7 +163,7 @@ function ValuesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
           >
             Our core values.
           </motion.h2>
@@ -190,11 +190,11 @@ function ValuesSection() {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 hover-lift glass-dark"
+              className="flex flex-col items-start gap-4 rounded-xl bg-white p-8 border border-[#e5e7eb] shadow-sm hover:shadow-md hover:border-[#FF4800]/20 transition-all duration-300"
             >
               {card.icon}
-              <h4 className="text-lg font-semibold text-white">{card.title}</h4>
-              <p className="text-sm leading-relaxed text-[#A1A1A1]">{card.body}</p>
+              <h4 className="text-lg font-semibold text-[#1a1a2e]">{card.title}</h4>
+              <p className="text-sm leading-relaxed text-[#6b7280]">{card.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -222,18 +222,18 @@ function TeamSection() {
     <section
       className="relative px-6 py-20 lg:py-28 section-glow-top"
       style={{
-        background: '#0a0a0a',
+        background: '#f8f8fc',
       }}
     >
       {/* subtle gradient overlay */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(43,35,88,0.25) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,72,0,0.03) 0%, transparent 70%)',
         }}
       />
       {/* Line grid pattern */}
-      <div className="pointer-events-none absolute inset-0 line-grid opacity-40" />
+      <div className="pointer-events-none absolute inset-0 line-grid opacity-20" />
 
       <div className="relative mx-auto max-w-6xl">
         {/* Section Header */}
@@ -252,7 +252,7 @@ function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(2rem,4vw,2.625rem)] font-medium text-white"
+            className="text-[clamp(2rem,4vw,2.625rem)] font-medium text-[#1a1a2e]"
           >
             Meet the experts behind Straveda.
           </motion.h2>
@@ -261,7 +261,7 @@ function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-[18px] text-[#A1A1A1]"
+            className="mx-auto mt-4 max-w-2xl text-[18px] text-[#6b7280]"
           >
             Decades of combined enterprise experience. One shared commitment to excellence.
           </motion.p>
@@ -290,34 +290,28 @@ function TeamSection() {
                 },
               }}
               whileHover={{ y: -4, scale: 1.02 }}
-              className="relative p-6 rounded-xl transition-all duration-300 hover-lift"
-              style={{
-                background: 'rgba(43, 35, 88, 0.4)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-              }}
+              className="relative p-6 rounded-xl transition-all duration-300 bg-white border border-[#e5e7eb] shadow-sm hover:shadow-md"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 72, 0, 0.3)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 40px rgba(255, 72, 0, 0.08)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.06)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
               }}
             >
               {/* Initials Avatar */}
               <div
                 className="mb-4 flex h-16 w-16 items-center justify-center rounded-full text-[20px] font-bold text-white"
                 style={{
-                  background: 'linear-gradient(135deg, #FF4800, #2B2358)',
+                  background: 'linear-gradient(135deg, #FF4800, #e03e00)',
                 }}
               >
                 {member.initials}
               </div>
 
               {/* Name */}
-              <h3 className="text-[18px] font-semibold text-white">{member.name}</h3>
+              <h3 className="text-[18px] font-semibold text-[#1a1a2e]">{member.name}</h3>
 
               {/* Role */}
               <p className="mt-1 text-[14px] font-medium uppercase tracking-wide text-[#FF4800]">
@@ -325,13 +319,13 @@ function TeamSection() {
               </p>
 
               {/* Specialty */}
-              <p className="mt-2 text-[14px] text-[#A1A1A1]">{member.specialty}</p>
+              <p className="mt-2 text-[14px] text-[#6b7280]">{member.specialty}</p>
 
               {/* LinkedIn Icon */}
               <a
                 href="#"
                 aria-label={`${member.name} LinkedIn`}
-                className="absolute bottom-6 right-6 text-[#52525B] transition-colors duration-200 hover:text-[#FF4800]"
+                className="absolute bottom-6 right-6 text-[#9ca3af] transition-colors duration-200 hover:text-[#FF4800]"
               >
                 <Globe size={18} />
               </a>
@@ -376,16 +370,16 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
 
 function StatsStrip() {
   return (
-    <section className="bg-[#2B2358] px-6 py-16">
+    <section className="bg-[#f8f8fc] px-6 py-16">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row sm:gap-0">
         {stats.map((stat, i) => (
-          <div key={i} className="glass-orange flex flex-col items-center text-center sm:flex-1 rounded-xl px-4 py-3">
+          <div key={i} className="flex flex-col items-center text-center sm:flex-1 rounded-xl px-4 py-3">
             <div className="flex w-full items-center justify-center sm:flex-col">
               <div className="flex flex-col items-center px-4 sm:px-2">
-                <span className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none text-white">
+                <span className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none text-[#1a1a2e]">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </span>
-                <span className="mt-2 text-[13px] text-[#A1A1A1]">{stat.label}</span>
+                <span className="mt-2 text-[13px] text-[#6b7280]">{stat.label}</span>
               </div>
               {i < stats.length - 1 && (
                 <div className="hidden h-16 w-[2px] bg-[#FF4800] sm:block" />
@@ -407,7 +401,7 @@ function StatsStrip() {
 
 function ExpertiseSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28">
+    <section className="bg-white px-6 py-20 lg:py-28">
       <div className="mx-auto max-w-4xl text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -423,7 +417,7 @@ function ExpertiseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-4 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+          className="mb-4 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
         >
           Deep knowledge across every enterprise layer.
         </motion.h2>
@@ -432,7 +426,7 @@ function ExpertiseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.25, ease }}
-          className="mx-auto mb-12 max-w-2xl text-base text-[#A1A1A1]"
+          className="mx-auto mb-12 max-w-2xl text-base text-[#6b7280]"
         >
           Our team brings decades of combined experience across the enterprise technology stack.
         </motion.p>
@@ -458,7 +452,7 @@ function ExpertiseSection() {
                   transition: { duration: 0.5, ease },
                 },
               }}
-              className="cursor-default rounded-full border border-[#27272A] px-4 py-2 text-sm text-[#D4D4D4] transition-colors duration-200 hover:border-[#FF4800] hover:text-[#FF4800]"
+              className="cursor-default rounded-full border border-[#e5e7eb] px-4 py-2 text-sm text-[#6b7280] transition-colors duration-200 hover:border-[#FF4800] hover:text-[#FF4800]"
             >
               {tag}
             </motion.span>
@@ -507,7 +501,7 @@ function AnimatedPercentage({ target }: { target: number }) {
 
 function CoreCompetenciesSection() {
   return (
-    <section className="relative bg-noise-subtle px-6 py-16" style={{ background: '#0a0a0a' }}>
+    <section className="relative px-6 py-16 bg-[#f8f8fc]">
       <div className="mx-auto max-w-4xl">
         {/* Section Header */}
         <div className="mb-12 text-center">
@@ -525,7 +519,7 @@ function CoreCompetenciesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
           >
             Measurable expertise across the stack.
           </motion.h2>
@@ -543,7 +537,7 @@ function CoreCompetenciesSection() {
             >
               {/* Label Row */}
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[16px] font-normal text-white">{skill.label}</span>
+                <span className="text-[16px] font-normal text-[#1a1a2e]">{skill.label}</span>
                 <span className="text-[16px] font-semibold" style={{ color: '#FF4800' }}>
                   <AnimatedPercentage target={skill.percentage} />
                 </span>
@@ -552,7 +546,7 @@ function CoreCompetenciesSection() {
               {/* Track */}
               <div
                 className="h-2 w-full rounded-full"
-                style={{ background: 'rgba(255,255,255,0.05)' }}
+                style={{ background: 'rgba(0,0,0,0.06)' }}
               >
                 {/* Fill Bar */}
                 <motion.div
@@ -562,7 +556,7 @@ function CoreCompetenciesSection() {
                   transition={{ duration: 1.2, delay: i * 0.1, ease }}
                   className="h-2 rounded-full"
                   style={{
-                    background: 'linear-gradient(90deg, #FF4800, #2B2358)',
+                    background: 'linear-gradient(90deg, #FF4800, #ff6b33)',
                   }}
                 />
               </div>
@@ -608,9 +602,9 @@ const milestones = [
 
 function TimelineSection() {
   return (
-    <section className="relative px-6 py-20 lg:py-28">
+    <section className="relative px-6 py-20 lg:py-28 bg-white">
       {/* Line grid pattern background */}
-      <div className="pointer-events-none absolute inset-0 line-grid opacity-40" />
+      <div className="pointer-events-none absolute inset-0 line-grid opacity-20" />
 
       {/* Subtle decorative glow */}
       <div
@@ -619,7 +613,7 @@ function TimelineSection() {
           width: '600px',
           height: '400px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,72,0,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,72,0,0.03) 0%, transparent 70%)',
         }}
       />
 
@@ -640,7 +634,7 @@ function TimelineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[42px] font-medium text-white"
+            className="text-[42px] font-medium text-[#1a1a2e]"
             style={{ fontWeight: 500 }}
           >
             Milestones that shaped us.
@@ -701,13 +695,13 @@ function TimelineSection() {
                     {/* Content side */}
                     <div className={`hidden w-[calc(50%-40px)] lg:block ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
                       <div
-                        className="frosted-card rounded-xl p-6"
+                        className="rounded-xl p-6 bg-white border border-[#e5e7eb] shadow-sm"
                       >
                         <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                        <h3 className="mt-2 text-[20px] font-medium text-white" style={{ fontWeight: 500 }}>
+                        <h3 className="mt-2 text-[20px] font-medium text-[#1a1a2e]" style={{ fontWeight: 500 }}>
                           {milestone.title}
                         </h3>
-                        <p className="mt-2 text-[16px] leading-relaxed text-[#A1A1A1]">
+                        <p className="mt-2 text-[16px] leading-relaxed text-[#6b7280]">
                           {milestone.description}
                         </p>
                       </div>
@@ -719,7 +713,7 @@ function TimelineSection() {
                         className="relative z-10 h-[12px] w-[12px] rounded-full"
                         style={{
                           border: '2px solid #FF4800',
-                          background: '#000000',
+                          background: '#FFFFFF',
                         }}
                       />
                     </div>
@@ -735,17 +729,17 @@ function TimelineSection() {
                           className="h-[12px] w-[12px] rounded-full"
                           style={{
                             border: '2px solid #FF4800',
-                            background: '#000000',
+                            background: '#FFFFFF',
                           }}
                         />
                       </div>
                       {/* Content */}
-                      <div className="frosted-card flex-1 rounded-xl p-6">
+                      <div className="rounded-xl p-6 bg-white border border-[#e5e7eb] shadow-sm">
                         <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                        <h3 className="mt-2 text-[20px] font-medium text-white" style={{ fontWeight: 500 }}>
+                        <h3 className="mt-2 text-[20px] font-medium text-[#1a1a2e]" style={{ fontWeight: 500 }}>
                           {milestone.title}
                         </h3>
-                        <p className="mt-2 text-[16px] leading-relaxed text-[#A1A1A1]">
+                        <p className="mt-2 text-[16px] leading-relaxed text-[#6b7280]">
                           {milestone.description}
                         </p>
                       </div>
@@ -782,13 +776,13 @@ const certifications = [
 
 function PartnersSection() {
   return (
-    <section className="relative bg-black px-6 py-20 lg:py-28">
+    <section className="relative bg-[#f8f8fc] px-6 py-20 lg:py-28">
       {/* Decorative glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 40% at 50% 20%, rgba(255, 72, 0, 0.04) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 40% at 50% 20%, rgba(255, 72, 0, 0.03) 0%, transparent 70%)',
         }}
       />
 
@@ -809,7 +803,7 @@ function PartnersSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-white"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
           >
             Technology partners we trust.
           </motion.h2>
@@ -818,7 +812,7 @@ function PartnersSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-base text-[#A1A1A1]"
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
           >
             Our partnerships ensure we deliver the best enterprise solutions.
           </motion.p>
@@ -847,18 +841,14 @@ function PartnersSection() {
                 },
               }}
               whileHover={{ y: -3 }}
-              className="card-glow relative flex flex-col items-center rounded-xl p-8 transition-all duration-300"
-              style={{
-                background: 'rgba(43, 35, 88, 0.4)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-              }}
+              className="card-glow relative flex flex-col items-center rounded-xl p-8 transition-all duration-300 bg-white border border-[#e5e7eb] shadow-sm hover:shadow-md"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   'rgba(255, 72, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
-                  'rgba(255, 255, 255, 0.06)';
+                  '#e5e7eb';
               }}
             >
               {/* Decorative top accent line */}
@@ -873,7 +863,7 @@ function PartnersSection() {
               </span>
 
               {/* Partner Name */}
-              <h4 className="mt-2 text-[24px] font-bold text-white">{partner.name}</h4>
+              <h4 className="mt-2 text-[24px] font-bold text-[#1a1a2e]">{partner.name}</h4>
 
               {/* Certification Level */}
               <span className="mt-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
@@ -923,7 +913,7 @@ function PartnersSection() {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-white">
       <HeroSection />
       <MissionSection />
       <ValuesSection />

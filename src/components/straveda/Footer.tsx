@@ -69,7 +69,7 @@ export default function Footer({ onNavigate }: FooterProps) {
     fontWeight: 500,
     fontSize: 20,
     transition: 'text-shadow 0.3s ease',
-    textShadow: brandHovered ? '0 0 20px rgba(255, 72, 0, 0.4), 0 0 40px rgba(255, 72, 0, 0.15)' : 'none',
+    textShadow: brandHovered ? '0 0 20px rgba(255, 72, 0, 0.25), 0 0 40px rgba(255, 72, 0, 0.1)' : 'none',
   };
 
   const handleBackToTop = (e: React.MouseEvent) => {
@@ -79,7 +79,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer ref={footerRef} className="relative mt-auto bg-noise-subtle" style={{ background: '#2B2358' }}>
+    <footer ref={footerRef} className="relative mt-auto bg-noise-subtle" style={{ background: 'linear-gradient(135deg, #fafafa, #f5f5fa)' }}>
       {/* ── Orange accent top border (animated from left) ── */}
       <motion.div
         initial={{ scaleX: 0 }}
@@ -96,7 +96,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
         }}
       />
@@ -113,12 +113,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             href="#"
             onClick={handleBackToTop}
             className="inline-flex items-center gap-2 text-xs uppercase tracking-widest transition-colors duration-200"
-            style={{ color: '#52525B' }}
+            style={{ color: '#9ca3af' }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = '#FF4800';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#52525B';
+              e.currentTarget.style.color = '#9ca3af';
             }}
           >
             <ArrowUp size={14} />
@@ -145,12 +145,12 @@ export default function Footer({ onNavigate }: FooterProps) {
               }}
               onMouseEnter={() => setBrandHovered(true)}
               onMouseLeave={() => setBrandHovered(false)}
-              className="inline-block text-white text-xl font-medium tracking-tight select-none mb-3"
-              style={brandStyle}
+              className="inline-block text-xl font-medium tracking-tight select-none mb-3"
+              style={{ ...brandStyle, color: '#1a1a2e' }}
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </a>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#A1A1A1' }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b7280' }}>
               Exceptional value. Cost-effective solutions.
             </p>
 
@@ -165,18 +165,18 @@ export default function Footer({ onNavigate }: FooterProps) {
                   aria-label={label}
                   className="inline-flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    color: '#A1A1A1',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    color: '#6b7280',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'transparent';
                     e.currentTarget.style.color = '#FF4800';
                     e.currentTarget.style.transform = 'scale(1.15)';
-                    e.currentTarget.style.boxShadow = '0 0 12px rgba(255, 72, 0, 0.2)';
+                    e.currentTarget.style.boxShadow = '0 0 12px rgba(255, 72, 0, 0.15)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.color = '#A1A1A1';
+                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
+                    e.currentTarget.style.color = '#6b7280';
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.boxShadow = 'none';
                   }}
@@ -211,12 +211,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                       onNavigate(page);
                     }}
                     className="text-sm transition-colors duration-200"
-                    style={{ color: '#A1A1A1' }}
+                    style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#FFFFFF';
+                      e.currentTarget.style.color = '#1a1a2e';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#A1A1A1';
+                      e.currentTarget.style.color = '#6b7280';
                     }}
                   >
                     {label}
@@ -250,12 +250,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                       onNavigate(page);
                     }}
                     className="text-sm transition-colors duration-200"
-                    style={{ color: '#A1A1A1' }}
+                    style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#FFFFFF';
+                      e.currentTarget.style.color = '#1a1a2e';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#A1A1A1';
+                      e.currentTarget.style.color = '#6b7280';
                     }}
                   >
                     {label}
@@ -289,12 +289,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                       onNavigate(page);
                     }}
                     className="text-sm transition-colors duration-200"
-                    style={{ color: '#A1A1A1' }}
+                    style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#FFFFFF';
+                      e.currentTarget.style.color = '#1a1a2e';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#A1A1A1';
+                      e.currentTarget.style.color = '#6b7280';
                     }}
                   >
                     {label}
@@ -316,8 +316,9 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <a
                   href="mailto:info@straveda.com"
-                  className="inline-flex items-center gap-2 text-sm text-white transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-sm transition-colors duration-200"
                   style={{
+                    color: '#1a1a2e',
                     textDecoration: 'underline',
                     textUnderlineOffset: 3,
                     textDecorationColor: '#FF4800',
@@ -326,14 +327,14 @@ export default function Footer({ onNavigate }: FooterProps) {
                     e.currentTarget.style.color = '#FF4800';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#FFFFFF';
+                    e.currentTarget.style.color = '#1a1a2e';
                   }}
                 >
                   <Mail size={14} style={{ color: '#FF4800', flexShrink: 0 }} />
                   info@straveda.com
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm" style={{ color: '#A1A1A1' }}>
+              <li className="flex items-start gap-2 text-sm" style={{ color: '#6b7280' }}>
                 <MapPin size={14} style={{ color: '#FF4800', marginTop: 3, flexShrink: 0 }} />
                 <span className="leading-relaxed">
                   Plano, TX 75024
@@ -352,38 +353,38 @@ export default function Footer({ onNavigate }: FooterProps) {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.3, ease }}
         style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
           padding: '20px 0',
         }}
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: '#52525B' }}>
+          <p className="text-xs" style={{ color: '#9ca3af' }}>
             &copy; {new Date().getFullYear()} Straveda LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <button
               onClick={() => onNavigate('contact')}
               className="text-xs transition-colors duration-200 cursor-pointer"
-              style={{ color: '#52525B' }}
+              style={{ color: '#9ca3af' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = '#FF4800';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = '#52525B';
+                e.currentTarget.style.color = '#9ca3af';
               }}
             >
               Privacy Policy
             </button>
-            <span style={{ color: '#3f3f46' }}>&middot;</span>
+            <span style={{ color: '#d1d5db' }}>&middot;</span>
             <button
               onClick={() => onNavigate('contact')}
               className="text-xs transition-colors duration-200 cursor-pointer"
-              style={{ color: '#52525B' }}
+              style={{ color: '#9ca3af' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = '#FF4800';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = '#52525B';
+                e.currentTarget.style.color = '#9ca3af';
               }}
             >
               Terms of Service

@@ -60,23 +60,23 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --card: #2B2358;
-  --card-foreground: #FFFFFF;
-  --popover: #2B2358;
-  --popover-foreground: #FFFFFF;
+  --background: #FFFFFF;
+  --foreground: #1a1a2e;
+  --card: #FFFFFF;
+  --card-foreground: #1a1a2e;
+  --popover: #FFFFFF;
+  --popover-foreground: #1a1a2e;
   --primary: #FF4800;
   --primary-foreground: #FFFFFF;
-  --secondary: #1e1a3f;
-  --secondary-foreground: #FFFFFF;
-  --muted: #27272A;
-  --muted-foreground: #A1A1A1;
+  --secondary: #f8f8fc;
+  --secondary-foreground: #1a1a2e;
+  --muted: #f0f0f4;
+  --muted-foreground: #6b7280;
   --accent: #FF4800;
   --accent-foreground: #FFFFFF;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #27272A;
-  --input: #27272A;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
   --ring: #FF4800;
 }
 
@@ -111,7 +111,7 @@ html.lenis, html.lenis body {
 }
 
 /* ============================================
-   Noise / Grain Texture Overlay
+   Noise / Grain Texture Overlay (Light Theme)
    ============================================ */
 .noise-overlay::before {
   content: '';
@@ -122,7 +122,7 @@ html.lenis, html.lenis body {
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
+  opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -152,24 +152,24 @@ html.lenis, html.lenis body {
 }
 
 /* ============================================
-   Enhanced Card Hover Effects
+   Enhanced Card Hover Effects (Light Theme)
    ============================================ */
 .card-hover {
   transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 72, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 72, 0, 0.1);
 }
 
 /* ============================================
-   Glassmorphism Utility
+   Glassmorphism Utility (Light Theme)
    ============================================ */
 .glass {
-  background: rgba(43, 35, 88, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* ============================================
@@ -190,7 +190,7 @@ html.lenis, html.lenis body {
   100% { background-position: 200% 0; }
 }
 .shimmer {
-  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.05) 50%, transparent 75%);
+  background: linear-gradient(90deg, transparent 25%, rgba(0,0,0,0.04) 50%, transparent 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -202,10 +202,10 @@ html.lenis, html.lenis body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #f8f8fc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
+  background: #d1d5db;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -227,8 +227,8 @@ html.lenis, html.lenis body {
    Selection Style
    ============================================ */
 ::selection {
-  background: rgba(255, 72, 0, 0.3);
-  color: #FFFFFF;
+  background: rgba(255, 72, 0, 0.15);
+  color: #1a1a2e;
 }
 
 /* ============================================
@@ -276,20 +276,20 @@ input:focus, textarea:focus, select:focus {
    Section Divider
    ============================================ */
 .section-divider {
-  border-top: 1px solid #27272A;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* ============================================
-   Card Hover Lift
+   Card Hover Lift (Light Theme)
    ============================================ */
 .card-lift {
   transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-lift:hover {
-  background: #1e1a3f;
+  background: #f8f8fc;
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
 }
 
 /* ============================================
@@ -416,60 +416,60 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
-   Subtle Gradient Mesh Background
+   Subtle Gradient Mesh Background (Light Theme)
    ============================================ */
 .gradient-mesh {
   background:
-    radial-gradient(at 20% 80%, rgba(255, 72, 0, 0.04) 0%, transparent 50%),
-    radial-gradient(at 80% 20%, rgba(43, 35, 88, 0.08) 0%, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(255, 72, 0, 0.02) 0%, transparent 70%),
-    #000000;
+    radial-gradient(at 20% 80%, rgba(255, 72, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(43, 35, 88, 0.03) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 72, 0, 0.01) 0%, transparent 70%),
+    #FFFFFF;
 }
 
 .gradient-mesh-indigo {
   background:
-    radial-gradient(at 10% 90%, rgba(255, 72, 0, 0.05) 0%, transparent 40%),
-    radial-gradient(at 90% 10%, rgba(43, 35, 88, 0.15) 0%, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(43, 35, 88, 0.06) 0%, transparent 60%),
-    #0a0a0a;
+    radial-gradient(at 10% 90%, rgba(255, 72, 0, 0.03) 0%, transparent 40%),
+    radial-gradient(at 90% 10%, rgba(43, 35, 88, 0.04) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(43, 35, 88, 0.02) 0%, transparent 60%),
+    #fafafa;
 }
 
 /* ============================================
-   Dot Grid Pattern Background
+   Dot Grid Pattern Background (Light Theme)
    ============================================ */
 .dot-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .dot-grid-dense {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 /* ============================================
-   Line Grid Pattern Background
+   Line Grid Pattern Background (Light Theme)
    ============================================ */
 .line-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 /* ============================================
-   Enhanced Card Glow on Hover
+   Enhanced Card Glow on Hover (Light Theme)
    ============================================ */
 .card-glow {
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 .card-glow:hover {
   border-color: rgba(255, 72, 0, 0.2);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.06),
     0 0 0 1px rgba(255, 72, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: translateY(-4px);
 }
 
@@ -499,19 +499,19 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
-   Frosted Glass Card
+   Frosted Glass Card (Light Theme)
    ============================================ */
 .frosted-card {
-  background: rgba(43, 35, 88, 0.3);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .frosted-card:hover {
-  background: rgba(43, 35, 88, 0.45);
+  background: rgba(255, 255, 255, 0.95);
   border-color: rgba(255, 72, 0, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   transform: translateY(-3px);
 }
 
@@ -606,17 +606,17 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ============================================
-   Gradient Text (Indigo to Orange)
+   Gradient Text (Light Theme)
    ============================================ */
 .text-gradient-brand {
-  background: linear-gradient(135deg, #FFFFFF 0%, #FF4800 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #FF4800 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-subtle {
-  background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A1 100%);
+  background: linear-gradient(180deg, #1a1a2e 0%, #6b7280 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -808,10 +808,10 @@ html {
 }
 
 /* ============================================
-   Loading Skeleton with Gradient
+   Loading Skeleton with Gradient (Light Theme)
    ============================================ */
 .skeleton-gradient {
-  background: linear-gradient(90deg, #1e1a3f 25%, #2B2358 50%, #1e1a3f 75%);
+  background: linear-gradient(90deg, #f0f0f4 25%, #e8e8ee 50%, #f0f0f4 75%);
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
   border-radius: 8px;
@@ -853,12 +853,12 @@ html {
 }
 
 /* ============================================
-   Horizontal Rule Gradient
+   Horizontal Rule Gradient (Light Theme)
    ============================================ */
 .hr-gradient {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
 }
 
 /* ============================================
@@ -997,7 +997,7 @@ html {
 }
 
 /* ============================================
-   Text Shimmer Effect (animated gradient)
+   Text Shimmer Effect (Light Theme)
    ============================================ */
 @keyframes textShimmer {
   0% { background-position: -200% center; }
@@ -1005,7 +1005,7 @@ html {
 }
 
 .text-shimmer {
-  background: linear-gradient(90deg, #FFFFFF 0%, #FF4800 25%, #FFFFFF 50%, #FF4800 75%, #FFFFFF 100%);
+  background: linear-gradient(90deg, #1a1a2e 0%, #FF4800 25%, #1a1a2e 50%, #FF4800 75%, #1a1a2e 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1014,14 +1014,14 @@ html {
 }
 
 /* ============================================
-   Hover Lift Shadow Combo
+   Hover Lift Shadow Combo (Light Theme)
    ============================================ */
 .hover-lift-shadow {
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hover-lift-shadow:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 72, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 72, 0, 0.1);
 }
 
 /* ============================================
@@ -1062,16 +1062,16 @@ html {
    Glass Button Effect
    ============================================ */
 .btn-glass {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-glass:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.8);
   border-color: rgba(255, 72, 0, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* ============================================
@@ -1236,10 +1236,10 @@ html {
 
 /* 3. Glass Dark — darker glassmorphism variant */
 .glass-dark {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(43, 35, 88, 0.04);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* 4. Glass Orange — orange-tinted glassmorphism */
@@ -1257,7 +1257,7 @@ html {
   100% { background-position: 0% 50%; }
 }
 .gradient-text-extended {
-  background: linear-gradient(135deg, #FF4800 0%, #ff6a33 25%, #FFFFFF 50%, #ff6a33 75%, #FF4800 100%);
+  background: linear-gradient(135deg, #FF4800 0%, #ff6a33 25%, #1a1a2e 50%, #ff6a33 75%, #FF4800 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1360,10 +1360,10 @@ html {
 
 /* 17. Glass Subtle — very subtle glass effect */
 .glass-subtle {
-  background: rgba(43, 35, 88, 0.2);
+  background: rgba(43, 35, 88, 0.03);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* 18. Hover Glow Orange — orange glow on hover for containers */

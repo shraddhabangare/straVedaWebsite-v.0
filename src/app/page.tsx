@@ -142,7 +142,7 @@ export default function Home() {
 
   return (
     <SmoothScroll>
-      <div className="noise-overlay min-h-screen flex flex-col bg-black text-white">
+      <div className="noise-overlay min-h-screen flex flex-col bg-white text-[#1a1a2e]">
         <Preloader />
         <ScrollProgress />
         <Navbar currentPage={currentPage} onNavigate={handleNavigate} onSearchToggle={() => setSearchOpen(prev => !prev)} />

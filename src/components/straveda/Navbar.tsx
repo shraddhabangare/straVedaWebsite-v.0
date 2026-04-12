@@ -71,13 +71,13 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
         className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 md:px-10 transition-shadow duration-300"
         style={{
           background: scrolled
-            ? 'rgba(43, 35, 88, 0.97)'
-            : 'rgba(43, 35, 88, 0.95)',
+            ? 'rgba(255, 255, 255, 0.97)'
+            : 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
           boxShadow: scrolled
-            ? '0 4px 30px rgba(0, 0, 0, 0.25)'
+            ? '0 4px 30px rgba(0, 0, 0, 0.06)'
             : 'none',
         }}
       >
@@ -91,8 +91,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
-          className="text-white font-medium text-lg tracking-tight select-none"
-          style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18 }}
+          className="font-medium text-lg tracking-tight select-none"
+          style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18, color: '#1a1a2e' }}
         >
           Str<span style={{ color: '#FF4800' }}>a</span>veda
         </motion.a>
@@ -112,8 +112,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               transition={{ duration: 0.5, delay: 0.3 + index * 0.08, ease }}
               className="nav-link relative text-sm transition-colors duration-200 group"
               style={{
-                color: isActive(page) ? '#FFFFFF' : '#A1A1A1',
-                fontWeight: 400,
+                color: isActive(page) ? '#1a1a2e' : '#6b7280',
+                fontWeight: isActive(page) ? 500 : 400,
                 fontSize: 14,
               }}
             >
@@ -138,7 +138,16 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.55, ease }}
             onClick={onSearchToggle}
-            className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
+            className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 cursor-pointer"
+            style={{ color: '#6b7280' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#1a1a2e';
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#6b7280';
+              e.currentTarget.style.background = 'transparent';
+            }}
             aria-label="Open search"
           >
             <Search className="h-[18px] w-[18px]" />
@@ -170,7 +179,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
 
           {/* Hamburger button */}
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 text-white cursor-pointer"
+            className="md:hidden flex items-center justify-center w-10 h-10 cursor-pointer"
+            style={{ color: '#1a1a2e' }}
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
@@ -189,7 +199,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[55] bg-black/40 md:hidden"
+              className="fixed inset-0 z-[55] bg-black/20 md:hidden"
               onClick={() => setMobileOpen(false)}
             />
 
@@ -201,10 +211,10 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               transition={{ duration: 0.4, ease }}
               className="fixed inset-y-0 right-0 z-[60] w-[280px] flex flex-col pt-20 px-6 pb-8"
               style={{
-                background: 'rgba(43, 35, 88, 0.98)',
+                background: 'rgba(255, 255, 255, 0.98)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
+                borderLeft: '1px solid rgba(0, 0, 0, 0.06)',
               }}
             >
               <div className="flex flex-col gap-1 mt-4">
@@ -221,9 +231,9 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                     transition={{ duration: 0.35, delay: 0.15 + index * 0.06, ease }}
                     className="block py-3 text-base transition-colors duration-200"
                     style={{
-                      color: isActive(page) ? '#FFFFFF' : '#A1A1A1',
+                      color: isActive(page) ? '#1a1a2e' : '#6b7280',
                       fontWeight: isActive(page) ? 500 : 400,
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                      borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
                     }}
                   >
                     {label}
@@ -244,8 +254,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                 transition={{ duration: 0.35, delay: 0.4, ease }}
                 className="flex items-center gap-3 py-3 text-base transition-colors duration-200 w-full"
                 style={{
-                  color: '#A1A1A1',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                  color: '#6b7280',
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
                 }}
                 onClick={() => {
                   setMobileOpen(false);

@@ -73,7 +73,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <span ref={ref} className="text-white" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
+    <span ref={ref} className="text-[#1a1a2e]" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
       {count}
       {suffix}
     </span>
@@ -102,7 +102,7 @@ function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffi
   }, [inView, target, decimals]);
 
   return (
-    <span ref={ref} className="counter-display text-white" style={{ fontSize: '48px', fontWeight: 700, lineHeight: 1 }}>
+    <span ref={ref} className="counter-display text-[#1a1a2e]" style={{ fontSize: '48px', fontWeight: 700, lineHeight: 1 }}>
       {count}{suffix}
     </span>
   );
@@ -191,10 +191,10 @@ function TestimonialsCarousel() {
         {/* Previous button */}
         <button
           onClick={goPrev}
-          className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-white/10"
-          style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.3)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-black/5"
+          style={{ background: 'rgba(0,0,0,0.04)', color: 'rgba(0,0,0,0.2)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.5)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.2)')}
           aria-label="Previous testimonial"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -211,7 +211,7 @@ function TestimonialsCarousel() {
               transition={{ duration: 0.5, ease }}
               className="rounded-2xl p-8 md:p-10"
               style={{
-                background: '#1e1a3f',
+                background: '#f8f8fc',
                 borderLeft: '3px solid #FF4800',
               }}
             >
@@ -236,7 +236,7 @@ function TestimonialsCarousel() {
 
               {/* Quote text */}
               <p
-                className="mb-6 text-[20px] italic leading-[1.8] text-white"
+                className="mb-6 text-[20px] italic leading-[1.8] text-[#1a1a2e]"
               >
                 {t.quote}
               </p>
@@ -244,14 +244,14 @@ function TestimonialsCarousel() {
               {/* Divider */}
               <div
                 className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
+                style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}
               />
 
               {/* Author */}
-              <p className="text-[16px] font-semibold text-white">
+              <p className="text-[16px] font-semibold text-[#1a1a2e]">
                 {t.name}
               </p>
-              <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
+              <p className="text-[14px]" style={{ color: '#6b7280' }}>
                 {t.role}
               </p>
             </motion.div>
@@ -261,10 +261,10 @@ function TestimonialsCarousel() {
         {/* Next button */}
         <button
           onClick={goNext}
-          className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-white/10"
-          style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.3)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-black/5"
+          style={{ background: 'rgba(0,0,0,0.04)', color: 'rgba(0,0,0,0.2)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.5)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.2)')}
           aria-label="Next testimonial"
         >
           <ChevronRight className="h-5 w-5" />
@@ -281,7 +281,7 @@ function TestimonialsCarousel() {
             style={{
               width: '8px',
               height: '8px',
-              background: i === currentIndex ? '#FF4800' : '#3f3f46',
+              background: i === currentIndex ? '#FF4800' : '#d1d5db',
             }}
             whileHover={{ scale: 1.3 }}
             aria-label={`Go to testimonial ${i + 1}`}
@@ -314,9 +314,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <section
         className="py-12"
         style={{
-          background: '#000000',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
-          borderBottom: '1px solid rgba(255,255,255,0.04)',
+          background: '#FFFFFF',
+          borderTop: '1px solid rgba(0,0,0,0.04)',
+          borderBottom: '1px solid rgba(0,0,0,0.04)',
         }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -327,7 +327,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease }}
             className="mb-10 text-center text-[14px] font-medium uppercase tracking-widest"
-            style={{ color: '#52525B' }}
+            style={{ color: '#9ca3af' }}
           >
             Trusted by industry leaders
           </motion.p>
@@ -363,8 +363,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="flex items-center justify-center"
               >
                 <span
-                  className={`text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#71717A] select-none ${logo.className}`}
-                  style={{ color: '#3f3f46' }}
+                  className={`text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none ${logo.className}`}
+                  style={{ color: '#9ca3af' }}
                 >
                   {logo.name}
                 </span>
@@ -379,7 +379,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24 section-glow-top"
-        style={{ background: '#000000', borderTop: '1px solid #27272A' }}
+        style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
@@ -397,7 +397,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               OUR SERVICES
             </p>
             <h2
-              className="text-[42px] font-medium text-white"
+              className="text-[42px] font-medium text-[#1a1a2e]"
               style={{ maxWidth: '580px', fontWeight: 500 }}
             >
               Enterprise solutions that modernize, scale, and deliver.
@@ -418,11 +418,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Braces className="mb-5 h-7 w-7 text-white" />
+              <Braces className="mb-5 h-7 w-7 text-[#FF4800]" />
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -430,24 +431,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 ARCHITECTURE
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-white"
+                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
                 style={{ fontWeight: 500 }}
               >
                 Enterprise Architecture
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Modernize your application portfolio with adaptive,
                 open-standards architecture that scales.
               </p>
               <button
                 onClick={() => onNavigate('services')}
                 className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#A1A1A1' }}
+                style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#A1A1A1')
+                  (e.currentTarget.style.color = '#6b7280')
                 }
               >
                 Learn more
@@ -461,11 +462,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Compass className="mb-5 h-7 w-7 text-white" />
+              <Compass className="mb-5 h-7 w-7 text-[#FF4800]" />
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -473,24 +475,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 STRATEGY
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-white"
+                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
                 style={{ fontWeight: 500 }}
               >
                 Technology Strategy
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Align IT investments with business goals to accelerate time to
                 market and increase product innovation.
               </p>
               <button
                 onClick={() => onNavigate('services')}
                 className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#A1A1A1' }}
+                style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#A1A1A1')
+                  (e.currentTarget.style.color = '#6b7280')
                 }
               >
                 Learn more
@@ -504,11 +506,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <ClipboardCheck className="mb-5 h-7 w-7 text-white" />
+              <ClipboardCheck className="mb-5 h-7 w-7 text-[#FF4800]" />
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -516,24 +519,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 MANAGEMENT
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-white"
+                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
                 style={{ fontWeight: 500 }}
               >
                 Management Consulting
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Expert Product, Program &amp; Project management through
                 meticulous planning and execution.
               </p>
               <button
                 onClick={() => onNavigate('services')}
                 className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#A1A1A1' }}
+                style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#A1A1A1')
+                  (e.currentTarget.style.color = '#6b7280')
                 }
               >
                 Learn more
@@ -547,11 +550,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-hover glow-border rounded-xl p-8"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <Server className="mb-5 h-7 w-7 text-white" />
+              <Server className="mb-5 h-7 w-7 text-[#FF4800]" />
               <span
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
@@ -559,24 +563,24 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 SOFTWARE
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-white"
+                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
                 style={{ fontWeight: 500 }}
               >
                 Software Solutions
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Red Hat Enterprise Middleware and virtualization to lower total
                 cost of ownership at enterprise scale.
               </p>
               <button
                 onClick={() => onNavigate('services')}
                 className="group flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#A1A1A1' }}
+                style={{ color: '#6b7280' }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = '#FF4800')
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#A1A1A1')
+                  (e.currentTarget.style.color = '#6b7280')
                 }
               >
                 Learn more
@@ -593,7 +597,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
-        style={{ background: '#000000' }}
+        style={{ background: '#f8f8fc' }}
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 lg:flex-row lg:px-8">
           {/* LEFT — 40% */}
@@ -613,18 +617,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="mt-3 h-[3px] w-8 rounded-full"
               style={{ background: '#FF4800', transformOrigin: 'left' }}
             />
-            <p className="mt-3 text-[16px]" style={{ color: '#A1A1A1' }}>
+            <p className="mt-3 text-[16px]" style={{ color: '#6b7280' }}>
               Years of Enterprise Excellence
             </p>
             <p
               className="mt-2 text-[12px] font-medium uppercase tracking-wider"
-              style={{ color: '#52525B' }}
+              style={{ color: '#9ca3af' }}
             >
               Est. 2010
             </p>
             <div className="mt-6 flex items-center gap-2">
               <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} />
-              <span className="text-[15px]" style={{ color: '#A1A1A1' }}>
+              <span className="text-[15px]" style={{ color: '#6b7280' }}>
                 Plano, Texas
               </span>
             </div>
@@ -645,7 +649,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               ABOUT US
             </p>
             <p
-              className="text-[20px] leading-[1.7] text-white"
+              className="text-[20px] leading-[1.7] text-[#1a1a2e]"
               style={{ maxWidth: '560px' }}
             >
               Since our inception, Straveda has focused on the intersection of
@@ -658,12 +662,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <div className="mt-10 flex w-full max-w-md items-stretch">
               {/* Stat 1 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-white">
+                <span className="text-[28px] font-bold text-[#1a1a2e]">
                   7
                 </span>
                 <span
                   className="mt-1 text-[13px]"
-                  style={{ color: '#A1A1A1' }}
+                  style={{ color: '#6b7280' }}
                 >
                   Experts
                 </span>
@@ -677,12 +681,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 2 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-white">
+                <span className="text-[28px] font-bold text-[#1a1a2e]">
                   100%
                 </span>
                 <span
                   className="mt-1 text-[13px]"
-                  style={{ color: '#A1A1A1' }}
+                  style={{ color: '#6b7280' }}
                 >
                   Satisfaction
                 </span>
@@ -696,12 +700,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 3 */}
               <div className="flex flex-1 flex-col">
-                <span className="text-[28px] font-bold text-white">
+                <span className="text-[28px] font-bold text-[#1a1a2e]">
                   Cost-Effective
                 </span>
                 <span
                   className="mt-1 text-[13px]"
-                  style={{ color: '#A1A1A1' }}
+                  style={{ color: '#6b7280' }}
                 >
                   Solutions
                 </span>
@@ -716,7 +720,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="relative py-24"
-        style={{ background: '#000000' }}
+        style={{ background: '#FFFFFF' }}
       >
         {/* Subtle decorative glow */}
         <div
@@ -746,7 +750,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium text-white"
+              className="text-[42px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500, maxWidth: '640px' }}
             >
               A proven process for enterprise transformation.
@@ -798,13 +802,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Search className="h-5 w-5" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-white"
+                  className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Discovery
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 We assess your current landscape, identify pain points, and define success metrics.
               </p>
             </motion.div>
@@ -843,13 +847,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Target className="h-5 w-5" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-white"
+                  className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Strategy
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 We craft a tailored roadmap aligned with your business goals and budget.
               </p>
             </motion.div>
@@ -888,13 +892,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Zap className="h-5 w-5" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-white"
+                  className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Execution
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Our experts implement solutions using proven frameworks and agile delivery.
               </p>
             </motion.div>
@@ -920,13 +924,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <TrendingUp className="h-5 w-5" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-white"
+                  className="text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Optimize
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
                 We measure results, refine approaches, and ensure long-term sustainability.
               </p>
             </motion.div>
@@ -964,7 +968,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               RESULTS THAT SPEAK
             </p>
             <h2
-              className="text-[36px] font-medium text-white"
+              className="text-[36px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500 }}
             >
               Numbers that define our impact.
@@ -1040,7 +1044,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ── Decorative gradient divider ── */}
-      <div className="relative h-px w-full overflow-hidden" style={{ background: '#000000' }}>
+      <div className="relative h-px w-full overflow-hidden" style={{ background: '#FFFFFF' }}>
 
         <motion.div
           initial={{ scaleX: 0 }}
@@ -1053,10 +1057,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </div>
 
       {/* ═══════════════════════════════════════════════ */}
+      {/* TESTIMONIALS — CLIENT FEEDBACK                    */}
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
-        style={{ background: '#2B2358' }}
+        style={{ background: '#f8f8fc' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
@@ -1074,7 +1079,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               CLIENT FEEDBACK
             </p>
             <h2
-              className="text-[40px] font-medium text-white"
+              className="text-[40px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500 }}
             >
               What our clients say.
@@ -1087,7 +1092,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ── Decorative gradient divider ── */}
-      <div className="relative h-px w-full overflow-hidden" style={{ background: '#2B2358' }}>
+      <div className="relative h-px w-full overflow-hidden" style={{ background: '#f8f8fc' }}>
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -1108,7 +1113,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24"
-        style={{ background: '#000000' }}
+        style={{ background: '#f8f8fc' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
@@ -1127,12 +1132,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium text-white"
+              className="text-[42px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500, maxWidth: '580px' }}
             >
               Real results for real enterprises.
             </h2>
-            <p className="mt-4 text-[16px] leading-relaxed" style={{ color: '#A1A1A1', maxWidth: '520px' }}>
+            <p className="mt-4 text-[16px] leading-relaxed" style={{ color: '#6b7280', maxWidth: '520px' }}>
               From financial services to government agencies, we deliver measurable outcomes that transform enterprise operations.
             </p>
           </motion.div>
@@ -1150,14 +1155,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
               }}
             >
               <div className="p-8">
@@ -1178,7 +1183,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-white"
+                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Fortune 500 Financial Services
@@ -1189,7 +1194,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Legacy middleware causing 60% downtime during peak hours
                   </p>
                 </div>
@@ -1199,7 +1204,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Enterprise Architecture modernization with Red Hat middleware
                   </p>
                 </div>
@@ -1209,26 +1214,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     99.9% uptime, 40% cost reduction, 3x faster deployments
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     99.9% uptime
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     -40% cost
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     3x deployments
@@ -1242,14 +1247,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
               }}
             >
               <div className="p-8">
@@ -1270,7 +1275,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-white"
+                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Global Healthcare Provider
@@ -1281,7 +1286,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Fragmented IT systems across 12 regional offices
                   </p>
                 </div>
@@ -1291,7 +1296,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Technology Strategy roadmap + API integration platform
                   </p>
                 </div>
@@ -1301,26 +1306,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Unified platform, 65% faster data sharing, $2.1M annual savings
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     Unified platform
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     65% faster
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     $2.1M saved
@@ -1334,14 +1339,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
+                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
               }}
             >
               <div className="p-8">
@@ -1362,7 +1367,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-white"
+                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
                   style={{ fontWeight: 500 }}
                 >
                   Government Agency
@@ -1373,7 +1378,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Aging infrastructure with critical security vulnerabilities
                   </p>
                 </div>
@@ -1383,7 +1388,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Management Consulting + Agile PMO delivery framework
                   </p>
                 </div>
@@ -1393,26 +1398,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
                     Zero security incidents, 50% faster delivery cycles, 100% compliance
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     Zero incidents
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     50% faster
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                     style={{ background: 'rgba(255,72,0,0.12)' }}
                   >
                     100% compliant
@@ -1444,7 +1449,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               CLIENT STORIES
             </p>
             <h2
-              className="text-[36px] font-medium text-white"
+              className="text-[36px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500 }}
             >
               Real results from real partnerships.
@@ -1474,8 +1479,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               }}
               className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#f8f8fc',
+                border: '1px solid rgba(0,0,0,0.06)',
                 borderLeft: '2px solid #FF4800',
               }}
             >
@@ -1488,31 +1493,31 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </span>
 
               {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
                 &ldquo;Our legacy systems were failing under peak load. We needed a partner who understood enterprise-grade reliability.&rdquo;
               </p>
 
               {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Straveda designed a cloud-native architecture with automated failover, reducing deployment times from weeks to hours.
               </p>
 
               {/* Metric Badges */}
               <div className="mb-6 flex flex-wrap gap-2">
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   <MetricCounter target={98} suffix="%" decimals={0} /> faster deployment
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   60% cost reduction
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   <MetricCounter target={15} suffix="M+" decimals={0} /> users served
@@ -1522,15 +1527,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {/* Client Quote */}
               <div
                 className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
               />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
                 &ldquo;Straveda didn&apos;t just fix our problems — they future-proofed our entire platform.&rdquo;
               </p>
-              <p className="text-[14px] font-semibold text-white">
+              <p className="text-[14px] font-semibold text-[#1a1a2e]">
                 Robert Chen
               </p>
-              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+              <p className="text-[13px]" style={{ color: '#6b7280' }}>
                 CTO · National Financial Group
               </p>
 
@@ -1539,7 +1544,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 onClick={() => onNavigate('services')}
                 className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
               >
                 View case study
@@ -1559,8 +1564,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               }}
               className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#f8f8fc',
+                border: '1px solid rgba(0,0,0,0.06)',
                 borderLeft: '2px solid #FF4800',
               }}
             >
@@ -1573,31 +1578,31 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </span>
 
               {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
                 &ldquo;Patient data was siloed across 12 regional offices. Critical information wasn&apos;t reaching doctors in time.&rdquo;
               </p>
 
               {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Built a unified integration platform connecting all regional systems with real-time data synchronization and HIPAA-compliant APIs.
               </p>
 
               {/* Metric Badges */}
               <div className="mb-6 flex flex-wrap gap-2">
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   99.99% uptime
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   $<MetricCounter target={4} suffix=".2M" decimals={1} /> savings
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   <MetricCounter target={200} suffix="+" decimals={0} /> integrations
@@ -1607,15 +1612,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {/* Client Quote */}
               <div
                 className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
               />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
                 &ldquo;The integration platform saved lives. Doctors now have instant access to patient histories.&rdquo;
               </p>
-              <p className="text-[14px] font-semibold text-white">
+              <p className="text-[14px] font-semibold text-[#1a1a2e]">
                 Dr. Sarah Mitchell
               </p>
-              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+              <p className="text-[13px]" style={{ color: '#6b7280' }}>
                 VP of Technology · MedCare Health Systems
               </p>
 
@@ -1624,7 +1629,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 onClick={() => onNavigate('services')}
                 className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
               >
                 View case study
@@ -1644,8 +1649,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               }}
               className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
-                background: '#2B2358',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#f8f8fc',
+                border: '1px solid rgba(0,0,0,0.06)',
                 borderLeft: '2px solid #FF4800',
               }}
             >
@@ -1658,31 +1663,31 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </span>
 
               {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
                 &ldquo;We had critical security vulnerabilities and zero modernization roadmap. Compliance deadlines were looming.&rdquo;
               </p>
 
               {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#A1A1A1' }}>
+              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
                 Delivered an Agile PMO framework with security-first architecture, enabling continuous compliance and rapid feature delivery.
               </p>
 
               {/* Metric Badges */}
               <div className="mb-6 flex flex-wrap gap-2">
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   3x faster delivery
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   Zero downtime migration
                 </span>
                 <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-white"
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
                   style={{ background: 'rgba(255,72,0,0.12)' }}
                 >
                   <MetricCounter target={500} suffix="+" decimals={0} /> team trained
@@ -1692,15 +1697,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {/* Client Quote */}
               <div
                 className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
               />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-white">
+              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
                 &ldquo;They turned a failing program into a model for modern government IT. Truly exceptional partners.&rdquo;
               </p>
-              <p className="text-[14px] font-semibold text-white">
+              <p className="text-[14px] font-semibold text-[#1a1a2e]">
                 James Patterson
               </p>
-              <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+              <p className="text-[13px]" style={{ color: '#6b7280' }}>
                 Director of IT · Federal Agency
               </p>
 
@@ -1709,7 +1714,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 onClick={() => onNavigate('services')}
                 className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
               >
                 View case study
@@ -1730,7 +1735,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24 relative overflow-hidden"
-        style={{ background: '#000000' }}
+        style={{ background: '#f8f8fc' }}
       >
         {/* Subtle decorative glow */}
         <div
@@ -1747,12 +1752,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           className="mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center lg:px-8"
         >
           <h2
-            className="text-[56px] font-semibold text-white glow-text"
+            className="text-[56px] font-semibold text-[#1a1a2e] glow-text"
             style={{ fontWeight: 600 }}
           >
             Ready to modernize your enterprise?
           </h2>
-          <p className="mt-4 text-[18px]" style={{ color: '#A1A1A1' }}>
+          <p className="mt-4 text-[18px]" style={{ color: '#6b7280' }}>
             Let Straveda architect your path forward.
           </p>
           <MagneticButton>
@@ -1764,7 +1769,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               Start a project
             </button>
           </MagneticButton>
-          <p className="mt-5 text-[14px]" style={{ color: '#52525B' }}>
+          <p className="mt-5 text-[14px]" style={{ color: '#9ca3af' }}>
             Or email us at{' '}
             <a
               href="mailto:info@straveda.com"

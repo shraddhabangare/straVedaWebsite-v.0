@@ -155,7 +155,7 @@ function BlogPostModal({
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[70] flex items-center justify-center p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -163,7 +163,7 @@ function BlogPostModal({
       onClick={onClose}
     >
       <motion.div
-        className="relative max-w-3xl w-full max-h-[85vh] overflow-y-auto rounded-2xl bg-[#0a0a0a] border border-white/[0.08]"
+        className="relative max-w-3xl w-full max-h-[85vh] overflow-y-auto rounded-2xl bg-white border border-[#e5e7eb] shadow-xl"
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -173,7 +173,7 @@ function BlogPostModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[#f8f8fc] border border-[#e5e7eb] text-[#6b7280] hover:text-[#1a1a2e] hover:bg-[#f0f0f4] transition-colors"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -186,20 +186,20 @@ function BlogPostModal({
           </span>
 
           {/* Title */}
-          <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-white leading-tight mb-6">
+          <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-[#1a1a2e] leading-tight mb-6">
             {post.title}
           </h2>
 
           {/* Author + date + read time */}
-          <div className="flex flex-wrap items-center gap-4 text-[13px] text-[#A1A1A1] mb-8">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-[#6b7280] mb-8">
             <span className="inline-flex items-center gap-1.5">
               <User className="w-3.5 h-3.5" />
-              <span className="text-white font-medium">{post.author.name}</span>
-              <span className="text-[#52525B]">— {post.author.title}</span>
+              <span className="text-[#1a1a2e] font-medium">{post.author.name}</span>
+              <span className="text-[#9ca3af]">— {post.author.title}</span>
             </span>
-            <span className="text-[#52525B]">|</span>
+            <span className="text-[#9ca3af]">|</span>
             <span>{post.date}</span>
-            <span className="text-[#52525B]">|</span>
+            <span className="text-[#9ca3af]">|</span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5" />
               {post.readTime}
@@ -207,14 +207,14 @@ function BlogPostModal({
           </div>
 
           {/* Decorative gradient divider */}
-          <div className="h-[2px] w-full bg-gradient-to-r from-[#FF4800] via-[#2B2358] to-transparent mb-8" />
+          <div className="h-[2px] w-full bg-gradient-to-r from-[#FF4800] via-[#ff6b33] to-transparent mb-8" />
 
           {/* Full content paragraphs */}
           <div className="space-y-6">
             {post.fullContent.map((paragraph, i) => (
               <p
                 key={i}
-                className="text-[15px] sm:text-[16px] leading-[1.8] text-[#D4D4D8]"
+                className="text-[15px] sm:text-[16px] leading-[1.8] text-[#4b5563]"
               >
                 {paragraph}
               </p>
@@ -222,10 +222,10 @@ function BlogPostModal({
           </div>
 
           {/* Back to all articles */}
-          <div className="mt-10 pt-8 border-t border-white/[0.06]">
+          <div className="mt-10 pt-8 border-t border-[#e5e7eb]">
             <button
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-[#A1A1A1] hover:text-[#FF4800] text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-[#6b7280] hover:text-[#FF4800] text-sm font-medium transition-colors"
             >
               <span className="inline-flex items-center gap-1.5">
                 <ArrowRight className="w-3.5 h-3.5 rotate-180" />
@@ -281,9 +281,9 @@ export default function InsightsPage() {
   };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* 4A — HERO */}
-      <section className="relative flex items-center justify-center bg-black" style={{ minHeight: '50vh' }}>
+      <section className="relative flex items-center justify-center bg-white" style={{ minHeight: '50vh' }}>
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -293,7 +293,7 @@ export default function InsightsPage() {
           >
             Insights & Perspectives
           </motion.p>
-          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-white'}`}
+          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e]'}`}
             style={{ transitionDuration: '0.6s' }}
           >
             <TextReveal delay={0.2} stagger={0.08}>Enterprise thinking for modern organizations.</TextReveal>
@@ -309,7 +309,7 @@ export default function InsightsPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8, ease }}
-            className="text-[#A1A1A1] text-lg md:text-xl mt-6"
+            className="text-[#6b7280] text-lg md:text-xl mt-6"
           >
             Strategy, architecture, and management insights from the Straveda
             team.
@@ -318,32 +318,32 @@ export default function InsightsPage() {
       </section>
 
       {/* 4B — FEATURED POST */}
-      <section className="px-6 py-16 md:py-24 bg-black">
+      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-[#2B2358] rounded-xl overflow-hidden cursor-pointer group"
+            className="bg-white rounded-xl overflow-hidden cursor-pointer group border border-[#e5e7eb] shadow-sm hover:shadow-md transition-shadow"
             onClick={() => setSelectedPost(-1)}
           >
             <div className="flex flex-col lg:flex-row">
               {/* Image placeholder */}
               <div className="lg:w-[60%] w-full">
-                <div className="relative w-full aspect-video lg:aspect-[16/9] bg-[#1e1a3f]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1e1a3f] via-[#2B2358]/50 to-[#1e1a3f]" />
+                <div className="relative w-full aspect-video lg:aspect-[16/9] bg-[#f8f8fc]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#f8f8fc] via-[#f0f0f5] to-[#f8f8fc]" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full border-2 border-white/10 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full border-2 border-[#e5e7eb] flex items-center justify-center">
                       <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-[#FF4800] border-b-8 border-b-transparent ml-1" />
                     </div>
                   </div>
                   {/* Subtle grid pattern */}
                   <div
-                    className="absolute inset-0 opacity-5"
+                    className="absolute inset-0 opacity-10"
                     style={{
                       backgroundImage:
-                        'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                        'linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)',
                       backgroundSize: '40px 40px',
                     }}
                   />
@@ -355,16 +355,16 @@ export default function InsightsPage() {
                 <span className="inline-block text-[11px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-3 py-1 rounded-full w-fit mb-5">
                   Enterprise Architecture
                 </span>
-                <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-white leading-snug mb-4">
+                <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-[#1a1a2e] leading-snug mb-4">
                   The Case for Open Standards in Modern Enterprise Architecture
                 </h2>
-                <p className="text-[#A1A1A1] text-[13px] mb-4">March 2024</p>
-                <p className="text-[#A1A1A1] text-[15px] leading-relaxed mb-8">
+                <p className="text-[#9ca3af] text-[13px] mb-4">March 2024</p>
+                <p className="text-[#6b7280] text-[15px] leading-relaxed mb-8">
                   Why forward-thinking enterprises are choosing
                   open-standards middleware over proprietary lock-in, and what
                   this means for your technology roadmap.
                 </p>
-                <span className="inline-flex items-center gap-2 text-white border border-white/20 rounded-lg px-5 py-2.5 text-sm font-medium group-hover:bg-white/5 transition-colors w-fit">
+                <span className="inline-flex items-center gap-2 text-[#1a1a2e] border border-[#e5e7eb] rounded-lg px-5 py-2.5 text-sm font-medium group-hover:bg-[#f8f8fc] transition-colors w-fit">
                   Read article
                   <ArrowRight className="w-4 h-4" />
                 </span>
@@ -375,7 +375,7 @@ export default function InsightsPage() {
       </section>
 
       {/* 4C — POST GRID WITH CATEGORY FILTER */}
-      <section className="px-6 py-16 md:py-24 bg-black">
+      <section className="px-6 py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Category Filter Bar */}
           <div className="section-glow-top mb-10">
@@ -395,7 +395,7 @@ export default function InsightsPage() {
                     className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 ${
                       activeCategory === category
                         ? 'bg-[#FF4800] text-white'
-                        : 'bg-transparent border border-white/10 text-[#A1A1A1] hover:border-[#FF4800]/40 hover:text-white'
+                        : 'bg-transparent border border-[#e5e7eb] text-[#6b7280] hover:border-[#FF4800]/40 hover:text-[#1a1a2e]'
                     }`}
                   >
                     {category}
@@ -404,7 +404,7 @@ export default function InsightsPage() {
               </div>
 
               {/* Count indicator */}
-              <p className="text-[13px] text-[#52525B]">
+              <p className="text-[13px] text-[#9ca3af]">
                 Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
               </p>
             </motion.div>
@@ -432,20 +432,20 @@ export default function InsightsPage() {
                       y: 10,
                       transition: { duration: 0.25, ease },
                     }}
-                    className="bg-[#2B2358] rounded-xl p-6 border border-white/[0.06] hover:bg-[#1e1a3f] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group card-glow"
+                    className="bg-white rounded-xl p-6 border border-[#e5e7eb] hover:bg-[#f8f8fc] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md"
                     onClick={() => setSelectedPost(originalIndex)}
                   >
                     <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
                       {post.category}
                     </span>
-                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-white leading-snug mb-3">
+                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-[#1a1a2e] leading-snug mb-3">
                       {post.title}
                     </h3>
-                    <p className="text-[#A1A1A1] text-[13px] mb-3">{post.date}</p>
-                    <p className="text-[#A1A1A1] text-[14px] sm:text-[15px] leading-relaxed mb-5">
+                    <p className="text-[#9ca3af] text-[13px] mb-3">{post.date}</p>
+                    <p className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed mb-5">
                       {post.excerpt}
                     </p>
-                    <span className="inline-flex items-center gap-1.5 text-[#A1A1A1] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
+                    <span className="inline-flex items-center gap-1.5 text-[#6b7280] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
                       Read
                       <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -468,19 +468,19 @@ export default function InsightsPage() {
       </AnimatePresence>
 
       {/* 4D — NEWSLETTER CTA */}
-      <section className="px-6 py-16 md:py-24 bg-black">
+      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-[#2B2358] rounded-xl py-16 px-6 md:px-12 text-center bg-noise-subtle border-glow-top"
+            className="bg-white rounded-xl py-16 px-6 md:px-12 text-center border border-[#e5e7eb] shadow-sm"
           >
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-white mb-3">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-[#1a1a2e] mb-3">
               Stay ahead of enterprise trends.
             </h2>
-            <p className="text-[#A1A1A1] text-[15px] sm:text-[16px] mb-8">
+            <p className="text-[#6b7280] text-[15px] sm:text-[16px] mb-8">
               Monthly insights for enterprise leaders.
             </p>
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mt-8">
@@ -491,7 +491,7 @@ export default function InsightsPage() {
                 placeholder="Enter your email"
                 required
                 disabled={isSubmitting}
-                className="flex-1 bg-[#1e1a3f] border border-[#27272A] focus:border-[#FF4800] text-white rounded-lg px-4 py-3 text-[15px] placeholder-[#52525B] outline-none transition-colors disabled:opacity-50"
+                className="flex-1 bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-4 py-3 text-[15px] placeholder-[#9ca3af] outline-none transition-colors disabled:opacity-50"
               />
               <button
                 type="submit"
@@ -506,7 +506,7 @@ export default function InsightsPage() {
                 Subscribe
               </button>
             </form>
-            <p className="text-[#52525B] text-[12px] mt-4">
+            <p className="text-[#9ca3af] text-[12px] mt-4">
               No spam. Unsubscribe anytime.
             </p>
           </motion.div>

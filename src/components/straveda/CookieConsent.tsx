@@ -40,17 +40,17 @@ export default function CookieConsent() {
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           className="fixed bottom-0 left-0 right-0 z-40 w-full"
           style={{
-            background: 'rgba(43, 35, 88, 0.95)',
+            background: 'rgba(255, 255, 255, 0.97)',
             backdropFilter: 'blur(12px)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
           }}
         >
           <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[#A1A1A1] text-[14px] leading-relaxed text-center sm:text-left">
+            <p className="text-[14px] leading-relaxed text-center sm:text-left" style={{ color: '#6b7280' }}>
               We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies.{' '}
               <a
                 href="#"
-                className="text-[#FF4800] underline underline-offset-2 hover:text-[#ff6a33] transition-colors"
+                className="text-[#FF4800] underline underline-offset-2 hover:text-[#e63f00] transition-colors"
               >
                 Privacy Policy
               </a>
@@ -64,7 +64,8 @@ export default function CookieConsent() {
               </button>
               <button
                 onClick={handleDecline}
-                className="border border-[#27272A] text-[#A1A1A1] hover:text-white hover:border-white/20 font-medium text-sm rounded-lg px-5 py-2.5 transition-colors"
+                className="border text-[14px] font-medium text-sm rounded-lg px-5 py-2.5 transition-colors hover:bg-gray-50"
+                style={{ borderColor: '#e5e7eb', color: '#6b7280' }}
               >
                 Decline
               </button>

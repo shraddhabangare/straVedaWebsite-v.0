@@ -91,7 +91,7 @@ export default function AnimatedRingProgress({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="rgba(255,255,255,0.06)"
+            stroke="#e5e7eb"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
@@ -125,10 +125,11 @@ export default function AnimatedRingProgress({
             </div>
           )}
           <span
-            className="counter-display font-bold text-white"
+            className="counter-display font-bold"
             style={{
               fontSize: size >= 140 ? '28px' : size >= 120 ? '24px' : '20px',
               lineHeight: 1,
+              color: '#1a1a2e',
             }}
           >
             {count}{suffix}
@@ -139,7 +140,7 @@ export default function AnimatedRingProgress({
       {/* Label */}
       <span
         className="mt-4 block text-center text-[13px] md:text-[14px] font-medium"
-        style={{ color: '#A1A1A1' }}
+        style={{ color: '#6b7280' }}
       >
         {label}
       </span>

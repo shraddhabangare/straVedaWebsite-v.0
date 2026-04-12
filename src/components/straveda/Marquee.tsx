@@ -31,13 +31,13 @@ export default function Marquee({
         <span key={item} className="inline-flex items-center gap-4 whitespace-nowrap">
           <span
             className="text-[14px] font-semibold uppercase tracking-widest"
-            style={{ color: 'rgba(255,255,255,0.15)' }}
+            style={{ color: 'rgba(0,0,0,0.12)' }}
           >
             {item}
           </span>
           <span
             className="text-[14px]"
-            style={{ color: 'rgba(255,255,255,0.08)' }}
+            style={{ color: 'rgba(0,0,0,0.06)' }}
           >
             &middot;
           </span>
@@ -52,9 +52,9 @@ export default function Marquee({
     <section
       className="w-full overflow-hidden py-6"
       style={{
-        background: '#2B2358',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        background: '#f8f8fc',
+        borderTop: '1px solid rgba(0,0,0,0.04)',
+        borderBottom: '1px solid rgba(0,0,0,0.04)',
       }}
     >
       <style>{`

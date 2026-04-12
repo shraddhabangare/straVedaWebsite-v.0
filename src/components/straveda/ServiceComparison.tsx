@@ -103,8 +103,8 @@ const toggleConfig = [
 function SuccessRateBar({ rate }: { rate: number }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="font-semibold text-white text-sm">{rate}%</span>
-      <div className="flex-1 h-2 rounded-full bg-white/10 overflow-hidden min-w-[60px]">
+      <span className="font-semibold text-sm" style={{ color: '#1a1a2e' }}>{rate}%</span>
+      <div className="flex-1 h-2 rounded-full overflow-hidden min-w-[60px]" style={{ background: 'rgba(0,0,0,0.06)' }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${rate}%` }}
@@ -131,7 +131,7 @@ function CellContent({
     return (
       <ul className="flex flex-col gap-1">
         {service.deliverables.map((d, i) => (
-          <li key={i} className="flex items-start gap-1.5 text-sm text-[#D4D4D4]">
+          <li key={i} className="flex items-start gap-1.5 text-sm" style={{ color: '#4a4a5a' }}>
             <span className="mt-0.5 text-[#FF4800] text-[10px] leading-none">•</span>
             {d}
           </li>
@@ -155,7 +155,7 @@ function CellContent({
   const value = service[criterion.key];
 
   if (typeof value === 'string') {
-    return <span className="text-sm text-[#D4D4D4]">{value}</span>;
+    return <span className="text-sm" style={{ color: '#4a4a5a' }}>{value}</span>;
   }
 
   return null;
@@ -192,7 +192,7 @@ export default function ServiceComparison() {
   const allSelected = selected.size === 4;
 
   return (
-    <section className="bg-black px-6 py-24">
+    <section className="px-6 py-24" style={{ background: '#f8f8fc' }}>
       <div className="mx-auto max-w-6xl">
         {/* Section header */}
         <div className="mb-12 text-center">
@@ -210,7 +210,8 @@ export default function ServiceComparison() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-white"
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium"
+            style={{ color: '#1a1a2e' }}
           >
             Find the right solution for your enterprise.
           </motion.h2>
@@ -237,9 +238,10 @@ export default function ServiceComparison() {
                   ${
                     isActive
                       ? 'bg-[#FF4800] text-white'
-                      : 'border border-white/[0.08] bg-transparent text-[#A1A1A1] hover:border-[#FF4800]/30 hover:text-white'
+                      : 'border bg-white text-[#6b7280] hover:border-[#FF4800]/30 hover:text-[#1a1a2e]'
                   }
                 `}
+                style={isActive ? undefined : { borderColor: 'rgba(0,0,0,0.08)' }}
               >
                 {t.icon}
                 <span className="hidden sm:inline">{t.label}</span>
@@ -256,7 +258,7 @@ export default function ServiceComparison() {
               ${
                 allSelected
                   ? 'bg-[#FF4800] text-white'
-                  : 'border border-[#FF4800]/40 bg-transparent text-[#FF4800] hover:bg-[#FF4800]/10'
+                  : 'border border-[#FF4800]/40 bg-white text-[#FF4800] hover:bg-[#FF4800]/5'
               }
             `}
           >
@@ -274,10 +276,11 @@ export default function ServiceComparison() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease }}
-              className="flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-[#2B2358] py-20 text-center"
+              className="flex flex-col items-center justify-center rounded-xl bg-white py-20 text-center"
+              style={{ border: '1px solid rgba(0,0,0,0.06)' }}
             >
-              <GitCompareArrows size={48} className="mb-4 text-[#A1A1A1]/40" />
-              <p className="text-lg text-[#A1A1A1]">
+              <GitCompareArrows size={48} className="mb-4" style={{ color: 'rgba(0,0,0,0.15)' }} />
+              <p className="text-lg" style={{ color: '#6b7280' }}>
                 Select services above to compare
               </p>
             </motion.div>
@@ -288,15 +291,16 @@ export default function ServiceComparison() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease }}
-              className="overflow-hidden rounded-xl border border-white/[0.06] bg-[#2B2358]"
+              className="overflow-hidden rounded-xl bg-white"
+              style={{ border: '1px solid rgba(0,0,0,0.06)' }}
             >
               {/* Scrollable wrapper for mobile */}
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[500px] border-collapse">
                   {/* Header Row */}
                   <thead>
-                    <tr className="bg-[#1e1a3f]">
-                      <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.15em] text-[#A1A1A1] w-[160px]">
+                    <tr style={{ background: '#f3f4f6' }}>
+                      <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.15em] w-[160px]" style={{ color: '#6b7280' }}>
                         Criteria
                       </th>
                       {Array.from(selected).map((id) => {
@@ -304,7 +308,8 @@ export default function ServiceComparison() {
                         return (
                           <th
                             key={id}
-                            className="px-5 py-4 text-left text-sm font-semibold text-white"
+                            className="px-5 py-4 text-left text-sm font-semibold"
+                            style={{ color: '#1a1a2e' }}
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-[#FF4800]">{service.icon}</span>
@@ -330,10 +335,10 @@ export default function ServiceComparison() {
                         className={
                           rowIdx % 2 === 0
                             ? 'bg-transparent'
-                            : 'bg-white/[0.02]'
+                            : 'bg-[#fafafa]'
                         }
                       >
-                        <td className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-[#A1A1A1] align-top whitespace-nowrap">
+                        <td className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.1em] align-top whitespace-nowrap" style={{ color: '#6b7280' }}>
                           {criterion.label}
                         </td>
                         {Array.from(selected).map((id) => {

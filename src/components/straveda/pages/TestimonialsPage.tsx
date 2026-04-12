@@ -125,12 +125,12 @@ function TestimonialScrollColumn({
       {/* Top fade */}
       <div
         className="absolute top-0 left-0 right-0 h-32 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, #000000, transparent)' }}
+        style={{ background: 'linear-gradient(to bottom, #FFFFFF, transparent)' }}
       />
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-32 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, #000000, transparent)' }}
+        style={{ background: 'linear-gradient(to top, #FFFFFF, transparent)' }}
       />
 
       <motion.div
@@ -149,16 +149,11 @@ function TestimonialScrollColumn({
             {testimonials.map(({ text, name, role, rating }, i) => (
               <motion.div
                 key={`${index}-${i}`}
-                className="rounded-2xl p-6 md:p-8 max-w-[360px] w-full transition-all duration-300 group cursor-default"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(43,35,88,0.4), rgba(43,35,88,0.2))',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  backdropFilter: 'blur(10px)',
-                }}
+                className="rounded-2xl p-6 md:p-8 max-w-[360px] w-full transition-all duration-300 group cursor-default bg-white border border-[#e5e7eb] shadow-sm"
                 whileHover={{
                   scale: 1.02,
-                  borderColor: 'rgba(255,72,0,0.3)',
-                  boxShadow: '0 8px 32px rgba(255,72,0,0.08)',
+                  borderColor: 'rgba(255,72,0,0.2)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
                 }}
               >
                 {/* Stars */}
@@ -173,14 +168,14 @@ function TestimonialScrollColumn({
                 </div>
 
                 {/* Quote text */}
-                <p className="text-[15px] leading-[1.7] mb-5" style={{ color: '#d4d4d8' }}>
+                <p className="text-[15px] leading-[1.7] mb-5" style={{ color: '#4b5563' }}>
                   &ldquo;{text}&rdquo;
                 </p>
 
                 {/* Divider */}
                 <div
                   className="mb-4 w-full"
-                  style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+                  style={{ borderTop: '1px solid #e5e7eb' }}
                 />
 
                 {/* Author */}
@@ -189,16 +184,16 @@ function TestimonialScrollColumn({
                   <div
                     className="flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold text-sm flex-shrink-0"
                     style={{
-                      background: 'linear-gradient(135deg, #FF4800, #2B2358)',
+                      background: 'linear-gradient(135deg, #FF4800, #e03e00)',
                     }}
                   >
                     {name.split(' ').map(n => n[0]).slice(0, 2).join('')}
                   </div>
                   <div>
-                    <div className="font-medium text-[14px] text-white tracking-tight">
+                    <div className="font-medium text-[14px] text-[#1a1a2e] tracking-tight">
                       {name}
                     </div>
-                    <div className="text-[12px] opacity-60 tracking-tight" style={{ color: '#a1a1aa' }}>
+                    <div className="text-[12px] opacity-60 tracking-tight" style={{ color: '#6b7280' }}>
                       {role}
                     </div>
                   </div>
@@ -220,7 +215,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="relative flex min-h-[60vh] items-center justify-center overflow-hidden"
-        style={{ background: '#000000' }}
+        style={{ background: '#FFFFFF' }}
       >
         {/* Decorative gradient glow */}
         <div
@@ -229,7 +224,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             width: '600px',
             height: '400px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,72,0,0.06) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(255,72,0,0.04) 0%, transparent 70%)',
           }}
         />
 
@@ -247,7 +242,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="text-[42px] md:text-[56px] font-semibold text-white mb-6"
+            className="text-[42px] md:text-[56px] font-semibold text-[#1a1a2e] mb-6"
             style={{ fontWeight: 600 }}
           >
             Trusted by{' '}
@@ -258,7 +253,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease }}
             className="text-[18px] max-w-[560px] mx-auto"
-            style={{ color: '#A1A1A1' }}
+            style={{ color: '#6b7280' }}
           >
             Real results from real enterprises. See how we&apos;ve helped organizations transform their IT landscape.
           </motion.p>
@@ -276,7 +271,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
               { value: '100%', label: 'Client Satisfaction', icon: '●' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-[28px] md:text-[36px] font-bold text-white">
+                <div className="text-[28px] md:text-[36px] font-bold text-[#1a1a2e]">
                   {stat.icon} {stat.value}
                 </div>
                 <div className="text-[12px] uppercase tracking-wider mt-1" style={{ color: '#6b7280' }}>
@@ -293,7 +288,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-16 md:py-20"
-        style={{ background: '#000000' }}
+        style={{ background: '#f8f8fc' }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Section header */}
@@ -311,7 +306,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
               WHAT CLIENTS SAY
             </p>
             <h2
-              className="text-[32px] md:text-[42px] font-medium text-white"
+              className="text-[32px] md:text-[42px] font-medium text-[#1a1a2e]"
               style={{ fontWeight: 500 }}
             >
               Voices of transformation
@@ -345,7 +340,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
       <section
         className="py-20"
         style={{
-          background: 'linear-gradient(180deg, #000000, #0a0a14, #000000)',
+          background: 'linear-gradient(180deg, #FFFFFF, #f8f8fc, #FFFFFF)',
         }}
       >
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -364,20 +359,20 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
               <Quote className="h-7 w-7" style={{ color: '#FF4800' }} />
             </div>
 
-            <blockquote className="text-[24px] md:text-[32px] font-medium text-white leading-[1.6] mb-8 italic">
+            <blockquote className="text-[24px] md:text-[32px] font-medium text-[#1a1a2e] leading-[1.6] mb-8 italic">
               &ldquo;Straveda doesn&apos;t just deliver projects — they transform how organizations think about technology. Their strategic vision and execution excellence made our digital transformation a resounding success.&rdquo;
             </blockquote>
 
             <div className="flex items-center justify-center gap-4">
               <div
                 className="flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg"
-                style={{ background: 'linear-gradient(135deg, #FF4800, #2B2358)' }}
+                style={{ background: 'linear-gradient(135deg, #FF4800, #e03e00)' }}
               >
                 JR
               </div>
               <div className="text-left">
-                <div className="text-white font-semibold text-[16px]">James Richardson</div>
-                <div className="text-[14px]" style={{ color: '#A1A1A1' }}>Senior VP · Accenture</div>
+                <div className="text-[#1a1a2e] font-semibold text-[16px]">James Richardson</div>
+                <div className="text-[14px]" style={{ color: '#6b7280' }}>Senior VP · Accenture</div>
               </div>
             </div>
 
@@ -395,7 +390,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-20"
-        style={{ background: '#000000' }}
+        style={{ background: '#FFFFFF' }}
       >
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
@@ -404,10 +399,10 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
           >
-            <h2 className="text-[32px] md:text-[42px] font-medium text-white mb-4">
+            <h2 className="text-[32px] md:text-[42px] font-medium text-[#1a1a2e] mb-4">
               Ready to join our success stories?
             </h2>
-            <p className="text-[18px] mb-8" style={{ color: '#A1A1A1' }}>
+            <p className="text-[18px] mb-8" style={{ color: '#6b7280' }}>
               Let&apos;s discuss how Straveda can transform your enterprise IT landscape.
             </p>
             <motion.button

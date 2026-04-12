@@ -177,7 +177,7 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
         <motion.div
           className="fixed inset-0 z-[70] flex items-start justify-center modal-overlay"
           style={{
-            background: 'rgba(10, 10, 10, 0.95)',
+            background: 'rgba(255, 255, 255, 0.97)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
           }}
@@ -199,7 +199,8 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute -top-12 right-0 flex items-center justify-center w-10 h-10 rounded-full text-white/50 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer"
+              className="absolute -top-12 right-0 flex items-center justify-center w-10 h-10 rounded-full hover:text-[#1a1a2e] hover:bg-black/[0.05] transition-all duration-200 cursor-pointer"
+              style={{ color: 'rgba(0, 0, 0, 0.4)' }}
               aria-label="Close search"
             >
               <X className="w-5 h-5" />
@@ -209,7 +210,7 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
             <div className="relative">
               <Search
                 className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5"
-                style={{ color: '#A1A1A1' }}
+                style={{ color: '#9ca3af' }}
               />
               <input
                 ref={inputRef}
@@ -217,24 +218,26 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search pages, articles..."
-                className="w-full rounded-xl text-white text-[16px] pl-12 pr-4 py-4 outline-none transition-shadow duration-200"
+                className="w-full rounded-xl text-[16px] pl-12 pr-4 py-4 outline-none transition-shadow duration-200"
                 style={{
-                  background: 'rgba(43, 35, 88, 0.6)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: '#FFFFFF',
+                  border: '1px solid #e5e7eb',
+                  color: '#1a1a2e',
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 2px rgba(255, 72, 0, 0.4)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 72, 0, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 0 0 2px rgba(255, 72, 0, 0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 72, 0, 0.4)';
                 }}
                 onBlur={(e) => {
                   e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = '#e5e7eb';
                 }}
               />
               {query && (
                 <button
                   onClick={() => setQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 hover:text-[#1a1a2e] transition-colors cursor-pointer"
+                  style={{ color: 'rgba(0, 0, 0, 0.3)' }}
                   aria-label="Clear search"
                 >
                   <X className="w-4 h-4" />
@@ -246,14 +249,14 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
             <div
               className="mt-3 rounded-xl overflow-hidden max-h-[60vh] overflow-y-auto"
               style={{
-                background: 'rgba(43, 35, 88, 0.4)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
               }}
             >
               {/* Results count */}
               {query.trim() && (
-                <div className="px-4 py-3 border-b border-white/[0.06]">
-                  <p className="text-[12px]" style={{ color: '#52525B' }}>
+                <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                  <p className="text-[12px]" style={{ color: '#9ca3af' }}>
                     {totalResults} result{totalResults !== 1 ? 's' : ''} found
                   </p>
                 </div>
@@ -264,7 +267,7 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
                 <div>
                   {!query.trim() && (
                     <div className="px-4 pt-4 pb-2">
-                      <p className="text-[11px] uppercase tracking-wider font-medium" style={{ color: '#52525B' }}>
+                      <p className="text-[11px] uppercase tracking-wider font-medium" style={{ color: '#9ca3af' }}>
                         Pages
                       </p>
                     </div>
@@ -273,19 +276,19 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
                     <button
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
-                      className="w-full flex items-center gap-4 px-4 py-3.5 text-left transition-colors duration-150 hover:bg-white/[0.05] cursor-pointer group"
+                      className="w-full flex items-center gap-4 px-4 py-3.5 text-left transition-colors duration-150 hover:bg-black/[0.03] cursor-pointer group"
                     >
                       <div
-                        className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 transition-colors duration-150 group-hover:bg-white/[0.08]"
-                        style={{ background: 'rgba(255, 255, 255, 0.04)', color: '#A1A1A1' }}
+                        className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 transition-colors duration-150 group-hover:bg-black/[0.05]"
+                        style={{ background: 'rgba(0, 0, 0, 0.03)', color: '#6b7280' }}
                       >
                         {item.icon}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[15px] font-medium text-white">
+                        <p className="text-[15px] font-medium" style={{ color: '#1a1a2e' }}>
                           {highlightMatch(item.label, query)}
                         </p>
-                        <p className="text-[13px]" style={{ color: '#A1A1A1' }}>
+                        <p className="text-[13px]" style={{ color: '#6b7280' }}>
                           {highlightMatch(item.description, query)}
                         </p>
                       </div>
@@ -301,8 +304,8 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
               {/* Blog post results */}
               {filteredBlogPosts.length > 0 && (
                 <div>
-                  <div className="px-4 pt-3 pb-2 mt-1" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    <p className="text-[11px] uppercase tracking-wider font-medium" style={{ color: '#52525B' }}>
+                  <div className="px-4 pt-3 pb-2 mt-1" style={{ borderTop: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                    <p className="text-[11px] uppercase tracking-wider font-medium" style={{ color: '#9ca3af' }}>
                       Articles
                     </p>
                   </div>
@@ -310,16 +313,16 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
                     <button
                       key={post.title}
                       onClick={() => handleNavigate(post.page)}
-                      className="w-full flex items-start gap-4 px-4 py-3.5 text-left transition-colors duration-150 hover:bg-white/[0.05] cursor-pointer group"
+                      className="w-full flex items-start gap-4 px-4 py-3.5 text-left transition-colors duration-150 hover:bg-black/[0.03] cursor-pointer group"
                     >
                       <div
-                        className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 transition-colors duration-150 group-hover:bg-white/[0.08]"
-                        style={{ background: 'rgba(255, 255, 255, 0.04)', color: '#A1A1A1' }}
+                        className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 transition-colors duration-150 group-hover:bg-black/[0.05]"
+                        style={{ background: 'rgba(0, 0, 0, 0.03)', color: '#6b7280' }}
                       >
                         <BookOpen className="h-4 w-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[15px] font-medium text-white leading-snug">
+                        <p className="text-[15px] font-medium leading-snug" style={{ color: '#1a1a2e' }}>
                           {highlightMatch(post.title, query)}
                         </p>
                         <p className="text-[12px] mt-1" style={{ color: '#FF4800' }}>
@@ -338,11 +341,11 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
               {/* No results */}
               {query.trim() && totalResults === 0 && (
                 <div className="px-4 py-10 text-center">
-                  <Search className="h-8 w-8 mx-auto mb-3" style={{ color: '#52525B' }} />
-                  <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
+                  <Search className="h-8 w-8 mx-auto mb-3" style={{ color: '#9ca3af' }} />
+                  <p className="text-[14px]" style={{ color: '#6b7280' }}>
                     No results for &ldquo;{query}&rdquo;
                   </p>
-                  <p className="text-[13px] mt-1" style={{ color: '#52525B' }}>
+                  <p className="text-[13px] mt-1" style={{ color: '#9ca3af' }}>
                     Try searching for a page or article title
                   </p>
                 </div>
@@ -355,40 +358,40 @@ export default function SearchOverlay({ isOpen, onClose, onNavigate }: SearchOve
                 <kbd
                   className="inline-flex items-center justify-center px-2 py-0.5 rounded text-[11px] font-medium"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    color: '#52525B',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    color: '#9ca3af',
+                    border: '1px solid rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   ESC
                 </kbd>
-                <span className="text-[11px]" style={{ color: '#52525B' }}>to close</span>
+                <span className="text-[11px]" style={{ color: '#9ca3af' }}>to close</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <kbd
                   className="inline-flex items-center justify-center px-2 py-0.5 rounded text-[11px] font-medium"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    color: '#52525B',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    color: '#9ca3af',
+                    border: '1px solid rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   ↑↓
                 </kbd>
-                <span className="text-[11px]" style={{ color: '#52525B' }}>to navigate</span>
+                <span className="text-[11px]" style={{ color: '#9ca3af' }}>to navigate</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <kbd
                   className="inline-flex items-center justify-center px-2 py-0.5 rounded text-[11px] font-medium"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    color: '#52525B',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    color: '#9ca3af',
+                    border: '1px solid rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   ↵
                 </kbd>
-                <span className="text-[11px]" style={{ color: '#52525B' }}>to select</span>
+                <span className="text-[11px]" style={{ color: '#9ca3af' }}>to select</span>
               </div>
             </div>
           </motion.div>

@@ -13,8 +13,8 @@ interface SubscribeSectionProps {
 
 /**
  * Straveda Subscribe Section — Email-only subscription
- * Converted from full-screen-signup, themed with Straveda brand colors
- * Orange (#FF4800) accent, Indigo (#2B2358) primary, Black background
+ * Light theme: #f8f8fc background, white form card, dark text
+ * Orange (#FF4800) accent unchanged
  */
 export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) {
   const [email, setEmail] = useState('');
@@ -71,7 +71,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
   return (
     <section
       className="relative overflow-hidden py-20 md:py-28"
-      style={{ background: '#000000' }}
+      style={{ background: '#f8f8fc' }}
     >
       {/* Decorative background elements */}
       <div
@@ -83,19 +83,19 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
       <div
         className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(43,35,88,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,72,0,0.03) 0%, transparent 70%)',
         }}
       />
 
-      {/* Decorative vertical lines (from full-screen-signup design) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.03]">
+      {/* Decorative vertical lines */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
             className="absolute top-0 h-full w-[1px]"
             style={{
               left: `${15 + i * 10}%`,
-              background: 'linear-gradient(to bottom, transparent, #ffffff, transparent)',
+              background: 'linear-gradient(to bottom, transparent, #000000, transparent)',
             }}
           />
         ))}
@@ -123,14 +123,14 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
             </motion.div>
 
             <h2
-              className="text-[32px] md:text-[40px] font-medium text-white mb-4 leading-tight"
-              style={{ fontWeight: 500 }}
+              className="text-[32px] md:text-[40px] font-medium mb-4 leading-tight"
+              style={{ fontWeight: 500, color: '#1a1a2e' }}
             >
               Stay ahead of the curve
             </h2>
             <p
               className="text-[17px] leading-relaxed max-w-[440px]"
-              style={{ color: '#A1A1A1' }}
+              style={{ color: '#6b7280' }}
             >
               Subscribe to our insights newsletter. Get expert analysis on enterprise IT trends, architecture patterns, and technology strategy delivered to your inbox.
             </p>
@@ -144,7 +144,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
               ].map((badge, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span style={{ color: '#FF4800', fontSize: '10px' }}>{badge.icon}</span>
-                  <span className="text-[13px]" style={{ color: '#71717A' }}>{badge.label}</span>
+                  <span className="text-[13px]" style={{ color: '#6b7280' }}>{badge.label}</span>
                 </div>
               ))}
             </div>
@@ -161,15 +161,15 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
             <div
               className="rounded-2xl p-8 md:p-10"
               style={{
-                background: 'linear-gradient(135deg, rgba(43,35,88,0.5), rgba(43,35,88,0.3))',
-                border: '1px solid rgba(255,255,255,0.06)',
-                backdropFilter: 'blur(20px)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
               }}
             >
-              <h3 className="text-[22px] font-medium text-white mb-2" style={{ fontWeight: 500 }}>
+              <h3 className="text-[22px] font-medium mb-2" style={{ fontWeight: 500, color: '#1a1a2e' }}>
                 Subscribe to insights
               </h3>
-              <p className="text-[14px] mb-6" style={{ color: '#71717A' }}>
+              <p className="text-[14px] mb-6" style={{ color: '#6b7280' }}>
                 Enterprise IT expertise delivered weekly.
               </p>
 
@@ -185,8 +185,8 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                   >
                     <CheckCircle className="h-7 w-7" style={{ color: '#22c55e' }} />
                   </div>
-                  <p className="text-white font-medium text-[16px]">You&apos;re subscribed!</p>
-                  <p className="text-[14px] mt-1" style={{ color: '#A1A1A1' }}>
+                  <p className="font-medium text-[16px]" style={{ color: '#1a1a2e' }}>You&apos;re subscribed!</p>
+                  <p className="text-[14px] mt-1" style={{ color: '#6b7280' }}>
                     Check your inbox for a welcome email.
                   </p>
                 </motion.div>
@@ -196,7 +196,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                     <label
                       htmlFor="subscribe-email"
                       className="block text-[13px] font-medium mb-2"
-                      style={{ color: '#d4d4d8' }}
+                      style={{ color: '#1a1a2e' }}
                     >
                       Email address
                     </label>
@@ -204,14 +204,15 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                       type="email"
                       id="subscribe-email"
                       placeholder="you@company.com"
-                      className={`text-[14px] w-full py-3 px-4 rounded-lg outline-none transition-all duration-200 text-white placeholder:text-[#52525B] ${
+                      className={`text-[14px] w-full py-3 px-4 rounded-lg outline-none transition-all duration-200 placeholder:text-[#9ca3af] ${
                         emailError
                           ? 'border-red-500 focus:ring-1 focus:ring-red-500'
                           : 'border-transparent focus:ring-1 focus:ring-[#FF4800]'
                       }`}
                       style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        border: emailError ? '1px solid #ef4444' : '1px solid rgba(255,255,255,0.1)',
+                        background: '#FFFFFF',
+                        border: emailError ? '1px solid #ef4444' : '1px solid #e5e7eb',
+                        color: '#1a1a2e',
                       }}
                       value={email}
                       onChange={(e) => {
@@ -249,7 +250,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                     )}
                   </motion.button>
 
-                  <p className="text-[12px] text-center mt-1" style={{ color: '#52525B' }}>
+                  <p className="text-[12px] text-center mt-1" style={{ color: '#9ca3af' }}>
                     Unsubscribe anytime. We respect your privacy.
                   </p>
                 </form>
