@@ -1,4 +1,220 @@
 ---
+Task ID: 30-main
+Agent: Main Agent (cron webDevReview)
+Task: Phase 30 — QA review, cookie banner fix, cursor link mode, FloatingCTA dark mode, heading gradient enhancements
+
+Work Log:
+- Reviewed worklog.md for project state (Phase 29, 89 features, stable)
+- ESLint: zero errors at start
+- Dev server: compiling, GET / 200
+- QA with agent-browser: opened homepage, services, about, contact pages
+- VLM analysis: all pages rated 7/10 average
+- Key VLM issues: cookie banner overlapping content, floating icons disconnected, nav text low contrast, background sparse
+
+QA Testing (agent-browser + VLM):
+- Homepage top: 7/10 — sparse background, small nav icons
+- Homepage mid: 7/10 — cookie banner overlaps, washed-out partner logos
+- Homepage bottom: 7/10 — cookie banner clutter, inconsistent spacing
+- Services page: 7/10 — overly large hero text, minimal spacing
+- About page: 7/10 — sparse background, disconnected floating icons
+- Contact page: 7/10 (after proper navigation) — cookie banner, text hierarchy
+- Zero browser console errors
+- Zero alert elements
+
+Changes Made (3 parallel agents + manual):
+
+1. Cookie Consent Banner Position Fix (Task 30-a):
+   - Changed bottom-6 to bottom-24 to clear BackToTop + FloatingCTA buttons
+
+2. FloatingCTA Full Dark Mode Support (Task 30-a):
+   - Imported useTheme, added isDark detection
+   - Mobile panel: theme-aware background (dark: rgba(18,18,30,0.98))
+   - Desktop panel: same dark-aware treatment
+   - Panel borders: dark rgba(255,255,255,0.08), light rgba(0,0,0,0.06)
+   - Panel shadows: dark mode stronger opacity
+   - Text colors: heading switches (dark: #f0f0f5, light: #1a1a2e)
+   - Form inputs: dark mode bg/border/text colors
+   - Status feedback: dark mode green-900/20 and red-900/20 backgrounds
+   - Backdrop overlay: dark mode bg-black/40
+   - Tooltip: dark mode bg-[#1e1e30]
+
+3. Cursor 'link' Mode — Navbar (Task 30-b):
+   - Added e.stopPropagation() + setCursorStyle('link') on 6 interactive elements:
+     wordmark, 5 desktop nav links, ThemeToggle, Search button, CTA button, hamburger
+   - Each reverts to setCursorStyle('nav') on mouseLeave
+
+4. Cursor 'link' Mode — Footer (Task 30-b):
+   - Footer wrapper: onMouseEnter='nav', onMouseLeave='default'
+   - 11+ interactive element groups trigger 'link' mode via stopPropagation
+   - Includes nav links, social links, newsletter button, contact links
+
+5. BackToTop Cursor Integration (Task 30-a):
+   - setCursorStyle('link') on mouseEnter, setCursorStyle('default') on mouseLeave
+
+6. FloatingCTA Cursor Integration (Task 30-a):
+   - FAB button: setCursorStyle('link') on mouseEnter, setCursorStyle('default') on mouseLeave
+
+7. Heading Gradient CSS (Task 30-c — manual):
+   - Added .heading-gradient class: 3-color gradient (indigo→orange)
+   - Dark mode variant: light foreground → orange → orange-light
+   - Added .bento-shimmer class: subtle orange shimmer on bento cards
+
+8. HomePage Heading Gradient Applied (Task 30-c — manual):
+   - Applied heading-gradient to 5 section headings:
+     * "Enterprise solutions that modernize, scale, and deliver."
+     * "Enterprise-grade capabilities."
+     * "Questions? We've got answers."
+     * "A proven process for enterprise transformation."
+     * "Real results for real enterprises."
+   - Removed inline text-[#1a1a2e] and fontWeight:500 (handled by CSS class)
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- All 2 agents + manual work completed successfully
+
+Stage Summary:
+- Cookie banner repositioned to avoid overlapping floating buttons
+- FloatingCTA now fully supports dark mode (panels, inputs, tooltips)
+- Cursor 'link' mode (48px white inverted) active on all navbar + footer interactive elements
+- BackToTop and FloatingCTA FAB trigger cursor link mode
+- 5 homepage section headings now use gradient text effect (indigo→orange)
+- New .heading-gradient and .bento-shimmer CSS utilities added
+- Zero lint errors, stable dev server
+
+## PROJECT STATUS SUMMARY (as of Phase 30)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 30** with improved visual polish, enhanced cursor interactions across all navigation elements, dark mode support for the floating contact panel, and gradient text effects on section headings.
+
+### Completed Features (All Phases)
+1-89. (All previous Phase 29 features preserved)
+90. Cookie banner repositioned: bottom-24 to avoid overlapping BackToTop + FloatingCTA
+91. FloatingCTA dark mode: Full theme-aware styling for mobile/desktop panels, inputs, tooltips
+92. Navbar cursor link mode: 6 interactive elements trigger 48px white inverted cursor
+93. Footer cursor link mode: 11+ interactive groups with link cursor + nav parent
+94. BackToTop cursor integration: Link cursor on hover
+95. FloatingCTA FAB cursor: Link cursor on hover
+96. Heading gradient CSS: .heading-gradient utility (indigo→orange, dark mode variant)
+97. Bento shimmer CSS: .bento-shimmer utility for subtle orange shimmer
+98. Homepage gradient headings: 5 section titles use heading-gradient class
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- VLM QA: 7/10 average (all pages functional, zero console errors)
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Services hero text VLM notes as "overly large" (subjective)
+
+### Recommended Next Steps
+1. Visual QA of Phase 30 changes in dark mode
+2. Replace placeholder images with real content
+3. Database integration for contact form
+4. Performance audit
+5. Accessibility audit
+
+---
+Task ID: 30-b
+Agent: Main Agent
+Task: Add cursor 'link' mode for interactive elements across Navbar and Footer
+
+Work Log:
+- Read worklog.md for project context (Phase 30-a, stable, CursorContext already available)
+- Read cursor-context.tsx: confirmed CursorStyle type supports 'default' | 'nav' | 'link'
+- Read inverted-cursor.tsx: confirmed link mode = 48px, white, mix-blend-difference
+- Read Navbar.tsx (413 lines): identified 6 interactive elements needing 'link' cursor
+- Read Footer.tsx (580 lines): identified 11 interactive elements needing 'link' cursor
+
+Changes Made:
+
+1. Navbar.tsx — Link cursor on all interactive elements:
+   - Wordmark <motion.a>: added onMouseEnter with stopPropagation + setCursorStyle('link'), onMouseLeave with setCursorStyle('nav')
+   - 5 desktop nav links <motion.a>: same pattern (uses map, single edit covers all)
+   - ThemeToggle wrapper <motion.div>: same pattern
+   - Search button <motion.button>: integrated into existing onMouseEnter/onMouseLeave handlers
+   - CTA "Start a project" button <motion.button>: integrated into existing onMouseEnter/onMouseLeave handlers
+   - Hamburger button <button>: added new onMouseEnter/onMouseLeave handlers
+   - All handlers use e.stopPropagation() to prevent parent 'nav' from overriding 'link'
+   - All onMouseLeave on interactive elements revert to 'nav' (not 'default') since they're inside the nav container
+
+2. Footer.tsx — Nav + Link cursor integration:
+   - Imported useCursorStyle from '@/lib/cursor-context'
+   - Added const { setCursorStyle } = useCursorStyle() hook call
+   - Footer <footer> element: added onMouseEnter={() => setCursorStyle('nav')} and onMouseLeave={() => setCursorStyle('default')}
+   - Back to top <a>: integrated cursor calls into existing hover handlers
+   - Brand wordmark <a>: combined setBrandHovered with cursor calls in single handler
+   - 2 social icon <a> links: integrated cursor calls into existing hover handlers
+   - Newsletter submit <button>: integrated cursor calls into existing hover handlers
+   - 12 nav links across 3 columns (Explore/Services/Resources): used replace_all for identical pattern
+   - Contact email <a>: integrated cursor calls into existing hover handlers
+   - Privacy Policy + Terms of Service buttons: integrated cursor calls into existing hover handlers
+   - All interactive elements use stopPropagation + 'link' on enter, 'nav' on leave
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, all pages 200
+
+Stage Summary:
+- Cursor now transitions to 'link' mode (48px white inverted) when hovering any clickable element in Navbar
+- Cursor transitions to 'nav' mode (36px solid) when hovering the Navbar container
+- Footer now has full cursor integration: 'nav' on the footer, 'link' on all links and buttons
+- e.stopPropagation() ensures child 'link' mode isn't overridden by parent 'nav' mode
+- Zero lint errors, stable dev server
+
+---
+Task ID: 30-a
+Agent: Main Agent
+Task: Fix cookie consent banner overlapping content + enhance floating buttons with dark mode and cursor integration
+
+Work Log:
+- Read worklog.md for project context (Phase 29, stable, CursorContext already available)
+- Read CookieConsent.tsx (174 lines), FloatingCTA.tsx (421 lines), BackToTop.tsx (116 lines)
+- Verified cursor-context.tsx exports useCursorStyle hook with setCursorStyle function
+
+Changes Made:
+
+1. CookieConsent Banner Position Fix (/src/components/straveda/CookieConsent.tsx):
+   - Changed `bottom-6` to `bottom-24` on the fixed container to clear BackToTop + FloatingCTA buttons
+
+2. FloatingCTA Dark Mode Support (/src/components/straveda/FloatingCTA.tsx):
+   - Imported `useTheme` from 'next-themes' and `useCursorStyle` from '@/lib/cursor-context'
+   - Added `isDark` state from theme detection
+   - Mobile panel: background changed from hardcoded white to theme-aware (dark: rgba(18, 18, 30, 0.98))
+   - Desktop panel: same dark-aware background treatment
+   - Panel borders: dark mode rgba(255,255,255,0.08), light mode rgba(0,0,0,0.06)
+   - Panel box-shadow: dark mode uses stronger shadow (0.5 opacity vs 0.12)
+   - Header text: isDark switches between #f0f0f5 and #1a1a2e
+   - Close button: dark mode text-[#9ca3af] with hover:bg-white/[0.06]
+   - Form inputs: dark mode bg-[#12121e] border-[rgba(255,255,255,0.12)] text-[#f0f0f5]
+   - Status feedback: dark mode uses green-900/20 and red-900/20 backgrounds
+   - Footer text: dark mode #6b7280, light mode #9ca3af
+   - Backdrop overlay: dark mode bg-black/40, light mode bg-black/20
+   - Tooltip: dark mode bg-[#1e1e30] text-[#f0f0f5] with matching arrow color
+
+3. FloatingCTA Cursor Integration (/src/components/straveda/FloatingCTA.tsx):
+   - Added `setCursorStyle('link')` on FAB mouseEnter
+   - Added `setCursorStyle('default')` on FAB mouseLeave
+
+4. BackToTop Cursor Integration (/src/components/straveda/BackToTop.tsx):
+   - Imported `useCursorStyle` from '@/lib/cursor-context'
+   - Added `setCursorStyle('link')` on mouseEnter alongside existing setIsHovered(true)
+   - Added `setCursorStyle('default')` on mouseLeave alongside existing setIsHovered(false)
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully
+
+Stage Summary:
+- Cookie consent banner no longer overlaps floating buttons (raised from bottom-6 to bottom-24)
+- FloatingCTA panels now have full dark mode support (backgrounds, borders, shadows, text, inputs)
+- BackToTop button triggers 'link' cursor style on hover
+- FloatingCTA FAB button triggers 'link' cursor style on hover
+- Zero lint errors, stable dev server
+
+---
 Task ID: 29-cursor-navbar
 Agent: Main Agent
 Task: Phase 29 — Fix cursor behavior on navbar: turn black + shrink when hovering over navbar

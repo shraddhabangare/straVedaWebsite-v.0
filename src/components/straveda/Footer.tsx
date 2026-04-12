@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, CSSProperties } from 'react';
 import { Mail, MapPin, Code, ArrowUp, Globe, CheckCircle, Loader2 } from 'lucide-react';
+import { useCursorStyle } from '@/lib/cursor-context';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -64,6 +65,7 @@ type SubscribeStatus = 'idle' | 'loading' | 'success' | 'error';
 export default function Footer({ onNavigate }: FooterProps) {
   const footerRef = useRef<HTMLElement>(null);
   const isInView = useInView(footerRef, { once: true, margin: '-50px' });
+  const { setCursorStyle } = useCursorStyle();
   const [brandHovered, setBrandHovered] = useState(false);
   const [email, setEmail] = useState('');
   const [subscribeStatus, setSubscribeStatus] = useState<SubscribeStatus>('idle');
@@ -112,7 +114,13 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer ref={footerRef} className="relative mt-auto bg-noise-subtle" style={{ background: 'linear-gradient(135deg, #fafafa, #f5f5fa)' }}>
+    <footer
+      ref={footerRef}
+      className="relative mt-auto bg-noise-subtle"
+      style={{ background: 'linear-gradient(135deg, #fafafa, #f5f5fa)' }}
+      onMouseEnter={() => setCursorStyle('nav')}
+      onMouseLeave={() => setCursorStyle('default')}
+    >
       {/* ── Gradient top line (3px, #FF4800 → transparent) ── */}
       <div
         className="absolute top-0 left-0 right-0 h-[3px] z-10"
@@ -205,12 +213,14 @@ export default function Footer({ onNavigate }: FooterProps) {
             className="group inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-lg transition-all duration-300"
             style={{ color: '#9ca3af' }}
             onMouseEnter={(e) => {
+              e.stopPropagation(); setCursorStyle('link');
               e.currentTarget.style.color = '#FF4800';
               e.currentTarget.style.transform = 'scale(1.05)';
               e.currentTarget.style.boxShadow = '0 4px 16px rgba(255,72,0,0.15)';
               e.currentTarget.style.background = 'rgba(255,72,0,0.05)';
             }}
             onMouseLeave={(e) => {
+              setCursorStyle('nav');
               e.currentTarget.style.color = '#9ca3af';
               e.currentTarget.style.transform = 'scale(1)';
               e.currentTarget.style.boxShadow = 'none';
@@ -239,8 +249,8 @@ export default function Footer({ onNavigate }: FooterProps) {
                 e.preventDefault();
                 onNavigate('home');
               }}
-              onMouseEnter={() => setBrandHovered(true)}
-              onMouseLeave={() => setBrandHovered(false)}
+              onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link'); setBrandHovered(true); }}
+              onMouseLeave={() => { setCursorStyle('nav'); setBrandHovered(false); }}
               className="inline-block text-xl font-medium tracking-tight select-none mb-3"
               style={{ ...brandStyle, color: '#1a1a2e' }}
             >
@@ -270,12 +280,14 @@ export default function Footer({ onNavigate }: FooterProps) {
                     color: '#6b7280',
                   }}
                   onMouseEnter={(e) => {
+                    e.stopPropagation(); setCursorStyle('link');
                     e.currentTarget.style.background = 'transparent';
                     e.currentTarget.style.color = '#FF4800';
                     e.currentTarget.style.transform = 'scale(1.15)';
                     e.currentTarget.style.boxShadow = '0 0 12px rgba(255, 72, 0, 0.15)';
                   }}
                   onMouseLeave={(e) => {
+                    setCursorStyle('nav');
                     e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
                     e.currentTarget.style.color = '#6b7280';
                     e.currentTarget.style.transform = 'scale(1)';
@@ -342,11 +354,13 @@ export default function Footer({ onNavigate }: FooterProps) {
                       background: subscribeStatus === 'loading' ? '#cc3d00' : '#FF4800',
                     }}
                     onMouseEnter={(e) => {
+                      e.stopPropagation(); setCursorStyle('link');
                       if (subscribeStatus !== 'loading') {
                         e.currentTarget.style.background = '#e63f00';
                       }
                     }}
                     onMouseLeave={(e) => {
+                      setCursorStyle('nav');
                       e.currentTarget.style.background = subscribeStatus === 'loading' ? '#cc3d00' : '#FF4800';
                     }}
                   >
@@ -396,9 +410,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
+                      e.stopPropagation(); setCursorStyle('link');
                       e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
+                      setCursorStyle('nav');
                       e.currentTarget.style.color = '#6b7280';
                     }}
                   >
@@ -435,9 +451,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
+                      e.stopPropagation(); setCursorStyle('link');
                       e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
+                      setCursorStyle('nav');
                       e.currentTarget.style.color = '#6b7280';
                     }}
                   >
@@ -474,9 +492,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                     className="text-sm transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                     onMouseEnter={(e) => {
+                      e.stopPropagation(); setCursorStyle('link');
                       e.currentTarget.style.color = '#FF4800';
                     }}
                     onMouseLeave={(e) => {
+                      setCursorStyle('nav');
                       e.currentTarget.style.color = '#6b7280';
                     }}
                   >
@@ -507,9 +527,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                     textDecorationColor: '#FF4800',
                   }}
                   onMouseEnter={(e) => {
+                    e.stopPropagation(); setCursorStyle('link');
                     e.currentTarget.style.color = '#FF4800';
                   }}
                   onMouseLeave={(e) => {
+                    setCursorStyle('nav');
                     e.currentTarget.style.color = '#1a1a2e';
                   }}
                 >
@@ -550,9 +572,11 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: '#9ca3af' }}
               onMouseEnter={(e) => {
+                e.stopPropagation(); setCursorStyle('link');
                 e.currentTarget.style.color = '#FF4800';
               }}
               onMouseLeave={(e) => {
+                setCursorStyle('nav');
                 e.currentTarget.style.color = '#9ca3af';
               }}
             >
@@ -564,9 +588,11 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: '#9ca3af' }}
               onMouseEnter={(e) => {
+                e.stopPropagation(); setCursorStyle('link');
                 e.currentTarget.style.color = '#FF4800';
               }}
               onMouseLeave={(e) => {
+                setCursorStyle('nav');
                 e.currentTarget.style.color = '#9ca3af';
               }}
             >

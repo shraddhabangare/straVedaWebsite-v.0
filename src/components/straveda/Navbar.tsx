@@ -148,6 +148,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               transition={{ duration: 0.7, ease }}
               className="font-medium text-lg tracking-tight select-none"
               style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: wordmarkSize, color: textPrimary }}
+              onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
+              onMouseLeave={() => setCursorStyle('nav')}
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </motion.a>
@@ -171,6 +173,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                     fontWeight: isActive(page) ? 500 : 400,
                     fontSize: navLinkSize,
                   }}
+                  onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
+                  onMouseLeave={() => setCursorStyle('nav')}
                 >
                   {label}
                   {/* Orange underline on hover/active */}
@@ -193,6 +197,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5, ease }}
                 className="hidden md:block"
+                onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
+                onMouseLeave={() => setCursorStyle('nav')}
               >
                 <ThemeToggle />
               </motion.div>
@@ -206,10 +212,12 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                 className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 cursor-pointer"
                 style={{ color: textSecondary }}
                 onMouseEnter={(e) => {
+                  e.stopPropagation(); setCursorStyle('link');
                   e.currentTarget.style.color = textPrimary;
                   e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
                 }}
                 onMouseLeave={(e) => {
+                  setCursorStyle('nav');
                   e.currentTarget.style.color = textSecondary;
                   e.currentTarget.style.background = 'transparent';
                 }}
@@ -232,10 +240,12 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                   fontWeight: 500,
                 }}
                 onMouseEnter={(e) => {
+                  e.stopPropagation(); setCursorStyle('link');
                   e.currentTarget.style.backgroundColor = '#e63f00';
                   e.currentTarget.style.transform = 'scale(1.02)';
                 }}
                 onMouseLeave={(e) => {
+                  setCursorStyle('nav');
                   e.currentTarget.style.backgroundColor = '#FF4800';
                   e.currentTarget.style.transform = 'scale(1)';
                 }}
@@ -249,6 +259,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                 style={{ color: textPrimary }}
                 onClick={() => setMobileOpen((prev) => !prev)}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
+                onMouseLeave={() => setCursorStyle('nav')}
               >
                 {mobileOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

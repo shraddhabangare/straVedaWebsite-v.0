@@ -2414,3 +2414,29 @@ html {
 .dark .bg-\[\#f9f9f9\] .shadow-2xl {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
 }
+
+/* ============================================
+   Phase 30: Heading Gradient — for section titles
+   ============================================ */
+.heading-gradient {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2B2358 40%, #FF4800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .heading-gradient {
+  background: linear-gradient(135deg, #f0f0f5 0%, #FF4800 60%, #ff6a33 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================
+   Phase 30: Bento card subtle shimmer
+   ============================================ */
+.bento-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,72,0,0.03) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}

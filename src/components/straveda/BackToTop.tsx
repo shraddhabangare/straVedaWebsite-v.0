@@ -3,11 +3,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
+import { useCursorStyle } from '@/lib/cursor-context'
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+  const { setCursorStyle } = useCursorStyle()
 
   const updateScroll = useCallback(() => {
     const scrollY = window.scrollY
@@ -51,8 +53,8 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0.6 }}
           transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           onClick={scrollToTop}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => { setIsHovered(true); setCursorStyle('link') }}
+          onMouseLeave={() => { setIsHovered(false); setCursorStyle('default') }}
           className="fixed bottom-6 right-6 z-40 flex items-center justify-center cursor-pointer"
           style={{ background: 'transparent', border: 'none', padding: 0 }}
           aria-label="Back to top"

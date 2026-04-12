@@ -415,8 +415,7 @@ function FAQSection() {
             FREQUENTLY ASKED QUESTIONS
           </p>
           <h2
-            className="text-[42px] font-medium text-[#1a1a2e]"
-            style={{ fontWeight: 500 }}
+            className="text-[42px] font-medium heading-gradient"
           >
             Questions? We&apos;ve got answers.
           </h2>
@@ -641,8 +640,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               OUR SERVICES
             </p>
             <h2
-              className="text-[42px] font-medium text-[#1a1a2e]"
-              style={{ maxWidth: '580px', fontWeight: 500 }}
+              className="text-[42px] font-medium heading-gradient"
+              style={{ maxWidth: '580px' }}
             >
               Enterprise solutions that modernize, scale, and deliver.
             </h2>
@@ -872,8 +871,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               WHAT SETS US APART
             </p>
             <h2
-              className="text-[42px] font-medium text-[#1a1a2e]"
-              style={{ fontWeight: 500 }}
+              className="text-[42px] font-medium heading-gradient"
             >
               Enterprise-grade capabilities.
             </h2>
@@ -1108,8 +1106,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium text-[#1a1a2e]"
-              style={{ fontWeight: 500, maxWidth: '640px' }}
+              className="text-[42px] font-medium heading-gradient"
+              style={{ maxWidth: '640px' }}
             >
               A proven process for enterprise transformation.
             </h2>
@@ -1521,8 +1519,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium text-[#1a1a2e]"
-              style={{ fontWeight: 500, maxWidth: '580px' }}
+              className="text-[42px] font-medium heading-gradient"
+              style={{ maxWidth: '580px' }}
             >
               Real results for real enterprises.
             </h2>
