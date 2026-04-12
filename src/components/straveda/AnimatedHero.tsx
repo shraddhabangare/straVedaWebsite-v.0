@@ -364,7 +364,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
       {/* Bottom gradient fade to blend into next section */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--background)) }}
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
       />
 
       {/* Scroll Indicator */}
