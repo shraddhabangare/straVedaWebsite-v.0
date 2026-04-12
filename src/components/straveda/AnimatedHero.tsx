@@ -6,6 +6,7 @@ import { ArrowRight, Building2, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import StravedaWebGLHero from '@/components/straveda/StravedaWebGLHero';
+import StravedaAurora from '@/components/straveda/StravedaAurora';
 import TextCursorProximity from '@/components/ui/text-cursor-proximity';
 
 const ease = [0.4, 0, 0.2, 1] as const;
@@ -111,6 +112,14 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
 
       {/* WebGL Shader Background */}
       <StravedaWebGLHero />
+
+      {/* Digital Aurora Overlay — brand colors only */}
+      <div
+        className="absolute inset-0 z-[1] opacity-40 pointer-events-none"
+        aria-hidden="true"
+      >
+        <StravedaAurora />
+      </div>
 
       {/* Mouse-following gradient glow */}
       <div

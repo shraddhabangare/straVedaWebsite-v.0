@@ -41,6 +41,7 @@ import ImpactMetrics from '@/components/straveda/ImpactMetrics';
 import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
+import LogoCloud from '@/components/ui/logo-cloud-2';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -515,100 +516,30 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <Marquee />
 
       {/* ═══════════════════════════════════════════════ */}
-      {/* TECHNOLOGY PARTNERS                             */}
+      {/* TECHNOLOGY PARTNERS — LOGO CLOUD                */}
       {/* ═══════════════════════════════════════════════ */}
       <div className="divider-gradient dark:opacity-30" />
-      <section className="py-24 bg-white dark:bg-[#0a0a14]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="mb-6 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af]">
-            Technology Partners
-          </p>
-          <div className="bg-white/50 backdrop-blur-sm border border-black/[0.04] rounded-2xl p-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-              {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
-                <div
-                  key={name}
-                  className="flex items-center justify-center h-16 rounded-xl bg-gray-50/80 border border-gray-100 px-6 transition-all duration-300 hover:border-[rgba(255,72,0,0.15)] hover:bg-white hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
-                  style={{ transform: 'scale(1)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                    const span = e.currentTarget.querySelector('span');
-                    if (span) span.style.color = '#FF4800';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    const span = e.currentTarget.querySelector('span');
-                    if (span) span.style.color = '#6b7280';
-                  }}
-                >
-                  <span className="text-[14px] font-semibold tracking-wide text-[#6b7280] select-none">{name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      <div className="divider-gradient dark:opacity-30" />
-
-      {/* ═══════════════════════════════════════════════ */}
-      {/* TRUSTED BY INDUSTRY LEADERS                     */}
-      {/* ═══════════════════════════════════════════════ */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.8, ease }}
         className="py-24 bg-white dark:bg-[#0a0a14]"
       >
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-          {/* Heading */}
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, ease }}
-            className="mb-10 text-center text-[14px] font-medium uppercase tracking-widest text-[#9ca3af] dark:text-[#6b7280]"
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-10 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af] dark:text-[#6b7280]"
           >
-            Trusted by industry leaders
+            Technology Partners
           </motion.p>
-
-          {/* Logo Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.08 } },
-            }}
-            className="grid grid-cols-3 gap-8 md:grid-cols-6"
-          >
-            {[
-              { name: 'Accenture', className: 'font-bold tracking-wider' },
-              { name: 'Deloitte', className: 'font-semibold tracking-wide' },
-              { name: 'IBM', className: 'font-bold tracking-[0.2em]' },
-              { name: 'JPMorgan', className: 'font-semibold tracking-wide' },
-              { name: 'McKinsey', className: 'font-medium tracking-wider' },
-              { name: 'Goldman Sachs', className: 'font-semibold tracking-wide' },
-            ].map((logo) => (
-              <motion.div
-                key={logo.name}
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: { duration: 0.5, ease },
-                  },
-                }}
-                className="flex items-center justify-center"
-              >
-                <span
-                  className={`partner-name text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none text-[#9ca3af] dark:text-[#6b7280] ${logo.className}`}
-                >
-                  {logo.name}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
+          <LogoCloud />
         </div>
-      </section>
-      <div className="divider-gradient" />
+      </motion.section>
+      <div className="divider-gradient dark:opacity-30" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1B — SERVICES TEASER                    */}

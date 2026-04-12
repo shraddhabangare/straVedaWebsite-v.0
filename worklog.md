@@ -1,3 +1,135 @@
+## PROJECT STATUS SUMMARY (as of Phase 33)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 33** with two major visual enhancements: a customized logo cloud replacing the old text-based partner sections, and a brand-colored digital aurora shader overlay in the hero section.
+
+### Completed Features (Phase 33)
+101. Logo Cloud component: 15 enterprise partner SVG logos (Microsoft Azure, AWS, Google Cloud, Red Hat, Docker, Kubernetes, Linux Foundation, IBM, Salesforce, Oracle, SAP, VMware, Cisco, Intel, NVIDIA)
+102. Logo Cloud grid: Responsive 2-col mobile → 4-col desktop with alternating checkerboard pattern
+103. Logo Cloud decorations: Brand orange (#FF4800) PlusIcon at grid intersections, hover effects (opacity 50%→100%, orange bg tint)
+104. Logo Cloud dark mode: Inverted logos + theme-aware hover backgrounds
+105. Removed old Technology Partners section (7 text logos in rounded card)
+106. Removed old Trusted by Industry Leaders section (6 text logos with stagger animation)
+107. StravedaAurora shader: WebGL aurora using ONLY brand colors (#FF4800 orange ↔ #2B2358 purple oscillation)
+108. Aurora integration: Overlay layer (z-[1]) between WebGL hero and content, opacity 40%, mix-blend-mode screen
+109. Aurora performance: Reduced march steps (24), vignette effect, SSR-safe with isClient guard
+110. svgl.app domain added to next.config.ts remotePatterns
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+- Both components render correctly
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Some SVG logos from svgl.app may not load if URLs change
+
+### Recommended Next Steps
+1. Visual QA of aurora + logo cloud in both light/dark modes
+2. Replace placeholder images with real content
+3. Database integration for contact form
+4. Performance audit (two WebGL shaders running in hero)
+
+---
+Task ID: 33-a
+Agent: Frontend Styling Expert
+Task: Customize logo-cloud-2 with brand partners and integrate into HomePage
+
+Work Log:
+- Read worklog.md for project context (Phase 33-b, stable)
+- Read existing logo-cloud-2.tsx (136 lines) — original shadcn/ui component with 8 tech logos
+- Read HomePage.tsx — identified TECHNOLOGY PARTNERS section (lines 517-551) and TRUSTED BY INDUSTRY LEADERS section (lines 553-611) for removal
+
+Changes Made:
+
+1. Rewrote /src/components/ui/logo-cloud-2.tsx (124 lines):
+   - Replaced 8 generic tech logos with 15 Straveda enterprise partners:
+     Microsoft Azure, AWS, Google Cloud, Red Hat, Docker, Kubernetes, Linux Foundation,
+     IBM, Salesforce, Oracle, SAP, VMware, Cisco, Intel, NVIDIA
+   - SVG wordmark logos sourced from svgl.app library
+   - Data-driven grid using partners.map() with computed border classes
+   - Responsive: 2-col grid on mobile, 4-col grid on desktop (md:grid-cols-4)
+   - Alternating checkerboard bg-secondary pattern for visual texture
+   - Computed border-r/b classes based on column/row position
+   - PlusIcon decorations at grid intersections every 2 cols × 2 rows, colored #FF4800 (brand orange)
+   - Full-width top/bottom decorative border lines (absolute positioned)
+   - LogoCard hover effect: subtle orange-tinted background (rgba(255,72,0,0.03)) on hover
+   - Logo image opacity: 50% at rest, 100% on group-hover with smooth transition
+   - Dark mode: dark:brightness-0 dark:invert on all logo images for visibility
+   - Dark mode hover: dark:hover:bg-white/[0.04]
+   - Lazy loading on all images (loading="lazy")
+   - Exported as both named export (LogoCloud) and default export
+
+2. Updated /src/components/straveda/pages/HomePage.tsx:
+   - Added import: import LogoCloud from '@/components/ui/logo-cloud-2'
+   - Removed TECHNOLOGY PARTNERS section (old 7-item text grid in rounded card)
+   - Removed TRUSTED BY INDUSTRY LEADERS section (old 6-item text grid with stagger animation)
+   - Replaced both sections with single LogoCloud section:
+     * Framer Motion fade-in + slide-up animation (whileInView, once, margin -80px)
+     * "Technology Partners" heading (12px, uppercase, tracking-widest, gray text)
+     * Heading has its own fade-in with 0.2s delay for stagger effect
+     * LogoCloud component inside max-w-7xl container with px-6/lg:px-8
+     * py-24 section padding, white bg with dark mode support
+     * divider-gradient before and after section
+
+Final QA:
+- ESLint: zero errors
+- Next.js build: compiled successfully, all pages generated
+
+Stage Summary:
+- logo-cloud-2.tsx fully customized with 15 Straveda enterprise partner SVG logos
+- Data-driven responsive grid: 2-col mobile → 4-col desktop with computed borders
+- Brand orange (#FF4800) PlusIcon decorations at grid intersections
+- Hover effect: subtle orange bg tint + logo opacity 50%→100%
+- Dark mode support: inverted logos + theme-aware hover backgrounds
+- HomePage consolidated from 2 separate sections (7+6 text logos) into 1 LogoCloud (15 SVG logos)
+- Zero lint errors, build passes
+
+---
+Task ID: 33-b
+Agent: Frontend Styling Expert
+Task: Add digital-aurora to hero background with brand colors
+
+Work Log:
+- Read worklog.md for project context (Phase 32, stable)
+- Read existing digital-aurora.tsx (273 lines) to understand the InteractiveShader WebGL implementation
+- Read AnimatedHero.tsx (403 lines) to understand hero structure and z-index layering
+- Created /src/components/straveda/StravedaAurora.tsx — brand-colored aurora shader overlay
+- Integrated StravedaAurora into AnimatedHero.tsx as an overlay layer between WebGL hero and content
+
+Changes Made:
+
+1. Created /src/components/straveda/StravedaAurora.tsx (244 lines):
+   - Extracted and customized the InteractiveShader from digital-aurora.tsx
+   - Replaced rainbow aurora colors with brand-only oscillation:
+     vec3 orange = vec3(1.0, 0.282, 0.0)   — #FF4800
+     vec3 purple = vec3(0.169, 0.137, 0.345) — #2B2358
+     Smooth sin-based mix_factor oscillates between the two
+   - Reduced march steps from 32 to 24 for performance
+   - Added subtle vignette effect to focus aurora toward center-top
+   - Subtle intensity settings: flowSpeed=0.3, colorIntensity=0.6, noiseLayers=3.0, mouseInfluence=0.2
+   - Canvas renders with opacity 0.45 and mix-blend-mode: screen for natural blending
+   - SSR-safe with isClient ref guard before WebGL initialization
+   - Proper WebGL cleanup on unmount (program, shaders, buffer, event listeners)
+
+2. Updated /src/components/straveda/AnimatedHero.tsx:
+   - Added import: import StravedaAurora from '@/components/straveda/StravedaAurora'
+   - Inserted aurora overlay div (absolute inset-0 z-[1] opacity-40 pointer-events-none) after StravedaWebGLHero
+   - Aurora sits above WebGL hero (z-[1]) but below content (z-10), gradient glow (z-[2]), and bottom fade (z-[5])
+
+Final QA:
+- ESLint: zero errors
+- Dev server: compiled successfully, GET / 200
+
+Stage Summary:
+- StravedaAurora.tsx provides a subtle brand-colored aurora shader using ONLY #FF4800 and #2B2358
+- Aurora oscillates smoothly between orange and purple with reduced noise layers (3) and intensity (0.6)
+- mix-blend-mode: screen + 0.45 opacity on canvas ensures natural blending with existing WebGL hero
+- Additional 0.4 opacity on the container div provides further subtlety
+- No modifications to existing StravedaWebGLHero — aurora is purely additive
+- Zero lint errors, stable dev server
+
 ---
 Task ID: 32-dark-pages
 Agent: Frontend Styling Expert
