@@ -415,7 +415,7 @@ export default function InsightsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-[#2B2358] rounded-xl py-16 px-6 md:px-12 text-center"
+            className="bg-[#2B2358] rounded-xl py-16 px-6 md:px-12 text-center bg-noise-subtle border-glow-top"
           >
             <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-white mb-3">
               Stay ahead of enterprise trends.

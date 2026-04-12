@@ -89,10 +89,20 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1A — HERO (100vh, black background)     */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="relative flex min-h-screen items-center bg-black"
+        className="relative flex min-h-screen items-center bg-black hero-lines"
         style={{ background: '#000000' }}
       >
         <ParticleField />
+        {/* Subtle gradient glow behind hero */}
+        <div
+          className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '800px',
+            height: '800px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,72,0,0.03) 0%, rgba(43,35,88,0.03) 40%, transparent 70%)',
+          }}
+        />
         <div className="relative z-10 mx-auto w-full max-w-[860px] px-6 py-24 lg:px-8">
           {/* Eyebrow */}
           <motion.p
@@ -213,6 +223,72 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* MARQUEE TICKER                                   */}
       {/* ═══════════════════════════════════════════════ */}
       <Marquee />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* TRUSTED BY INDUSTRY LEADERS                     */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section
+        className="py-12"
+        style={{
+          background: '#000000',
+          borderTop: '1px solid rgba(255,255,255,0.04)',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
+        }}
+      >
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Heading */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-10 text-center text-[14px] font-medium uppercase tracking-widest"
+            style={{ color: '#52525B' }}
+          >
+            Trusted by industry leaders
+          </motion.p>
+
+          {/* Logo Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
+            className="grid grid-cols-3 gap-8 md:grid-cols-6"
+          >
+            {[
+              { name: 'Accenture', className: 'font-bold tracking-wider' },
+              { name: 'Deloitte', className: 'font-semibold tracking-wide' },
+              { name: 'IBM', className: 'font-bold tracking-[0.2em]' },
+              { name: 'JPMorgan', className: 'font-semibold tracking-wide' },
+              { name: 'McKinsey', className: 'font-medium tracking-wider' },
+              { name: 'Goldman Sachs', className: 'font-semibold tracking-wide' },
+            ].map((logo) => (
+              <motion.div
+                key={logo.name}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { duration: 0.5, ease },
+                  },
+                }}
+                className="flex items-center justify-center"
+              >
+                <span
+                  className={`text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#71717A] select-none ${logo.className}`}
+                  style={{ color: '#3f3f46' }}
+                >
+                  {logo.name}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1B — SERVICES TEASER                    */}

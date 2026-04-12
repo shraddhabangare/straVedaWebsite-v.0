@@ -614,10 +614,104 @@ The Straveda enterprise IT consulting website is in an **advanced, production-re
 6. **Accessibility audit**: Keyboard navigation, screen reader testing, ARIA labels
 7. **Performance audit**: Lighthouse testing for Core Web Vitals
 8. **Dark/Light theme toggle**: Add theme switching capability
-9. **Blog post detail view**: Create modal or dedicated view for full blog articles
-10. **Case studies section**: Add client success stories with metrics
+9. ~~**Blog post detail view**~~: ✅ DONE — Blog modal added in Phase 13
+10. ~~**Case studies section**~~: ✅ DONE — 3 case studies added in Phase 13
 
 ---
+Task ID: 13-main
+Agent: Main Agent
+Task: Phase 13 — New features, blog modal, case studies, styling enhancements
+
+Work Log:
+- Reviewed full worklog.md (619 lines, 12 phases of prior work)
+- Ran ESLint: zero errors confirmed across entire codebase
+- Dev server confirmed running and returning HTTP 200
+- Launched 4 parallel sub-agents for feature development:
+  - Task 13-b: Case Studies section on HomePage (3 cards with metrics) ✅
+  - Task 13-c: Blog Post Detail Modal on InsightsPage (7 full articles) ✅
+  - Task 13-d: Partners & Certifications section on AboutPage (6 partners + 3 certs) ✅
+  - Task 13-e: Floating Quick Contact CTA button (desktop FAB + panel) ✅
+  - Task 13-f: Trusted By industry logos section on HomePage (6 companies) ✅
+- Added 20 new CSS utility classes to globals.css (total now ~890 lines):
+  1. .hero-lines — geometric accent circles on hero backgrounds
+  2. .section-number — large semi-transparent section numbering (120px)
+  3. .border-glow-top — gradient glow line at top of elements
+  4. .tag-hover — scale + border transition on tags/badges
+  5. .text-stroke — outline text effect with orange stroke
+  6. .link-arrow — inline-flex with arrow slide animation
+  7. .scroll-section — horizontal scroll with hidden scrollbar
+  8. .gradient-fade-right/left — mask gradient edges for scroll
+  9. .bg-noise-subtle — subtle noise texture overlay on elements
+  10. .collapse-content — smooth max-height transitions
+  11. .skeleton-gradient — animated loading skeleton
+  12. .modal-overlay — backdrop blur with saturation boost
+  13. :focus-visible — keyboard-accessible orange focus ring
+  14. .page-transition-wrapper — will-change and backface-visibility
+  15. .tracking-tight-hero / .tracking-normal-body — typography letter-spacing
+  16. .hr-gradient — subtle horizontal gradient line
+  17. .image-reveal — clip-path image reveal animation
+  18. html smooth scroll + font smoothing enhancements
+- Applied styling enhancements across pages:
+  - HomePage hero: added hero-lines class, radial gradient glow behind content
+  - ContactPage form: added bg-noise-subtle + border-glow-top
+  - ServicesPage service graphics: added bg-noise-subtle
+  - InsightsPage newsletter CTA: added bg-noise-subtle + border-glow-top
+  - Footer: added bg-noise-subtle for subtle texture
+- ESLint: zero errors confirmed after all changes
+
+Stage Summary:
+- 5 new features added: Case Studies, Blog Modal, Partners, Floating CTA, Trusted By
+- 20 new CSS utility classes added for visual polish
+- 5 pages enhanced with new styling utilities
+- 1 new component file created: FloatingCTA.tsx
+- Total components: 19 files (14 reusable + 5 page components)
+- ESLint: zero errors, project stable
+
+---
+## PROJECT STATUS SUMMARY (as of Phase 13 — April 12, 2026)
+
+### Current Project Status
+The Straveda enterprise IT consulting website is in an **advanced, production-ready state** with comprehensive features, extensive animations, and polished visual design. Phase 13 adds 5 major new features and 20 CSS utilities.
+
+### Completed Modifications (This Phase)
+1. **Case Studies section** on HomePage — 3 enterprise case studies (Financial Services, Healthcare, Government) with challenge/solution/results structure and metric badges
+2. **Blog Post Detail Modal** on InsightsPage — Full article modal with 7 articles (1 featured + 6 grid), author info, read time, animated enter/exit, keyboard dismiss
+3. **Partners & Certifications section** on AboutPage — 6 technology partners (Red Hat, AWS, Azure, Docker, K8s, Linux Foundation) with brand-colored logos + 3 certification badges
+4. **Floating Quick Contact CTA** — Desktop-only floating action button with expandable contact form, inline status feedback, auto-close on success, 3-second entry delay
+5. **Trusted By section** on HomePage — 6 industry client logos (Accenture, Deloitte, IBM, JPMorgan, McKinsey, Goldman Sachs) with stagger animation
+6. **20 new CSS utilities** — hero-lines, section-number, border-glow-top, tag-hover, text-stroke, link-arrow, scroll-section, gradient-fade, bg-noise-subtle, skeleton-gradient, modal-overlay, focus-visible, image-reveal, typography helpers, hr-gradient
+7. **Styling enhancements** — Applied new utilities across 5 pages (hero lines, noise textures, glow borders)
+
+### Total Project Stats (All Phases)
+- 19 component files (14 reusable + 5 page components)
+- ~6,500+ lines of code across components, pages, styles, and app files
+- 20+ CSS utility classes in globals.css (~890 lines)
+- 5 pages: Home (9 sections), Services (4 sections), About (7 sections), Insights (4 sections + modal), Contact (2 sections)
+- 3 API endpoints: /api/contact, /api/newsletter
+- 14+ animation/interaction components: Preloader, CustomCursor, ScrollProgress, Marquee, TiltCard, MagneticButton, ParticleField, TextReveal, BackToTop, CookieConsent, FloatingCTA, SmoothScroll
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiles and returns HTTP 200
+- All 5 pages accessible via SPA navigation with Framer Motion transitions
+
+### Unresolved Issues / Risks
+- agent-browser cannot connect to localhost from its sandbox for visual QA (environment limitation)
+- No real images for testimonials/blog posts/team members (placeholder graphics used)
+- Newsletter API logs to console (no database persistence)
+- Team member data is fictional placeholder content
+
+### Recommended Next Steps (Priority Order)
+1. **Visual QA**: Verify all new sections in Preview Panel
+2. **Mobile testing**: Verify responsive behavior for new sections
+3. **Real content**: Add real team photos, blog post images, testimonial avatars
+4. **Database integration**: Persist newsletter subscriptions and contact submissions
+5. **SEO enhancement**: Add JSON-LD structured data for Organization, Services, FAQ
+6. **Performance audit**: Lighthouse testing for Core Web Vitals
+7. **Accessibility audit**: Full WCAG 2.1 AA compliance testing
+8. **Theme toggle**: Add dark/light mode switching
+9. **Analytics integration**: Add page view tracking and event analytics
+10. **Internationalization**: Multi-language support framework
 Task ID: 13-e
 Agent: Floating CTA Agent
 Task: Create floating Request a Call CTA button

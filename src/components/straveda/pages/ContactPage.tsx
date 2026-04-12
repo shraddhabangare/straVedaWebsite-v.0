@@ -134,7 +134,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-[#2B2358] rounded-xl p-8 space-y-5"
+              className="bg-[#2B2358] rounded-xl p-8 space-y-5 bg-noise-subtle border-glow-top"
             >
               <div>
                 <label htmlFor="name" className="sr-only">

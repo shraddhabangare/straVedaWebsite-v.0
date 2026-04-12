@@ -206,7 +206,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow"
+      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow bg-noise-subtle"
     >
       {service.icon}
     </motion.div>
