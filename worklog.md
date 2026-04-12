@@ -1,4 +1,68 @@
 ---
+Task ID: 25-animated-hover-modal
+Agent: Main Agent
+Task: Phase 25 — Integrate services-with-animated-hover-modal component into services page
+
+Work Log:
+- Discovered that /src/components/ui/services-with-animated-hover-modal.tsx was only a placeholder counter component
+- User reported the animated hover modal was never properly added to the services page
+- Built the full animated hover modal component from the 21st.dev demo code:
+  - 4 service rows: Enterprise Architecture, Technology Strategy, Management Consulting, Software Solutions
+  - GSAP quickTo mouse-following modal container (duration: 0.8, power3 ease)
+  - GSAP quickTo cursor circle (duration: 0.5) + "View" label cursor (duration: 0.45)
+  - Framer Motion scale animation: closed (scale 0) → enter (scale 1) with custom cubic-bezier easing
+  - Unsplash stock images for each service (data center, globe network, business strategy, code)
+  - Brand-colored cursor circle (#FF4800) with ArrowRight icon
+  - Image container: responsive sizing (350x400 mobile, 600x500 desktop), rounded corners, shadow
+  - Bottom gradient overlay on images for depth
+  - Service rows with hover opacity change, translate-x animation, arrow reveal
+  - Responsive typography: text-3xl mobile → text-5xl md → text-6xl lg
+- Added Unsplash image domain to next.config.ts remotePatterns
+- Integrated into ServicesPage.tsx between HeroSection and existing ServicesHoverModal
+- Gradient divider separates animated modal from the services grid below
+- Proper TypeScript types for all props and interfaces
+- ESLint: zero errors
+- Dev server: restarted, GET / 200
+
+Stage Summary:
+- Replaced placeholder services-with-animated-hover-modal.tsx with full GSAP + Framer Motion animated component
+- 4 service rows with mouse-following image modal, scale animations, and brand-colored cursor
+- Integrated below hero section on services page, before existing ServicesHoverModal grid
+- Unsplash images configured via next.config.ts remotePatterns
+- Zero lint errors, dev server stable
+
+## PROJECT STATUS SUMMARY (as of Phase 25)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 25** with the animated hover modal now properly integrated into the services page, featuring GSAP mouse-following animations and Framer Motion scale transitions.
+
+### Completed Features (All Phases)
+1-64. (All previous Phase 24 features preserved)
+65. Animated Hover Modal: GSAP mouse-following image container with scale animations on service rows
+66. Service Row Showcase: 4 service titles with hover interactions, translate-x, opacity changes
+67. Custom Cursor: Orange #FF4800 cursor circle + "View" label following mouse on hover
+68. Unsplash Images: 4 enterprise-themed stock images for each service (data center, network, strategy, code)
+69. Responsive Design: Mobile-first with text scaling from text-3xl to text-6xl across breakpoints
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: GET / 200 after restart
+- Component properly integrated between hero and services grid
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Newsletter API logs to console only
+- Dark mode visual QA needed
+
+### Recommended Next Steps
+1. Visual QA of animated hover modal in browser
+2. Dark mode styling for the new modal section
+3. Replace placeholder images with real content
+4. Database integration for newsletter + contact form
+5. Performance audit
+
+---
 Task ID: 24-code-graph
 Agent: Main Agent
 Task: Phase 24 — Build interactive code graph visualization for the codebase

@@ -7,6 +7,7 @@ import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
 import ServicesHoverModal from '@/components/straveda/ServicesHoverModal';
+import { Component as AnimatedHoverModal } from '@/components/ui/services-with-animated-hover-modal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
@@ -856,7 +857,10 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
     <main className="min-h-screen bg-white">
       <HeroSection />
 
-      {/* Subtle gradient transition between hero and services modal */}
+      {/* Animated Hover Modal — row-based service showcase with GSAP mouse-following */}
+      <AnimatedHoverModal />
+
+      {/* Subtle gradient transition between animated modal and services grid */}
       <div className="flex flex-col items-center gap-4 py-8" aria-hidden="true">
         <div className="h-px w-32 bg-gradient-to-r from-transparent via-[#FF4800]/25 to-transparent" />
       </div>

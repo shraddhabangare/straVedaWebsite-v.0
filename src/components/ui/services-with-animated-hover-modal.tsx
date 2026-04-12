@@ -1,17 +1,264 @@
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+'use client';
 
-export const Component = () => {
-  const [count, setCount] = useState(0);
+import gsap from 'gsap';
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
+/* ------------------------------------------------------------------ */
+/*  Service Project Data                                                */
+/* ------------------------------------------------------------------ */
+
+interface Project {
+  color: string;
+  src: string;
+  title: string;
+  subtitle: string;
+}
+
+const projects: Project[] = [
+  {
+    color: '#1a1a2e',
+    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=500&fit=crop&q=80',
+    title: 'Enterprise Architecture',
+    subtitle: 'Modernization & Design',
+  },
+  {
+    color: '#2B2358',
+    src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=500&fit=crop&q=80',
+    title: 'Technology Strategy',
+    subtitle: 'Digital Transformation',
+  },
+  {
+    color: '#3d3475',
+    src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=500&fit=crop&q=80',
+    title: 'Management Consulting',
+    subtitle: 'Program Delivery',
+  },
+  {
+    color: '#0f0f23',
+    src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=500&fit=crop&q=80',
+    title: 'Software Solutions',
+    subtitle: 'Middleware & Cloud',
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Scale Animation Variants                                           */
+/* ------------------------------------------------------------------ */
+
+const scaleAnimation = {
+  closed: {
+    scale: 0,
+    transition: { duration: 0.4, ease: [0.32, 0, 0.67, 0] },
+    x: '-50%',
+    y: '-50%',
+  },
+  enter: {
+    scale: 1,
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
+    x: '-50%',
+    y: '-50%',
+  },
+  initial: { scale: 0, x: '-50%', y: '-50%' },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Project Row Component                                              */
+/* ------------------------------------------------------------------ */
+
+interface ProjectRowProps {
+  index: number;
+  title: string;
+  subtitle: string;
+  setModal: React.Dispatch<React.SetStateAction<{ active: boolean; index: number }>>;
+}
+
+function Project({ index, title, subtitle, setModal }: ProjectRowProps) {
   return (
-    <div className={cn("flex flex-col items-center gap-4 p-4 rounded-lg")}>
-      <h1 className="text-2xl font-bold mb-2">Component Example</h1>
-      <h2 className="text-xl font-semibold">{count}</h2>
-      <div className="flex gap-2">
-        <button onClick={() => setCount((prev) => prev - 1)}>-</button>
-        <button onClick={() => setCount((prev) => prev + 1)}>+</button>
+    <div
+      className="group flex w-full cursor-pointer items-center justify-between border-t border-[rgb(201,201,201)] px-6 py-10 transition-all duration-300 last:border-b hover:opacity-50 md:px-16 lg:px-20"
+      onMouseEnter={() => setModal({ active: true, index })}
+      onMouseLeave={() => setModal({ active: false, index })}
+    >
+      <div className="flex flex-col gap-1">
+        <h2 className="m-0 font-normal text-3xl tracking-tight text-[#1a1a2e] transition-all duration-300 group-hover:translate-x-2.5 sm:text-5xl md:text-6xl">
+          {title}
+        </h2>
+        <span className="text-sm font-medium text-[#9ca3af] transition-all duration-300 group-hover:translate-x-2.5 md:text-base">
+          {subtitle}
+        </span>
+      </div>
+      <div className="flex items-center gap-2 transition-all duration-300 group-hover:translate-x-2.5">
+        <span className="hidden text-sm font-light text-[#6b7280] md:block">
+          Explore
+        </span>
+        <ArrowRight
+          size={18}
+          className="text-[#FF4800] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1"
+        />
       </div>
     </div>
   );
-};
+}
+
+/* ------------------------------------------------------------------ */
+/*  Modal Component (GSAP mouse-following + Framer Motion scale)       */
+/* ------------------------------------------------------------------ */
+
+interface ModalProps {
+  modal: { active: boolean; index: number };
+  projects: Project[];
+}
+
+function Modal({ modal, projects }: ModalProps) {
+  const { active, index } = modal;
+  const modalContainer = useRef<HTMLDivElement>(null);
+  const cursor = useRef<HTMLDivElement>(null);
+  const cursorLabel = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Move Container
+    const xMoveContainer = gsap.quickTo(modalContainer.current, 'left', {
+      duration: 0.8,
+      ease: 'power3',
+    });
+    const yMoveContainer = gsap.quickTo(modalContainer.current, 'top', {
+      duration: 0.8,
+      ease: 'power3',
+    });
+    // Move cursor
+    const xMoveCursor = gsap.quickTo(cursor.current, 'left', {
+      duration: 0.5,
+      ease: 'power3',
+    });
+    const yMoveCursor = gsap.quickTo(cursor.current, 'top', {
+      duration: 0.5,
+      ease: 'power3',
+    });
+    // Move cursor label
+    const xMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'left', {
+      duration: 0.45,
+      ease: 'power3',
+    });
+    const yMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'top', {
+      duration: 0.45,
+      ease: 'power3',
+    });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { pageX, pageY } = e;
+      xMoveContainer(pageX);
+      yMoveContainer(pageY);
+      xMoveCursor(pageX);
+      yMoveCursor(pageY);
+      xMoveCursorLabel(pageX);
+      yMoveCursorLabel(pageY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <>
+      <motion.div
+        animate={active ? 'enter' : 'closed'}
+        className="pointer-events-none absolute z-50 flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-xl shadow-2xl md:h-[87.5vw] md:max-h-[500px] md:w-[100vw] md:max-w-[600px]"
+        initial="initial"
+        ref={modalContainer}
+        variants={scaleAnimation}
+      >
+        <div
+          className="absolute h-full w-full transition-[top] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
+          style={{ top: `${index * -100}%` }}
+        >
+          {projects.map((project, idx) => (
+            <div
+              className="flex h-full w-full items-center justify-center"
+              key={project.title}
+              style={{ backgroundColor: project.color }}
+            >
+              <Image
+                alt={project.title}
+                className="h-auto w-auto object-cover"
+                height={500}
+                src={project.src}
+                width={400}
+              />
+            </div>
+          ))}
+        </div>
+        {/* Bottom gradient overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+      </motion.div>
+      <motion.div
+        animate={active ? 'enter' : 'closed'}
+        className="pointer-events-none absolute z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4800] font-light text-sm text-white md:h-20 md:w-20"
+        initial="initial"
+        ref={cursor}
+        variants={scaleAnimation}
+      >
+        <ArrowRight size={18} className="text-white" />
+      </motion.div>
+      <motion.div
+        animate={active ? 'enter' : 'closed'}
+        className="pointer-events-none absolute z-50 flex h-16 w-16 items-center justify-center rounded-full bg-transparent font-light text-sm text-white md:h-20 md:w-20"
+        initial="initial"
+        ref={cursorLabel}
+        variants={scaleAnimation}
+      >
+        <span className="text-xs font-semibold uppercase tracking-wider md:text-sm">View</span>
+      </motion.div>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Main Export — Animated Hover Modal Section                         */
+/* ------------------------------------------------------------------ */
+
+export function Component() {
+  const [modal, setModal] = useState({ active: false, index: 0 });
+
+  return (
+    <section className="relative overflow-hidden bg-[#f9f9f9] py-10 md:py-16">
+      <div className="mx-auto max-w-7xl px-5 md:px-0">
+        {/* Section header */}
+        <div className="mb-10 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="mb-2 inline-block text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
+              Our Services
+            </span>
+            <h2 className="text-4xl font-semibold tracking-tight text-[#1a1a2e] md:text-6xl lg:text-7xl">
+              Services.
+            </h2>
+          </div>
+          <p className="max-w-md text-sm font-medium text-[#6b7280] md:text-base">
+            Our solutions are tailored to meet the unique challenges of modern
+            enterprises, providing speed, reliability, and flexibility at
+            every stage of the journey.
+          </p>
+        </div>
+
+        {/* Project rows + Modal */}
+        <div className="relative flex min-h-[50vh] items-center justify-center md:min-h-screen">
+          <div className="flex w-full flex-col items-center justify-center">
+            {projects.map((project, index) => (
+              <Project
+                index={index}
+                key={project.title}
+                setModal={setModal}
+                subtitle={project.subtitle}
+                title={project.title}
+              />
+            ))}
+          </div>
+          <Modal modal={modal} projects={projects} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Component;
