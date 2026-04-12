@@ -1,4 +1,77 @@
 ---
+Task ID: 24-code-graph
+Agent: Main Agent
+Task: Phase 24 — Build interactive code graph visualization for the codebase
+
+Work Log:
+- Researched code-review-graph project (GitHub: tirth8205/code-review-graph)
+- Analyzed current codebase structure: 115 .ts/.tsx files across 8 categories
+- Created backend API endpoint: /api/code-graph/route.ts
+  - Recursively scans all src/ files (.ts, .tsx)
+  - Extracts import dependencies (alias @/ and relative paths)
+  - Resolves import paths to actual file system paths
+  - Categorizes files: app/page, app/api, pages, straveda, ui, blocks, hooks, lib
+  - Returns nodes (files) and edges (import dependencies) as JSON
+- Built interactive CodeGraph.tsx component (canvas-based force-directed graph)
+  - Force simulation: repulsion (800), attraction (0.006), center force (0.02), damping (0.85)
+  - HTML5 Canvas rendering with DPR support
+  - Category color coding: app=#FF4800, api=#FF6B33, pages=#7C3AED, straveda=#2B2358, ui=#0891B2, blocks=#059669, hooks=#D97706, lib=#DC2626
+  - Interactive features: pan, zoom, node drag, click to select, hover tooltips
+  - Search: filter files by name
+  - Category filter: toggle visibility per category
+  - Selected node details panel: shows category, import count, dependencies list
+  - Connected node highlighting on selection
+  - Export to JSON functionality
+  - Touch support (pinch zoom, drag)
+  - Responsive canvas (ResizeObserver)
+- Integrated into app as full-screen overlay:
+  - Floating purple button (bottom-right) to toggle code graph
+  - Keyboard shortcut: Ctrl+G to toggle, Escape to close
+  - z-[100] overlay layer with AnimatePresence transition
+  - Close button overlay in top-right corner
+- API verified: 115 files, 133 edges, 8 categories returned
+- ESLint: zero errors
+- Dev server: GET / 200, GET /api/code-graph 200
+
+Stage Summary:
+- Interactive code graph visualization built and integrated
+- Force-directed layout with 115 nodes and 133 dependency edges
+- 8 color-coded categories matching brand design system
+- Full interactivity: pan, zoom, drag, search, filter, export
+- Accessible via floating button or Ctrl+G keyboard shortcut
+- Zero lint errors, stable dev server
+
+## PROJECT STATUS SUMMARY (as of Phase 24)
+
+### Current Project Status
+The Straveda enterprise website is at **Phase 24** with a new interactive code graph visualization feature that maps the entire codebase architecture as a force-directed dependency graph.
+
+### Completed Features (All Phases)
+1-60. (All previous Phase 23 features preserved)
+61. Code Graph: interactive force-directed visualization of 115 files and 133 import dependencies
+62. Code Graph API: /api/code-graph endpoint that analyzes codebase structure
+63. Code Graph UI: full-screen overlay with pan, zoom, drag, search, category filter, export
+64. Code Graph Access: floating purple button + Ctrl+G keyboard shortcut
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: GET / 200, GET /api/code-graph 200
+- API returns: 115 nodes, 133 edges, 8 categories
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Newsletter API logs to console only
+- Dark mode visual QA needed
+
+### Recommended Next Steps
+1. Visual QA of code graph feature
+2. Replace placeholder images with real content
+3. Database integration for newsletter + contact form
+4. Performance audit
+5. Accessibility audit
+
+---
 Task ID: 23-main
 Agent: Main Coordinator
 Task: Phase 23 — Concurrent batch: cursor replacement, smooth scroll optimization, navbar shrink fix, services modal placement

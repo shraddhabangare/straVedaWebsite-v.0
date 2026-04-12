@@ -13,6 +13,7 @@ import CookieConsent from '@/components/straveda/CookieConsent'
 import ScrollProgress from '@/components/straveda/ScrollProgress'
 import SearchOverlay from '@/components/straveda/SearchOverlay'
 import KeyboardHint from '@/components/straveda/KeyboardHint'
+import CodeGraph from '@/components/straveda/CodeGraph'
 
 const pages = ['home', 'services', 'about', 'insights', 'contact', 'testimonials'] as const
 type Page = typeof pages[number]
@@ -51,6 +52,7 @@ function PageLoader() {
 export default function Home() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
   const [searchOpen, setSearchOpen] = useState(false)
+  const [codeGraphOpen, setCodeGraphOpen] = useState(false)
 
   const handleNavigate = useCallback((page: string) => {
     const validPage = page as Page
@@ -102,8 +104,20 @@ export default function Home() {
           break
         }
         case 'Escape': {
-          // Dispatch custom event to close any open modals/panels
-          window.dispatchEvent(new CustomEvent('close-all'))
+          if (codeGraphOpen) {
+            e.preventDefault()
+            setCodeGraphOpen(false)
+          } else {
+            // Dispatch custom event to close any open modals/panels
+            window.dispatchEvent(new CustomEvent('close-all'))
+          }
+          break
+        }
+        case 'g': {
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault()
+            setCodeGraphOpen(prev => !prev)
+          }
           break
         }
         case '1': case '2': case '3': case '4': case '5': case '6': {
@@ -123,7 +137,7 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentPage, handleNavigate])
+  }, [currentPage, handleNavigate, codeGraphOpen])
 
   // ── Update document title & announce to screen readers ──
   useEffect(() => {
@@ -171,6 +185,51 @@ export default function Home() {
 
           <Footer onNavigate={handleNavigate} />
           <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} onNavigate={(page) => { setSearchOpen(false); handleNavigate(page); }} />
+
+          {/* Code Graph Floating Button */}
+          <button
+            onClick={() => setCodeGraphOpen(prev => !prev)}
+            className="fixed bottom-24 right-6 z-40 w-12 h-12 rounded-full bg-[#2B2358] text-white shadow-lg hover:bg-[#3a3272] hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
+            title="Code Graph (Ctrl+G)"
+            aria-label="Toggle code graph"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="5" cy="6" r="3" />
+              <circle cx="19" cy="6" r="3" />
+              <circle cx="12" cy="18" r="3" />
+              <line x1="7.5" y1="7.5" x2="10" y2="16" />
+              <line x1="16.5" y1="7.5" x2="14" y2="16" />
+              <line x1="8" y1="6" x2="16" y2="6" />
+            </svg>
+          </button>
+
+          {/* Code Graph Full-Screen Overlay */}
+          <AnimatePresence>
+            {codeGraphOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="fixed inset-0 z-[100]"
+              >
+                <CodeGraph />
+                {/* Close button overlay */}
+                <button
+                  onClick={() => setCodeGraphOpen(false)}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[110] w-10 h-10 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white/70 hover:text-white hover:bg-white/20 transition-all flex items-center justify-center"
+                  title="Close (Escape)"
+                  aria-label="Close code graph"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <BackToTop />
           <FloatingCTA onNavigate={handleNavigate} />
           <CookieConsent />
