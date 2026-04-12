@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import ThemeToggle from '@/components/straveda/ThemeToggle';
 
 interface NavbarProps {
@@ -22,8 +23,11 @@ const NAV_LINKS = [
 const ease = [0.4, 0, 0.2, 1] as const;
 
 export default function Navbar({ currentPage, onNavigate, onSearchToggle }: NavbarProps) {
+  const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isDark = theme === 'dark';
 
   // ── Scroll detection (>80px triggers styled navbar) ──
   useEffect(() => {
@@ -72,7 +76,9 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
         className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 md:px-10"
         style={{
           background: scrolled
-            ? 'rgba(255, 255, 255, 0.85)'
+            ? isDark
+              ? 'rgba(10, 10, 20, 0.85)'
+              : 'rgba(255, 255, 255, 0.85)'
             : 'transparent',
           backdropFilter: scrolled
             ? 'blur(12px)'
@@ -81,10 +87,14 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
             ? 'blur(12px)'
             : 'none',
           borderBottom: scrolled
-            ? '1px solid rgba(0, 0, 0, 0.06)'
+            ? isDark
+              ? '1px solid rgba(255, 255, 255, 0.06)'
+              : '1px solid rgba(0, 0, 0, 0.06)'
             : '1px solid transparent',
           boxShadow: scrolled
-            ? '0 1px 3px rgba(0, 0, 0, 0.04)'
+            ? isDark
+              ? '0 1px 3px rgba(0, 0, 0, 0.2)'
+              : '0 1px 3px rgba(0, 0, 0, 0.04)'
             : 'none',
           transition: 'background 300ms ease-out, backdrop-filter 300ms ease-out, -webkit-backdrop-filter 300ms ease-out, border-bottom 300ms ease-out, box-shadow 300ms ease-out',
         }}
@@ -100,7 +110,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
           className="font-medium text-lg tracking-tight select-none"
-          style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18, color: '#1a1a2e' }}
+          style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18, color: isDark ? '#f0f0f5' : '#1a1a2e' }}
         >
           Str<span style={{ color: '#FF4800' }}>a</span>veda
         </motion.a>
@@ -120,7 +130,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               transition={{ duration: 0.5, delay: 0.3 + index * 0.08, ease }}
               className="nav-link relative text-sm transition-colors duration-200 group"
               style={{
-                color: isActive(page) ? '#1a1a2e' : '#6b7280',
+                color: isActive(page) ? (isDark ? '#f0f0f5' : '#1a1a2e') : (isDark ? '#9ca3af' : '#6b7280'),
                 fontWeight: isActive(page) ? 500 : 400,
                 fontSize: 14,
               }}
@@ -157,13 +167,13 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
             transition={{ duration: 0.5, delay: 0.55, ease }}
             onClick={onSearchToggle}
             className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 cursor-pointer"
-            style={{ color: '#6b7280' }}
+            style={{ color: isDark ? '#9ca3af' : '#6b7280' }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#1a1a2e';
-              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
+              e.currentTarget.style.color = isDark ? '#f0f0f5' : '#1a1a2e';
+              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#6b7280';
+              e.currentTarget.style.color = isDark ? '#9ca3af' : '#6b7280';
               e.currentTarget.style.background = 'transparent';
             }}
             aria-label="Open search"
@@ -198,7 +208,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
           {/* Hamburger button */}
           <button
             className="md:hidden flex items-center justify-center w-10 h-10 cursor-pointer"
-            style={{ color: '#1a1a2e' }}
+            style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
@@ -229,10 +239,10 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               transition={{ duration: 0.4, ease }}
               className="fixed inset-y-0 right-0 z-[60] w-[280px] flex flex-col pt-20 px-6 pb-8"
               style={{
-                background: 'rgba(255, 255, 255, 0.98)',
+                background: isDark ? 'rgba(10, 10, 20, 0.98)' : 'rgba(255, 255, 255, 0.98)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderLeft: '1px solid rgba(0, 0, 0, 0.06)',
+                borderLeft: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)',
               }}
             >
               <div className="flex flex-col gap-1 mt-4">
@@ -249,9 +259,9 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                     transition={{ duration: 0.35, delay: 0.15 + index * 0.06, ease }}
                     className="block py-3 text-base transition-colors duration-200"
                     style={{
-                      color: isActive(page) ? '#1a1a2e' : '#6b7280',
+                      color: isActive(page) ? (isDark ? '#f0f0f5' : '#1a1a2e') : (isDark ? '#9ca3af' : '#6b7280'),
                       fontWeight: isActive(page) ? 500 : 400,
-                      borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+                      borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)',
                     }}
                   >
                     {label}
@@ -272,8 +282,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                 transition={{ duration: 0.35, delay: 0.4, ease }}
                 className="flex items-center gap-3 py-3 text-base transition-colors duration-200 w-full"
                 style={{
-                  color: '#6b7280',
-                  borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+                  color: isDark ? '#9ca3af' : '#6b7280',
+                  borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)',
                 }}
                 onClick={() => {
                   setMobileOpen(false);

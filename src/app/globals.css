@@ -1769,3 +1769,425 @@ html {
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Phase 20: Dark Mode Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Dark mode CSS custom properties ── */
+.dark {
+  --background: #0a0a14;
+  --foreground: #f0f0f5;
+  --card: #12121e;
+  --card-foreground: #f0f0f5;
+  --popover: #12121e;
+  --popover-foreground: #f0f0f5;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #f0f0f5;
+  --muted: #1a1a2e;
+  --muted-foreground: #9ca3af;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Base dark backgrounds ── */
+.dark body,
+.dark .bg-white {
+  background-color: #0a0a14 !important;
+}
+.dark .bg-\[\#FFFFFF\],
+.dark .bg-\[\#fff\] {
+  background-color: #0a0a14 !important;
+}
+.dark .bg-\[\#f8f8fc\] {
+  background-color: #12121e !important;
+}
+.dark .bg-\[\#fafafa\] {
+  background-color: #12121e !important;
+}
+
+/* ── Text colors ── */
+.dark .text-\[\#1a1a2e\] {
+  color: #f0f0f5 !important;
+}
+.dark .text-\[\#4a4a5a\] {
+  color: #9ca3af !important;
+}
+.dark .text-\[\#6b7280\] {
+  color: #9ca3af !important;
+}
+.dark .text-\[\#9ca3af\] {
+  color: #6b7280 !important;
+}
+.dark .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+/* ── Borders ── */
+.dark .border-\[\#e5e7eb\] {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-\[\#d1d5db\] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .border-\[rgba\(0\,0\,0\,0\.06\)\] {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-\[rgba\(0\,0\,0\,0\.04\)\] {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── Card backgrounds ── */
+.dark .card-premium {
+  background-color: #12121e !important;
+}
+.dark .card-premium::before {
+  background: linear-gradient(to right, #FF4800, rgba(255, 72, 0, 0.2)) !important;
+}
+.dark .card-premium::after {
+  background: transparent !important;
+}
+
+/* ── Card utility overrides ── */
+.dark .card-hover:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 72, 0, 0.15);
+}
+.dark .card-lift:hover {
+  background: #1a1a2e;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+}
+.dark .card-glow {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dark .card-glow:hover {
+  border-color: rgba(255, 72, 0, 0.25);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 72, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.dark .frosted-card {
+  background: rgba(18, 18, 30, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dark .frosted-card:hover {
+  background: rgba(18, 18, 30, 0.95);
+  border-color: rgba(255, 72, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.dark .glass-card {
+  background: rgba(18, 18, 30, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .glass {
+  background: rgba(18, 18, 30, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dark .glass-dark {
+  background: rgba(18, 18, 30, 0.6);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+.dark .glass-subtle {
+  background: rgba(18, 18, 30, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Divider gradient ── */
+.dark .divider-gradient {
+  background: linear-gradient(to right, transparent, rgba(255, 72, 0, 0.3), transparent) !important;
+}
+
+/* ── Section divider ── */
+.dark .section-divider {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── HR gradient ── */
+.dark .hr-gradient {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+/* ── Navbar glass ── */
+.dark .navbar-glass {
+  background: rgba(10, 10, 20, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── Cookie consent ── */
+.dark .cookie-card {
+  background: rgba(18, 18, 30, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── Floating CTA ── */
+.dark .floating-cta-btn {
+  box-shadow: 0 4px 20px rgba(255, 72, 0, 0.3) !important;
+}
+
+/* ── Scroll progress bar ── */
+.dark .scroll-progress-bar {
+  background: linear-gradient(to right, #FF4800, #ff6b33) !important;
+}
+
+/* ── Preloader ── */
+.dark .preloader-bg {
+  background-color: #0a0a14 !important;
+}
+
+/* ── Social proof / animated gradient backgrounds ── */
+.dark .bg-animated-gradient {
+  background: linear-gradient(135deg, #0a0a14 0%, #12121e 25%, #0a0a14 50%, #12121e 75%, #0a0a14 100%) !important;
+}
+
+/* ── FAQ section ── */
+.dark .faq-container {
+  background-color: #12121e !important;
+}
+
+/* ── Dot / grid patterns — reduce opacity in dark mode ── */
+.dark .dot-grid,
+.dark .dot-grid-dense {
+  opacity: 0.02 !important;
+}
+.dark .grid-pattern {
+  opacity: 0.03 !important;
+}
+.dark .line-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* ── Gradient mesh backgrounds ── */
+.dark .gradient-mesh {
+  background:
+    radial-gradient(at 20% 80%, rgba(255, 72, 0, 0.04) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(43, 35, 88, 0.06) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 72, 0, 0.02) 0%, transparent 70%),
+    #0a0a14;
+}
+.dark .gradient-mesh-indigo {
+  background:
+    radial-gradient(at 10% 90%, rgba(255, 72, 0, 0.04) 0%, transparent 40%),
+    radial-gradient(at 90% 10%, rgba(43, 35, 88, 0.06) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(43, 35, 88, 0.03) 0%, transparent 60%),
+    #0a0a14;
+}
+
+/* ── Marquee ── */
+.dark .marquee-text {
+  color: #6b7280 !important;
+}
+
+/* ── Bento grid hover ── */
+.dark .bento-item:hover {
+  border-color: rgba(255, 72, 0, 0.2) !important;
+  box-shadow: 0 8px 30px rgba(255, 72, 0, 0.08) !important;
+}
+
+/* ── Footer ── */
+.dark .footer-bg {
+  background: #08080f !important;
+}
+
+/* ── Text gradient overrides ── */
+.dark .text-gradient-brand {
+  background: linear-gradient(135deg, #FF4800 0%, #f0f0f5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .text-gradient-subtle {
+  background: linear-gradient(180deg, #f0f0f5 0%, #9ca3af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Scrollbar dark mode ── */
+.dark ::-webkit-scrollbar-track {
+  background: #12121e;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #FF4800;
+}
+
+/* ── Selection dark mode ── */
+.dark ::selection {
+  background: rgba(255, 72, 0, 0.3);
+  color: #f0f0f5;
+}
+
+/* ── Skeleton gradient dark ── */
+.dark .skeleton-gradient {
+  background: linear-gradient(90deg, #1a1a2e 25%, #12121e 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── Button glass dark ── */
+.dark .btn-glass {
+  background: rgba(18, 18, 30, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.dark .btn-glass:hover {
+  background: rgba(18, 18, 30, 0.8);
+  border-color: rgba(255, 72, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Shimmer dark ── */
+.dark .shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255, 72, 0, 0.06) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── Text shimmer dark ── */
+.dark .text-shimmer {
+  background: linear-gradient(90deg, #f0f0f5 0%, #FF4800 25%, #f0f0f5 50%, #FF4800 75%, #f0f0f5 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 4s linear infinite;
+}
+
+/* ── Gradient text extended dark ── */
+.dark .gradient-text-extended {
+  background: linear-gradient(135deg, #FF4800 0%, #ff6b33 25%, #f0f0f5 50%, #ff6b33 75%, #FF4800 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+/* ── Counter hover gradient dark ── */
+.dark .counter-hover-gradient:hover {
+  background: linear-gradient(135deg, #f0f0f5 0%, #FF4800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Bento large border dark ── */
+.dark .bento-large-border::before {
+  background: linear-gradient(135deg, rgba(255, 72, 0, 0.35) 0%, rgba(255, 72, 0, 0.08) 50%, transparent 100%);
+}
+
+/* ── Animated border dark ── */
+.dark .animated-border::after {
+  background: #0a0a14;
+}
+
+/* ── Gradient wave divider dark ── */
+.dark .gradient-wave-divider::before {
+  background: linear-gradient(135deg, rgba(255, 72, 0, 0.05) 0%, transparent 50%, rgba(43, 35, 88, 0.04) 100%);
+}
+
+/* ── Tag hover dark ── */
+.dark .tag-hover:hover {
+  border-color: rgba(255, 72, 0, 0.4);
+  background: rgba(255, 72, 0, 0.12);
+}
+
+/* ── Border dashed animate dark ── */
+.dark .border-dashed-animate {
+  border-color: rgba(255, 72, 0, 0.15);
+}
+.dark .border-dashed-animate:hover {
+  border-color: rgba(255, 72, 0, 0.4);
+}
+
+/* ── Hover lift shadow dark ── */
+.dark .hover-lift-shadow:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 72, 0, 0.15);
+}
+.dark .hover-lift:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Hover glow orange dark ── */
+.dark .hover-glow-orange:hover {
+  box-shadow: 0 0 30px rgba(255, 72, 0, 0.2), 0 0 60px rgba(255, 72, 0, 0.08);
+}
+
+/* ── Glow hover dark ── */
+.dark .glow-hover:hover {
+  box-shadow: 0 0 20px rgba(255, 72, 0, 0.2), 0 0 40px rgba(255, 72, 0, 0.08);
+}
+
+/* ── Glow text dark ── */
+.dark .glow-text {
+  text-shadow: 0 0 20px rgba(255, 72, 0, 0.4), 0 0 40px rgba(255, 72, 0, 0.15);
+}
+.dark .glow-text:hover {
+  text-shadow: 0 0 30px rgba(255, 72, 0, 0.6), 0 0 60px rgba(255, 72, 0, 0.25), 0 0 80px rgba(255, 72, 0, 0.1);
+}
+
+/* ── Pulse glow dark ── */
+.dark .pulse-glow {
+  animation: pulseGlowDark 3s ease-in-out infinite;
+}
+@keyframes pulseGlowDark {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 72, 0, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(255, 72, 0, 0.4); }
+}
+
+/* ── Section number dark ── */
+.dark .section-number {
+  color: rgba(255, 72, 0, 0.06);
+}
+
+/* ── Text stroke dark ── */
+.dark .text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 72, 0, 0.4);
+  color: transparent;
+}
+.dark .text-stroke:hover {
+  -webkit-text-stroke: 1px rgba(255, 72, 0, 0.7);
+  color: rgba(255, 72, 0, 0.1);
+}
+
+/* ── Focus ring dark ── */
+.dark :focus-visible {
+  outline-color: rgba(255, 72, 0, 0.7);
+}
+
+/* ── Noise overlay dark ── */
+.dark .noise-overlay::before {
+  opacity: 0.03;
+}
+
+/* ── Hero lines dark ── */
+.dark .hero-lines::before {
+  border-color: rgba(255, 72, 0, 0.06);
+}
+.dark .hero-lines::after {
+  border-color: rgba(43, 35, 88, 0.2);
+}
+
+/* ── Modal overlay dark ── */
+.dark .modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* ── Partner name dark ── */
+.dark .partner-name:hover {
+  text-shadow: 0 0 20px rgba(255, 72, 0, 0.25);
+}
+
+/* ── Tag orange dark ── */
+.dark .tag-orange {
+  background: rgba(255, 72, 0, 0.12);
+  border-color: rgba(255, 72, 0, 0.25);
+}
+.dark .tag-orange:hover {
+  background: rgba(255, 72, 0, 0.2);
+  border-color: rgba(255, 72, 0, 0.4);
+}

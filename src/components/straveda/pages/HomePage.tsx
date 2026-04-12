@@ -38,6 +38,7 @@ import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
 import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
 import ImpactMetrics from '@/components/straveda/ImpactMetrics';
+import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 
 interface HomePageProps {
@@ -1283,6 +1284,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <ImpactMetrics />
 
+      {/* Gradient transition from dark ImpactMetrics to white */}
+      <div className="h-24" style={{ background: 'linear-gradient(to bottom, #1a1a2e, #FFFFFF)' }} />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* SUCCESS STORIES — HORIZONTAL SCROLL                */}
+      {/* ═══════════════════════════════════════════════ */}
+      <SuccessStories />
+
       {/* ═══════════════════════════════════════════════ */}
       {/* RESULTS THAT SPEAK — METRICS BANNER               */}
       {/* ═══════════════════════════════════════════════ */}
@@ -2069,6 +2078,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* BACK TO TOP LINK                                 */}
+      {/* ═══════════════════════════════════════════════ */}
+      <div className="flex justify-center py-8">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="link-hover-underline text-[14px] cursor-pointer"
+          style={{ color: '#6b7280', background: 'none', border: 'none', padding: 0 }}
+        >
+          Back to top ↑
+        </button>
+      </div>
 
       {/* ═══════════════════════════════════════════════ */}
       {/* FAQ SECTION                                     */}

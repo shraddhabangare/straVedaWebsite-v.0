@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cookie, X } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const STORAGE_KEY = 'straveda-cookie-consent';
 
@@ -10,6 +11,9 @@ export default function CookieConsent() {
   const [mounted, setMounted] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [canInteract, setCanInteract] = useState(false);
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     const consent = localStorage.getItem(STORAGE_KEY);
@@ -57,10 +61,14 @@ export default function CookieConsent() {
           <div
             className="relative rounded-2xl overflow-hidden"
             style={{
-              background: 'rgba(255, 255, 255, 0.95)',
+              background: isDark
+                ? 'rgba(18, 18, 30, 0.95)'
+                : 'rgba(255, 255, 255, 0.95)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)',
+              boxShadow: isDark
+                ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3)'
+                : '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)',
             }}
           >
             {/* Brand orange accent line at top */}
@@ -76,14 +84,14 @@ export default function CookieConsent() {
               <div className="flex items-start gap-3">
                 <div
                   className="shrink-0 mt-0.5 w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: 'rgba(255, 72, 0, 0.08)' }}
+                  style={{ background: isDark ? 'rgba(255, 72, 0, 0.15)' : 'rgba(255, 72, 0, 0.08)' }}
                 >
                   <Cookie className="w-4 h-4" style={{ color: '#FF4800' }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p
                     className="text-[13px] sm:text-[14px] leading-relaxed"
-                    style={{ color: '#6b7280' }}
+                    style={{ color: isDark ? '#9ca3af' : '#6b7280' }}
                   >
                     We use cookies to enhance your experience. By continuing to visit
                     this site, you agree to our use of cookies.{' '}
@@ -98,10 +106,19 @@ export default function CookieConsent() {
                 </div>
                 <button
                   onClick={handleDecline}
-                  className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100"
+                  className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                  style={{
+                    color: isDark ? '#6b7280' : '#9ca3af',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : '#f9fafb';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                  }}
                   aria-label="Close cookie consent"
                 >
-                  <X className="w-3.5 h-3.5" style={{ color: '#9ca3af' }} />
+                  <X className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -111,16 +128,16 @@ export default function CookieConsent() {
                   onClick={handleDecline}
                   className="text-[13px] sm:text-sm font-medium rounded-lg px-4 py-2 transition-all duration-200 border"
                   style={{
-                    borderColor: '#e5e7eb',
-                    color: '#6b7280',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : '#e5e7eb',
+                    color: isDark ? '#9ca3af' : '#6b7280',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#f9fafb';
-                    e.currentTarget.style.borderColor = '#d1d5db';
+                    e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : '#f9fafb';
+                    e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.25)' : '#d1d5db';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.borderColor = '#e5e7eb';
+                    e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.15)' : '#e5e7eb';
                   }}
                 >
                   Decline
