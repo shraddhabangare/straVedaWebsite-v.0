@@ -95,7 +95,7 @@ function HeroSection() {
 
 function MissionSection() {
   return (
-    <section className="bg-black px-6 py-20 lg:py-28 relative">
+    <section className="bg-black px-6 py-20 lg:py-28 relative section-glow-bottom">
       {/* Subtle decorative accent */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255, 72, 0, 0.03) 0%, transparent 70%)' }} />
       <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 relative z-10">

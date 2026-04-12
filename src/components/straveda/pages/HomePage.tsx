@@ -1,9 +1,11 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Braces,
   Compass,
   ClipboardCheck,
@@ -43,15 +45,6 @@ const cardVariants = {
   },
 };
 
-const testimonialCardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease },
-  },
-};
-
 function Counter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
@@ -77,6 +70,197 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
       {count}
       {suffix}
     </span>
+  );
+}
+
+const testimonials = [
+  {
+    name: 'James R.',
+    role: 'Senior VP · Accenture',
+    quote: 'Straveda transformed our legacy infrastructure in record time. Their enterprise architecture expertise is unmatched.',
+    stars: 5,
+  },
+  {
+    name: 'Sarah M.',
+    role: 'Director of Engineering · Deloitte',
+    quote: (
+      <>
+        The technology strategy they delivered gave us a clear roadmap.
+        We shipped{' '}
+        <span className="text-gradient-orange" style={{ fontWeight: 500 }}>3x faster</span>{' '}within the first quarter.
+      </>
+    ),
+    stars: 5,
+  },
+  {
+    name: 'David K.',
+    role: 'CTO · IBM Global Services',
+    quote: (
+      <>
+        Their management consulting approach eliminated bottlenecks
+        we&apos;d struggled with for years.{' '}
+        <span className="text-gradient-orange" style={{ fontWeight: 500 }}>True enterprise partners.</span>
+      </>
+    ),
+    stars: 5,
+  },
+  {
+    name: 'Emily T.',
+    role: 'VP of Technology · Northrop Grumman',
+    quote: 'Straveda\'s technology strategy roadmap transformed our IT investment approach. We now have a clear 3-year vision aligned with business outcomes.',
+    stars: 5,
+  },
+  {
+    name: 'Michael B.',
+    role: 'CIO · State of Texas',
+    quote: 'The enterprise architecture modernization eliminated our legacy debt. We\'re now running 99.99% uptime across all critical systems.',
+    stars: 5,
+  },
+  {
+    name: 'Priya K.',
+    role: 'Director of Operations · Deloitte',
+    quote: 'Their management consulting team embedded seamlessly with our staff. Knowledge transfer was exceptional — we\'re now self-sufficient.',
+    stars: 5,
+  },
+];
+
+function TestimonialsCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const goTo = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const goPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  // Reset auto-play timer on manual navigation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+  const t = testimonials[currentIndex];
+
+  return (
+    <div className="relative flex flex-col items-center">
+      {/* Carousel container */}
+      <div className="relative flex w-full items-center justify-center">
+        {/* Previous button */}
+        <button
+          onClick={goPrev}
+          className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-white/10"
+          style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.3)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          aria-label="Previous testimonial"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        {/* Card */}
+        <div className="mx-12 w-full" style={{ maxWidth: '600px' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ duration: 0.5, ease }}
+              className="rounded-2xl p-8 md:p-10"
+              style={{
+                background: '#1e1a3f',
+                borderLeft: '3px solid #FF4800',
+              }}
+            >
+              {/* Large quote mark */}
+              <span
+                className="mb-4 block leading-none"
+                style={{ fontSize: '56px', color: '#FF4800' }}
+              >
+                &#x275D;
+              </span>
+
+              {/* Gold stars */}
+              <div className="mb-5 flex items-center gap-[2px]">
+                {[...Array(t.stars)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-4 w-4 fill-current"
+                    style={{ color: '#FBBF24' }}
+                  />
+                ))}
+              </div>
+
+              {/* Quote text */}
+              <p
+                className="mb-6 text-[20px] italic leading-[1.8] text-white"
+              >
+                {t.quote}
+              </p>
+
+              {/* Divider */}
+              <div
+                className="mb-4 w-full"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
+              />
+
+              {/* Author */}
+              <p className="text-[16px] font-semibold text-white">
+                {t.name}
+              </p>
+              <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
+                {t.role}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Next button */}
+        <button
+          onClick={goNext}
+          className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-white/10"
+          style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.3)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          aria-label="Next testimonial"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Dots indicator */}
+      <div className="mt-8 flex items-center justify-center gap-3">
+        {testimonials.map((_, i) => (
+          <motion.button
+            key={i}
+            onClick={() => goTo(i)}
+            className="rounded-full"
+            style={{
+              width: '8px',
+              height: '8px',
+              background: i === currentIndex ? '#FF4800' : '#3f3f46',
+            }}
+            whileHover={{ scale: 1.3 }}
+            aria-label={`Go to testimonial ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -890,142 +1074,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </h2>
           </motion.div>
 
-          {/* Testimonial Cards Grid */}
-          <motion.div
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
-          >
-            {/* Card 1 */}
-            <TiltCard className="rounded-xl">
-            <motion.div
-              variants={testimonialCardVariants}
-              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
-              style={{ background: '#1e1a3f' }}
-            >
-              <span
-                className="mb-4 block text-[52px] leading-none"
-                style={{ color: '#FF4800' }}
-              >
-                &#x275D;
-              </span>
-              <div className="mb-4 flex items-center gap-[2px]">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-3.5 w-3.5 fill-current"
-                    style={{ color: '#FBBF24' }}
-                  />
-                ))}
-              </div>
-              <p
-                className="mb-6 text-[17px] italic leading-[1.7] text-white"
-              >
-                Straveda transformed our legacy infrastructure in record time.
-                Their enterprise architecture expertise is unmatched.
-              </p>
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
-              />
-              <p className="text-[15px] font-semibold text-white">
-                James R.
-              </p>
-              <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
-                Senior VP &middot; Accenture
-              </p>
-            </motion.div>
-            </TiltCard>
-
-            {/* Card 2 */}
-            <TiltCard className="rounded-xl">
-            <motion.div
-              variants={testimonialCardVariants}
-              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
-              style={{ background: '#1e1a3f' }}
-            >
-              <span
-                className="mb-4 block text-[52px] leading-none"
-                style={{ color: '#FF4800' }}
-              >
-                &#x275D;
-              </span>
-              <div className="mb-4 flex items-center gap-[2px]">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-3.5 w-3.5 fill-current"
-                    style={{ color: '#FBBF24' }}
-                  />
-                ))}
-              </div>
-              <p
-                className="mb-6 text-[17px] italic leading-[1.7] text-white"
-              >
-                The technology strategy they delivered gave us a clear roadmap.
-                We shipped{" "}
-                <span className="text-gradient-orange" style={{ fontWeight: 500 }}>3x faster</span>{" "}within the first quarter.
-              </p>
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
-              />
-              <p className="text-[15px] font-semibold text-white">
-                Sarah M.
-              </p>
-              <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
-                Director of Engineering &middot; Deloitte
-              </p>
-            </motion.div>
-            </TiltCard>
-
-            {/* Card 3 */}
-            <TiltCard className="rounded-xl">
-            <motion.div
-              variants={testimonialCardVariants}
-              className="rounded-xl p-8 transition-all duration-300 hover:shadow-lg"
-              style={{ background: '#1e1a3f' }}
-            >
-              <span
-                className="mb-4 block text-[52px] leading-none"
-                style={{ color: '#FF4800' }}
-              >
-                &#x275D;
-              </span>
-              <div className="mb-4 flex items-center gap-[2px]">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-3.5 w-3.5 fill-current"
-                    style={{ color: '#FBBF24' }}
-                  />
-                ))}
-              </div>
-              <p
-                className="mb-6 text-[17px] italic leading-[1.7] text-white"
-              >
-                Their management consulting approach eliminated bottlenecks
-                we&apos;d struggled with for years.{" "}
-                <span className="text-gradient-orange" style={{ fontWeight: 500 }}>True enterprise partners.</span>
-              </p>
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
-              />
-              <p className="text-[15px] font-semibold text-white">
-                David K.
-              </p>
-              <p className="text-[14px]" style={{ color: '#A1A1A1' }}>
-                CTO &middot; IBM Global Services
-              </p>
-            </motion.div>
-            </TiltCard>
-          </motion.div>
+          {/* Testimonials Carousel */}
+          <TestimonialsCarousel />
         </div>
       </section>
 

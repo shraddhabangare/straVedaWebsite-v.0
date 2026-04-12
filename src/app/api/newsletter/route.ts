@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { db } from '@/lib/db'
 
 const newsletterSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -19,15 +20,24 @@ export async function POST(request: Request) {
 
     const { email } = result.data
 
-    // Simulate check for already subscribed (test@example.com as example)
-    if (email === 'test@example.com') {
+    // Check for existing subscription
+    const existing = await db.newsletterSubscription.findUnique({
+      where: { email }
+    })
+
+    if (existing) {
       return NextResponse.json(
         { success: false, message: 'This email is already subscribed.' },
         { status: 409 }
       )
     }
 
-    // Log the email (in production, save to database)
+    // Save to database
+    await db.newsletterSubscription.create({
+      data: { email }
+    })
+
+    // Keep console.log as backup
     console.log('Newsletter subscription:', email)
 
     return NextResponse.json(

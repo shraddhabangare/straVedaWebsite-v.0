@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { db } from '@/lib/db'
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +14,12 @@ export async function POST(request: Request) {
       )
     }
 
-    // In production, this would send an email or save to database
+    // Save to database
+    await db.contactSubmission.create({
+      data: { name, company, email, phone: phone || '', service, message }
+    })
+
+    // Keep console.log as backup
     console.log('Contact form submission:', { name, company, email, phone, service, message })
 
     return NextResponse.json(

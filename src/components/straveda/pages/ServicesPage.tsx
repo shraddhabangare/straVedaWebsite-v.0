@@ -276,7 +276,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
 
 function WhyStravedaSection() {
   return (
-    <section className="bg-black px-6 py-24 relative">
+    <section className="bg-black px-6 py-24 relative section-glow-bottom">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 dot-grid pointer-events-none opacity-50" />
       <div className="mx-auto max-w-6xl text-center relative z-10">
@@ -338,7 +338,7 @@ function FAQSection() {
   };
 
   return (
-    <section className="bg-black px-6 py-24 section-glow-top relative">
+    <section className="bg-black px-6 py-24 section-glow-top relative bg-noise-subtle">
       {/* Subtle gradient mesh background */}
       <div className="absolute inset-0 pointer-events-none gradient-mesh" />
       <div className="mx-auto max-w-3xl relative z-10">
