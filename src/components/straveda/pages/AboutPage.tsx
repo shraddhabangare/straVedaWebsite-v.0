@@ -1,10 +1,55 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useMotionValue, useMotionTemplate, useAnimationFrame } from 'framer-motion';
 import { Diamond, Hexagon, ShieldCheck } from 'lucide-react';
 import TextReveal from '@/components/straveda/TextReveal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
+import TeamShowcase, { type TeamMember } from '@/components/ui/team-showcase';
+
+/* ------------------------------------------------------------------ */
+/*  GridBackground — reusable infinite grid helper                     */
+/* ------------------------------------------------------------------ */
+
+function GridBackground({ className = '', interactive = false, patternId = 'grid-bg' }: { className?: string; interactive?: boolean; patternId?: string }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const gridOffsetX = useMotionValue(0);
+  const gridOffsetY = useMotionValue(0);
+
+  useAnimationFrame(() => {
+    gridOffsetX.set((gridOffsetX.get() + 0.5) % 40);
+    gridOffsetY.set((gridOffsetY.get() + 0.5) % 40);
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
+
+  const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
+
+  return (
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`} onMouseMove={interactive ? handleMouseMove : undefined}>
+      <svg className="w-full h-full">
+        <defs>
+          <motion.pattern id={patternId} width="40" height="40" patternUnits="userSpaceOnUse" x={gridOffsetX} y={gridOffsetY}>
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-[#1a1a2e]" />
+          </motion.pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+      </svg>
+      {interactive && (
+        <motion.div className="absolute inset-0 opacity-40" style={{ maskImage, WebkitMaskImage: maskImage }}>
+          <svg className="w-full h-full">
+            <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+          </svg>
+        </motion.div>
+      )}
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -56,7 +101,8 @@ const stats = [
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center overflow-hidden">
+      <GridBackground className="opacity-[0.03]" patternId="grid-hero" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -146,7 +192,8 @@ function MissionSection() {
 
 function ValuesSection() {
   return (
-    <section className="bg-white px-6 py-24 section-glow-top">
+    <section className="relative bg-white px-6 py-24 section-glow-top overflow-hidden">
+      <GridBackground className="opacity-[0.03]" patternId="grid-values" />
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
         <div className="mb-12 text-center">
@@ -223,21 +270,17 @@ function ValuesSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Team Section                                                       */
+/*  Team Section — TeamShowcase                                        */
 /* ------------------------------------------------------------------ */
 
-const teamMembers = [
-  { name: 'Raj Patel', role: 'Founder & CEO', bio: '20+ years in enterprise architecture and technology leadership.' },
-  { name: 'Sarah Chen', role: 'VP of Engineering', bio: 'Expert in cloud-native architecture and DevOps transformation.' },
-  { name: 'Marcus Johnson', role: 'Director of Strategy', bio: 'Specializes in IT roadmap alignment and digital transformation.' },
-  { name: 'Priya Sharma', role: 'Senior Consultant', bio: 'Red Hat certified expert in middleware and integration.' },
-  { name: 'David Kim', role: 'Project Director', bio: 'PMP-certified with 15+ years managing enterprise programs.' },
-  { name: 'Emily Torres', role: 'Solutions Architect', bio: 'Designs scalable microservices and API-first architectures.' },
+const stravedaTeam: TeamMember[] = [
+  { id: '1', name: 'Raj Patel', role: 'Founder & CEO', image: 'https://i.pravatar.cc/400?img=59', social: { linkedin: '#' } },
+  { id: '2', name: 'Sarah Chen', role: 'VP of Engineering', image: 'https://i.pravatar.cc/400?img=47', social: { linkedin: '#' } },
+  { id: '3', name: 'Marcus Johnson', role: 'Director of Strategy', image: 'https://i.pravatar.cc/400?img=52', social: { linkedin: '#' } },
+  { id: '4', name: 'Priya Sharma', role: 'Senior Consultant', image: 'https://i.pravatar.cc/400?img=45', social: { linkedin: '#' } },
+  { id: '5', name: 'David Kim', role: 'Project Director', image: 'https://i.pravatar.cc/400?img=53', social: { linkedin: '#' } },
+  { id: '6', name: 'Emily Torres', role: 'Solutions Architect', image: 'https://i.pravatar.cc/400?img=44', social: { linkedin: '#' } },
 ];
-
-function getInitials(name: string) {
-  return name.split(' ').map((n) => n[0]).join('');
-}
 
 function TeamSection() {
   return (
@@ -250,9 +293,9 @@ function TeamSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="mb-14 text-center">
+        <div className="mb-10 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -282,54 +325,14 @@ function TeamSection() {
           </motion.p>
         </div>
 
-        {/* Cards Grid */}
+        {/* TeamShowcase Component */}
         <motion.div
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.12 } },
-          }}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          transition={{ duration: 0.8, delay: 0.3, ease }}
         >
-          {teamMembers.map((member, i) => (
-            <motion.div
-              key={i}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6, ease },
-                },
-              }}
-              whileHover={{ y: -6 }}
-              className="card-premium flex flex-col items-center rounded-2xl bg-white p-6 text-center"
-            >
-              {/* Circular Avatar — 120px with initials */}
-              <div
-                className="mb-5 flex h-[120px] w-[120px] items-center justify-center rounded-full text-[36px] font-bold text-white shadow-lg"
-                style={{
-                  background: 'linear-gradient(135deg, #FF4800, #d93d00)',
-                  boxShadow: '0 8px 24px rgba(255, 72, 0, 0.25)',
-                }}
-              >
-                {getInitials(member.name)}
-              </div>
-
-              {/* Name */}
-              <h3 className="text-[18px] font-semibold text-[#1a1a2e]">{member.name}</h3>
-
-              {/* Role */}
-              <p className="mt-1 text-[14px] font-medium text-[#FF4800]">
-                {member.role}
-              </p>
-
-              {/* Bio */}
-              <p className="mt-3 text-[14px] leading-relaxed text-[#6b7280]">{member.bio}</p>
-            </motion.div>
-          ))}
+          <TeamShowcase members={stravedaTeam} />
         </motion.div>
       </div>
     </section>
@@ -704,7 +707,9 @@ const certifications = [
 
 function PartnersSection() {
   return (
-    <section className="relative bg-[#f8f8fc] px-6 py-20 lg:py-28">
+    <section className="relative bg-[#f8f8fc] px-6 py-20 lg:py-28 overflow-hidden">
+      {/* Interactive grid background with mouse-proximity reveal */}
+      <GridBackground interactive className="opacity-[0.05]" patternId="grid-partners" />
       {/* Decorative glow */}
       <div
         className="pointer-events-none absolute inset-0"

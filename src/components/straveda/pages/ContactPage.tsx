@@ -292,6 +292,7 @@ export default function ContactPage() {
 
               <MagneticButton>
                 <button
+                  data-magnetic
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-[#FF4800] hover:bg-[#e63f00] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[16px] font-medium rounded-lg py-4 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,72,0,0.3)] flex items-center justify-center gap-2 btn-shine cta-pulse"

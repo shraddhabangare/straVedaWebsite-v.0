@@ -107,6 +107,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         >
           <a
             href="#"
+            data-magnetic
             onClick={handleBackToTop}
             className="group inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-lg transition-all duration-300"
             style={{ color: '#9ca3af' }}

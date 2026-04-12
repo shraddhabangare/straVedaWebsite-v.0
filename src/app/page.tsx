@@ -142,40 +142,41 @@ export default function Home() {
 
   return (
     <SmoothScroll>
-      <div className="noise-overlay min-h-screen flex flex-col bg-white text-[#1a1a2e]">
-        <Preloader />
-        <ScrollProgress />
-        <Navbar currentPage={currentPage} onNavigate={handleNavigate} onSearchToggle={() => setSearchOpen(prev => !prev)} />
+      <CustomCursor>
+        <div className="noise-overlay min-h-screen flex flex-col bg-white text-[#1a1a2e]">
+          <Preloader />
+          <ScrollProgress />
+          <Navbar currentPage={currentPage} onNavigate={handleNavigate} onSearchToggle={() => setSearchOpen(prev => !prev)} />
 
-        {/* Screen reader live region for page navigation announcements */}
-        <div aria-live="polite" aria-atomic="true" className="sr-only">
-          {currentPage.charAt(0).toUpperCase() + currentPage.slice(1)} page
+          {/* Screen reader live region for page navigation announcements */}
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            {currentPage.charAt(0).toUpperCase() + currentPage.slice(1)} page
+          </div>
+
+          <main className="flex-1" role="main" tabIndex={0}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentPage}
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <Suspense fallback={<PageLoader />}>
+                  <CurrentPageComponent onNavigate={handleNavigate} />
+                </Suspense>
+              </motion.div>
+            </AnimatePresence>
+          </main>
+
+          <Footer onNavigate={handleNavigate} />
+          <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} onNavigate={(page) => { setSearchOpen(false); handleNavigate(page); }} />
+          <BackToTop />
+          <FloatingCTA onNavigate={handleNavigate} />
+          <CookieConsent />
+          <KeyboardHint />
         </div>
-
-        <main className="flex-1" role="main" tabIndex={0}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentPage}
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <Suspense fallback={<PageLoader />}>
-                <CurrentPageComponent onNavigate={handleNavigate} />
-              </Suspense>
-            </motion.div>
-          </AnimatePresence>
-        </main>
-
-        <Footer onNavigate={handleNavigate} />
-        <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} onNavigate={(page) => { setSearchOpen(false); handleNavigate(page); }} />
-        <BackToTop />
-        <FloatingCTA onNavigate={handleNavigate} />
-        <CustomCursor />
-        <CookieConsent />
-        <KeyboardHint />
-      </div>
+      </CustomCursor>
     </SmoothScroll>
   )
 }

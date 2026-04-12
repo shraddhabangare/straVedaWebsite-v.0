@@ -270,6 +270,7 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
         {service.cta.map((cta, i) => (
           <MagneticButton key={i}>
             <button
+              data-magnetic
               className={
                 i === 0
                   ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00] btn-shine'
@@ -347,6 +348,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
           </motion.p>
           <MagneticButton>
             <motion.button
+              data-magnetic
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}

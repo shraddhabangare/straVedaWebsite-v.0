@@ -450,6 +450,7 @@ function FAQSection() {
             >
               {/* Question */}
               <button
+                data-magnetic
                 onClick={() => toggle(index)}
                 className="flex w-full items-center justify-between px-5 py-5 text-left transition-colors duration-200"
                 style={{
@@ -676,6 +677,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 open-standards architecture that scales.
               </p>
               <button
+                data-magnetic
                 onClick={() => onNavigate('services')}
                 className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
@@ -722,6 +724,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 market and increase product innovation.
               </p>
               <button
+                data-magnetic
                 onClick={() => onNavigate('services')}
                 className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
@@ -814,6 +817,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 cost of ownership at enterprise scale.
               </p>
               <button
+                data-magnetic
                 onClick={() => onNavigate('services')}
                 className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}

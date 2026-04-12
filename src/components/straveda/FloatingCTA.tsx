@@ -377,6 +377,7 @@ export default function FloatingCTA({ onNavigate }: FloatingCTAProps) {
 
             {/* FAB — visible on all screen sizes */}
             <motion.button
+              data-magnetic
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as const }}

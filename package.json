@@ -69,6 +69,7 @@
     "react-day-picker": "^9.8.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.60.0",
+    "react-icons": "^5.6.0",
     "react-markdown": "^10.1.0",
     "react-resizable-panels": "^3.0.3",
     "react-syntax-highlighter": "^15.6.1",
@@ -81,6 +82,7 @@
     "three": "^0.183.2",
     "uuid": "^11.1.0",
     "vaul": "^1.1.2",
+    "vecteur": "^0.3.0",
     "z-ai-web-dev-sdk": "^0.0.17",
     "zod": "^4.0.2",
     "zustand": "^5.0.6"

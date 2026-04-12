@@ -1,4 +1,189 @@
 ---
+Task ID: 21-main
+Agent: Main Coordinator
+Task: Phase 21 — Concurrent batch: cursor, hero animations, grid backgrounds, team showcase, navbar redesign, dark mode fix
+
+Work Log:
+- Reviewed worklog.md (Phase 20, 43 features, stable)
+- Installed 6 shadcn components: magnetic-cursor, text-cursor-proximity, mouse-follow-animations, the-infinite-grid, hero-section, team-showcase
+- Launched 4 parallel agents for concurrent development
+- Agent A (21-a): Rewrote CustomCursor.tsx to use MagneticCursor wrapper + added data-magnetic to all key buttons
+- Agent B (21-b): Hero text alignment fix, TextCursorProximity on headline, mouse-following gradient glow, word stagger animation, floating dots
+- Agent C (21-c): Replaced team section with TeamShowcase component + added infinite grid backgrounds to 3 About page sections
+- Agent D (21-d): Redesigned Navbar with StickyHeader (rounded-3xl, scroll-driven blur, full-screen mobile menu) + enhanced dark mode CSS
+- Main coordinator: Updated page.tsx to wrap app with CustomCursor (now accepts children), fixed 3 lint errors in installed components
+- ESLint: zero errors after fixes
+- Dev server: compiles successfully, GET / returns 200
+
+### Changes Made:
+
+1. Magnetic Cursor + Fluid Interactions (Task 1 + 3):
+   - CustomCursor.tsx rewritten as MagneticCursor wrapper with brand config (#FF4800, difference blend mode, circle)
+   - Native cursor hidden on desktop via CSS `@media (pointer: fine) { * { cursor: none !important; } }`
+   - `data-magnetic` attribute added to CTA buttons across: AnimatedHero, FloatingCTA, Footer, HomePage, ContactPage, ServicesPage
+
+2. Hero Section Enhancements (Task 2 + 6 + 7):
+   - Text alignment fixed: left-aligned rotating words, pill badge, tagline, consistent vertical rhythm
+   - TextCursorProximity on "Less complexity," and "more" (scale 1→1.05, color #1a1a2e→#FF4800, radius 120, exponential falloff)
+   - Mouse-following orange gradient glow (384px, blur-32px, 0.07 opacity)
+   - Tagline word stagger animation (14 words, 800ms base + 50ms increment)
+   - 3 floating decorative dots with CSS keyframe animations
+
+3. Infinite Grid Backgrounds (Task 4):
+   - Created reusable GridBackground helper (animated SVG pattern, configurable opacity + mouse-proximity reveal)
+   - Added to: About HeroSection (0.03 opacity), ValuesSection (0.03 opacity), PartnersSection (0.05 opacity + interactive)
+
+4. Team Showcase Replacement (Task 8):
+   - Replaced old initials-based team grid with TeamShowcase component
+   - Photo grid with grayscale/color hover + name list with LinkedIn social icons
+   - 6 Straveda team members with pravatar.cc placeholder images
+
+5. StickyHeader Navbar Redesign (Task 9):
+   - motion.header fixed top-4 with scroll-driven padding/margin transitions
+   - Rounded-3xl inner container with border-border/40
+   - StickyHeaderEffects sub-component: backdrop-blur(20px) + frosted glass at >80px scroll
+   - Full theme awareness (light/dark backgrounds, text, borders, shadows)
+   - Full-screen mobile menu with centered 3xl links, staggered animations
+   - Hydration guard with SSR skeleton
+
+6. Dark Mode Fixes (Task 5):
+   - Smooth body theme transitions (background-color + color 0.3s ease)
+   - Dark mode CSS for new Phase 21 components (team showcase, infinite grid, card glow, magnetic border)
+   - Hardcoded color overrides fixed (bg-muted, text-black, etc.)
+
+Stage Summary:
+- 8 user tasks completed in parallel batch execution
+- 6 new shadcn components installed and integrated
+- MagneticCursor replaces old CustomCursor with spring physics + magnetic pull
+- Hero section: text alignment fixed, cursor proximity effect, mouse gradient, word stagger, floating dots
+- Team section: professional photo grid with hover interactions
+- Infinite grid backgrounds on 3 About page sections
+- Navbar: premium StickyHeader with scroll-driven frosted glass + full-screen mobile menu
+- Dark mode enhanced with smooth transitions and new component support
+- Zero lint errors, dev server stable
+
+## PROJECT STATUS SUMMARY (as of Phase 21)
+
+### Current Project Status
+The Straveda enterprise website has reached **Phase 21** with significant UX enhancements: a new magnetic cursor with spring physics, hero text proximity effects, premium StickyHeader navbar, team showcase with photo grid, infinite grid backgrounds, and improved dark mode.
+
+### Completed Features (All Phases)
+1-43. (All previous Phase 20 features preserved)
+44. MagneticCursor: spring-based cursor with speed morphing, text detection, magnetic pull on buttons (data-magnetic)
+45. Text Cursor Proximity: individual letters scale + color-shift as cursor approaches in hero headline
+46. Hero mouse gradient: orange radial glow follows cursor within hero section
+47. Hero word stagger: tagline words appear sequentially with CSS animation
+48. Hero floating dots: 3 subtle animated decorative elements
+49. Hero text alignment: left-aligned rotating words, consistent vertical rhythm
+50. Infinite Grid backgrounds: animated SVG patterns on 3 About page sections (hero, values, partners)
+51. Team Showcase: photo grid with grayscale/color hover + name list with social icons
+52. StickyHeader Navbar: rounded-3xl, scroll-driven blur/opacity, full-screen mobile menu
+53. Dark mode enhancements: smooth body transitions, new component dark mode support
+
+### Verification Results
+- ESLint: zero errors
+- Dev server: compiles and returns HTTP 200
+- All 8 user tasks completed
+
+### Unresolved Issues / Risks
+- No real images for team members (using pravatar.cc placeholders)
+- No real images for testimonials/blog posts
+- Newsletter API logs to console only
+- Dark mode visual QA needed
+
+### Recommended Next Steps
+1. Visual QA of all Phase 21 changes
+2. Replace placeholder images with real content
+3. Database integration for newsletter + contact form
+4. Performance audit
+5. Accessibility audit
+
+---
+Task ID: 21-b
+Agent: Full-Stack Developer
+Task: Phase 21-b — Hero text alignment fix, text cursor proximity, reuno-ui animations
+
+Work Log:
+- Read worklog.md for project context (Phase 20, 43+ features, stable)
+- Read current AnimatedHero.tsx (249 lines) for structure and existing functionality
+- Read hero-section.tsx reference for animation concepts (mouse gradient, word stagger, floating elements)
+- Read text-cursor-proximity.tsx component API (label, styles, containerRef, radius, falloff)
+- Read use-mouse-position-ref.tsx hook (used internally by TextCursorProximity)
+
+Task 6 — Hero Text Formatting/Alignment Fix:
+- Changed rotating word container from `justify-center text-center` to `justify-start text-left` so the rotating word aligns left under "more" instead of centering independently
+- Removed `mx-auto` from pill badge to left-align it with the text block
+- Added `text-left` class to the content container div for consistent left alignment throughout
+- Added explicit `text-left` to the tagline paragraph
+- Preserved consistent vertical rhythm: mt-6 (badge→h1), mb-6 (h1→tagline), mt-10 (tagline→CTAs, CTAs→social proof)
+
+Task 2 — Text Cursor Proximity Effect on Hero Headline:
+- Added `containerRef = useRef<HTMLDivElement>(null)` and attached to the content container div
+- Imported TextCursorProximity from @/components/ui/text-cursor-proximity
+- Replaced static "Less complexity," text with TextCursorProximity component (label="Less complexity,")
+- Replaced static "more" text with TextCursorProximity component (label="more")
+- Applied proximity styles: transform scale(1)→scale(1.05), color #1a1a2e→#FF4800
+- Used radius=120 and falloff="exponential" for smooth falloff effect
+- Rotating words section left unchanged (has its own spring animation)
+
+Task 7 — Extract Animations from hero-section.tsx:
+
+1. Mouse-following gradient glow:
+   - Added gradientRef = useRef<HTMLDivElement>(null) for a fixed-position div (384x384px)
+   - useEffect attaches mousemove/mouseleave listeners on the parent section element
+   - Gradient follows cursor with 192px offset (half of 384px) for centering
+   - Orange radial gradient at 0.07 opacity with blur(32px) filter
+   - Smooth opacity transition (0.5s ease-out) on enter/leave
+   - z-[2] to stay above background but below content
+
+2. Word stagger animation on tagline:
+   - Split tagline into 14 individual words using useMemo
+   - Each word wrapped in <span> with class "hero-word" and data-delay attribute
+   - Base delay 800ms with 50ms increment per word
+   - useEffect queries .hero-word elements and applies CSS animation on mount
+   - CSS keyframe "hero-word-appear": opacity 0→1, translateY(8px)→0, 0.8s ease-out
+
+3. Subtle floating decorative elements:
+   - 3 CSS-animated floating dots in hero background
+   - Dot 1: top-[22%] right-[14%], 8px #FF4800, hero-float-1 (6s, with rotation)
+   - Dot 2: top-[58%] right-[9%], 6px #2B2358, hero-float-2 (8s, vertical + horizontal)
+   - Dot 3: bottom-[28%] left-[7%], 6px #FF4800, hero-float-3 (7s, multi-direction)
+   - Each with staggered animation-delay (1s, 2.5s, 4s)
+   - All marked aria-hidden="true"
+
+Inline CSS Animations (in <style> tag since globals.css managed by another agent):
+- @keyframes hero-word-appear: fade-in + slide-up for tagline words
+- @keyframes hero-float-1: float with rotation (6s)
+- @keyframes hero-float-2: vertical + horizontal float (8s)
+- @keyframes hero-float-3: multi-directional float (7s)
+
+Preserved All Existing Functionality:
+- WebGL shader background (StravedaWebGLHero)
+- Decorative side borders (hero-1 style)
+- Inner gradient border lines
+- Pill badge with Building2 icon and hover arrow
+- Rotating words with spring physics (agility, resilience, etc.)
+- CTA buttons (MagneticButton on primary, outline on secondary)
+- Social proof section (5 stars, 5.0 rating, Google Reviews)
+- Bottom gradient fade to white
+- Scroll indicator with mouse-wheel animation
+- All framer-motion entrance animations with original timing
+
+Final QA:
+- ESLint: 4 errors total — all pre-existing in other files (Navbar.tsx, magnetic-cursor.tsx, text-cursor-proximity.tsx)
+- Zero new lint errors in AnimatedHero.tsx
+- Dev server: compiling successfully, GET / returns 200
+
+Stage Summary:
+- Hero text alignment fixed: left-aligned rotating words, pill badge, consistent vertical rhythm
+- TextCursorProximity added to "Less complexity," and "more" with scale + color proximity effect
+- Mouse-following orange gradient glow (384px, blur-3xl, smooth opacity transitions)
+- Word stagger animation on tagline (14 words, 800ms base + 50ms increment)
+- 3 subtle floating decorative dots with CSS keyframe animations
+- Inline <style> tag for all CSS animations (no globals.css modification)
+- Zero new lint errors, dev server stable
+
+---
 Task ID: 20-main
 Agent: Main Agent (cron webDevReview)
 Task: Phase 20 — Dark mode CSS implementation, Success Stories section, BackToTop progress ring
@@ -51,6 +236,33 @@ Stage Summary:
 - BackToTop: circular progress ring showing scroll position
 - Gradient section transitions between dark ImpactMetrics and light content
 - Zero lint errors, stable dev server
+
+---
+Task ID: 21-c
+Agent: Full-Stack Developer
+Task: Phase 21-c — Team showcase replacement + infinite grid backgrounds
+
+Work Log:
+- Read worklog.md for project context (Phase 20, 43+ features, stable)
+- Confirmed react-icons@5.6.0 already installed
+- Read team-showcase.tsx component API: accepts TeamMember[] via `members` prop, photo grid + name list with hover interactions
+- Read current AboutPage.tsx: identified TeamSection (initials-based cards) and all target sections for grid backgrounds
+- Created inline GridBackground helper component with configurable patternId, className, and interactive (mouse-proximity) mode
+- Added GridBackground to HeroSection (opacity-[0.03], patternId="grid-hero") with overflow-hidden on section
+- Added GridBackground to ValuesSection (opacity-[0.03], patternId="grid-values") with overflow-hidden on section
+- Added interactive GridBackground to PartnersSection (opacity-[0.05], patternId="grid-partners") with mouse-proximity reveal and overflow-hidden on section
+- Replaced TeamSection internals: removed old initials-based card grid + getInitials helper, replaced with TeamShowcase component
+- Updated team data to Straveda's 6 team members with pravatar.cc photos and LinkedIn social links
+- Preserved section header ("THE TEAM" label, "Meet Our Team" title, description paragraph)
+- Wrapped TeamShowcase in motion.div with fade-in animation, changed container to max-w-6xl for better showcase alignment
+- ESLint: 3 pre-existing errors in magnetic-cursor.tsx and text-cursor-proximity.tsx (unrelated, no new errors in AboutPage.tsx)
+- Dev server: compiling successfully, GET / returns 200
+
+Stage Summary:
+- Team section replaced with TeamShowcase: photo grid with grayscale hover + member name list with social icons
+- Infinite grid backgrounds added to 3 About page sections (hero, values, partners)
+- Partners section has interactive mouse-proximity grid reveal effect
+- Zero new lint errors, dev server stable
 
 ## PROJECT STATUS SUMMARY (as of Phase 20)
 
@@ -1158,3 +1370,63 @@ Stage Summary:
 - How We Work has subtler step numbers, gentle icon pulse, thicker connecting line
 - Consistent section spacing (py-24) and gradient glow dividers throughout
 - All changes use existing CSS utility patterns, no breaking changes
+
+---
+Task ID: 21-d
+Agent: Full-Stack Developer
+Task: Phase 21-d — StickyHeader navbar redesign + dark mode fixes
+
+Work Log:
+- Read worklog.md for project context (Phase 20 stable, 43 features, dark mode CSS at 420+ lines)
+- Read current Navbar.tsx (319 lines, fixed top-0 nav with scroll detection, mobile slide-in panel)
+- Read globals.css (2258 lines, dark mode CSS starts at line 1839)
+- ESLint baseline: 4 errors, 3 pre-existing in magnetic-cursor.tsx and text-cursor-proximity.tsx
+
+Task 9 — StickyHeader Navbar Rewrite:
+- Rewrote src/components/straveda/Navbar.tsx with StickyHeader design patterns
+- motion.header with fixed top-4 left-0 right-0 z-50 positioning
+- Scroll-driven animations using Framer Motion useScroll + useTransform:
+  - headerPadding: "1.5rem 0" → "1rem 0" on scroll
+  - headerMargin: "0 10%" → "0 5%" on scroll
+- Inner motion.div with rounded-3xl, border-border/40
+- StickyHeaderEffects sub-component: scroll-driven frosted glass effect
+  - backdropFilter blur(20px) + shadow when scrollY > 80px
+  - Light: rgba(255,255,255,0.85), Dark: rgba(10,10,20,0.85)
+- Full theme awareness (isDark from useTheme):
+  - Light/dark background, text, border, shadow colors
+- Straveda branding: "Str<span style={{color:'#FF4800'}}>a</span>veda" wordmark
+- "Start a project" CTA: bg-[#FF4800] rounded-full button
+- Active nav link: orange underline (#FF4800)
+- Mobile menu: Full-screen overlay (not side panel) with bg-background/95 backdrop-blur-lg
+  - Centered nav links at 3xl font with staggered entrance animations
+  - ThemeToggle + Search in mobile view
+  - "Start a project" CTA at bottom with rounded-full
+- Hydration guard with SSR skeleton to prevent layout shift
+- Same component interface: NavbarProps { currentPage, onNavigate, onSearchToggle }
+- Same NAV_LINKS: Services, About, Testimonials, Insights, Contact
+
+Task 5 — Dark Mode CSS Fixes:
+- Added smooth theme transition to body: transition: background-color 0.3s ease, color 0.3s ease
+- Added global dark mode transition rules for common interactive elements
+- Added hardcoded white/gray background fixes: .bg-[#f5f5f7], .bg-[#f0f0f4], .bg-muted, .bg-[#e5e7eb]
+- Added hardcoded text color fixes: .text-[#374151], .text-[#4b5563], .text-[#111827], .text-black
+- Added card-premium color fix for dark mode (#f0f0f5 text)
+- Added Phase 21 component dark mode CSS:
+  - Team showcase grid: dark card backgrounds (#12121e), hover (#1a1a2e)
+  - Infinite grid: dark SVG stroke colors rgba(255,255,255,0.06)
+  - Card inner glow: subtle white gradient for dark
+  - Gradient wave divider: transparent background in dark
+  - Card spotlight: orange-tinted radial gradient in dark
+  - Magnetic border: dark mode mask fix (linear-gradient #0a0a14)
+  - Gradient border animate: dark mode mask fix
+  - Image reveal: dark background #1a1a2e
+  - Rotating border: dark mode mask fix
+
+Final QA:
+- ESLint: 3 pre-existing errors (magnetic-cursor.tsx, text-cursor-proximity.tsx), zero new errors from our changes
+- Dev server: compiles successfully, returning HTTP 200
+
+Stage Summary:
+- Navbar redesigned with StickyHeader pattern: rounded-3xl, scroll-driven frosted glass, full-screen mobile menu
+- Dark mode fixes: smooth body transitions, hardcoded color overrides, Phase 21 component dark mode CSS
+- Zero new lint errors, stable dev server
