@@ -92,7 +92,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <span ref={ref} className="text-[#1a1a2e]" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
+    <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
       {count}
       {suffix}
     </span>
@@ -396,8 +396,7 @@ function FAQSection() {
 
   return (
     <section
-      className="glow-hover py-24"
-      style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
+      className="glow-hover py-24 bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.06]"
     >
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         {/* Header */}
@@ -452,16 +451,11 @@ function FAQSection() {
               <button
                 data-magnetic
                 onClick={() => toggle(index)}
-                className="flex w-full items-center justify-between px-5 py-5 text-left transition-colors duration-200"
-                style={{
-                  borderBottom: '1px solid rgba(0,0,0,0.06)',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,72,0,0.02)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                className="flex w-full items-center justify-between px-5 py-5 text-left transition-colors duration-200 border-b border-black/[0.06] dark:border-white/[0.06] hover:bg-[rgba(255,72,0,0.02)] dark:hover:bg-white/[0.03]"
                 aria-expanded={openIndex === index}
               >
                 <span
-                  className="pr-4 text-[16px] font-medium text-[#1a1a2e]"
+                  className="pr-4 text-[16px] font-medium text-[#1a1a2e] dark:text-[#e5e7eb]"
                   style={{ fontWeight: 500 }}
                 >
                   {faq.question}
@@ -469,12 +463,7 @@ function FAQSection() {
                 <motion.span
                   animate={{ rotate: openIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3, ease }}
-                  className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full"
-                  style={{
-                    background: openIndex === index ? '#FF4800' : 'rgba(0,0,0,0.04)',
-                    color: openIndex === index ? '#FFFFFF' : '#6b7280',
-                    transition: 'background 0.3s ease, color 0.3s ease',
-                  }}
+                  className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300 ${openIndex === index ? 'bg-[#FF4800] text-white' : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#6b7280] dark:text-[#9ca3af]'}`}
                 >
                   <Plus className="h-4 w-4" />
                 </motion.span>
@@ -491,8 +480,7 @@ function FAQSection() {
                     style={{ overflow: 'hidden' }}
                   >
                     <p
-                      className="px-5 pb-5 text-[15px] leading-relaxed"
-                      style={{ color: '#6b7280' }}
+                      className="px-5 pb-5 text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]"
                     >
                       {faq.answer}
                     </p>
@@ -529,37 +517,44 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       {/* TECHNOLOGY PARTNERS                             */}
       {/* ═══════════════════════════════════════════════ */}
-      <div className="divider-gradient" />
-      <section className="py-24 bg-white">
+      <div className="divider-gradient dark:opacity-30" />
+      <section className="py-24 bg-white dark:bg-[#0a0a14]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="mb-6 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af]">
             Technology Partners
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
-              <span
-                key={name}
-                className="partner-name inline-block text-[15px] md:text-[16px] font-medium text-[#d1d5db] hover:text-[#FF4800] transition-all duration-300 select-none tracking-wide"
-                style={{ transform: 'scale(1)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-              >
-                {name}
-              </span>
-            ))}
+          <div className="bg-white/50 backdrop-blur-sm border border-black/[0.04] rounded-2xl p-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {['Red Hat', 'AWS', 'Microsoft Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Linux Foundation'].map(name => (
+                <div
+                  key={name}
+                  className="flex items-center justify-center h-16 rounded-xl bg-gray-50/80 border border-gray-100 px-6 transition-all duration-300 hover:border-[rgba(255,72,0,0.15)] hover:bg-white hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+                  style={{ transform: 'scale(1)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                    const span = e.currentTarget.querySelector('span');
+                    if (span) span.style.color = '#FF4800';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    const span = e.currentTarget.querySelector('span');
+                    if (span) span.style.color = '#6b7280';
+                  }}
+                >
+                  <span className="text-[14px] font-semibold tracking-wide text-[#6b7280] select-none">{name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
-      <div className="divider-gradient" />
+      <div className="divider-gradient dark:opacity-30" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* TRUSTED BY INDUSTRY LEADERS                     */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24"
-        style={{
-          background: '#FFFFFF',
-        }}
+        className="py-24 bg-white dark:bg-[#0a0a14]"
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Heading */}
@@ -568,8 +563,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-10 text-center text-[14px] font-medium uppercase tracking-widest"
-            style={{ color: '#9ca3af' }}
+            className="mb-10 text-center text-[14px] font-medium uppercase tracking-widest text-[#9ca3af] dark:text-[#6b7280]"
           >
             Trusted by industry leaders
           </motion.p>
@@ -605,8 +599,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="flex items-center justify-center"
               >
                 <span
-                  className={`partner-name text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none ${logo.className}`}
-                  style={{ color: '#9ca3af' }}
+                  className={`partner-name text-[18px] md:text-[22px] transition-all duration-300 hover:text-[#6b7280] select-none text-[#9ca3af] dark:text-[#6b7280] ${logo.className}`}
                 >
                   {logo.name}
                 </span>
@@ -944,8 +937,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1C — ABOUT / STATS                      */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="relative py-24 bg-animated-gradient"
-        style={{ background: '#f8f8fc' }}
+        className="relative py-24 bg-[#f8f8fc] dark:bg-[#0a0a14] bg-animated-gradient"
       >
         {/* Decorative orange dot pattern */}
         <div
@@ -973,7 +965,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="mt-3 h-[3px] w-8 rounded-full"
               style={{ background: '#FF4800', transformOrigin: 'left' }}
             />
-            <p className="mt-3 text-[16px]" style={{ color: '#6b7280' }}>
+            <p className="mt-3 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">
               Years of Enterprise Excellence
             </p>
             <p
@@ -984,7 +976,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="mt-6 flex items-center gap-2">
               <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} />
-              <span className="text-[15px]" style={{ color: '#6b7280' }}>
+              <span className="text-[15px] text-[#6b7280] dark:text-[#9ca3af]">
                 Plano, Texas
               </span>
             </div>
@@ -1005,7 +997,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               ABOUT US
             </p>
             <p
-              className="text-[20px] leading-[1.7] text-[#1a1a2e]"
+              className="text-[20px] leading-[1.7] text-[#1a1a2e] dark:text-[#d1d5db]"
               style={{ maxWidth: '560px' }}
             >
               Since our inception, Straveda has focused on the intersection of
@@ -1018,12 +1010,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <div className="mt-10 flex w-full max-w-md items-stretch">
               {/* Stat 1 */}
               <div className="flex flex-1 flex-col">
-                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
                   7
                 </span>
                 <span
-                  className="mt-1 text-[13px]"
-                  style={{ color: '#6b7280' }}
+                  className="mt-1 text-[13px] text-[#6b7280] dark:text-[#9ca3af]"
                 >
                   Experts
                 </span>
@@ -1037,12 +1028,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 2 */}
               <div className="flex flex-1 flex-col">
-                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
                   100%
                 </span>
                 <span
-                  className="mt-1 text-[13px]"
-                  style={{ color: '#6b7280' }}
+                  className="mt-1 text-[13px] text-[#6b7280] dark:text-[#9ca3af]"
                 >
                   Satisfaction
                 </span>
@@ -1056,12 +1046,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Stat 3 */}
               <div className="flex flex-1 flex-col">
-                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e]">
+                <span className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
                   Cost-Effective
                 </span>
                 <span
-                  className="mt-1 text-[13px]"
-                  style={{ color: '#6b7280' }}
+                  className="mt-1 text-[13px] text-[#6b7280] dark:text-[#9ca3af]"
                 >
                   Solutions
                 </span>
@@ -1075,8 +1064,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* SECTION 1D — HOW WE WORK                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="relative py-24 section-glow-top"
-        style={{ background: '#FFFFFF' }}
+        className="relative py-24 bg-white dark:bg-[#0a0a14] section-glow-top"
       >
         {/* Subtle decorative glow */}
         <div
@@ -1150,21 +1138,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:pl-0"
             >
               <span
-                className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
+                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
+                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
               >
                 01
               </span>
               <div className="mt-2 flex items-center gap-3">
                 <Search className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e]"
+                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
                   style={{ fontWeight: 500 }}
                 >
                   Discovery
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
                 We assess your current landscape, identify pain points, and define success metrics.
               </p>
             </motion.div>
@@ -1195,21 +1183,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="relative border-l-2 border-[#FF4800] pl-8 pb-12 xl:border-l-0 xl:pl-8 xl:pb-0"
             >
               <span
-                className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
+                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
+                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
               >
                 02
               </span>
               <div className="mt-2 flex items-center gap-3">
                 <Target className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e]"
+                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
                   style={{ fontWeight: 500 }}
                 >
                   Strategy
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
                 We craft a tailored roadmap aligned with your business goals and budget.
               </p>
             </motion.div>
@@ -1240,21 +1228,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="relative border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:border-l-0 xl:pl-8 xl:pb-0"
             >
               <span
-                className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
+                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
+                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
               >
                 03
               </span>
               <div className="mt-2 flex items-center gap-3">
                 <Zap className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e]"
+                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
                   style={{ fontWeight: 500 }}
                 >
                   Execution
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
                 Our experts implement solutions using proven frameworks and agile delivery.
               </p>
             </motion.div>
@@ -1272,21 +1260,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="relative border-l-2 border-[#FF4800] pl-8 xl:border-l-0 xl:pl-8"
             >
               <span
-                className="mb-2 block"
-                style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.08, lineHeight: 1 }}
+                className="mb-2 block text-[#FF4800] opacity-[0.08] dark:opacity-[0.12]"
+                style={{ fontSize: '64px', fontWeight: 700, lineHeight: 1 }}
               >
                 04
               </span>
               <div className="mt-2 flex items-center gap-3">
                 <TrendingUp className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e]"
+                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
                   style={{ fontWeight: 500 }}
                 >
                   Optimize
                 </h3>
               </div>
-              <p className="mt-3 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
                 We measure results, refine approaches, and ensure long-term sustainability.
               </p>
             </motion.div>

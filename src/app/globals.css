@@ -2440,3 +2440,77 @@ html {
   background-size: 200% 100%;
   animation: shimmer 4s ease-in-out infinite;
 }
+
+/* ============================================
+   Dark Mode — Page-level backgrounds
+   ============================================ */
+html.dark body {
+  background-color: #0a0a14;
+  color: #e5e7eb;
+}
+
+/* Dark mode dot grid pattern */
+html.dark .dot-grid-dense {
+  background-image: radial-gradient(rgba(255,72,0,0.08) 1px, transparent 1px);
+}
+
+/* Dark mode divider gradient */
+html.dark .divider-gradient {
+  opacity: 0.3;
+}
+
+/* Dark mode glow hover */
+html.dark .glow-hover {
+  background-color: #0a0a14;
+}
+
+/* Dark mode section glow top */
+html.dark .section-glow-top::before {
+  background: linear-gradient(180deg, rgba(255,72,0,0.03), transparent);
+}
+
+/* Dark mode card hover glow */
+html.dark .card-hover:hover {
+  border-color: rgba(255,72,0,0.15);
+  box-shadow: 0 4px 24px rgba(255,72,0,0.05);
+}
+
+/* Dark mode link hover underline */
+html.dark .link-hover-underline:hover {
+  color: #FF4800;
+}
+
+/* Dark mode text gradient orange */
+html.dark .text-gradient-orange {
+  color: #FF6B33;
+}
+
+/* Dark mode animated gradient bg */
+html.dark .bg-animated-gradient {
+  background-color: #0a0a14;
+}
+
+/* Dark mode grid pattern */
+html.dark .grid-pattern {
+  opacity: 0.5;
+}
+
+/* Dark mode line decoration */
+html.dark .line-decoration {
+  background-color: #FF4800;
+}
+
+/* Dark mode bento-large-border */
+html.dark .bento-large-border {
+  border-color: rgba(255,72,0,0.1);
+}
+
+/* Dark mode icon pulse */
+html.dark .icon-pulse-gentle {
+  color: #FF4800;
+}
+
+/* Dark mode partner-name hover */
+html.dark .partner-name:hover {
+  color: #FF4800;
+}

@@ -165,7 +165,7 @@ function BlogPostModal({
       onClick={onClose}
     >
       <motion.div
-        className="relative max-w-3xl w-full max-h-[85vh] overflow-y-auto rounded-2xl bg-white border border-[#e5e7eb] shadow-xl"
+        className="relative max-w-3xl w-full max-h-[85vh] overflow-y-auto rounded-2xl bg-white dark:bg-[#0a0a14] border border-[#e5e7eb] dark:border-white/[0.08] shadow-xl"
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -175,7 +175,7 @@ function BlogPostModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[#f8f8fc] border border-[#e5e7eb] text-[#6b7280] hover:text-[#1a1a2e] hover:bg-[#f0f0f4] transition-colors"
+          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[#f8f8fc] dark:bg-white/[0.08] border border-[#e5e7eb] dark:border-white/[0.08] text-[#6b7280] dark:text-[#d1d5db] hover:text-[#1a1a2e] dark:hover:text-[#f0f0f5] hover:bg-[#f0f0f4] dark:hover:bg-white/[0.12] transition-colors"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -188,15 +188,15 @@ function BlogPostModal({
           </span>
 
           {/* Title */}
-          <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-[#1a1a2e] leading-tight mb-6">
+          <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] leading-tight mb-6">
             {post.title}
           </h2>
 
           {/* Author + date + read time */}
-          <div className="flex flex-wrap items-center gap-4 text-[13px] text-[#6b7280] mb-8">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-[#6b7280] dark:text-[#d1d5db] mb-8">
             <span className="inline-flex items-center gap-1.5">
               <User className="w-3.5 h-3.5" />
-              <span className="text-[#1a1a2e] font-medium">{post.author.name}</span>
+              <span className="text-[#1a1a2e] dark:text-[#f0f0f5] font-medium">{post.author.name}</span>
               <span className="text-[#9ca3af]">— {post.author.title}</span>
             </span>
             <span className="text-[#9ca3af]">|</span>
@@ -216,7 +216,7 @@ function BlogPostModal({
             {post.fullContent.map((paragraph, i) => (
               <p
                 key={i}
-                className="text-[15px] sm:text-[16px] leading-[1.8] text-[#4b5563]"
+                className="text-[15px] sm:text-[16px] leading-[1.8] text-[#4b5563] dark:text-[#d1d5db]"
               >
                 {paragraph}
               </p>
@@ -224,10 +224,10 @@ function BlogPostModal({
           </div>
 
           {/* Back to all articles */}
-          <div className="mt-10 pt-8 border-t border-[#e5e7eb]">
+          <div className="mt-10 pt-8 border-t border-[#e5e7eb] dark:border-white/[0.08]">
             <button
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-[#6b7280] hover:text-[#FF4800] text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-[#6b7280] dark:text-[#d1d5db] hover:text-[#FF4800] text-sm font-medium transition-colors"
             >
               <span className="inline-flex items-center gap-1.5">
                 <ArrowRight className="w-3.5 h-3.5 rotate-180" />
@@ -285,9 +285,9 @@ export default function InsightsPage() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-[#0a0a14] min-h-screen">
       {/* HERO */}
-      <section className="relative flex items-center justify-center bg-white" style={{ minHeight: '50vh' }}>
+      <section className="relative flex items-center justify-center bg-white dark:bg-[#0a0a14]" style={{ minHeight: '50vh' }}>
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -297,7 +297,7 @@ export default function InsightsPage() {
           >
             Insights & Perspectives
           </motion.p>
-          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e]'}`}
+          <h1 className={`text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold leading-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
             style={{ transitionDuration: '0.6s' }}
           >
             <TextReveal delay={0.2} stagger={0.08}>Enterprise thinking for modern organizations.</TextReveal>
@@ -313,7 +313,7 @@ export default function InsightsPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8, ease }}
-            className="text-[#6b7280] text-lg md:text-xl mt-6"
+            className="text-[#6b7280] dark:text-[#d1d5db] text-lg md:text-xl mt-6"
           >
             Strategy, architecture, and management insights from the Straveda
             team.
@@ -322,7 +322,7 @@ export default function InsightsPage() {
       </section>
 
       {/* FEATURED TOPICS — Horizontal Scrollable Tag Row */}
-      <section className="px-6 pt-6 pb-2 bg-white">
+      <section className="px-6 pt-6 pb-2 bg-white dark:bg-[#0a0a14]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -341,7 +341,7 @@ export default function InsightsPage() {
                   className={`flex-shrink-0 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTopic === topic
                       ? 'bg-[#FF4800] text-white shadow-sm'
-                      : 'bg-[#f8f8fc] text-[#6b7280] hover:bg-[#FF4800] hover:text-white border border-transparent'
+                      : 'bg-[#f8f8fc] dark:bg-white/[0.06] text-[#6b7280] dark:text-[#d1d5db] hover:bg-[#FF4800] hover:text-white border border-transparent'
                   }`}
                 >
                   {topic}
@@ -353,23 +353,23 @@ export default function InsightsPage() {
       </section>
 
       {/* FEATURED POST */}
-      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
+      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-white rounded-xl overflow-hidden cursor-pointer group border border-[#e5e7eb] shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-white/[0.04] rounded-xl overflow-hidden cursor-pointer group border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-shadow"
             onClick={() => setSelectedPost(-1)}
           >
             <div className="flex flex-col lg:flex-row">
               {/* Image placeholder */}
               <div className="lg:w-[60%] w-full">
-                <div className="relative w-full aspect-video lg:aspect-[16/9] bg-[#f8f8fc]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#f8f8fc] via-[#f0f0f5] to-[#f8f8fc]" />
+                <div className="relative w-full aspect-video lg:aspect-[16/9] bg-[#f8f8fc] dark:bg-white/[0.03]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#f8f8fc] via-[#f0f0f5] to-[#f8f8fc] dark:from-white/[0.03] dark:via-white/[0.06] dark:to-white/[0.03]" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full border-2 border-[#e5e7eb] flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full border-2 border-[#e5e7eb] dark:border-white/[0.1] flex items-center justify-center">
                       <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-[#FF4800] border-b-8 border-b-transparent ml-1" />
                     </div>
                   </div>
@@ -390,16 +390,16 @@ export default function InsightsPage() {
                 <span className="inline-block text-[11px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-3 py-1 rounded-full w-fit mb-5">
                   Enterprise Architecture
                 </span>
-                <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-[#1a1a2e] leading-snug mb-4">
+                <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] leading-snug mb-4">
                   The Case for Open Standards in Modern Enterprise Architecture
                 </h2>
                 <p className="text-[#9ca3af] text-[13px] mb-4">March 2024</p>
-                <p className="text-[#6b7280] text-[15px] leading-relaxed mb-8">
+                <p className="text-[#6b7280] dark:text-[#d1d5db] text-[15px] leading-relaxed mb-8">
                   Why forward-thinking enterprises are choosing
                   open-standards middleware over proprietary lock-in, and what
                   this means for your technology roadmap.
                 </p>
-                <span className="inline-flex items-center gap-2 text-[#1a1a2e] border border-[#e5e7eb] rounded-lg px-5 py-2.5 text-sm font-medium group-hover:bg-[#f8f8fc] transition-colors w-fit">
+                <span className="inline-flex items-center gap-2 text-[#1a1a2e] dark:text-[#f0f0f5] border border-[#e5e7eb] dark:border-white/[0.1] rounded-lg px-5 py-2.5 text-sm font-medium group-hover:bg-[#f8f8fc] dark:group-hover:bg-white/[0.06] transition-colors w-fit">
                   Read article
                   <ArrowRight className="w-4 h-4" />
                 </span>
@@ -410,7 +410,7 @@ export default function InsightsPage() {
       </section>
 
       {/* POST GRID WITH CATEGORY FILTER */}
-      <section className="px-6 py-16 md:py-24 bg-white">
+      <section className="px-6 py-16 md:py-24 bg-white dark:bg-[#0a0a14]">
         <div className="max-w-7xl mx-auto">
           {/* Category Filter Bar */}
           <div className="section-glow-top mb-10">
@@ -430,7 +430,7 @@ export default function InsightsPage() {
                     className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 ${
                       activeCategory === category
                         ? 'bg-[#FF4800] text-white'
-                        : 'bg-transparent border border-[#e5e7eb] text-[#6b7280] hover:border-[#FF4800]/40 hover:text-[#1a1a2e]'
+                        : 'bg-transparent border border-[#e5e7eb] dark:border-white/[0.1] text-[#6b7280] dark:text-[#d1d5db] hover:border-[#FF4800]/40 hover:text-[#1a1a2e] dark:hover:text-[#f0f0f5]'
                     }`}
                   >
                     {category}
@@ -467,20 +467,20 @@ export default function InsightsPage() {
                       y: 10,
                       transition: { duration: 0.25, ease },
                     }}
-                    className="bg-white rounded-xl p-8 border border-[#e5e7eb] hover:bg-[#f8f8fc] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md min-h-[320px] flex flex-col"
+                    className="bg-white dark:bg-white/[0.04] rounded-xl p-8 border border-[#e5e7eb] dark:border-white/[0.08] hover:bg-[#f8f8fc] dark:hover:bg-white/[0.06] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md min-h-[320px] flex flex-col"
                     onClick={() => setSelectedPost(originalIndex)}
                   >
                     <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">
                       {post.category}
                     </span>
-                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-[#1a1a2e] leading-snug mb-3">
+                    <h3 className="text-[18px] sm:text-[20px] lg:text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] leading-snug mb-3">
                       {post.title}
                     </h3>
                     <p className="text-[#9ca3af] text-[13px] mb-3">{post.date}</p>
-                    <p className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed mb-5 flex-1">
+                    <p className="text-[#6b7280] dark:text-[#d1d5db] text-[14px] sm:text-[15px] leading-relaxed mb-5 flex-1">
                       {post.excerpt}
                     </p>
-                    <span className="inline-flex items-center gap-1.5 text-[#6b7280] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
+                    <span className="inline-flex items-center gap-1.5 text-[#6b7280] dark:text-[#d1d5db] text-sm font-medium group-hover:text-[#FF4800] transition-colors">
                       Read
                       <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -503,19 +503,19 @@ export default function InsightsPage() {
       </AnimatePresence>
 
       {/* NEWSLETTER CTA */}
-      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc]">
+      <section className="px-6 py-16 md:py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-white rounded-xl py-16 px-6 md:px-12 text-center border border-[#e5e7eb] shadow-sm"
+            className="bg-white dark:bg-white/[0.04] rounded-xl py-16 px-6 md:px-12 text-center border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm"
           >
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-[#1a1a2e] mb-3">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] mb-3">
               Stay ahead of enterprise trends.
             </h2>
-            <p className="text-[#6b7280] text-[15px] sm:text-[16px] mb-8">
+            <p className="text-[#6b7280] dark:text-[#d1d5db] text-[15px] sm:text-[16px] mb-8">
               Monthly insights for enterprise leaders.
             </p>
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mt-8">
@@ -526,7 +526,7 @@ export default function InsightsPage() {
                 placeholder="Enter your email"
                 required
                 disabled={isSubmitting}
-                className="flex-1 bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-4 py-3 text-[15px] placeholder-[#9ca3af] outline-none transition-colors disabled:opacity-50"
+                className="flex-1 bg-white dark:bg-white/[0.06] border border-[#e5e7eb] dark:border-white/[0.1] focus:border-[#FF4800] text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3 text-[15px] placeholder-[#9ca3af] outline-none transition-colors disabled:opacity-50"
               />
               <button
                 type="submit"

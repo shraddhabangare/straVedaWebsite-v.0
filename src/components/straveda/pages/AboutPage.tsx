@@ -35,7 +35,7 @@ function GridBackground({ className = '', interactive = false, patternId = 'grid
       <svg className="w-full h-full">
         <defs>
           <motion.pattern id={patternId} width="40" height="40" patternUnits="userSpaceOnUse" x={gridOffsetX} y={gridOffsetY}>
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-[#1a1a2e]" />
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-[#1a1a2e] dark:text-[#3a3a5e]" />
           </motion.pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#${patternId})`} />
@@ -101,7 +101,7 @@ const stats = [
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white px-6 text-center overflow-hidden">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white dark:bg-[#0a0a14] px-6 text-center overflow-hidden">
       <GridBackground className="opacity-[0.03]" patternId="grid-hero" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -121,7 +121,7 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e]'}`}
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
         style={{ transitionDuration: '0.6s' }}
       >
         <TextReveal delay={0.3} stagger={0.04}>Building tomorrow&apos;s enterprise, one solution at a time.</TextReveal>
@@ -131,7 +131,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8, ease }}
-        className="mt-6 max-w-2xl text-lg text-[#6b7280] sm:text-[20px]"
+        className="mt-6 max-w-2xl text-lg text-[#6b7280] dark:text-[#d1d5db] sm:text-[20px]"
       >
         Since 2010, Straveda has been at the intersection of technology strategy and enterprise delivery — Plano, TX.
       </motion.p>
@@ -145,7 +145,7 @@ function HeroSection() {
 
 function MissionSection() {
   return (
-    <section className="bg-[#f8f8fc] px-6 py-20 lg:py-28 relative section-glow-bottom">
+    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-20 lg:py-28 relative section-glow-bottom">
       {/* Subtle decorative accent */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255, 72, 0, 0.03) 0%, transparent 70%)' }} />
       <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 relative z-10">
@@ -157,10 +157,10 @@ function MissionSection() {
           transition={{ duration: 0.8, ease }}
           className="flex flex-col items-start gap-3 lg:w-2/5"
         >
-          <span className="text-[clamp(3rem,8vw,6rem)] font-semibold leading-none tracking-tight text-[#1a1a2e]/80">
+          <span className="text-[clamp(3rem,8vw,6rem)] font-semibold leading-none tracking-tight text-[#1a1a2e]/80 dark:text-[#f0f0f5]/80">
             2010
           </span>
-          <span className="text-sm text-[#6b7280]">Founded in Plano, Texas</span>
+          <span className="text-sm text-[#6b7280] dark:text-[#9ca3af]">Founded in Plano, Texas</span>
           <div className="mt-1 h-[3px] w-8 bg-[#FF4800]" />
         </motion.div>
 
@@ -175,7 +175,7 @@ function MissionSection() {
           <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
             Our Mission
           </span>
-          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-relaxed text-[#1a1a2e]" style={{ lineHeight: 1.7 }}>
+          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-relaxed text-[#1a1a2e] dark:text-[#d1d5db]" style={{ lineHeight: 1.7 }}>
             To provide exceptional value, deliver cost-effective solutions, and guarantee customer
             satisfaction — through standards-driven enterprise architecture and meticulous project
             execution.
@@ -192,7 +192,7 @@ function MissionSection() {
 
 function ValuesSection() {
   return (
-    <section className="relative bg-white px-6 py-24 section-glow-top overflow-hidden">
+    <section className="relative bg-white dark:bg-[#0a0a14] px-6 py-24 section-glow-top overflow-hidden">
       <GridBackground className="opacity-[0.03]" patternId="grid-values" />
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
@@ -211,7 +211,7 @@ function ValuesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
           >
             Our core values.
           </motion.h2>
@@ -220,7 +220,7 @@ function ValuesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280] dark:text-[#d1d5db]"
           >
             The principles that guide every engagement and every decision.
           </motion.p>
@@ -248,7 +248,7 @@ function ValuesSection() {
                 },
               }}
               whileHover={{ y: -4 }}
-              className="card-premium flex flex-col items-start gap-5 rounded-2xl bg-white p-8"
+              className="card-premium flex flex-col items-start gap-5 rounded-2xl bg-white dark:bg-white/[0.03] p-8"
             >
               {/* Icon with gradient background container */}
               <div
@@ -259,8 +259,8 @@ function ValuesSection() {
               >
                 {card.icon}
               </div>
-              <h4 className="text-lg font-semibold text-[#1a1a2e]">{card.title}</h4>
-              <p className="text-sm leading-relaxed text-[#6b7280]">{card.body}</p>
+              <h4 className="text-lg font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
+              <p className="text-sm leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -284,7 +284,7 @@ const stravedaTeam: TeamMember[] = [
 
 function TeamSection() {
   return (
-    <section className="relative bg-white px-6 py-24">
+    <section className="relative bg-white dark:bg-[#0a0a14] px-6 py-24">
       {/* Subtle gradient overlay */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -310,7 +310,7 @@ function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.625rem)] font-semibold text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.625rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
           >
             Meet Our Team
           </motion.h2>
@@ -319,7 +319,7 @@ function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-[16px] text-[#6b7280]"
+            className="mx-auto mt-4 max-w-2xl text-[16px] text-[#6b7280] dark:text-[#d1d5db]"
           >
             Decades of combined enterprise experience. One shared commitment to excellence.
           </motion.p>
@@ -372,16 +372,16 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
 
 function StatsStrip() {
   return (
-    <section className="bg-[#f8f8fc] px-6 py-16">
+    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-16">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row sm:gap-0">
         {stats.map((stat, i) => (
           <div key={i} className="flex flex-col items-center text-center sm:flex-1 rounded-xl px-4 py-3">
             <div className="flex w-full items-center justify-center sm:flex-col">
               <div className="flex flex-col items-center px-4 sm:px-2">
-                <span className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none text-[#1a1a2e]">
+                <span className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none text-[#1a1a2e] dark:text-[#f0f0f5]">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </span>
-                <span className="mt-2 text-[13px] text-[#6b7280]">{stat.label}</span>
+                <span className="mt-2 text-[13px] text-[#6b7280] dark:text-[#9ca3af]">{stat.label}</span>
               </div>
               {i < stats.length - 1 && (
                 <div className="hidden h-16 w-[2px] bg-[#FF4800] sm:block" />
@@ -403,7 +403,7 @@ function StatsStrip() {
 
 function ExpertiseSection() {
   return (
-    <section className="bg-white px-6 py-20 lg:py-28">
+    <section className="bg-white dark:bg-[#0a0a14] px-6 py-20 lg:py-28">
       <div className="mx-auto max-w-4xl text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -419,7 +419,7 @@ function ExpertiseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-4 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
+          className="mb-4 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
         >
           Deep knowledge across every enterprise layer.
         </motion.h2>
@@ -428,7 +428,7 @@ function ExpertiseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.25, ease }}
-          className="mx-auto mb-12 max-w-2xl text-base text-[#6b7280]"
+          className="mx-auto mb-12 max-w-2xl text-base text-[#6b7280] dark:text-[#d1d5db]"
         >
           Our team brings decades of combined experience across the enterprise technology stack.
         </motion.p>
@@ -454,7 +454,7 @@ function ExpertiseSection() {
                   transition: { duration: 0.5, ease },
                 },
               }}
-              className="cursor-default rounded-full border border-[#e5e7eb] px-4 py-2 text-sm text-[#6b7280] transition-colors duration-200 hover:border-[#FF4800] hover:text-[#FF4800]"
+              className="cursor-default rounded-full border border-[#e5e7eb] dark:border-white/[0.06] px-4 py-2 text-sm text-[#6b7280] dark:text-[#9ca3af] transition-colors duration-200 hover:border-[#FF4800] hover:text-[#FF4800]"
             >
               {tag}
             </motion.span>
@@ -503,7 +503,7 @@ function AnimatedPercentage({ target }: { target: number }) {
 
 function CoreCompetenciesSection() {
   return (
-    <section className="relative px-6 py-16 bg-[#f8f8fc]">
+    <section className="relative px-6 py-16 bg-[#f8f8fc] dark:bg-[#0a0a14]">
       <div className="mx-auto max-w-4xl">
         {/* Section Header */}
         <div className="mb-12 text-center">
@@ -521,7 +521,7 @@ function CoreCompetenciesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
           >
             Measurable expertise across the stack.
           </motion.h2>
@@ -539,7 +539,7 @@ function CoreCompetenciesSection() {
             >
               {/* Label Row */}
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[16px] font-normal text-[#1a1a2e]">{skill.label}</span>
+                <span className="text-[16px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{skill.label}</span>
                 <span className="text-[16px] font-semibold" style={{ color: '#FF4800' }}>
                   <AnimatedPercentage target={skill.percentage} />
                 </span>
@@ -585,7 +585,7 @@ const milestones = [
 
 function TimelineSection() {
   return (
-    <section className="relative bg-[#f8f8fc] px-6 py-24">
+    <section className="relative bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-24">
       <div className="relative mx-auto max-w-4xl">
         {/* Section Header */}
         <div className="mb-16 text-center">
@@ -603,7 +603,7 @@ function TimelineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
           >
             Our Journey
           </motion.h2>
@@ -612,7 +612,7 @@ function TimelineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280] dark:text-[#d1d5db]"
           >
             Key milestones that have defined our growth and commitment to excellence.
           </motion.p>
@@ -668,12 +668,12 @@ function TimelineSection() {
                 </div>
 
                 {/* Content Card */}
-                <div className="card-premium flex-1 rounded-2xl bg-white p-6 lg:p-8">
+                <div className="card-premium flex-1 rounded-2xl bg-white dark:bg-white/[0.03] p-6 lg:p-8">
                   <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                  <h3 className="mt-1 text-[18px] font-semibold text-[#1a1a2e]">
+                  <h3 className="mt-1 text-[18px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]">
                     {milestone.title}
                   </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-[#6b7280]">
+                  <p className="mt-2 text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
                     {milestone.description}
                   </p>
                 </div>
@@ -707,7 +707,7 @@ const certifications = [
 
 function PartnersSection() {
   return (
-    <section className="relative bg-[#f8f8fc] px-6 py-20 lg:py-28 overflow-hidden">
+    <section className="relative bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-20 lg:py-28 overflow-hidden">
       {/* Interactive grid background with mouse-proximity reveal */}
       <GridBackground interactive className="opacity-[0.05]" patternId="grid-partners" />
       {/* Decorative glow */}
@@ -736,7 +736,7 @@ function PartnersSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e]"
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
           >
             Technology partners we trust.
           </motion.h2>
@@ -745,7 +745,7 @@ function PartnersSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.25, ease }}
-            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280]"
+            className="mx-auto mt-4 max-w-2xl text-base text-[#6b7280] dark:text-[#d1d5db]"
           >
             Our partnerships ensure we deliver the best enterprise solutions.
           </motion.p>
@@ -774,7 +774,7 @@ function PartnersSection() {
                 },
               }}
               whileHover={{ y: -3 }}
-              className="card-glow relative flex flex-col items-center rounded-xl p-8 transition-all duration-300 bg-white border border-[#e5e7eb] shadow-sm hover:shadow-md"
+              className="card-glow relative flex flex-col items-center rounded-xl p-8 transition-all duration-300 bg-white dark:bg-white/[0.03] border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm hover:shadow-md"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   'rgba(255, 72, 0, 0.15)';
@@ -796,7 +796,7 @@ function PartnersSection() {
               </span>
 
               {/* Partner Name */}
-              <h4 className="mt-2 text-[24px] font-bold text-[#1a1a2e]">{partner.name}</h4>
+              <h4 className="mt-2 text-[24px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">{partner.name}</h4>
 
               {/* Certification Level */}
               <span className="mt-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
@@ -846,7 +846,7 @@ function PartnersSection() {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-[#0a0a14]">
       <HeroSection />
       <MissionSection />
       <ValuesSection />

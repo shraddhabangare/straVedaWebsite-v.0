@@ -1,4 +1,20 @@
 ---
+Task ID: 32-dark-pages
+Agent: Frontend Styling Expert
+Task: Phase 32 — Add dark mode support to AboutPage and ServicesPage
+
+Work Log:
+- Read AboutPage.tsx (861 lines) and ServicesPage.tsx (961 lines)
+- Applied dark: Tailwind variants to all hardcoded light-mode colors
+- About page: sections, headings, cards, stats, team members all have dark variants
+- Services page: hero, service cards, FAQ, why-straveda all have dark variants
+
+Stage Summary:
+- AboutPage and ServicesPage now fully support dark mode
+- All text, backgrounds, borders, cards have appropriate dark: classes
+- Zero lint errors confirmed
+
+---
 Task ID: 31-cursor-fix
 Agent: Main Agent
 Task: Phase 31 — Fix cursor not tracking properly on navbar (document-level mouse events)

@@ -92,10 +92,10 @@ function FloatingInput({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`floating-input w-full bg-white border text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 ${
+        className={`floating-input w-full bg-white dark:bg-white/[0.04] border text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 ${
           focused
             ? 'border-[#FF4800]'
-            : 'border-[#e5e7eb] hover:border-[#d1d5db]'
+            : 'border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
         }`}
       />
       <label
@@ -144,10 +144,10 @@ function FloatingTextarea({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`floating-input w-full bg-white border text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 resize-none ${
+        className={`floating-input w-full bg-white dark:bg-white/[0.04] border text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors duration-200 resize-none ${
           focused
             ? 'border-[#FF4800]'
-            : 'border-[#e5e7eb] hover:border-[#d1d5db]'
+            : 'border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
         }`}
       />
       <label
@@ -201,10 +201,10 @@ export default function ContactPage() {
   }
 
   const inputClasses =
-    'w-full bg-white border border-[#e5e7eb] focus:border-[#FF4800] text-[#1a1a2e] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors'
+    'w-full bg-white dark:bg-white/[0.04] border border-[#e5e7eb] dark:border-white/[0.1] focus:border-[#FF4800] text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors'
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-[#0a0a14] min-h-screen">
       {/* ─── Inline styles for floating labels & animations ─── */}
       <style>{`
         /* ── Floating Label ── */
@@ -253,11 +253,19 @@ export default function ContactPage() {
         .map-pin-pulse {
           animation: map-pin-pulse 2.5s ease-in-out infinite;
         }
+        /* ── Dark Mode Floating Labels ── */
+        html.dark .floating-label-inactive {
+          color: #9ca3af;
+        }
+        html.dark .floating-label-active {
+          color: #FF4800;
+          background: #0a0a14;
+        }
       `}</style>
 
       {/* HERO */}
       <section
-        className="relative flex items-center justify-center bg-white overflow-hidden"
+        className="relative flex items-center justify-center bg-white dark:bg-[#0a0a14] overflow-hidden"
         style={{ minHeight: '50vh' }}
       >
         {/* Floating accent blob — top-right */}
@@ -278,7 +286,7 @@ export default function ContactPage() {
           >
             Get in Touch
           </motion.p>
-          <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-[#1a1a2e] leading-tight">
+          <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] leading-tight">
             <span className="text-shimmer"><TextReveal delay={0.2} stagger={0.08}>Let&apos;s architect your path forward.</TextReveal></span>
           </h1>
           <motion.div
@@ -298,7 +306,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8, ease }}
-            className="text-[#6b7280] text-lg md:text-xl mt-6"
+            className="text-[#6b7280] dark:text-[#9ca3af] text-lg md:text-xl mt-6"
           >
             Tell us about your enterprise challenge. We&apos;ll respond within 1
             business day.
@@ -307,7 +315,7 @@ export default function ContactPage() {
       </section>
 
       {/* WHY CHOOSE STRAVEDA — Benefit Cards */}
-      <section className="px-6 pb-8 pt-4 bg-[#f8f8fc]">
+      <section className="px-6 pb-8 pt-4 bg-[#f8f8fc] dark:bg-[#0a0a14]">
         <div className="max-w-6xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -332,10 +340,10 @@ export default function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease }}
-                className="flex items-center gap-3 rounded-lg bg-white px-5 py-3.5 border border-[#e5e7eb] shadow-sm"
+                className="flex items-center gap-3 rounded-lg bg-white dark:bg-white/[0.04] px-5 py-3.5 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm"
               >
                 {card.icon}
-                <span className="text-[14px] font-medium text-[#1a1a2e] whitespace-nowrap">{card.title}</span>
+                <span className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] whitespace-nowrap">{card.title}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -343,7 +351,7 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section className="px-6 pt-16 pb-24 bg-[#f8f8fc]">
+      <section className="px-6 pt-16 pb-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* LEFT — Contact Form */}
           <motion.div
@@ -354,7 +362,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-white rounded-xl p-8 space-y-5 border border-[#e5e7eb] shadow-sm magnetic-border"
+              className="bg-white dark:bg-white/[0.04] rounded-xl p-8 space-y-5 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm magnetic-border"
             >
               <FloatingInput
                 id="name"
@@ -404,8 +412,8 @@ export default function ContactPage() {
                   onChange={handleChange}
                   className={`${inputClasses} appearance-none cursor-pointer ${
                     formData.service
-                      ? 'text-[#1a1a2e] border-[#FF4800]'
-                      : 'text-[#9ca3af] border-[#e5e7eb] hover:border-[#d1d5db]'
+                      ? 'text-[#1a1a2e] dark:text-[#f0f0f5] border-[#FF4800]'
+                      : 'text-[#9ca3af] dark:text-[#6b7280] border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
                   } transition-colors duration-200`}
                 >
                   <option value="" disabled className="bg-white text-[#9ca3af]">
@@ -456,7 +464,7 @@ export default function ContactPage() {
                 </button>
               </MagneticButton>
 
-              <p className="text-[#9ca3af] text-[12px] text-center">
+              <p className="text-[#9ca3af] dark:text-[#6b7280] text-[12px] text-center">
                 We respect your privacy. No spam, ever.
               </p>
             </form>
@@ -470,7 +478,7 @@ export default function ContactPage() {
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.5, delay: 0, ease }}
               custom={0}
-              className="text-[#6b7280] text-[12px] uppercase tracking-[0.15em] font-medium mb-8"
+              className="text-[#6b7280] dark:text-[#9ca3af] text-[12px] uppercase tracking-[0.15em] font-medium mb-8"
             >
               Or reach us directly
             </motion.div>
@@ -486,7 +494,7 @@ export default function ContactPage() {
             >
               <Mail className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
-                <p className="text-[#1a1a2e] text-[18px] font-medium">
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[18px] font-medium">
                   info@straveda.com
                 </p>
               </div>
@@ -503,10 +511,10 @@ export default function ContactPage() {
             >
               <MapPin className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
-                <p className="text-[#1a1a2e] text-[16px] font-medium">
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[16px] font-medium">
                   Plano, TX 75024
                 </p>
-                <p className="text-[#6b7280] text-[14px]">United States</p>
+                <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">United States</p>
               </div>
             </motion.div>
 
@@ -521,10 +529,10 @@ export default function ContactPage() {
             >
               <Clock className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
-                <p className="text-[#1a1a2e] text-[16px] font-medium">
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[16px] font-medium">
                   Monday &ndash; Friday
                 </p>
-                <p className="text-[#6b7280] text-[14px]">
+                <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">
                   9:00 AM &ndash; 6:00 PM CST
                 </p>
               </div>
@@ -541,7 +549,7 @@ export default function ContactPage() {
             >
               <a
                 href="#"
-                className="text-[#6b7280] hover:text-[#FF4800] transition-colors"
+                className="text-[#6b7280] dark:text-[#9ca3af] hover:text-[#FF4800] transition-colors"
                 aria-label="LinkedIn"
               >
                 <Globe className="w-5 h-5" />
@@ -557,7 +565,7 @@ export default function ContactPage() {
               viewport={{ once: true, margin: '-100px' }}
               className="my-8"
             >
-              <div className="relative rounded-xl border border-[#e5e7eb] bg-[#f8f8fc] overflow-hidden h-48 flex flex-col items-center justify-center gap-2">
+              <div className="relative rounded-xl border border-[#e5e7eb] dark:border-white/[0.06] bg-[#f8f8fc] dark:bg-white/[0.04] overflow-hidden h-48 flex flex-col items-center justify-center gap-2">
                 {/* Subtle radial gradient for depth */}
                 <div
                   className="absolute inset-0 pointer-events-none"
@@ -580,7 +588,7 @@ export default function ContactPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4800]/10">
                     <MapPin className="h-5 w-5 text-[#FF4800] map-pin-pulse" />
                   </div>
-                  <p className="text-[14px] font-medium text-[#1a1a2e]">Plano, TX 75024 · United States</p>
+                  <p className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">Plano, TX 75024 · United States</p>
                   <a
                     href="https://maps.google.com/?q=Plano+TX+75024"
                     target="_blank"
@@ -600,7 +608,7 @@ export default function ContactPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-100px' }}
-              className="h-px bg-[#e5e7eb] my-8"
+              className="h-px bg-[#e5e7eb] dark:bg-white/[0.06] my-8"
             />
 
             {/* Why work with us */}
@@ -621,7 +629,7 @@ export default function ContactPage() {
                   className="flex items-center gap-3"
                 >
                   <CheckCircle2 className="w-5 h-5 text-[#FF4800] shrink-0" />
-                  <span className="text-[#6b7280] text-[14px]">{item}</span>
+                  <span className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -630,7 +638,7 @@ export default function ContactPage() {
       </section>
 
       {/* PROJECT REQUEST WIZARD */}
-      <section className="px-6 py-24 bg-white">
+      <section className="px-6 py-24 bg-white dark:bg-[#0a0a14]">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -646,7 +654,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
-            className="text-[28px] sm:text-[36px] md:text-[42px] font-semibold text-[#1a1a2e] leading-tight mb-4"
+            className="text-[28px] sm:text-[36px] md:text-[42px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] leading-tight mb-4"
           >
             Start Your Project
           </motion.h2>
@@ -655,7 +663,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.2, ease }}
-            className="text-[#6b7280] text-base md:text-lg"
+            className="text-[#6b7280] dark:text-[#9ca3af] text-base md:text-lg"
           >
             Tell us about your needs in 3 easy steps
           </motion.p>
