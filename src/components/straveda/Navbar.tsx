@@ -33,12 +33,16 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
   // ── Scroll-driven animations using Framer Motion ──
   const { scrollY } = useScroll();
 
-  // Header padding transitions: "1.5rem 0" at top → "1rem 0" when scrolled
-  const headerPadding = useTransform(scrollY, [0, 80], ['1.5rem 0', '1rem 0']);
-  // Header margin transitions: "0 10%" at top → "0 5%" when scrolled
-  const headerMargin = useTransform(scrollY, [0, 80], ['0 10%', '0 5%']);
-  // Header opacity: 1 at top → 0.5 when scrolled (>80px)
-  const headerOpacity = useTransform(scrollY, [0, 80], [1, 0.5]);
+  // Header padding transitions: "1.5rem 0" at top → "0.75rem 0" when scrolled (compact)
+  const headerPadding = useTransform(scrollY, [0, 80], ['1.5rem 0', '0.75rem 0']);
+  // Header margin transitions: "0 8%" at top → "0 15%" when scrolled (navbar shrinks/narrows)
+  const headerMargin = useTransform(scrollY, [0, 80], ['0 8%', '0 15%']);
+  // Nav content height: 64px at top → 52px when scrolled (compact)
+  const navHeight = useTransform(scrollY, [0, 80], [64, 52]);
+  // Wordmark font size: 18px at top → 15px when scrolled
+  const wordmarkSize = useTransform(scrollY, [0, 80], [18, 15]);
+  // Nav link font size: 14px at top → 13px when scrolled
+  const navLinkSize = useTransform(scrollY, [0, 80], [14, 13]);
 
   // ── Hydration guard ──
   useEffect(() => {
@@ -90,7 +94,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
     // SSR skeleton — prevents layout shift
     return (
       <header className="fixed top-4 left-0 right-0 z-50 px-0 md:px-0">
-        <div className="mx-[10%]">
+        <div className="mx-[8%]">
           <div className="rounded-3xl border border-transparent bg-transparent h-16 flex items-center justify-between px-6 md:px-8" />
         </div>
       </header>
@@ -107,7 +111,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
       >
         {/* Inner rounded container */}
         <motion.div
-          className="mx-[10%] rounded-3xl border border-border/40 transition-shadow duration-500"
+          className="rounded-3xl border border-border/40 transition-shadow duration-500"
           style={{
             margin: headerMargin,
             background: bgSemi,
@@ -128,7 +132,8 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
           {/* Nav content */}
           <nav
             role="banner"
-            className="relative flex items-center justify-between px-6 md:px-8 h-16"
+            className="relative flex items-center justify-between px-6 md:px-8"
+            style={{ height: navHeight }}
           >
             {/* ── Wordmark ── */}
             <motion.a
@@ -141,7 +146,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease }}
               className="font-medium text-lg tracking-tight select-none"
-              style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18, color: textPrimary }}
+              style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: wordmarkSize, color: textPrimary }}
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </motion.a>
@@ -163,7 +168,7 @@ export default function Navbar({ currentPage, onNavigate, onSearchToggle }: Navb
                   style={{
                     color: isActive(page) ? textPrimary : textSecondary,
                     fontWeight: isActive(page) ? 500 : 400,
-                    fontSize: 14,
+                    fontSize: navLinkSize,
                   }}
                 >
                   {label}

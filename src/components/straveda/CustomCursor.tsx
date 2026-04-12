@@ -1,19 +1,20 @@
 'use client';
 
 import { ReactNode, useCallback, useRef, useSyncExternalStore } from 'react';
-import { MagneticCursor } from '@/components/ui/magnetic-cursor';
+import { CustomCursor as CursorDot } from '@/components/ui/custom-cursor';
 
 interface CustomCursorProps {
   children: ReactNode;
 }
 
 /**
- * Straveda-branded custom cursor wrapper using MagneticCursor.
+ * Straveda-branded custom cursor wrapper.
  *
- * - Only renders on fine-pointer (desktop) devices — touch/touchpad devices get children only.
- * - Uses the `data-magnetic` attribute to create fluid magnetic pull effects on interactive elements.
- * - Brand-configured: orange cursor (#FF4800), difference blend mode, circle shape.
- * - Hides the native cursor on desktop via CSS (see globals.css Phase 21 section).
+ * - Only renders the custom cursor on fine-pointer (desktop) devices.
+ *   Touch/touchpad devices get children only — no cursor overlay.
+ * - Uses the `useSyncExternalStore` pattern for SSR-safe pointer detection.
+ * - Brand color: #FF4800 (orange) with difference blend mode.
+ * - Hides the native cursor on desktop via CSS (see globals.css).
  */
 export default function CustomCursor({ children }: CustomCursorProps) {
   // ─── Detect fine-pointer device via external store (SSR-safe) ──────
@@ -49,22 +50,11 @@ export default function CustomCursor({ children }: CustomCursorProps) {
     return <>{children}</>;
   }
 
-  // ─── Desktop: wrap children with MagneticCursor ──────────────────
+  // ─── Desktop: render the branded cursor alongside children ────────
   return (
-    <MagneticCursor
-      cursorColor="#FF4800"
-      blendMode="difference"
-      shape="circle"
-      cursorSize={20}
-      magneticFactor={0.3}
-      hoverPadding={16}
-      speedMultiplier={0.03}
-      maxScaleX={0.8}
-      maxScaleY={0.25}
-      contrastBoost={1.5}
-      cursorClassName="straveda-cursor"
-    >
+    <>
+      <CursorDot variant="default" text="" className="bg-[#FF4800]" />
       {children}
-    </MagneticCursor>
+    </>
   );
 }

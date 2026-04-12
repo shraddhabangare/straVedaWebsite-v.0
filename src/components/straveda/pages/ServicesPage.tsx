@@ -855,6 +855,12 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
+
+      {/* Subtle gradient transition between hero and services modal */}
+      <div className="flex flex-col items-center gap-4 py-8" aria-hidden="true">
+        <div className="h-px w-32 bg-gradient-to-r from-transparent via-[#FF4800]/25 to-transparent" />
+      </div>
+
       <ServicesHoverModal onNavigate={onNavigate} />
 
       {services.map((service, index) => (
