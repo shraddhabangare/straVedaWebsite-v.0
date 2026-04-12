@@ -6,6 +6,7 @@ import { Mail, MapPin, Clock, Linkedin, CheckCircle2, Loader2 } from 'lucide-rea
 import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import MagneticButton from '@/components/straveda/MagneticButton';
+import ProjectRequestWizard from '@/components/straveda/ProjectRequestWizard';
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
@@ -101,7 +102,7 @@ export default function ContactPage() {
             Get in Touch
           </motion.p>
           <h1 className="text-[36px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-semibold text-white leading-tight">
-            <TextReveal delay={0.2} stagger={0.08}>Let&apos;s architect your path forward.</TextReveal>
+            <span className="text-shimmer"><TextReveal delay={0.2} stagger={0.08}>Let&apos;s architect your path forward.</TextReveal></span>
           </h1>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -134,7 +135,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-[#2B2358] rounded-xl p-8 space-y-5 bg-noise-subtle border-glow-top"
+              className="bg-[#2B2358] rounded-xl p-8 space-y-5 bg-noise-subtle border-glow-top magnetic-border"
             >
               <div>
                 <label htmlFor="name" className="sr-only">
@@ -381,6 +382,55 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* 5C — PROJECT REQUEST WIZARD */}
+      <section className="px-6 py-24 bg-[#0a0a0a]">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease }}
+            className="text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-4"
+          >
+            QUICK START
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
+            className="text-[28px] sm:text-[36px] md:text-[42px] font-semibold text-white leading-tight mb-4"
+          >
+            Start Your Project
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+            className="text-[#A1A1A1] text-base md:text-lg"
+          >
+            Tell us about your needs in 3 easy steps
+          </motion.p>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, delay: 0.3, ease }}
+            style={{ transformOrigin: 'center' }}
+            className="h-[2px] w-12 bg-[#FF4800] mx-auto mt-6"
+          />
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, delay: 0.15, ease }}
+        >
+          <ProjectRequestWizard />
+        </motion.div>
       </section>
     </div>
   );

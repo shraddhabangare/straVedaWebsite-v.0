@@ -190,7 +190,7 @@ function ValuesSection() {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8"
+              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 hover-lift glass-dark"
             >
               {card.icon}
               <h4 className="text-lg font-semibold text-white">{card.title}</h4>
@@ -290,7 +290,7 @@ function TeamSection() {
                 },
               }}
               whileHover={{ y: -4, scale: 1.02 }}
-              className="relative p-6 rounded-xl transition-all duration-300"
+              className="relative p-6 rounded-xl transition-all duration-300 hover-lift"
               style={{
                 background: 'rgba(43, 35, 88, 0.4)',
                 backdropFilter: 'blur(10px)',
@@ -379,7 +379,7 @@ function StatsStrip() {
     <section className="bg-[#2B2358] px-6 py-16">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row sm:gap-0">
         {stats.map((stat, i) => (
-          <div key={i} className="flex flex-col items-center text-center sm:flex-1">
+          <div key={i} className="glass-orange flex flex-col items-center text-center sm:flex-1 rounded-xl px-4 py-3">
             <div className="flex w-full items-center justify-center sm:flex-col">
               <div className="flex flex-col items-center px-4 sm:px-2">
                 <span className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none text-white">

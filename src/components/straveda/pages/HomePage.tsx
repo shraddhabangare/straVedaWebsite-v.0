@@ -27,6 +27,8 @@ import TiltCard from '@/components/straveda/TiltCard';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import ParticleField from '@/components/straveda/ParticleField';
 import TextReveal from '@/components/straveda/TextReveal';
+import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
+import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -870,6 +872,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               HOW WE WORK
             </p>
+            <div className="line-decoration mb-4" />
             <h2
               className="text-[42px] font-medium text-white"
               style={{ fontWeight: 500, maxWidth: '640px' }}
@@ -1102,54 +1105,63 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-8 md:gap-12 lg:grid-cols-4"
           >
             {/* Metric 1 — 200+ Projects Delivered */}
             <motion.div
               variants={cardVariants}
-              className="frosted-card relative rounded-xl p-6 md:p-8"
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
             >
-              <TrendingUp className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
-              <MetricCounter target={200} suffix="+" />
-              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
-                Projects Delivered
-              </span>
+              <AnimatedRingProgress
+                value={200}
+                maxValue={200}
+                suffix="+"
+                label="Projects Delivered"
+                icon={<TrendingUp className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
             </motion.div>
 
             {/* Metric 2 — 99.9% Uptime Achieved */}
             <motion.div
               variants={cardVariants}
-              className="frosted-card relative rounded-xl p-6 md:p-8"
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
             >
-              <Shield className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
-              <MetricCounter target={99.9} suffix="%" decimals={1} />
-              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
-                Uptime Achieved
-              </span>
+              <AnimatedRingProgress
+                value={99.9}
+                maxValue={100}
+                suffix="%"
+                decimals={1}
+                label="Uptime Achieved"
+                icon={<Shield className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
             </motion.div>
 
             {/* Metric 3 — 40% Cost Reduction */}
             <motion.div
               variants={cardVariants}
-              className="frosted-card relative rounded-xl p-6 md:p-8"
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
             >
-              <CircleDollarSign className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
-              <MetricCounter target={40} suffix="%" />
-              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
-                Cost Reduction
-              </span>
+              <AnimatedRingProgress
+                value={40}
+                maxValue={100}
+                suffix="%"
+                label="Cost Reduction"
+                icon={<CircleDollarSign className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
             </motion.div>
 
             {/* Metric 4 — 3x Faster Delivery */}
             <motion.div
               variants={cardVariants}
-              className="frosted-card relative rounded-xl p-6 md:p-8"
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
             >
-              <Zap className="absolute right-6 top-6 h-8 w-8" style={{ color: '#FF4800', opacity: 0.3 }} />
-              <MetricCounter target={3} suffix="x" />
-              <span className="mt-3 block text-[14px]" style={{ color: '#A1A1A1' }}>
-                Faster Delivery
-              </span>
+              <AnimatedRingProgress
+                value={3}
+                maxValue={10}
+                suffix="x"
+                label="Faster Delivery"
+                icon={<Zap className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
             </motion.div>
           </motion.div>
         </div>
@@ -1215,6 +1227,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </div>
 
       {/* ═══════════════════════════════════════════════ */}
+      {/* WHY CHOOSE STRAVEDA — PARALLAX SHOWCASE           */}
+      {/* ═══════════════════════════════════════════════ */}
+      <ParallaxShowcase onNavigate={onNavigate} />
+
+      {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1F — CASE STUDIES                        */}
       {/* ═══════════════════════════════════════════════ */}
       <section
@@ -1236,6 +1253,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               CASE STUDIES
             </p>
+            <div className="line-decoration mb-4" />
             <h2
               className="text-[42px] font-medium text-white"
               style={{ fontWeight: 500, maxWidth: '580px' }}
@@ -1258,20 +1276,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 1 — Fortune 500 Financial Services */}
             <motion.div
               variants={cardVariants}
-              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <div className="p-8">
@@ -1354,20 +1368,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 2 — Global Healthcare Provider */}
             <motion.div
               variants={cardVariants}
-              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <div className="p-8">
@@ -1450,20 +1460,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 3 — Government Agency */}
             <motion.div
               variants={cardVariants}
-              className="card-glow rounded-xl transition-all duration-300 hover:-translate-y-1"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#2B2358',
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(255,72,0,0.1)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <div className="p-8">
@@ -1864,7 +1870,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           className="mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center lg:px-8"
         >
           <h2
-            className="text-[56px] font-semibold text-white"
+            className="text-[56px] font-semibold text-white glow-text"
             style={{ fontWeight: 600 }}
           >
             Ready to modernize your enterprise?

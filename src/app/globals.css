@@ -945,11 +945,9 @@ html {
 }
 
 /* ============================================
-   Subtle Glow Text Effect on Hover
+   Glow Text Effect — always-on with hover boost
+   (see Phase 14-e section for full definition)
    ============================================ */
-.glow-text:hover {
-  text-shadow: 0 0 20px rgba(255, 72, 0, 0.4), 0 0 40px rgba(255, 72, 0, 0.1);
-}
 
 /* ============================================
    Card Internal Glow (inner highlight)
@@ -1187,4 +1185,200 @@ html {
 }
 .infinite-scroll-x {
   animation: marqueeScroll 20s linear infinite;
+}
+
+/* ============================================
+   Phase 14-e: NEW CSS Utilities — Visual Polish
+   ============================================ */
+
+/* 1. Magnetic Border — spinning gradient border always visible */
+@property --magnetic-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes magneticSpin {
+  0% { --magnetic-angle: 0deg; }
+  100% { --magnetic-angle: 360deg; }
+}
+.magnetic-border {
+  position: relative;
+  border-radius: inherit;
+}
+.magnetic-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--magnetic-angle, 0deg),
+    #FF4800 0%,
+    transparent 25%,
+    transparent 50%,
+    #FF4800 75%,
+    #FF4800 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: magneticSpin 3s linear infinite;
+  pointer-events: none;
+}
+
+/* 2. Card 3D — perspective container for 3D effects */
+.card-3d {
+  perspective: 1000px;
+}
+.card-3d > * {
+  transform-style: preserve-3d;
+}
+
+/* 3. Glass Dark — darker glassmorphism variant */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 4. Glass Orange — orange-tinted glassmorphism */
+.glass-orange {
+  background: rgba(255, 72, 0, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 72, 0, 0.15);
+}
+
+/* 5. Gradient Text Extended — animated multicolor gradient */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gradient-text-extended {
+  background: linear-gradient(135deg, #FF4800 0%, #ff6a33 25%, #FFFFFF 50%, #ff6a33 75%, #FF4800 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+/* 6. Hover Lift — lift with orange-tinted shadow */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(255, 72, 0, 0.1);
+}
+
+/* 7. Scroll Fade In — keyframe-based entrance animation */
+@keyframes scrollFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.scroll-fade-in {
+  animation: scrollFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 8. Border Gradient — gradient border using border-image */
+.border-gradient {
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, #FF4800, #2B2358) 1;
+}
+
+/* 9. Text Outline — stronger text stroke effect */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255, 72, 0, 0.5);
+  color: transparent;
+  transition: all 0.3s ease;
+}
+.text-outline:hover {
+  -webkit-text-stroke: 1px rgba(255, 72, 0, 0.8);
+  color: rgba(255, 72, 0, 0.05);
+}
+
+/* 10. Stagger Grid — staggered animation delay for grid children */
+.stagger-grid > * {
+  transition-delay: calc(var(--i, 0) * 0.1s);
+}
+
+/* 11. Reveal Up — class-toggle reveal animation */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 12. Hover Scale — scale on hover */
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* 13. Line Decoration — decorative orange line element */
+.line-decoration {
+  width: 60px;
+  height: 3px;
+  background: #FF4800;
+  border-radius: 2px;
+}
+
+/* 14. Mask Fade Bottom — bottom gradient mask */
+.mask-fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+/* 15. Float In Place — gentle floating animation */
+@keyframes floatInPlace {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float-in-place {
+  animation: floatInPlace 5s ease-in-out infinite;
+}
+
+/* 16. Infinite Spin Slow — slow continuous rotation */
+.infinite-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+/* 17. Glass Subtle — very subtle glass effect */
+.glass-subtle {
+  background: rgba(43, 35, 88, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* 18. Hover Glow Orange — orange glow on hover for containers */
+.hover-glow-orange {
+  transition: box-shadow 0.3s ease;
+}
+.hover-glow-orange:hover {
+  box-shadow: 0 0 30px rgba(255, 72, 0, 0.15), 0 0 60px rgba(255, 72, 0, 0.05);
+}
+
+/* Enhanced: Glow Text — always-on base glow with hover intensification */
+.glow-text {
+  text-shadow: 0 0 20px rgba(255, 72, 0, 0.3), 0 0 40px rgba(255, 72, 0, 0.1);
+  transition: text-shadow 0.3s ease;
+}
+.glow-text:hover {
+  text-shadow: 0 0 30px rgba(255, 72, 0, 0.5), 0 0 60px rgba(255, 72, 0, 0.2), 0 0 80px rgba(255, 72, 0, 0.1);
 }

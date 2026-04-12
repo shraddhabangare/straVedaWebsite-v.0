@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Braces, Compass, ClipboardCheck, Server, Diamond, TrendingDown, ShieldCheck, ArrowRight, ChevronDown, Container, Cloud, Database, Layers, Network, Code, Shield } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import TextReveal from '@/components/straveda/TextReveal';
+import ServiceComparison from '@/components/straveda/ServiceComparison';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
 /* ------------------------------------------------------------------ */
@@ -210,7 +211,7 @@ function ServiceBlock({ service }: { service: ServiceBlock; index: number }) {
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow bg-noise-subtle"
+      className="flex items-center justify-center rounded-xl bg-[#2B2358] p-12 lg:min-h-[340px] card-glow bg-noise-subtle glass-dark"
     >
       {service.icon}
     </motion.div>
@@ -317,7 +318,7 @@ function WhyStravedaSection() {
             <motion.div
               key={i}
               variants={cardVariants}
-              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 card-glow"
+              className="flex flex-col items-start gap-4 rounded-xl bg-[#2B2358] p-8 card-glow hover-scale"
             >
               {card.icon}
               <h4 className="text-lg font-semibold text-white">{card.title}</h4>
@@ -582,6 +583,7 @@ export default function ServicesPage() {
 
       <WhyStravedaSection />
       <FAQSection />
+      <ServiceComparison />
       <TechStackSection />
     </main>
   );
