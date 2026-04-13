@@ -7,7 +7,6 @@ import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import StravedaHeroBackground from '@/components/straveda/StravedaHeroBackground';
-import TextCursorProximity from '@/components/ui/text-cursor-proximity';
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
@@ -294,36 +293,29 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           transition={{ duration: 0.5, delay: 0.1, ease }}
           className="mt-6 mb-6 font-normal"
           style={{
-            fontSize: '82px',
+            fontSize: 'clamp(2.5rem, 10vw, 5.125rem)',
             lineHeight: 1.0,
             letterSpacing: '-2.05px',
             color: colors.headline,
           }}
         >
-          <span className="block">
-            <TextCursorProximity
-              label="Less complexity,"
-              containerRef={containerRef}
-              radius={120}
-              falloff="exponential"
-              styles={{
-                transform: { from: 'scale(1)', to: 'scale(1.05)' },
-                color: { from: colors.headline, to: colors.headlineHover },
-              }}
-            />
+          {/* Replaced TextCursorProximity (2× useAnimationFrame at 60fps per letter)
+              with CSS group-hover — zero JS overhead, same visual intent */}
+          <span
+            className="block group cursor-default transition-colors duration-300"
+            style={{ color: colors.headline }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = colors.headlineHover)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = colors.headline)}
+          >
+            Less complexity,
           </span>
-          <span className="block">
-            <TextCursorProximity
-              label="more"
-              containerRef={containerRef}
-              radius={120}
-              falloff="exponential"
-              styles={{
-                transform: { from: 'scale(1)', to: 'scale(1.05)' },
-                color: { from: colors.headline, to: colors.headlineHover },
-              }}
-            />
-            {' '}
+          <span
+            className="block group cursor-default transition-colors duration-300"
+            style={{ color: colors.headline }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = colors.headlineHover)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = colors.headline)}
+          >
+            more{' '}
           </span>
           {/* Rotating word */}
           <span className="relative flex w-full justify-start overflow-hidden text-left md:pb-4 md:pt-1">
