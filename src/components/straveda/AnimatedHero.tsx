@@ -292,11 +292,11 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease }}
-          className="mt-6 mb-6 font-semibold leading-[0.95]"
+          className="mt-6 mb-6 font-normal"
           style={{
-            fontSize: 'clamp(48px, 8vw, 110px)',
-            fontWeight: 600,
-            lineHeight: 0.95,
+            fontSize: '82px',
+            lineHeight: 1.0,
+            letterSpacing: '-2.05px',
             color: colors.headline,
           }}
         >

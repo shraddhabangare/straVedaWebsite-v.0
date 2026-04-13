@@ -20,6 +20,7 @@ import {
   TrendingUp,
   Building2,
   Shield,
+  CircleDollarSign,
   Activity,
   Cloud,
   Brain,
@@ -28,13 +29,16 @@ import {
   Plus,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import Marquee from '@/components/straveda/Marquee';
 import TiltCard from '@/components/straveda/TiltCard';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import ParticleField from '@/components/straveda/ParticleField';
 import TextReveal from '@/components/straveda/TextReveal';
 import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
+import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
 import ImpactMetrics from '@/components/straveda/ImpactMetrics';
+import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
 import LogoCloud from '@/components/ui/logo-cloud-2';
@@ -268,7 +272,7 @@ function TestimonialsCarousel() {
               exit={{ opacity: 0, x: -60 }}
               whileHover={{ scale: 1.01, boxShadow: '0 0 50px rgba(255,72,0,0.05), 0 8px 32px rgba(0,0,0,0.08)' }}
               transition={{ duration: 0.5, ease }}
-              className="rounded p-8 md:p-10 cursor-default"
+              className="rounded-2xl p-8 md:p-10 cursor-default"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, #f8f8fc 50%, #FFFFFF 100%)',
                 borderLeft: '3px solid #FF4800',
@@ -441,7 +445,8 @@ function FAQSection() {
             FREQUENTLY ASKED QUESTIONS
           </p>
           <h2
-            className="text-[42px] font-medium heading-gradient"
+            className="font-normal heading-gradient"
+            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
           >
             Questions? We&apos;ve got answers.
           </h2>
@@ -535,6 +540,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         <AnimatedHero onNavigate={onNavigate} />
       </div>
 
+      {/* Wave divider — Hero to Marquee */}
+      <WaveDivider color="#FFFFFF" />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* MARQUEE TICKER                                   */}
+      {/* ═══════════════════════════════════════════════ */}
+      <Marquee />
+
       {/* ═══════════════════════════════════════════════ */}
       {/* TECHNOLOGY PARTNERS — LOGO CLOUD                */}
       {/* ═══════════════════════════════════════════════ */}
@@ -586,8 +599,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               OUR SERVICES
             </p>
             <h2
-              className="text-[42px] font-medium heading-gradient"
-              style={{ maxWidth: '580px' }}
+              className="font-normal heading-gradient"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '580px' }}
             >
               Enterprise solutions that modernize, scale, and deliver.
             </h2>
@@ -602,10 +615,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4"
           >
             {/* Card 1 — Enterprise Architecture */}
-            <TiltCard className="rounded">
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -622,8 +635,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 ARCHITECTURE
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
-                style={{ fontWeight: 500 }}
+                className="mb-3 font-normal text-[#1a1a2e]"
+                style={{ fontSize: '32px', lineHeight: 1.15 }}
               >
                 Enterprise Architecture
               </h3>
@@ -649,10 +662,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </motion.div>
             </TiltCard>
 
-            <TiltCard className="rounded">
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -669,8 +682,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 STRATEGY
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
-                style={{ fontWeight: 500 }}
+                className="mb-3 font-normal text-[#1a1a2e]"
+                style={{ fontSize: '32px', lineHeight: 1.15 }}
               >
                 Technology Strategy
               </h3>
@@ -696,10 +709,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </motion.div>
             </TiltCard>
 
-            <TiltCard className="rounded">
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -716,8 +729,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 MANAGEMENT
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
-                style={{ fontWeight: 500 }}
+                className="mb-3 font-normal text-[#1a1a2e]"
+                style={{ fontSize: '32px', lineHeight: 1.15 }}
               >
                 Management Consulting
               </h3>
@@ -742,10 +755,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </motion.div>
             </TiltCard>
 
-            <TiltCard className="rounded">
+            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded p-8"
+              className="card-hover glow-border card-premium rounded-xl p-8"
               style={{
                 background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -762,8 +775,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 SOFTWARE
               </span>
               <h3
-                className="mb-3 text-[22px] font-medium text-[#1a1a2e]"
-                style={{ fontWeight: 500 }}
+                className="mb-3 font-normal text-[#1a1a2e]"
+                style={{ fontSize: '32px', lineHeight: 1.15 }}
               >
                 Software Solutions
               </h3>
@@ -817,7 +830,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               WHAT SETS US APART
             </p>
             <h2
-              className="text-[42px] font-medium heading-gradient"
+              className="font-normal heading-gradient"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
             >
               Enterprise-grade capabilities.
             </h2>
@@ -845,7 +859,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     transition: { duration: 0.6, ease },
                   },
                 }}
-                className={`relative overflow-hidden rounded p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
+                className={`relative overflow-hidden rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
                 style={{
                   background: '#FFFFFF',
                   border: '1px solid rgba(0,0,0,0.06)',
@@ -884,7 +898,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 {/* Large card gradient border glow */}
                 {item.size === 'large' && (
                   <div
-                    className="bento-gradient-glow pointer-events-none absolute inset-0 rounded opacity-0 transition-opacity duration-500"
+                    className="bento-gradient-glow pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 40%, rgba(255,72,0,0.02) 100%)',
                     }}
@@ -897,8 +911,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   <item.icon className="h-6 w-6" style={{ color: '#FF4800' }} />
                 </div>
                 <h3
-                  className="mb-2 text-[20px] font-medium text-[#1a1a2e]"
-                  style={{ fontWeight: 500 }}
+                  className="mb-2 font-normal text-[#1a1a2e]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   {item.title}
                 </h3>
@@ -1070,8 +1084,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium heading-gradient"
-              style={{ maxWidth: '640px' }}
+              className="font-normal heading-gradient"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '640px' }}
             >
               A proven process for enterprise transformation.
             </h2>
@@ -1122,8 +1136,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Search className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontWeight: 500 }}
+                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Discovery
                 </h3>
@@ -1167,8 +1181,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Target className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontWeight: 500 }}
+                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Strategy
                 </h3>
@@ -1212,8 +1226,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <Zap className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontWeight: 500 }}
+                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Execution
                 </h3>
@@ -1244,8 +1258,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-2 flex items-center gap-3">
                 <TrendingUp className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
                 <h3
-                  className="text-[22px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontWeight: 500 }}
+                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Optimize
                 </h3>
@@ -1259,12 +1273,141 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* Wave divider — Stats/About to ImpactMetrics */}
-      <WaveDivider color="#000000" />
+      <WaveDivider color="#FFFFFF" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* IMPACT METRICS — ANIMATED COUNTERS               */}
       {/* ═══════════════════════════════════════════════ */}
       <ImpactMetrics />
+
+      {/* Gradient transition from dark ImpactMetrics to white */}
+      <div className="h-24" style={{ background: 'linear-gradient(to bottom, #1a1a2e, #FFFFFF)' }} />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* SUCCESS STORIES — HORIZONTAL SCROLL                */}
+      {/* ═══════════════════════════════════════════════ */}
+      <SuccessStories />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* RESULTS THAT SPEAK — METRICS BANNER               */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-24 gradient-mesh-indigo section-glow-top">
+        {/* Subtle decorative gradient glow */}
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '700px',
+            height: '700px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,72,0,0.06) 0%, rgba(43,35,88,0.08) 40%, transparent 70%)',
+          }}
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-14 text-center"
+          >
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              style={{ color: '#FF4800' }}
+            >
+              RESULTS THAT SPEAK
+            </p>
+            <h2
+              className="font-normal text-[#1a1a2e]"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+            >
+              Numbers that define our impact.
+            </h2>
+          </motion.div>
+
+          {/* Metrics Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-2 gap-8 md:gap-12 lg:grid-cols-4"
+          >
+            {/* Metric 1 — 200+ Projects Delivered */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
+            >
+              <AnimatedRingProgress
+                value={200}
+                maxValue={200}
+                suffix="+"
+                label="Projects Delivered"
+                icon={<TrendingUp className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
+            </motion.div>
+
+            {/* Metric 2 — 99.9% Uptime Achieved */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
+            >
+              <AnimatedRingProgress
+                value={99.9}
+                maxValue={100}
+                suffix="%"
+                decimals={1}
+                label="Uptime Achieved"
+                icon={<Shield className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
+            </motion.div>
+
+            {/* Metric 3 — 40% Cost Reduction */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
+            >
+              <AnimatedRingProgress
+                value={40}
+                maxValue={100}
+                suffix="%"
+                label="Cost Reduction"
+                icon={<CircleDollarSign className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
+            </motion.div>
+
+            {/* Metric 4 — 3x Faster Delivery */}
+            <motion.div
+              variants={cardVariants}
+              className="frosted-card relative flex flex-col items-center rounded-xl px-4 py-8 md:px-6 md:py-10"
+            >
+              <AnimatedRingProgress
+                value={3}
+                maxValue={10}
+                suffix="x"
+                label="Faster Delivery"
+                icon={<Zap className="h-4 w-4" style={{ color: '#FF4800' }} />}
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Decorative gradient divider ── */}
+      <div className="relative h-px w-full overflow-hidden" style={{ background: '#FFFFFF' }}>
+
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, transparent, #FF4800, transparent)', transformOrigin: 'center' }}
+        />
+      </div>
+
+      {/* Wave divider — ImpactMetrics to Testimonials */}
+      <WaveDivider color="#FFFFFF" flip />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* TESTIMONIALS — CLIENT FEEDBACK                    */}
@@ -1302,8 +1445,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               CLIENT FEEDBACK
             </p>
             <h2
-              className="text-[40px] font-medium text-[#1a1a2e]"
-              style={{ fontWeight: 500 }}
+              className="font-normal text-[#1a1a2e]"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
             >
               What our clients say.
             </h2>
@@ -1355,8 +1498,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="text-[42px] font-medium heading-gradient"
-              style={{ maxWidth: '580px' }}
+              className="font-normal heading-gradient"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '580px' }}
             >
               Real results for real enterprises.
             </h2>
@@ -1376,7 +1519,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 1 — Fortune 500 Financial Services */}
             <motion.div
               variants={cardVariants}
-              className="card-glow hover-lift rounded transition-all duration-300"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#FFFFFF',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1406,8 +1549,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
-                  style={{ fontWeight: 500 }}
+                  className="mb-6 font-normal text-[#1a1a2e]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Fortune 500 Financial Services
                 </h3>
@@ -1468,7 +1611,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 2 — Global Healthcare Provider */}
             <motion.div
               variants={cardVariants}
-              className="card-glow hover-lift rounded transition-all duration-300"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#FFFFFF',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1498,8 +1641,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
-                  style={{ fontWeight: 500 }}
+                  className="mb-6 font-normal text-[#1a1a2e]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Global Healthcare Provider
                 </h3>
@@ -1560,7 +1703,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Card 3 — Government Agency */}
             <motion.div
               variants={cardVariants}
-              className="card-glow hover-lift rounded transition-all duration-300"
+              className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
                 background: '#FFFFFF',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1590,8 +1733,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 text-[22px] font-medium text-[#1a1a2e]"
-                  style={{ fontWeight: 500 }}
+                  className="mb-6 font-normal text-[#1a1a2e]"
+                  style={{ fontSize: '32px', lineHeight: 1.15 }}
                 >
                   Government Agency
                 </h3>
@@ -1672,8 +1815,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               CLIENT STORIES
             </p>
             <h2
-              className="text-[36px] font-medium text-[#1a1a2e]"
-              style={{ fontWeight: 500 }}
+              className="font-normal text-[#1a1a2e]"
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
             >
               Real results from real partnerships.
             </h2>
@@ -1700,7 +1843,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="card-glow relative rounded p-8 transition-all duration-300"
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
                 background: '#f8f8fc',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1785,7 +1928,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="card-glow relative rounded p-8 transition-all duration-300"
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
                 background: '#f8f8fc',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1870,7 +2013,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   transition: { duration: 0.7, ease },
                 },
               }}
-              className="card-glow relative rounded p-8 transition-all duration-300"
+              className="card-glow relative rounded-xl p-8 transition-all duration-300"
               style={{
                 background: '#f8f8fc',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -1993,8 +2136,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           className="mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center lg:px-8"
         >
           <h2
-            className="text-[56px] font-semibold text-[#1a1a2e] glow-text"
-            style={{ fontWeight: 600 }}
+            className="font-normal text-[#1a1a2e] glow-text"
+            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
           >
             Ready to modernize your enterprise?
           </h2>
