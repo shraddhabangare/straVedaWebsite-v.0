@@ -109,7 +109,7 @@ function HeroSection() {
         transition={{ duration: 0.6, ease }}
         className="mb-4 flex flex-col items-center"
       >
-        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
+        <span className="text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]">
           Our Story
         </span>
         <motion.div
@@ -121,7 +121,7 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
+      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-normal leading-[1.0] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
         style={{ transitionDuration: '0.6s' }}
       >
         <TextReveal delay={0.3} stagger={0.04}>Building tomorrow&apos;s enterprise, one solution at a time.</TextReveal>
@@ -145,7 +145,7 @@ function HeroSection() {
 
 function MissionSection() {
   return (
-    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-20 lg:py-28 relative section-glow-bottom">
+    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-24 lg:py-28 relative section-glow-bottom">
       {/* Subtle decorative accent */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255, 72, 0, 0.03) 0%, transparent 70%)' }} />
       <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 relative z-10">
@@ -172,10 +172,10 @@ function MissionSection() {
           transition={{ duration: 0.8, ease }}
           className="flex flex-col gap-5 lg:w-3/5"
         >
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
+          <span className="text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]">
             Our Mission
           </span>
-          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-relaxed text-[#1a1a2e] dark:text-[#d1d5db]" style={{ lineHeight: 1.7 }}>
+          <p className="text-[clamp(1rem,2vw,1.375rem)] leading-[1.5] text-[#1a1a2e] dark:text-[#d1d5db]" style={{ lineHeight: 1.7 }}>
             To provide exceptional value, deliver cost-effective solutions, and guarantee customer
             satisfaction — through standards-driven enterprise architecture and meticulous project
             execution.
@@ -196,13 +196,13 @@ function ValuesSection() {
       <GridBackground className="opacity-[0.03]" patternId="grid-values" />
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="mb-12 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             What We Stand For
           </motion.p>
@@ -248,7 +248,7 @@ function ValuesSection() {
                 },
               }}
               whileHover={{ y: -4 }}
-              className="card-premium flex flex-col items-start gap-5 rounded-2xl bg-white dark:bg-white/[0.03] p-8"
+              className="card-premium flex flex-col items-start gap-5 rounded-2xl bg-white dark:bg-white/[0.03] p-6 md:p-8"
             >
               {/* Icon with gradient background container */}
               <div
@@ -259,8 +259,8 @@ function ValuesSection() {
               >
                 {card.icon}
               </div>
-              <h4 className="text-lg font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
-              <p className="text-sm leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
+              <h4 className="text-lg font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
+              <p className="text-sm leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -295,13 +295,13 @@ function TeamSection() {
 
       <div className="relative mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="mb-10 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             THE TEAM
           </motion.p>
@@ -403,14 +403,14 @@ function StatsStrip() {
 
 function ExpertiseSection() {
   return (
-    <section className="bg-white dark:bg-[#0a0a14] px-6 py-20 lg:py-28">
+    <section className="bg-white dark:bg-[#0a0a14] px-6 py-24 lg:py-28">
       <div className="mx-auto max-w-4xl text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
         >
           Our Expertise
         </motion.p>
@@ -503,16 +503,16 @@ function AnimatedPercentage({ target }: { target: number }) {
 
 function CoreCompetenciesSection() {
   return (
-    <section className="relative px-6 py-16 bg-[#f8f8fc] dark:bg-[#0a0a14]">
+    <section className="relative px-6 py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
       <div className="mx-auto max-w-4xl">
         {/* Section Header */}
-        <div className="mb-12 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             Core Competencies
           </motion.p>
@@ -547,7 +547,7 @@ function CoreCompetenciesSection() {
 
               {/* Track */}
               <div
-                className="h-2 w-full rounded-full"
+                className="skill-bar-track h-2 w-full rounded-full"
                 style={{ background: 'rgba(0,0,0,0.06)' }}
               >
                 {/* Fill Bar */}
@@ -594,7 +594,7 @@ function TimelineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             OUR JOURNEY
           </motion.p>
@@ -670,10 +670,10 @@ function TimelineSection() {
                 {/* Content Card */}
                 <div className="card-premium flex-1 rounded-2xl bg-white dark:bg-white/[0.03] p-6 lg:p-8">
                   <span className="text-[20px] font-bold text-[#FF4800]">{milestone.year}</span>
-                  <h3 className="mt-1 text-[18px] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]">
+                  <h3 className="mt-1 text-[18px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">
                     {milestone.title}
                   </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
+                  <p className="mt-2 text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">
                     {milestone.description}
                   </p>
                 </div>
@@ -707,7 +707,7 @@ const certifications = [
 
 function PartnersSection() {
   return (
-    <section className="relative bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-20 lg:py-28 overflow-hidden">
+    <section className="relative bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-24 lg:py-28 overflow-hidden">
       {/* Interactive grid background with mouse-proximity reveal */}
       <GridBackground interactive className="opacity-[0.05]" patternId="grid-partners" />
       {/* Decorative glow */}
@@ -721,13 +721,13 @@ function PartnersSection() {
 
       <div className="relative mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="mb-14 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             PARTNERS &amp; CERTIFICATIONS
           </motion.p>
@@ -799,7 +799,7 @@ function PartnersSection() {
               <h4 className="mt-2 text-[24px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">{partner.name}</h4>
 
               {/* Certification Level */}
-              <span className="mt-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
+              <span className="mt-3 text-[12px] font-normal uppercase tracking-[0.2em] text-[#FF4800]">
                 {partner.level}
               </span>
             </motion.div>

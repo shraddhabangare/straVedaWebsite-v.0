@@ -282,7 +282,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease }}
-            className="text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-6"
+            className="text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-4"
           >
             Get in Touch
           </motion.p>
@@ -322,7 +322,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, ease }}
-            className="text-center text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-6"
+            className="text-center text-[11px] uppercase tracking-[0.2em] text-[#FF4800] font-medium mb-4"
           >
             Why choose Straveda?
           </motion.p>
@@ -351,8 +351,8 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section className="px-6 pt-16 pb-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-16 sm:pb-24 bg-[#f8f8fc] dark:bg-[#0a0a14]">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* LEFT — Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -362,7 +362,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-white dark:bg-white/[0.04] rounded-xl p-8 space-y-5 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm magnetic-border"
+              className="bg-white dark:bg-white/[0.04] rounded-xl p-5 sm:p-8 space-y-6 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm magnetic-border"
             >
               <FloatingInput
                 id="name"
@@ -416,11 +416,11 @@ export default function ContactPage() {
                       : 'text-[#9ca3af] dark:text-[#6b7280] border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
                   } transition-colors duration-200`}
                 >
-                  <option value="" disabled className="bg-white text-[#9ca3af]">
+                  <option value="" disabled className="bg-white dark:bg-[#1a1a2e] text-[#9ca3af] dark:text-[#6b7280]">
                     Select a service...
                   </option>
                   {serviceOptions.map((option) => (
-                    <option key={option} value={option} className="bg-white text-[#1a1a2e]">
+                    <option key={option} value={option} className="bg-white dark:bg-[#1a1a2e] text-[#1a1a2e] dark:text-[#f0f0f5]">
                       {option}
                     </option>
                   ))}
