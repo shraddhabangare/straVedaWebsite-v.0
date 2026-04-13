@@ -53,9 +53,20 @@ const config: Config = {
   			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			'none': '0px',
+  			'sm': '2px',
+  			DEFAULT: '4px',
+  			'md': '4px',
+  			'lg': '6px',
+  			'xl': '8px',
+  			'2xl': '10px',
+  			'3xl': '12px',
+  			'full': '9999px',
+  		},
+  		boxShadow: {
+  			'sm': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)',
+  			'card': '0 1px 3px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.06)',
+  			'lg': '0 4px 6px rgba(0,0,0,0.07), 0 10px 30px rgba(0,0,0,0.10), 0 40px 80px rgba(0,0,0,0.08)',
   		}
   	}
   },

@@ -148,16 +148,17 @@ function MetricCard({
         y: -4,
         boxShadow: '0 8px 40px rgba(255, 72, 0, 0.25), 0 0 0 1px rgba(255, 72, 0, 0.15)',
       }}
-      className="group relative rounded-2xl p-6 md:p-8 transition-all duration-300"
+      className="group relative rounded p-6 md:p-8 transition-all duration-300"
       style={{
         background: 'rgba(255, 255, 255, 0.04)',
         border: '1px solid rgba(255, 255, 255, 0.08)',
         backdropFilter: 'blur(12px)',
+        boxShadow: 'var(--shadow-card)',
       }}
     >
       {/* Subtle glow effect on hover */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: 'radial-gradient(circle at 50% 0%, rgba(255,72,0,0.06) 0%, transparent 60%)',
         }}
@@ -208,21 +209,21 @@ export default function ImpactMetrics() {
       ref={sectionRef}
       className="relative overflow-hidden py-24"
       style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #2B2358 50%, #1a1a2e 100%)',
+        background: '#000000',
       }}
     >
       {/* Decorative background elements */}
       <div
-        className="pointer-events-none absolute top-0 left-1/4 h-64 w-64 rounded-full opacity-20"
+        className="pointer-events-none absolute top-0 left-1/4 h-64 w-64 rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(255,72,0,0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,72,0,0.18) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
       <div
-        className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full opacity-15"
+        className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(255,72,0,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,72,0,0.15) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
       />
