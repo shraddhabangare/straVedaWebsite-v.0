@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 import {
   ChevronDown,
@@ -29,20 +30,12 @@ import {
   Plus,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import Marquee from '@/components/straveda/Marquee';
-import TiltCard from '@/components/straveda/TiltCard';
-import MagneticButton from '@/components/straveda/MagneticButton';
-import ParticleField from '@/components/straveda/ParticleField';
-import TextReveal from '@/components/straveda/TextReveal';
 import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
 import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
-import ImpactMetrics from '@/components/straveda/ImpactMetrics';
-import SuccessStories from '@/components/straveda/SuccessStories';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
-import LogoCloud from '@/components/ui/logo-cloud-2';
-import SectionProgress from '@/components/straveda/SectionProgress';
+import { MarqueeLogoScroller } from '@/components/marquee-logo-scroller';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -223,6 +216,8 @@ function getInitials(name: string): string {
 
 function TestimonialsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   // Single auto-play timer that resets on manual navigation
   useEffect(() => {
@@ -253,10 +248,13 @@ function TestimonialsCarousel() {
         {/* Previous button */}
         <button
           onClick={goPrev}
-          className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-black/5"
-          style={{ background: 'rgba(0,0,0,0.04)', color: 'rgba(0,0,0,0.2)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.5)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.2)')}
+          className="testimonial-chevron absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+            color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)')}
           aria-label="Previous testimonial"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -270,13 +268,15 @@ function TestimonialsCarousel() {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
-              whileHover={{ scale: 1.01, boxShadow: '0 0 50px rgba(255,72,0,0.05), 0 8px 32px rgba(0,0,0,0.08)' }}
+              whileHover={{ scale: 1.01, boxShadow: isDark ? '0 0 50px rgba(255,72,0,0.08), 0 8px 32px rgba(0,0,0,0.3)' : '0 0 50px rgba(255,72,0,0.05), 0 8px 32px rgba(0,0,0,0.08)' }}
               transition={{ duration: 0.5, ease }}
-              className="rounded-2xl p-8 md:p-10 cursor-default"
+              className="testimonial-card rounded-2xl p-8 md:p-10 cursor-default"
               style={{
-                background: 'linear-gradient(145deg, #FFFFFF 0%, #f8f8fc 50%, #FFFFFF 100%)',
+                background: isDark
+                  ? 'linear-gradient(145deg, #12121e 0%, #1a1a2e 50%, #12121e 100%)'
+                  : 'linear-gradient(145deg, #FFFFFF 0%, #f8f8fc 50%, #FFFFFF 100%)',
                 borderLeft: '3px solid #FF4800',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+                boxShadow: isDark ? '0 4px 24px rgba(0,0,0,0.3)' : '0 4px 24px rgba(0,0,0,0.06)',
               }}
             >
               {/* Large quote mark */}
@@ -300,15 +300,16 @@ function TestimonialsCarousel() {
 
               {/* Quote text */}
               <p
-                className="mb-8 text-[20px] italic leading-[1.8] text-[#1a1a2e]"
+                className="testimonial-quote-text mb-8 text-[20px] italic leading-[1.8]"
+                style={{ color: isDark ? '#d1d5db' : '#1a1a2e' }}
               >
                 {t.quote}
               </p>
 
               {/* Divider */}
               <div
-                className="mb-5 w-full"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}
+                className="testimonial-divider mb-5 w-full"
+                style={{ borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}
               />
 
               {/* Author row with avatar, name, role, and company */}
@@ -327,14 +328,14 @@ function TestimonialsCarousel() {
 
                 {/* Name, role, and company */}
                 <div className="flex flex-col">
-                  <p className="text-[16px] font-semibold text-[#1a1a2e]">
+                  <p className="testimonial-author-name text-[16px] font-semibold" style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}>
                     {t.name}
                   </p>
                   <div className="flex items-center gap-2">
-                    <p className="text-[14px]" style={{ color: '#6b7280' }}>
+                    <p className="text-[14px]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                       {t.role}
                     </p>
-                    <span style={{ color: '#d1d5db' }}>·</span>
+                    <span className="testimonial-separator" style={{ color: isDark ? 'rgba(255,255,255,0.2)' : '#d1d5db' }}>·</span>
                     {/* Company logo placeholder badge */}
                     <span
                       className="inline-flex items-center rounded px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider"
@@ -355,10 +356,13 @@ function TestimonialsCarousel() {
         {/* Next button */}
         <button
           onClick={goNext}
-          className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:bg-black/5"
-          style={{ background: 'rgba(0,0,0,0.04)', color: 'rgba(0,0,0,0.2)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.5)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0,0,0,0.2)')}
+          className="testimonial-chevron absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+            color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)')}
           aria-label="Next testimonial"
         >
           <ChevronRight className="h-5 w-5" />
@@ -374,7 +378,7 @@ function TestimonialsCarousel() {
             className="rounded-full"
             animate={{
               scale: i === currentIndex ? 1.4 : 1,
-              background: i === currentIndex ? '#FF4800' : '#d1d5db',
+              background: i === currentIndex ? '#FF4800' : (isDark ? 'rgba(255,255,255,0.2)' : '#d1d5db'),
             }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             whileHover={{ scale: 1.5 }}
@@ -446,7 +450,7 @@ function FAQSection() {
           </p>
           <h2
             className="font-normal heading-gradient"
-            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
           >
             Questions? We&apos;ve got answers.
           </h2>
@@ -512,7 +516,7 @@ function FAQSection() {
                     style={{ overflow: 'hidden' }}
                   >
                     <p
-                      className="px-5 pb-5 text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]"
+                      className="px-5 pb-5 text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]"
                     >
                       {faq.answer}
                     </p>
@@ -529,6 +533,8 @@ function FAQSection() {
 
 export default function HomePage({ onNavigate }: HomePageProps) {
   const heroScrolled = useScrollGradient(100);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
 
   return (
@@ -540,18 +546,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         <AnimatedHero onNavigate={onNavigate} />
       </div>
 
-      {/* Wave divider — Hero to Marquee */}
-      <WaveDivider color="#FFFFFF" />
 
       {/* ═══════════════════════════════════════════════ */}
-      {/* MARQUEE TICKER                                   */}
+      {/* TECHNOLOGY PARTNERS — MARQUEE SCROLLER          */}
       {/* ═══════════════════════════════════════════════ */}
-      <Marquee />
-
-      {/* ═══════════════════════════════════════════════ */}
-      {/* TECHNOLOGY PARTNERS — LOGO CLOUD                */}
-      {/* ═══════════════════════════════════════════════ */}
-      <div className="divider-gradient dark:opacity-30" />
       <motion.section
         id="section-partners"
         initial={{ opacity: 0, y: 30 }}
@@ -561,19 +559,32 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         className="py-24 bg-white dark:bg-[#0a0a14]"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-10 text-center text-[12px] font-medium uppercase tracking-widest text-[#9ca3af] dark:text-[#6b7280]"
-          >
-            Technology Partners
-          </motion.p>
-          <LogoCloud />
+          <MarqueeLogoScroller
+            title="Technology Partners"
+            description="Straveda partners with the world's leading enterprise technology providers to deliver modern, open-standards solutions."
+            speed="slow"
+            logos={[
+              { src: 'https://svgl.app/library/microsoft-azure.svg', alt: 'Microsoft Azure', gradient: { from: '#0078D4', via: '#00BCF2', to: '#50E6FF' } },
+              { src: 'https://svgl.app/library/aws.svg', alt: 'AWS', gradient: { from: '#FF9900', via: '#FFB84D', to: '#FFD700' } },
+              { src: 'https://svgl.app/library/google-cloud.svg', alt: 'Google Cloud', gradient: { from: '#4285F4', via: '#34A853', to: '#FBBC05' } },
+              { src: 'https://svgl.app/library/red-hat.svg', alt: 'Red Hat', gradient: { from: '#EE0000', via: '#CC0000', to: '#990000' } },
+              { src: 'https://svgl.app/library/docker.svg', alt: 'Docker', gradient: { from: '#2496ED', via: '#0db7ed', to: '#086dd7' } },
+              { src: 'https://svgl.app/library/kubernetes.svg', alt: 'Kubernetes', gradient: { from: '#326CE5', via: '#5585E8', to: '#7BA3ED' } },
+              { src: 'https://svgl.app/library/linux-foundation.svg', alt: 'Linux', gradient: { from: '#333333', via: '#555555', to: '#111111' } },
+              { src: 'https://svgl.app/library/ibm.svg', alt: 'IBM', gradient: { from: '#1F70C1', via: '#0530AD', to: '#054ADA' } },
+              { src: 'https://svgl.app/library/salesforce.svg', alt: 'Salesforce', gradient: { from: '#00A1E0', via: '#0176D3', to: '#032D60' } },
+              { src: 'https://svgl.app/library/oracle.svg', alt: 'Oracle', gradient: { from: '#F80000', via: '#C74634', to: '#A61108' } },
+              { src: 'https://svgl.app/library/sap.svg', alt: 'SAP', gradient: { from: '#0070F2', via: '#0FAAFF', to: '#005FCE' } },
+              { src: 'https://svgl.app/library/vmware.svg', alt: 'VMware', gradient: { from: '#607078', via: '#96A2AA', to: '#464F54' } },
+              { src: 'https://svgl.app/library/cisco.svg', alt: 'Cisco', gradient: { from: '#1BA0D7', via: '#049FD9', to: '#005073' } },
+              { src: 'https://svgl.app/library/intel.svg', alt: 'Intel', gradient: { from: '#0071C5', via: '#0095D9', to: '#00BCFF' } },
+              { src: 'https://svgl.app/library/nvidia.svg', alt: 'NVIDIA', gradient: { from: '#76B900', via: '#5F9900', to: '#3D6400' } },
+            ]}
+            className="border-0 rounded-none bg-transparent"
+            style={{ background: 'transparent' }}
+          />
         </div>
       </motion.section>
-      <div className="divider-gradient dark:opacity-30" />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1B — SERVICES TEASER                    */}
@@ -590,7 +601,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="mb-14"
+            className="mb-16"
           >
             <p
               className="mb-4 text-[11px] font-medium uppercase tracking-wider"
@@ -600,7 +611,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <h2
               className="font-normal heading-gradient"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '580px' }}
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px', maxWidth: '580px' }}
             >
               Enterprise solutions that modernize, scale, and deliver.
             </h2>
@@ -615,7 +626,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4"
           >
             {/* Card 1 — Enterprise Architecture */}
-            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border card-premium rounded-xl p-8"
@@ -625,7 +635,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Braces className="h-7 w-7 text-[#FF4800]" />
               </div>
               <span
@@ -640,7 +650,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               >
                 Enterprise Architecture
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
                 Modernize your application portfolio with adaptive,
                 open-standards architecture that scales.
               </p>
@@ -660,9 +670,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
-            </TiltCard>
 
-            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border card-premium rounded-xl p-8"
@@ -672,7 +680,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Compass className="h-7 w-7 text-[#FF4800]" />
               </div>
               <span
@@ -687,7 +695,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               >
                 Technology Strategy
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
                 Align IT investments with business goals to accelerate time to
                 market and increase product innovation.
               </p>
@@ -707,9 +715,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
-            </TiltCard>
 
-            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border card-premium rounded-xl p-8"
@@ -719,7 +725,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <ClipboardCheck className="h-7 w-7 text-[#FF4800]" />
               </div>
               <span
@@ -734,7 +740,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               >
                 Management Consulting
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
                 Expert Product, Program &amp; Project management through
                 meticulous planning and execution.
               </p>
@@ -753,9 +759,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
-            </TiltCard>
 
-            <TiltCard className="rounded-xl">
             <motion.div
               variants={cardVariants}
               className="card-hover glow-border card-premium rounded-xl p-8"
@@ -765,7 +769,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
               }}
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Server className="h-7 w-7 text-[#FF4800]" />
               </div>
               <span
@@ -780,7 +784,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               >
                 Software Solutions
               </h3>
-              <p className="mb-5 text-[16px] leading-relaxed" style={{ color: '#6b7280' }}>
+              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
                 Red Hat Enterprise Middleware and virtualization to lower total
                 cost of ownership at enterprise scale.
               </p>
@@ -800,18 +804,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
-            </TiltCard>
           </motion.div>
         </div>
       </section>
 
       {/* Wave divider — Services Teaser to Bento Grid */}
-      <WaveDivider color="#f8f8fc" flip />
+      <WaveDivider color={isDark ? '#12121e' : '#f8f8fc'} flip />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* WHAT SETS US APART — BENTO GRID                  */}
       {/* ═══════════════════════════════════════════════ */}
-      <section id="section-capabilities" className="py-24 section-glow-top dot-grid-dense" style={{ background: '#f8f8fc' }}>
+      <section id="section-capabilities" className="py-24 section-glow-top dot-grid-dense" style={{ background: isDark ? '#12121e' : '#f8f8fc' }}>
         {/* Grid pattern overlay for texture */}
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -821,7 +824,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="mb-14"
+            className="mb-16"
           >
             <p
               className="mb-4 text-[11px] font-medium uppercase tracking-wider"
@@ -830,8 +833,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               WHAT SETS US APART
             </p>
             <h2
-              className="font-normal heading-gradient"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+              className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
+              style={{ lineHeight: 0.95, letterSpacing: '-2.05px' }}
             >
               Enterprise-grade capabilities.
             </h2>
@@ -846,7 +849,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             {bentoItems.map((item) => (
               <motion.div
@@ -861,8 +864,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 }}
                 className={`relative overflow-hidden rounded-xl p-6 transition-all duration-300 ${item.size === 'large' ? 'md:col-span-2 lg:col-span-2 p-8 bento-large-border' : ''}`}
                 style={{
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(0,0,0,0.06)',
+                  background: isDark ? '#12121e' : '#FFFFFF',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
                 }}
                 onMouseEnter={(e) => {
                   const isLarge = item.size === 'large';
@@ -872,18 +875,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     : '0 8px 30px rgba(255,72,0,0.08)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
-                  if (iconContainer) iconContainer.style.transform = 'scale(1.1)';
+                  if (iconContainer) (iconContainer as HTMLElement).style.transform = 'scale(1.1)';
                   const dot = e.currentTarget.querySelector('.bento-hover-dot');
                   if (dot) (dot as HTMLElement).style.opacity = '1';
                   const glow = e.currentTarget.querySelector('.bento-gradient-glow');
                   if (glow) (glow as HTMLElement).style.opacity = '1';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
                   const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
-                  if (iconContainer) iconContainer.style.transform = 'scale(1)';
+                  if (iconContainer) (iconContainer as HTMLElement).style.transform = 'scale(1)';
                   const dot = e.currentTarget.querySelector('.bento-hover-dot');
                   if (dot) (dot as HTMLElement).style.opacity = '0';
                   const glow = e.currentTarget.querySelector('.bento-gradient-glow');
@@ -906,17 +909,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 )}
                 <div
                   className="bento-icon-wrap mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300"
-                  style={{ background: 'rgba(255,72,0,0.08)' }}
+                  style={{ background: isDark ? 'rgba(255,72,0,0.12)' : 'rgba(255,72,0,0.08)' }}
                 >
                   <item.icon className="h-6 w-6" style={{ color: '#FF4800' }} />
                 </div>
                 <h3
-                  className="mb-2 font-normal text-[#1a1a2e]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                  className="mb-2 font-normal text-[clamp(1.25rem,2.5vw,2rem)]"
+                  style={{ lineHeight: 1.15, color: isDark ? '#f0f0f5' : '#1a1a2e' }}
                 >
                   {item.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                   {item.description}
                 </p>
               </motion.div>
@@ -930,7 +933,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         id="section-about"
-        className="relative py-24 bg-[#f8f8fc] dark:bg-[#0a0a14] bg-animated-gradient"
+        className="relative py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]"
       >
         {/* Decorative orange dot pattern */}
         <div
@@ -958,7 +961,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="mt-3 h-[3px] w-8 rounded-full"
               style={{ background: '#FF4800', transformOrigin: 'left' }}
             />
-            <p className="mt-3 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">
+            <p className="mt-6 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">
               Years of Enterprise Excellence
             </p>
             <p
@@ -1054,16 +1057,23 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         id="section-process"
-        className="relative py-24 bg-white dark:bg-[#0a0a14] section-glow-top"
+        className="relative py-24 bg-white dark:bg-[#0a0a14] overflow-hidden"
       >
-        {/* Subtle decorative glow */}
+        {/* Background orange radial glow */}
         <div
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2"
           style={{
-            width: '600px',
-            height: '600px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,72,0,0.04) 0%, transparent 70%)',
+            width: '900px',
+            height: '500px',
+            background: 'radial-gradient(ellipse at top, rgba(255,72,0,0.05) 0%, transparent 65%)',
+          }}
+        />
+        {/* Dot grid pattern overlay */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.025] dark:opacity-[0.05]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #FF4800 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
           }}
         />
 
@@ -1077,15 +1087,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="mb-16"
           >
             <p
-              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
-              style={{ color: '#FF4800' }}
+              className="mb-4 text-[11px] font-medium uppercase tracking-widest"
+              style={{ color: '#FF4800', fontWeight: 400 }}
             >
               HOW WE WORK
             </p>
-            <div className="line-decoration mb-4" />
+            <div
+              className="mb-8"
+              style={{ width: '40px', height: '2px', background: '#FF4800', borderRadius: '1px' }}
+            />
             <h2
               className="font-normal heading-gradient"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '640px' }}
+              style={{ fontSize: 'clamp(40px,5vw,60px)', lineHeight: 0.95, letterSpacing: '-2.05px', maxWidth: '680px' }}
             >
               A proven process for enterprise transformation.
             </h2>
@@ -1095,198 +1108,113 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <motion.div
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
+              visible: { transition: { staggerChildren: 0.18 } },
             }}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: '-80px' }}
             className="relative grid grid-cols-1 gap-0 md:grid-cols-2 xl:grid-cols-4"
           >
-            {/* Desktop connecting line (horizontal) */}
+            {/* Desktop top connecting line — animates in */}
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 1.2, delay: 0.3, ease }}
-              className="pointer-events-none absolute top-[40px] right-0 hidden h-[1.5px] w-[calc(100%-120px)] xl:block"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 1.4, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="pointer-events-none absolute top-[38px] left-0 hidden h-px xl:block"
               style={{
-                background: 'linear-gradient(90deg, #FF4800, rgba(255,72,0,0.15))',
+                width: '100%',
+                background: 'linear-gradient(90deg, #FF4800 0%, rgba(255,72,0,0.12) 100%)',
                 transformOrigin: 'left',
               }}
             />
 
-            {/* Step 1 — Discovery */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:pl-0"
-            >
-              <span
-                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
-                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
+            {[
+              {
+                num: '01', icon: <Search className="h-5 w-5" style={{ color: '#FF4800' }} />,
+                title: 'Discovery',
+                desc: 'We assess your current landscape, identify pain points, and define success metrics.',
+              },
+              {
+                num: '02', icon: <Target className="h-5 w-5" style={{ color: '#FF4800' }} />,
+                title: 'Strategy',
+                desc: 'We craft a tailored roadmap aligned with your business goals and budget.',
+              },
+              {
+                num: '03', icon: <Zap className="h-5 w-5" style={{ color: '#FF4800' }} />,
+                title: 'Execution',
+                desc: 'Our experts implement solutions using proven frameworks and agile delivery.',
+              },
+              {
+                num: '04', icon: <TrendingUp className="h-5 w-5" style={{ color: '#FF4800' }} />,
+                title: 'Optimize',
+                desc: 'We measure results, refine approaches, and ensure long-term sustainability.',
+              },
+            ].map((step, i) => (
+              <motion.div
+                key={step.num}
+                variants={{
+                  hidden: { opacity: 0, y: 36 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.4, 0, 0.2, 1] } },
+                }}
+                className="group relative flex flex-col pt-12 pb-12 xl:pr-10"
+                style={{
+                  borderTop: '2px solid transparent',
+                  borderImage: 'linear-gradient(90deg,#FF4800,rgba(255,72,0,0.2)) 1',
+                  paddingLeft: i === 0 ? 0 : undefined,
+                }}
               >
-                01
-              </span>
-              <div className="mt-2 flex items-center gap-3">
-                <Search className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
-                <h3
-                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                {/* Step number badge */}
+                <span
+                  className="mb-5 inline-flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-semibold"
+                  style={{
+                    background: 'rgba(255,72,0,0.08)',
+                    color: '#FF4800',
+                    border: '1px solid rgba(255,72,0,0.2)',
+                    letterSpacing: '0.02em',
+                  }}
                 >
-                  Discovery
-                </h3>
-              </div>
-              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
-                We assess your current landscape, identify pain points, and define success metrics.
-              </p>
-            </motion.div>
+                  {step.num}
+                </span>
 
-            {/* Mobile connecting line 1→2 */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.4, ease }}
-              className="pointer-events-none absolute bottom-0 left-[39px] hidden h-[calc(100%-120px)] w-px md:block xl:hidden"
-              style={{
-                background: 'linear-gradient(180deg, #FF4800, rgba(255,72,0,0.15))',
-                transformOrigin: 'top',
-              }}
-            />
-
-            {/* Step 2 — Strategy */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 xl:border-l-0 xl:pl-8 xl:pb-0"
-            >
-              <span
-                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
-                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
-              >
-                02
-              </span>
-              <div className="mt-2 flex items-center gap-3">
-                <Target className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
-                <h3
-                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                {/* Watermark number */}
+                <span
+                  className="pointer-events-none absolute -bottom-2 right-4 select-none font-bold leading-none"
+                  style={{
+                    fontSize: '88px',
+                    color: '#FF4800',
+                    opacity: 0.05,
+                    letterSpacing: '-4px',
+                  }}
                 >
-                  Strategy
-                </h3>
-              </div>
-              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
-                We craft a tailored roadmap aligned with your business goals and budget.
-              </p>
-            </motion.div>
+                  {step.num}
+                </span>
 
-            {/* Mobile connecting line 2→3 */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.5, ease }}
-              className="pointer-events-none absolute top-[40px] left-[calc(50%-1px)] hidden h-[calc(100%-120px)] w-px md:block xl:hidden"
-              style={{
-                background: 'linear-gradient(180deg, #FF4800, rgba(255,72,0,0.15))',
-                transformOrigin: 'top',
-              }}
-            />
+                {/* Icon + Title row */}
+                <div className="mb-4 flex items-center gap-3">
+                  {step.icon}
+                  <h3
+                    className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+                    style={{ fontSize: '32px', lineHeight: 1.15, letterSpacing: '-0.5px', fontWeight: 400 }}
+                  >
+                    {step.title}
+                  </h3>
+                </div>
 
-            {/* Step 3 — Execution */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 pb-12 last:pb-0 xl:border-l-0 xl:pl-8 xl:pb-0"
-            >
-              <span
-                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
-                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
-              >
-                03
-              </span>
-              <div className="mt-2 flex items-center gap-3">
-                <Zap className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
-                <h3
-                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                {/* Description */}
+                <p
+                  className="text-[16px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]"
+                  style={{ maxWidth: '240px' }}
                 >
-                  Execution
-                </h3>
-              </div>
-              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
-                Our experts implement solutions using proven frameworks and agile delivery.
-              </p>
-            </motion.div>
-
-            {/* Step 4 — Optimize */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="relative overflow-hidden border-l-2 border-[#FF4800] pl-8 xl:border-l-0 xl:pl-8"
-            >
-              <span
-                className="pointer-events-none absolute -top-4 right-0 text-[#FF4800] opacity-[0.04] dark:opacity-[0.08]"
-                style={{ fontSize: '80px', fontWeight: 700, lineHeight: 1 }}
-              >
-                04
-              </span>
-              <div className="mt-2 flex items-center gap-3">
-                <TrendingUp className="h-5 w-5 icon-pulse-gentle" style={{ color: '#FF4800' }} />
-                <h3
-                  className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
-                >
-                  Optimize
-                </h3>
-              </div>
-              <p className="mt-3 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
-                We measure results, refine approaches, and ensure long-term sustainability.
-              </p>
-            </motion.div>
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Wave divider — Stats/About to ImpactMetrics */}
-      <WaveDivider color="#FFFFFF" />
 
-      {/* ═══════════════════════════════════════════════ */}
-      {/* IMPACT METRICS — ANIMATED COUNTERS               */}
-      {/* ═══════════════════════════════════════════════ */}
-      <ImpactMetrics />
-
-      {/* Gradient transition from dark ImpactMetrics to white */}
-      <div className="h-24" style={{ background: 'linear-gradient(to bottom, #1a1a2e, #FFFFFF)' }} />
-
-      {/* ═══════════════════════════════════════════════ */}
-      {/* SUCCESS STORIES — HORIZONTAL SCROLL                */}
-      {/* ═══════════════════════════════════════════════ */}
-      <SuccessStories />
 
       {/* ═══════════════════════════════════════════════ */}
       {/* RESULTS THAT SPEAK — METRICS BANNER               */}
@@ -1319,7 +1247,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <h2
               className="font-normal text-[#1a1a2e]"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
             >
               Numbers that define our impact.
             </h2>
@@ -1331,7 +1259,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-2 gap-8 md:gap-12 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-8 lg:grid-cols-4"
           >
             {/* Metric 1 — 200+ Projects Delivered */}
             <motion.div
@@ -1436,7 +1364,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="mb-14"
+            className="mb-16"
           >
             <p
               className="mb-4 text-[11px] font-medium uppercase tracking-wider"
@@ -1446,7 +1374,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <h2
               className="font-normal text-[#1a1a2e]"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
             >
               What our clients say.
             </h2>
@@ -1479,7 +1407,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         className="py-24 section-glow-top"
-        style={{ background: '#f8f8fc' }}
+        style={{ background: isDark ? '#12121e' : '#f8f8fc' }}
       >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Header */}
@@ -1498,12 +1426,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <div className="line-decoration mb-4" />
             <h2
-              className="font-normal heading-gradient"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px', maxWidth: '580px' }}
+              className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
+              style={{ lineHeight: 0.95, letterSpacing: '-2.05px', maxWidth: '580px' }}
             >
               Real results for real enterprises.
             </h2>
-            <p className="mt-4 text-[16px] leading-relaxed" style={{ color: '#6b7280', maxWidth: '520px' }}>
+            <p className="mt-4 text-[16px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280', maxWidth: '520px' }}>
               From financial services to government agencies, we deliver measurable outcomes that transform enterprise operations.
             </p>
           </motion.div>
@@ -1514,28 +1442,28 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             {/* Card 1 — Fortune 500 Financial Services */}
             <motion.div
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#FFFFFF',
-                border: '1px solid rgba(0,0,0,0.06)',
+                background: isDark ? '#12121e' : '#FFFFFF',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
+                e.currentTarget.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
               }}
             >
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 {/* Card number */}
                 <span
                   className="mb-2 block"
-                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                  style={{ fontSize: 'clamp(40px, 10vw, 64px)', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
                 >
                   01
                 </span>
@@ -1549,8 +1477,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 font-normal text-[#1a1a2e]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                  className="mb-6 font-normal text-[clamp(1.25rem,2.5vw,2rem)]"
+                  style={{ lineHeight: 1.15, color: isDark ? '#f0f0f5' : '#1a1a2e' }}
                 >
                   Fortune 500 Financial Services
                 </h3>
@@ -1560,7 +1488,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Legacy middleware causing 60% downtime during peak hours
                   </p>
                 </div>
@@ -1570,7 +1498,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Enterprise Architecture modernization with Red Hat middleware
                   </p>
                 </div>
@@ -1580,27 +1508,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     99.9% uptime, 40% cost reduction, 3x faster deployments
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     99.9% uptime
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     -40% cost
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     3x deployments
                   </span>
@@ -1613,21 +1541,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#FFFFFF',
-                border: '1px solid rgba(0,0,0,0.06)',
+                background: isDark ? '#12121e' : '#FFFFFF',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
+                e.currentTarget.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
               }}
             >
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 {/* Card number */}
                 <span
                   className="mb-2 block"
-                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                  style={{ fontSize: 'clamp(40px, 10vw, 64px)', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
                 >
                   02
                 </span>
@@ -1641,8 +1569,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 font-normal text-[#1a1a2e]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                  className="mb-6 font-normal text-[clamp(1.25rem,2.5vw,2rem)]"
+                  style={{ lineHeight: 1.15, color: isDark ? '#f0f0f5' : '#1a1a2e' }}
                 >
                   Global Healthcare Provider
                 </h3>
@@ -1652,7 +1580,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Fragmented IT systems across 12 regional offices
                   </p>
                 </div>
@@ -1662,7 +1590,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Technology Strategy roadmap + API integration platform
                   </p>
                 </div>
@@ -1672,27 +1600,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Unified platform, 65% faster data sharing, $2.1M annual savings
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     Unified platform
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     65% faster
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     $2.1M saved
                   </span>
@@ -1705,21 +1633,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               variants={cardVariants}
               className="card-glow hover-lift rounded-xl transition-all duration-300"
               style={{
-                background: '#FFFFFF',
-                border: '1px solid rgba(0,0,0,0.06)',
+                background: isDark ? '#12121e' : '#FFFFFF',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.border = '1px solid rgba(255,72,0,0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.border = '1px solid rgba(0,0,0,0.06)';
+                e.currentTarget.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
               }}
             >
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 {/* Card number */}
                 <span
                   className="mb-2 block"
-                  style={{ fontSize: '64px', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
+                  style={{ fontSize: 'clamp(40px, 10vw, 64px)', fontWeight: 700, color: '#FF4800', opacity: 0.15, lineHeight: 1 }}
                 >
                   03
                 </span>
@@ -1733,8 +1661,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </span>
                 {/* Company name */}
                 <h3
-                  className="mb-6 font-normal text-[#1a1a2e]"
-                  style={{ fontSize: '32px', lineHeight: 1.15 }}
+                  className="mb-6 font-normal text-[clamp(1.25rem,2.5vw,2rem)]"
+                  style={{ lineHeight: 1.15, color: isDark ? '#f0f0f5' : '#1a1a2e' }}
                 >
                   Government Agency
                 </h3>
@@ -1744,7 +1672,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Challenge</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Aging infrastructure with critical security vulnerabilities
                   </p>
                 </div>
@@ -1754,7 +1682,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <ArrowRight className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Solution</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Management Consulting + Agile PMO delivery framework
                   </p>
                 </div>
@@ -1764,27 +1692,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     <TrendingUp className="h-3.5 w-3.5" style={{ color: '#FF4800' }} />
                     <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }}>Results</span>
                   </div>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#6b7280' }}>
+                  <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                     Zero security incidents, 50% faster delivery cycles, 100% compliance
                   </p>
                 </div>
                 {/* Metric badges */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     Zero incidents
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     50% faster
                   </span>
                   <span
-                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                    style={{ background: 'rgba(255,72,0,0.12)' }}
+                    className="rounded-lg px-3 py-1.5 text-[13px] font-semibold"
+                    style={{ color: isDark ? '#f0f0f5' : '#1a1a2e', background: isDark ? 'rgba(255,72,0,0.18)' : 'rgba(255,72,0,0.12)' }}
                   >
                     100% compliant
                   </span>
@@ -1795,308 +1723,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════ */}
-      {/* SECTION — CLIENT SUCCESS STORIES                */}
-      {/* ═══════════════════════════════════════════════ */}
-      <section className="relative py-20 gradient-mesh">
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease }}
-            className="mb-14 text-center"
-          >
-            <p
-              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
-              style={{ color: '#FF4800' }}
-            >
-              CLIENT STORIES
-            </p>
-            <h2
-              className="font-normal text-[#1a1a2e]"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
-            >
-              Real results from real partnerships.
-            </h2>
-          </motion.div>
 
-          {/* Success Story Cards Grid */}
-          <motion.div
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-8 lg:grid-cols-3"
-          >
-            {/* Story 1 — Financial Services */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="card-glow relative rounded-xl p-8 transition-all duration-300"
-              style={{
-                background: '#f8f8fc',
-                border: '1px solid rgba(0,0,0,0.06)',
-                borderLeft: '2px solid #FF4800',
-              }}
-            >
-              {/* Industry Badge */}
-              <span
-                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
-                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
-              >
-                Financial Services
-              </span>
-
-              {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
-                &ldquo;Our legacy systems were failing under peak load. We needed a partner who understood enterprise-grade reliability.&rdquo;
-              </p>
-
-              {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
-                Straveda designed a cloud-native architecture with automated failover, reducing deployment times from weeks to hours.
-              </p>
-
-              {/* Metric Badges */}
-              <div className="mb-6 flex flex-wrap gap-2">
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  <MetricCounter target={98} suffix="%" decimals={0} /> faster deployment
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  60% cost reduction
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  <MetricCounter target={15} suffix="M+" decimals={0} /> users served
-                </span>
-              </div>
-
-              {/* Client Quote */}
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
-                &ldquo;Straveda didn&apos;t just fix our problems — they future-proofed our entire platform.&rdquo;
-              </p>
-              <p className="text-[14px] font-semibold text-[#1a1a2e]">
-                Robert Chen
-              </p>
-              <p className="text-[13px]" style={{ color: '#6b7280' }}>
-                CTO · National Financial Group
-              </p>
-
-              {/* View Case Study Link */}
-              <button
-                onClick={() => onNavigate('services')}
-                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
-              >
-                View case study
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-
-            {/* Story 2 — Healthcare */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="card-glow relative rounded-xl p-8 transition-all duration-300"
-              style={{
-                background: '#f8f8fc',
-                border: '1px solid rgba(0,0,0,0.06)',
-                borderLeft: '2px solid #FF4800',
-              }}
-            >
-              {/* Industry Badge */}
-              <span
-                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
-                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
-              >
-                Healthcare
-              </span>
-
-              {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
-                &ldquo;Patient data was siloed across 12 regional offices. Critical information wasn&apos;t reaching doctors in time.&rdquo;
-              </p>
-
-              {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
-                Built a unified integration platform connecting all regional systems with real-time data synchronization and HIPAA-compliant APIs.
-              </p>
-
-              {/* Metric Badges */}
-              <div className="mb-6 flex flex-wrap gap-2">
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  99.99% uptime
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  $<MetricCounter target={4} suffix=".2M" decimals={1} /> savings
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  <MetricCounter target={200} suffix="+" decimals={0} /> integrations
-                </span>
-              </div>
-
-              {/* Client Quote */}
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
-                &ldquo;The integration platform saved lives. Doctors now have instant access to patient histories.&rdquo;
-              </p>
-              <p className="text-[14px] font-semibold text-[#1a1a2e]">
-                Dr. Sarah Mitchell
-              </p>
-              <p className="text-[13px]" style={{ color: '#6b7280' }}>
-                VP of Technology · MedCare Health Systems
-              </p>
-
-              {/* View Case Study Link */}
-              <button
-                onClick={() => onNavigate('services')}
-                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
-              >
-                View case study
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-
-            {/* Story 3 — Government */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.7, ease },
-                },
-              }}
-              className="card-glow relative rounded-xl p-8 transition-all duration-300"
-              style={{
-                background: '#f8f8fc',
-                border: '1px solid rgba(0,0,0,0.06)',
-                borderLeft: '2px solid #FF4800',
-              }}
-            >
-              {/* Industry Badge */}
-              <span
-                className="mb-5 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white"
-                style={{ background: 'rgba(255,72,0,0.15)', color: '#FF4800' }}
-              >
-                Government
-              </span>
-
-              {/* Challenge Quote */}
-              <p className="mb-4 text-[15px] italic leading-relaxed" style={{ color: '#6b7280' }}>
-                &ldquo;We had critical security vulnerabilities and zero modernization roadmap. Compliance deadlines were looming.&rdquo;
-              </p>
-
-              {/* Solution Summary */}
-              <p className="mb-6 text-[14px] leading-relaxed" style={{ color: '#6b7280' }}>
-                Delivered an Agile PMO framework with security-first architecture, enabling continuous compliance and rapid feature delivery.
-              </p>
-
-              {/* Metric Badges */}
-              <div className="mb-6 flex flex-wrap gap-2">
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  3x faster delivery
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  Zero downtime migration
-                </span>
-                <span
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-semibold text-[#1a1a2e]"
-                  style={{ background: 'rgba(255,72,0,0.12)' }}
-                >
-                  <MetricCounter target={500} suffix="+" decimals={0} /> team trained
-                </span>
-              </div>
-
-              {/* Client Quote */}
-              <div
-                className="mb-4 w-full"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              />
-              <p className="mb-2 text-[15px] italic leading-relaxed text-[#1a1a2e]">
-                &ldquo;They turned a failing program into a model for modern government IT. Truly exceptional partners.&rdquo;
-              </p>
-              <p className="text-[14px] font-semibold text-[#1a1a2e]">
-                James Patterson
-              </p>
-              <p className="text-[13px]" style={{ color: '#6b7280' }}>
-                Director of IT · Federal Agency
-              </p>
-
-              {/* View Case Study Link */}
-              <button
-                onClick={() => onNavigate('services')}
-                className="group mt-4 flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#FF4800' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#1a1a2e')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#FF4800')}
-              >
-                View case study
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════════════ */}
       {/* BACK TO TOP LINK                                 */}
       {/* ═══════════════════════════════════════════════ */}
       <div className="flex justify-center py-8">
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })}
           className="link-hover-underline text-[14px] cursor-pointer"
           style={{ color: '#6b7280', background: 'none', border: 'none', padding: 0 }}
         >
@@ -2118,56 +1752,128 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* FINAL CTA BANNER                                 */}
       {/* ═══════════════════════════════════════════════ */}
       <section
-        className="py-24 relative overflow-hidden"
-        style={{ background: '#f8f8fc' }}
+        className="relative overflow-hidden py-32"
+        style={{ background: 'linear-gradient(135deg, #0e0c1c 0%, #1a1535 50%, #0e0c1c 100%)' }}
       >
-        {/* Subtle decorative glow */}
+        {/* Dot grid texture */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(255, 72, 0, 0.06) 0%, transparent 60%)',
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
           }}
         />
+        {/* Orange radial glow — center */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '900px',
+            height: '600px',
+            background: 'radial-gradient(ellipse at center, rgba(255,72,0,0.18) 0%, rgba(255,72,0,0.06) 35%, transparent 65%)',
+          }}
+        />
+        {/* Top edge orange line */}
+        <div
+          className="pointer-events-none absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,72,0,0.6) 50%, transparent)' }}
+        />
+        {/* Bottom edge orange line */}
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,72,0,0.3) 50%, transparent)' }}
+        />
+
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease }}
-          className="mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center lg:px-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.9, ease }}
+          className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center lg:px-8"
         >
-          <h2
-            className="font-normal text-[#1a1a2e] glow-text"
-            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-0.5px' }}
+          {/* Eyebrow label */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
+            className="mb-6 text-[11px] font-semibold uppercase tracking-widest"
+            style={{ color: '#FF4800' }}
           >
-            Ready to modernize your enterprise?
-          </h2>
-          <p className="mt-4 text-[18px]" style={{ color: '#6b7280' }}>
-            Let Straveda architect your path forward.
-          </p>
-          <MagneticButton>
+            Let&apos;s Build Together
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="font-normal text-white"
+            style={{ fontSize: 'clamp(40px,5.5vw,68px)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
+          >
+            Ready to modernize{' '}
+            <span style={{ color: '#FF4800' }}>your enterprise?</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25, ease }}
+            className="mt-6 text-[18px] leading-[1.5]"
+            style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '480px', fontWeight: 400 }}
+          >
+            Let Straveda architect your path forward — from discovery to long-term optimization.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35, ease }}
+            className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
+          >
             <button
               onClick={() => onNavigate('contact')}
-              className="mt-10 inline-flex items-center justify-center rounded-lg px-9 py-4 text-base font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cta-pulse btn-shine"
-              style={{ background: '#FF4800' }}
+              className="group inline-flex items-center gap-2 rounded-full px-9 py-4 text-[14px] font-normal uppercase tracking-widest text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(255,72,0,0.4)]"
+              style={{ background: '#FF4800', fontWeight: 400 }}
             >
               Start a project
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
-          </MagneticButton>
-          <p className="mt-5 text-[14px]" style={{ color: '#9ca3af' }}>
-            Or email us at{' '}
+            <button
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-[14px] font-normal uppercase tracking-widest transition-all duration-200 hover:bg-white/10"
+              style={{
+                color: 'rgba(255,255,255,0.75)',
+                border: '1px solid rgba(255,255,255,0.15)',
+              }}
+            >
+              View case studies
+            </button>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-8 text-[13px]"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
+          >
+            Or reach us at{' '}
             <a
               href="mailto:info@straveda.com"
-              className="underline transition-colors duration-200 hover:opacity-80"
-              style={{ color: '#FF4800' }}
+              className="transition-colors duration-200"
+              style={{ color: 'rgba(255,72,0,0.7)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#FF4800')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,72,0,0.7)')}
             >
               info@straveda.com
             </a>
-          </p>
+          </motion.p>
         </motion.div>
       </section>
 
-      {/* Section progress indicator */}
-      <SectionProgress />
     </div>
   );
 }
