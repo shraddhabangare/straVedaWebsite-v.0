@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Braces, Compass, ClipboardCheck, Server, GitCompareArrows } from 'lucide-react';
 
@@ -100,11 +101,11 @@ const toggleConfig = [
 /*  Success Rate Bar                                                   */
 /* ------------------------------------------------------------------ */
 
-function SuccessRateBar({ rate }: { rate: number }) {
+function SuccessRateBar({ rate, isDark }: { rate: number; isDark: boolean }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="font-semibold text-sm" style={{ color: '#1a1a2e' }}>{rate}%</span>
-      <div className="flex-1 h-2 rounded-full overflow-hidden min-w-[60px]" style={{ background: 'rgba(0,0,0,0.06)' }}>
+      <span className="font-semibold text-sm" style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}>{rate}%</span>
+      <div className="flex-1 h-2 rounded-full overflow-hidden min-w-[60px]" style={{ background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)' }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${rate}%` }}
@@ -123,15 +124,17 @@ function SuccessRateBar({ rate }: { rate: number }) {
 function CellContent({
   criterion,
   service,
+  isDark,
 }: {
   criterion: (typeof criteria)[number];
   service: ServiceData;
+  isDark: boolean;
 }) {
   if (criterion.key === 'deliverables') {
     return (
       <ul className="flex flex-col gap-1">
         {service.deliverables.map((d, i) => (
-          <li key={i} className="flex items-start gap-1.5 text-sm" style={{ color: '#4a4a5a' }}>
+          <li key={i} className="flex items-start gap-1.5 text-sm" style={{ color: isDark ? '#f0f0f5' : '#4a4a5a' }}>
             <span className="mt-0.5 text-[#FF4800] text-[10px] leading-none">•</span>
             {d}
           </li>
@@ -141,7 +144,7 @@ function CellContent({
   }
 
   if (criterion.key === 'successRate') {
-    return <SuccessRateBar rate={service.successRate} />;
+    return <SuccessRateBar rate={service.successRate} isDark={isDark} />;
   }
 
   if (criterion.key === 'investment') {
@@ -155,7 +158,7 @@ function CellContent({
   const value = service[criterion.key];
 
   if (typeof value === 'string') {
-    return <span className="text-sm" style={{ color: '#4a4a5a' }}>{value}</span>;
+    return <span className="text-sm" style={{ color: isDark ? '#f0f0f5' : '#4a4a5a' }}>{value}</span>;
   }
 
   return null;
@@ -167,6 +170,8 @@ function CellContent({
 
 export default function ServiceComparison() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const toggleService = (id: string) => {
     setSelected((prev) => {
@@ -192,7 +197,7 @@ export default function ServiceComparison() {
   const allSelected = selected.size === 4;
 
   return (
-    <section className="px-6 py-24" style={{ background: '#f8f8fc' }}>
+    <section className="px-6 py-24" style={{ background: isDark ? '#12121e' : '#f8f8fc' }}>
       <div className="mx-auto max-w-6xl">
         {/* Section header */}
         <div className="mb-12 text-center">
@@ -211,7 +216,7 @@ export default function ServiceComparison() {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
             className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium"
-            style={{ color: '#1a1a2e' }}
+            style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}
           >
             Find the right solution for your enterprise.
           </motion.h2>
@@ -233,15 +238,16 @@ export default function ServiceComparison() {
                 layout
                 onClick={() => toggleService(t.id)}
                 whileTap={{ scale: 0.96 }}
-                className={`
-                  flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors
-                  ${
-                    isActive
-                      ? 'bg-[#FF4800] text-white'
-                      : 'border bg-white text-[#6b7280] hover:border-[#FF4800]/30 hover:text-[#1a1a2e]'
-                  }
-                `}
-                style={isActive ? undefined : { borderColor: 'rgba(0,0,0,0.08)' }}
+                className="flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors border"
+                style={
+                  isActive
+                    ? { background: '#FF4800', color: '#ffffff', borderColor: '#FF4800' }
+                    : {
+                        background: isDark ? '#1a1a2e' : '#FFFFFF',
+                        borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+                        color: isDark ? '#9ca3af' : '#6b7280',
+                      }
+                }
               >
                 {t.icon}
                 <span className="hidden sm:inline">{t.label}</span>
@@ -254,13 +260,14 @@ export default function ServiceComparison() {
             onClick={toggleAll}
             whileTap={{ scale: 0.96 }}
             className={`
-              ml-auto flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors
+              ml-auto flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors
               ${
                 allSelected
                   ? 'bg-[#FF4800] text-white'
-                  : 'border border-[#FF4800]/40 bg-white text-[#FF4800] hover:bg-[#FF4800]/5'
+                  : 'border border-[#FF4800]/40 text-[#FF4800] hover:bg-[#FF4800]/5'
               }
             `}
+            style={allSelected ? undefined : { background: isDark ? 'transparent' : '#FFFFFF' }}
           >
             <GitCompareArrows size={15} />
             <span className="hidden sm:inline">Compare All</span>
@@ -276,11 +283,14 @@ export default function ServiceComparison() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease }}
-              className="flex flex-col items-center justify-center rounded-xl bg-white py-20 text-center"
-              style={{ border: '1px solid rgba(0,0,0,0.06)' }}
+              className="flex flex-col items-center justify-center rounded-xl py-20 text-center"
+              style={{
+                background: isDark ? '#12121e' : '#FFFFFF',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+              }}
             >
-              <GitCompareArrows size={48} className="mb-4" style={{ color: 'rgba(0,0,0,0.15)' }} />
-              <p className="text-lg" style={{ color: '#6b7280' }}>
+              <GitCompareArrows size={48} className="mb-4" style={{ color: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)' }} />
+              <p className="text-lg" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                 Select services above to compare
               </p>
             </motion.div>
@@ -291,16 +301,19 @@ export default function ServiceComparison() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease }}
-              className="overflow-hidden rounded-xl bg-white"
-              style={{ border: '1px solid rgba(0,0,0,0.06)' }}
+              className="overflow-hidden rounded-xl"
+              style={{
+                background: isDark ? '#12121e' : '#FFFFFF',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+              }}
             >
               {/* Scrollable wrapper for mobile */}
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[500px] border-collapse">
                   {/* Header Row */}
                   <thead>
-                    <tr style={{ background: '#f3f4f6' }}>
-                      <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.15em] w-[160px]" style={{ color: '#6b7280' }}>
+                    <tr style={{ background: isDark ? '#1a1a2e' : '#f3f4f6' }}>
+                      <th className="px-5 py-4 text-left text-[12px] font-semibold uppercase tracking-[0.15em] w-[160px]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                         Criteria
                       </th>
                       {Array.from(selected).map((id) => {
@@ -309,7 +322,7 @@ export default function ServiceComparison() {
                           <th
                             key={id}
                             className="px-5 py-4 text-left text-sm font-semibold"
-                            style={{ color: '#1a1a2e' }}
+                            style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-[#FF4800]">{service.icon}</span>
@@ -332,13 +345,13 @@ export default function ServiceComparison() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.3, ease, delay: rowIdx * 0.05 }}
-                        className={
-                          rowIdx % 2 === 0
-                            ? 'bg-transparent'
-                            : 'bg-[#fafafa]'
+                        style={
+                          rowIdx % 2 !== 0
+                            ? { background: isDark ? 'rgba(26,26,46,0.4)' : 'rgba(250,250,250,1)' }
+                            : undefined
                         }
                       >
-                        <td className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.1em] align-top whitespace-nowrap" style={{ color: '#6b7280' }}>
+                        <td className="px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.1em] align-top whitespace-nowrap" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
                           {criterion.label}
                         </td>
                         {Array.from(selected).map((id) => {
@@ -348,6 +361,7 @@ export default function ServiceComparison() {
                               <CellContent
                                 criterion={criterion}
                                 service={service}
+                                isDark={isDark}
                               />
                             </td>
                           );
