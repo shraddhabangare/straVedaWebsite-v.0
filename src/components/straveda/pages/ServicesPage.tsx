@@ -247,7 +247,7 @@ const cardVariants = {
 function HeroSection() {
   const heroScrolled = useScrollGradient(100);
   return (
-    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white dark:bg-[#0a0a14] px-6 text-center overflow-hidden">
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center bg-white dark:bg-[#0a0a14] px-6 py-20 md:py-0 text-center overflow-hidden">
       {/* Decorative floating geometric shapes */}
       <div className="pointer-events-none absolute top-[20%] right-[15%] h-[6px] w-[6px] rounded-full bg-[#FF4800]" style={{ opacity: 0.15, animation: 'float-dot-1 4s ease-in-out infinite' }} />
       <div className="pointer-events-none absolute bottom-[25%] left-[10%] h-[8px] w-[8px] rounded-full bg-[#2B2358]" style={{ opacity: 0.1, animation: 'float-dot-2 5s ease-in-out infinite' }} />
@@ -258,7 +258,7 @@ function HeroSection() {
         transition={{ duration: 0.6, ease }}
         className="mb-4 flex flex-col items-center"
       >
-        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]">
+        <span className="text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]">
           What We Do
         </span>
         <motion.div
@@ -270,8 +270,9 @@ function HeroSection() {
         />
       </motion.div>
 
-      <h1 className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.1] tracking-tight transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
-        style={{ transitionDuration: '0.6s' }}
+      <h1
+        className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-normal leading-[1.0] transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
+        style={{ letterSpacing: '-2.05px', transitionDuration: '0.6s' }}
       >
         <TextReveal delay={0.3} stagger={0.04}>Comprehensive enterprise services built to modernize and deliver.</TextReveal>
       </h1>
@@ -299,7 +300,7 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
     <motion.div
       custom={direction}
       variants={itemVariants}
-      className="service-card-glow relative flex items-center justify-center rounded-xl bg-[#f8f8fc] dark:bg-white/[0.04] p-12 lg:min-h-[340px] card-glow card-premium border border-[#e5e7eb] dark:border-white/[0.08] hover:shadow-[0_8px_30px_rgba(255,72,0,0.1)]"
+      className="service-card-glow relative flex items-center justify-center rounded-xl bg-[#f8f8fc] dark:bg-white/[0.04] p-8 md:p-12 lg:min-h-[340px] card-glow card-premium border border-[#e5e7eb] dark:border-white/[0.08] hover:shadow-[0_8px_30px_rgba(255,72,0,0.1)]"
     >
       {/* Top gradient accent line */}
       <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-xl bg-gradient-to-r from-[#FF4800] via-[rgba(255,72,0,0.4)] to-transparent" />
@@ -317,13 +318,13 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
       variants={itemVariants}
       className="flex flex-col justify-center gap-5 py-4"
     >
-      <span className="inline-block w-fit rounded-full bg-[#FF4800]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FF4800]">
+      <span className="inline-block w-fit rounded-full bg-[#FF4800]/15 px-3 py-1 text-[11px] font-normal uppercase tracking-[0.2em] text-[#FF4800]">
         {service.badge}
       </span>
-      <h3 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-medium leading-tight text-[#1a1a2e] dark:text-[#f0f0f5]">
+      <h3 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 1.15, letterSpacing: '-1.5px' }}>
         {service.title}
       </h3>
-      <p className="max-w-xl text-base leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{service.body}</p>
+      <p className="max-w-xl text-base leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{service.body}</p>
       <ul className="mt-1 flex flex-col gap-2">
         {service.capabilities.map((cap, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-[#6b7280] dark:text-[#9ca3af]">
@@ -341,7 +342,7 @@ function ServiceBlock({ service }: { service: ServiceBlockData; index: number })
               data-magnetic
               className={
                 i === 0
-                  ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e03e00] btn-shine'
+                  ? 'rounded-lg bg-[#FF4800] px-5 py-2.5 text-[13px] font-normal uppercase tracking-wider text-white transition-colors hover:bg-[#e03e00] btn-shine'
                   : 'group flex items-center gap-1 text-sm font-medium text-[#FF4800] transition-colors hover:text-[#ff6b33]'
               }
             >
@@ -378,7 +379,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <section className="relative overflow-hidden">
       <div
-        className="relative px-6 py-20 md:py-28"
+        className="relative px-6 py-24 md:py-28"
         style={{
           background: 'linear-gradient(135deg, #2B2358 0%, #1e1a3f 100%)',
         }}
@@ -401,7 +402,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease }}
-            className="text-[clamp(1.75rem,4vw,2.75rem)] font-semibold text-white leading-tight mb-5"
+            className="text-balance text-[clamp(1.75rem,4vw,2.75rem)] font-normal text-white mb-5" style={{ lineHeight: 1.0, letterSpacing: "-2.05px" }}
           >
             Ready to transform your enterprise?
           </motion.h2>
@@ -422,7 +423,7 @@ function CTABanner({ onNavigate }: { onNavigate: (page: string) => void }) {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.3, ease }}
               onClick={() => onNavigate('contact')}
-              className="rounded-lg bg-[#FF4800] px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-[#e03e00] hover:shadow-[0_8px_32px_rgba(255,72,0,0.3)] hover:scale-[1.02]"
+              className="rounded-lg bg-[#FF4800] px-8 py-4 text-[14px] font-normal uppercase tracking-widest text-white transition-all duration-200 hover:bg-[#e03e00] hover:shadow-[0_8px_32px_rgba(255,72,0,0.3)] hover:scale-[1.02]"
             >
               Start a project
               <ArrowRight className="ml-2 inline-block w-4 h-4" />
@@ -449,7 +450,7 @@ function WhyStravedaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
         >
           Why Straveda
         </motion.p>
@@ -458,7 +459,7 @@ function WhyStravedaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-14 text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]"
+          className="mb-16 text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: '-2.05px' }}
         >
           Why enterprises choose us.
         </motion.h2>
@@ -471,21 +472,21 @@ function WhyStravedaSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {whyCards.map((card, i) => (
             <motion.div
               key={i}
               variants={cardVariants}
-              className="relative flex flex-col items-start gap-4 rounded-xl bg-white dark:bg-white/[0.03] p-8 border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20 overflow-hidden"
+              className="relative flex flex-col items-start gap-4 rounded-xl bg-white dark:bg-white/[0.03] p-6 md:p-8 border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#FF4800]/20 overflow-hidden"
             >
               {/* Decorative step number behind card */}
               <span className="absolute -top-2 -right-2 text-[80px] font-bold leading-none select-none pointer-events-none text-[#FF4800]" style={{ opacity: 0.04 }}>
                 0{i + 1}
               </span>
               {card.icon}
-              <h4 className="text-lg font-semibold text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
-              <p className="text-sm leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
+              <h4 className="text-lg font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
+              <p className="text-sm leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{card.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -506,16 +507,16 @@ function FAQSection() {
   };
 
   return (
-    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-6 py-24 section-glow-top relative">
+    <section className="bg-[#f8f8fc] dark:bg-[#0a0a14] px-4 sm:px-6 py-24 section-glow-top relative">
       <div className="mx-auto max-w-3xl relative z-10">
         {/* Header */}
-        <div className="mb-14 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             FAQ
           </motion.p>
@@ -524,7 +525,7 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: "-2.05px" }}
           >
             Frequently asked questions.
           </motion.h2>
@@ -555,7 +556,7 @@ function FAQSection() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-[18px] font-medium leading-snug text-[#1a1a2e] dark:text-[#f0f0f5]">
+                  <span className="text-[18px] font-normal leading-[1.5] text-[#1a1a2e] dark:text-[#f0f0f5]">
                     {item.question}
                   </span>
                   <motion.span
@@ -578,7 +579,7 @@ function FAQSection() {
                       transition={{ duration: 0.3, ease }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-[16px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
+                      <p className="px-6 pb-5 text-[16px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">
                         {item.answer}
                       </p>
                     </motion.div>
@@ -663,7 +664,7 @@ function WhyChooseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-3 text-center text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
         >
           WHY STRAVEDA
         </motion.p>
@@ -672,7 +673,8 @@ function WhyChooseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-14 text-center text-[36px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
+          className="mb-14 text-center text-[#1a1a2e] dark:text-[#f0f0f5] font-normal"
+          style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
         >
           Why leading enterprises choose us
         </motion.h2>
@@ -696,8 +698,8 @@ function WhyChooseSection() {
               <div className="flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: 'rgba(255,72,0,0.08)' }}>
                 <card.icon size={24} className="text-[#FF4800]" />
               </div>
-              <h4 className="text-[18px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
-              <p className="text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{card.description}</p>
+              <h4 className="text-[18px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{card.title}</h4>
+              <p className="text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{card.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -730,7 +732,7 @@ function OurApproachSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-3 text-center text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
         >
           OUR APPROACH
         </motion.p>
@@ -739,7 +741,8 @@ function OurApproachSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-16 text-center text-[36px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
+          className="mb-16 text-center font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+          style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
         >
           A proven 4-step process
         </motion.h2>
@@ -767,8 +770,8 @@ function OurApproachSection() {
                 <div className="relative z-10 mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#FF4800]/20 bg-white dark:bg-[#0a0a14]">
                   <span className="text-[20px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
                 </div>
-                <h3 className="mb-2 text-[20px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
-                <p className="text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af] max-w-[200px]">{item.description}</p>
+                <h3 className="mb-2 text-[20px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
+                <p className="text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af] max-w-[200px]">{item.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -798,8 +801,8 @@ function OurApproachSection() {
                   <span className="text-[12px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
                 </div>
                 <div className="pt-0.5">
-                  <h3 className="mb-1 text-[20px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
-                  <p className="text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{item.description}</p>
+                  <h3 className="mb-1 text-[20px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
+                  <p className="text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -829,8 +832,8 @@ function OurApproachSection() {
                   <span className="text-[12px] font-bold text-[#FF4800]" style={{ opacity: 0.9 }}>{item.step}</span>
                 </div>
                 <div className="pt-0.5">
-                  <h3 className="mb-1 text-[18px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
-                  <p className="text-[15px] leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">{item.description}</p>
+                  <h3 className="mb-1 text-[18px] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]">{item.title}</h3>
+                  <p className="text-[15px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -847,18 +850,18 @@ function OurApproachSection() {
 
 function TechStackSection() {
   return (
-    <section className="bg-white dark:bg-[#0a0a14] py-20 relative">
+    <section className="bg-white dark:bg-[#0a0a14] py-24 relative">
       {/* Subtle dot-grid-dense pattern background */}
       <div className="absolute inset-0 dot-grid-dense pointer-events-none opacity-20" />
       <div className="container-wide px-6 relative z-10">
         {/* Section header */}
-        <div className="mb-14 text-center">
+        <div className="mb-16 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
           >
             TECHNOLOGY STACK
           </motion.p>
@@ -867,7 +870,7 @@ function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
+            className="text-[clamp(1.75rem,4vw,2.625rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: "-2.05px" }}
           >
             Technologies we master.
           </motion.h2>
@@ -903,11 +906,11 @@ function TechStackSection() {
                   {tech.icon}
                 </div>
                 {/* Name */}
-                <h3 className="text-base font-semibold text-[#1a1a2e] dark:text-[#f0f0f5] leading-tight">
+                <h3 className="text-base font-normal text-[#1a1a2e] dark:text-[#f0f0f5] leading-tight">
                   {tech.name}
                 </h3>
                 {/* Description */}
-                <p className="text-sm leading-relaxed text-[#6b7280] dark:text-[#9ca3af]">
+                <p className="text-sm leading-[1.5] text-[#6b7280] dark:text-[#9ca3af]">
                   {tech.description}
                 </p>
               </div>
@@ -939,19 +942,8 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
 
       <ServicesHoverModal onNavigate={onNavigate} />
 
-      {services.map((service, index) => (
-        <div key={service.id}>
-          <ServiceBlock service={service} index={index} />
-          {/* Subtle horizontal divider between service blocks */}
-          {index < services.length - 1 && (
-            <div className="max-w-7xl mx-auto h-px bg-black/[0.04] dark:bg-white/[0.04]" />
-          )}
-        </div>
-      ))}
-
       <WhyStravedaSection />
       <OurApproachSection />
-      <WhyChooseSection />
       <FAQSection />
       <ServiceComparison />
       <TechStackSection />
