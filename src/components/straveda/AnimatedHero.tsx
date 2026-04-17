@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Building2, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Building2, Star, X, Quote } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import MagneticButton from '@/components/straveda/MagneticButton';
@@ -29,6 +29,7 @@ interface AnimatedHeroProps {
  */
 export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
   const [titleNumber, setTitleNumber] = useState(0);
+  const [reviewsOpen, setReviewsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
   const { theme, resolvedTheme } = useTheme();
@@ -417,12 +418,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             >
               5.0
             </span>
-            <span
-              className="text-[14px]"
-              style={{ color: colors.ratingLabel }}
+            <button
+              onClick={() => setReviewsOpen(true)}
+              className="text-[14px] underline underline-offset-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+              style={{ color: colors.ratingLabel, textDecorationColor: 'rgba(107,114,128,0.4)', background: 'none', border: 'none', padding: 0 }}
             >
               Google Reviews
-            </span>
+            </button>
           </div>
         </motion.div>
       </div>
@@ -469,6 +471,139 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           </div>
         </motion.div>
       </motion.div>
+
+      {/* ── Google Reviews Modal ── */}
+      <AnimatePresence>
+        {reviewsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(6px)' }}
+            onClick={() => setReviewsOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg rounded-2xl overflow-hidden"
+              style={{
+                background: isDark ? '#13131f' : '#ffffff',
+                border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.25)',
+              }}
+            >
+              {/* Header */}
+              <div
+                className="flex items-center justify-between px-6 py-5"
+                style={{ borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)' }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 fill-current" style={{ color: '#FF4800' }} />
+                    ))}
+                  </div>
+                  <div>
+                    <span className="text-[15px] font-semibold" style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}>
+                      5.0
+                    </span>
+                    <span className="ml-1.5 text-[13px]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
+                      · Google Reviews
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setReviewsOpen(false)}
+                  className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200"
+                  style={{ background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)', color: isDark ? '#9ca3af' : '#6b7280' }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              {/* Reviews */}
+              <div className="px-6 py-5 flex flex-col gap-5">
+                {[
+                  {
+                    name: 'James Whitfield',
+                    role: 'VP of Engineering, FinServ Corp',
+                    avatar: 'JW',
+                    date: 'March 2025',
+                    text: 'Straveda transformed our entire infrastructure strategy. Their enterprise architecture expertise is second to none — we modernized our core platform in under 6 months with zero disruption.',
+                  },
+                  {
+                    name: 'Priya Nambiar',
+                    role: 'CTO, HealthBridge Systems',
+                    avatar: 'PN',
+                    date: 'January 2025',
+                    text: 'Outstanding team. They aligned our IT roadmap with business goals in ways we couldn\'t achieve internally. The ROI was evident within the first quarter. Highly recommend Straveda.',
+                  },
+                ].map((review) => (
+                  <div
+                    key={review.name}
+                    className="rounded-xl p-5"
+                    style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)', border: isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.05)' }}
+                  >
+                    <div className="flex items-start gap-3 mb-3">
+                      <div
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[13px] font-semibold text-white"
+                        style={{ background: 'linear-gradient(135deg, #FF4800, #ff7040)' }}
+                      >
+                        {review.avatar}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[14px] font-semibold" style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}>
+                          {review.name}
+                        </p>
+                        <p className="text-[12px]" style={{ color: isDark ? '#6b7280' : '#9ca3af' }}>
+                          {review.role}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-3.5 w-3.5 fill-current" style={{ color: '#FF4800' }} />
+                        ))}
+                      </div>
+                    </div>
+                    <Quote size={14} className="mb-1.5 opacity-30" style={{ color: '#FF4800' }} />
+                    <p className="text-[13px] leading-relaxed" style={{ color: isDark ? '#9ca3af' : '#4a4a5a' }}>
+                      {review.text}
+                    </p>
+                    <p className="mt-2 text-[11px]" style={{ color: isDark ? '#4b5563' : '#d1d5db' }}>
+                      {review.date}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer CTA */}
+              <div
+                className="px-6 py-4 flex items-center justify-between"
+                style={{ borderTop: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)' }}
+              >
+                <p className="text-[12px]" style={{ color: isDark ? '#6b7280' : '#9ca3af' }}>
+                  Verified reviews via Google
+                </p>
+                <a
+                  href="https://www.google.com/search?q=Straveda+reviews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+                  style={{ background: '#FF4800' }}
+                >
+                  View on Google
+                  <ArrowRight size={13} />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

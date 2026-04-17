@@ -58,11 +58,31 @@ const cardVariants = {
 };
 
 const bentoItems: { title: string; description: string; size: 'large' | 'normal'; icon: LucideIcon }[] = [
-  { title: "Real-Time Monitoring", description: "24/7 infrastructure monitoring with instant alerts and automated remediation.", size: "large", icon: Activity },
-  { title: "Cloud Native", description: "Built for Kubernetes, Docker, and serverless from day one.", size: "normal", icon: Cloud },
-  { title: "Security First", description: "Zero-trust architecture with compliance automation.", size: "normal", icon: Shield },
-  { title: "AI-Powered Insights", description: "Machine learning analytics that predict issues before they impact your business.", size: "normal", icon: Brain },
-  { title: "Global Scale", description: "Multi-region deployment with 99.99% SLA guarantee.", size: "normal", icon: Globe }
+  {
+    title: "Real-Time Infrastructure Monitoring",
+    description: "Monitor every layer of your enterprise infrastructure with live dashboards, intelligent alerting, and automated incident remediation — minimizing downtime before it impacts revenue.",
+    size: "large", icon: Activity,
+  },
+  {
+    title: "Cloud-Native Architecture",
+    description: "Design and deploy cloud-native workloads optimized for Kubernetes, Docker, and serverless platforms — delivering elastic scalability and operational resilience from day one.",
+    size: "normal", icon: Cloud,
+  },
+  {
+    title: "Zero-Trust Security",
+    description: "Enforce zero-trust security across every endpoint, workload, and data pipeline with continuous compliance automation aligned to NIST, SOC 2, and FedRAMP standards.",
+    size: "normal", icon: Shield,
+  },
+  {
+    title: "AI-Powered Analytics",
+    description: "Deploy predictive machine learning models that surface anomalies, forecast capacity demands, and accelerate data-driven decision-making across your enterprise technology stack.",
+    size: "normal", icon: Brain,
+  },
+  {
+    title: "Global-Scale Deployment",
+    description: "Run production workloads across multi-region, multi-cloud environments with 99.99% SLA guarantees, geo-redundant failover, and infrastructure that scales with your growth.",
+    size: "normal", icon: Globe,
+  },
 ];
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
@@ -86,7 +106,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: '96px', fontWeight: 600, lineHeight: 1 }}>
+    <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(48px, 10vw, 96px)', fontWeight: 600, lineHeight: 1 }}>
       {count}
       {suffix}
     </span>
@@ -115,7 +135,7 @@ function MetricCounter({ target, suffix, decimals = 0 }: { target: number; suffi
   }, [inView, target, decimals]);
 
   return (
-    <span ref={ref} className="counter-display text-[#1a1a2e]" style={{ fontSize: '48px', fontWeight: 700, lineHeight: 1 }}>
+    <span ref={ref} className="counter-display text-[#1a1a2e]" style={{ fontSize: 'clamp(28px, 6vw, 48px)', fontWeight: 700, lineHeight: 1 }}>
       {count}{suffix}
     </span>
   );
@@ -142,7 +162,7 @@ function StatCounter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <span ref={ref} className="counter-hover-gradient text-[28px] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
+    <span ref={ref} className="counter-hover-gradient text-[clamp(18px,4vw,28px)] font-bold text-[#1a1a2e] dark:text-[#f0f0f5]">
       {count}{suffix}
     </span>
   );
@@ -247,7 +267,7 @@ function TestimonialsCarousel() {
         {/* Previous button */}
         <button
           onClick={goPrev}
-          className="testimonial-chevron absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+          className="testimonial-chevron absolute left-0 z-10 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200"
           style={{
             background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
             color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
@@ -260,7 +280,7 @@ function TestimonialsCarousel() {
         </button>
 
         {/* Card */}
-        <div className="mx-12 w-full" style={{ maxWidth: '640px' }}>
+        <div className="mx-4 sm:mx-12 w-full" style={{ maxWidth: '640px' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -281,7 +301,7 @@ function TestimonialsCarousel() {
               {/* Large quote mark */}
               <span
                 className="mb-4 block leading-none"
-                style={{ fontSize: '56px', color: '#FF4800' }}
+                style={{ fontSize: 'clamp(36px, 8vw, 56px)', color: '#FF4800' }}
               >
                 &#x275D;
               </span>
@@ -299,7 +319,7 @@ function TestimonialsCarousel() {
 
               {/* Quote text */}
               <p
-                className="testimonial-quote-text mb-8 text-[20px] italic leading-[1.8]"
+                className="testimonial-quote-text mb-8 text-[16px] sm:text-[20px] italic leading-[1.8]"
                 style={{ color: isDark ? '#d1d5db' : '#1a1a2e' }}
               >
                 {t.quote}
@@ -355,7 +375,7 @@ function TestimonialsCarousel() {
         {/* Next button */}
         <button
           onClick={goNext}
-          className="testimonial-chevron absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+          className="testimonial-chevron absolute right-0 z-10 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200"
           style={{
             background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
             color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
@@ -374,19 +394,21 @@ function TestimonialsCarousel() {
           <motion.button
             key={i}
             onClick={() => goTo(i)}
-            className="rounded-full"
-            animate={{
-              scale: i === currentIndex ? 1.4 : 1,
-              background: i === currentIndex ? '#FF4800' : (isDark ? 'rgba(255,255,255,0.2)' : '#d1d5db'),
-            }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            whileHover={{ scale: 1.5 }}
-            style={{
-              width: '8px',
-              height: '8px',
-            }}
+            className="flex items-center justify-center"
+            style={{ width: '44px', height: '44px' }}
             aria-label={`Go to testimonial ${i + 1}`}
-          />
+          >
+            <motion.span
+              className="rounded-full block"
+              animate={{
+                scale: i === currentIndex ? 1.4 : 1,
+                background: i === currentIndex ? '#FF4800' : (isDark ? 'rgba(255,255,255,0.2)' : '#d1d5db'),
+              }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              whileHover={{ scale: 1.5 }}
+              style={{ width: '8px', height: '8px' }}
+            />
+          </motion.button>
         ))}
       </div>
     </div>
@@ -449,7 +471,7 @@ function FAQSection() {
           </p>
           <h2
             className="font-normal heading-gradient"
-            style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
+            style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
           >
             Questions? We&apos;ve got answers.
           </h2>
@@ -498,7 +520,7 @@ function FAQSection() {
                 <motion.span
                   animate={{ rotate: openIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3, ease }}
-                  className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300 ${openIndex === index ? 'bg-[#FF4800] text-white' : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#6b7280] dark:text-[#9ca3af]'}`}
+                  className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300 ${openIndex === index ? 'bg-[#FF4800] text-white' : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#6b7280] dark:text-[#9ca3af]'}`}
                 >
                   <Plus className="h-4 w-4" />
                 </motion.span>
@@ -534,6 +556,22 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   const heroScrolled = useScrollGradient(100);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
+  const capScrollRef = useRef<HTMLDivElement>(null);
+  const [capActiveIdx, setCapActiveIdx] = useState(0);
+
+  const handleCapScroll = () => {
+    const el = capScrollRef.current;
+    if (!el) return;
+    const cardWidth = el.scrollWidth / bentoItems.length;
+    setCapActiveIdx(Math.round(el.scrollLeft / cardWidth));
+  };
+
+  const scrollCapTo = (i: number) => {
+    const el = capScrollRef.current;
+    if (!el) return;
+    const cardWidth = el.scrollWidth / bentoItems.length;
+    el.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+  };
 
 
   return (
@@ -560,30 +598,31 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8, ease }}
-        className="py-24 bg-white dark:bg-[#0a0a14]"
+        className="py-12 md:py-24 bg-white dark:bg-[#0a0a14] relative"
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
           <MarqueeLogoScroller
             title="Technology Partners"
             description="Straveda partners with the world's leading enterprise technology providers to deliver modern, open-standards solutions."
             speed="slow"
             logos={[
-              { src: 'https://www.dropbox.com/scl/fi/05tvh664nd2eivo56vv7a/Azure-Database-MariaDB-Server.svg?rlkey=s0swm90cwzl3458r45drs7pm4&raw=1', 
-              alt: 'Microsoft Azure', gradient: { from: '#0078D4', via: '#00BCF2', to: '#50E6FF' } },
-              { src: 'https://www.dropbox.com/scl/fi/0klrm4vry5vusyzy5id0u/AWS_Simple_Icons_AWS_Cloud.svg.png?rlkey=zh6tapbxpwp3tsgqn343jttdv&st=5bx24ri3&raw=1', alt: 'AWS', gradient: { from: '#FF9900', via: '#FFB84D', to: '#FFD700' } },
+              { src: 'https://www.dropbox.com/scl/fi/05tvh664nd2eivo56vv7a/Azure-Database-MariaDB-Server.svg?rlkey=s0swm90cwzl3458r45drs7pm4&st=7afp7hat&raw=1', alt: 'Microsoft Azure', gradient: { from: '#0078D4', via: '#00BCF2', to: '#50E6FF' } },
+              { src: 'https://www.dropbox.com/scl/fi/0klrm4vry5vusyzy5id0u/AWS_Simple_Icons_AWS_Cloud.svg.png?rlkey=zh6tapbxpwp3tsgqn343jttdv&st=up07ra23&raw=1', alt: 'AWS', gradient: { from: '#FF9900', via: '#FFB84D', to: '#FFD700' } },
               { src: 'https://svgl.app/library/google-cloud.svg', alt: 'Google Cloud', gradient: { from: '#4285F4', via: '#34A853', to: '#FBBC05' } },
-              { src: 'https://svgl.app/library/red-hat.svg', alt: 'Red Hat', gradient: { from: '#EE0000', via: '#CC0000', to: '#990000' } },
-              { src: 'https://svgl.app/library/docker.svg', alt: 'Docker', gradient: { from: '#2496ED', via: '#0db7ed', to: '#086dd7' } },
-              { src: 'https://svgl.app/library/kubernetes.svg', alt: 'Kubernetes', gradient: { from: '#326CE5', via: '#5585E8', to: '#7BA3ED' } },
-              { src: 'https://svgl.app/library/linux-foundation.svg', alt: 'Linux', gradient: { from: '#333333', via: '#555555', to: '#111111' } },
-              { src: 'https://svgl.app/library/ibm.svg', alt: 'IBM', gradient: { from: '#1F70C1', via: '#0530AD', to: '#054ADA' } },
+              { src: 'https://www.dropbox.com/scl/fi/33dniov3ozmzibus7038f/redHat.jpg?rlkey=cqj9ysxdgyp1g2htqeu55ylrq&st=lu2yae9g&raw=1', alt: 'Red Hat', gradient: { from: '#EE0000', via: '#CC0000', to: '#990000' } },
+              { src: 'https://www.dropbox.com/scl/fi/1iti6zfxfdm4wv4ghr2p1/dockerLogo.webp?rlkey=yfqk7xqnih2bxds2kx394dmz3&st=wdmjf0w3&raw=1', alt: 'Docker', gradient: { from: '#2496ED', via: '#0db7ed', to: '#086dd7' } },
+              { src: 'https://www.dropbox.com/scl/fi/zuox16vbg8x90rd2fmfuq/Kubernetes-Logo.jpg?rlkey=emlmzuvram0e5ayr68sxaulgi&st=k112wvmy&raw=1', alt: 'Kubernetes', gradient: { from: '#326CE5', via: '#5585E8', to: '#7BA3ED' } },
+              { src: 'https://www.dropbox.com/scl/fi/o0p4msk4k34c9uw94ocdn/Linux_Foundation_logo.png?rlkey=gyln1jhbavrq5pgnh2dyg8ciy&st=ebioy7aq&raw=1', alt: 'Linux', gradient: { from: '#333333', via: '#555555', to: '#111111' } },
+              { src: 'https://www.dropbox.com/scl/fi/s217efpown00nhr85i2q6/Color-IBM-Logo.jpg?rlkey=qv4ufawqv68f119zr0de3pa1x&st=25se6672&raw=1', alt: 'IBM', gradient: { from: '#1F70C1', via: '#0530AD', to: '#054ADA' } },
               { src: 'https://svgl.app/library/salesforce.svg', alt: 'Salesforce', gradient: { from: '#00A1E0', via: '#0176D3', to: '#032D60' } },
-              { src: 'https://svgl.app/library/oracle.svg', alt: 'Oracle', gradient: { from: '#F80000', via: '#C74634', to: '#A61108' } },
-              { src: 'https://svgl.app/library/sap.svg', alt: 'SAP', gradient: { from: '#0070F2', via: '#0FAAFF', to: '#005FCE' } },
-              { src: 'https://svgl.app/library/vmware.svg', alt: 'VMware', gradient: { from: '#607078', via: '#96A2AA', to: '#464F54' } },
-              { src: 'https://svgl.app/library/cisco.svg', alt: 'Cisco', gradient: { from: '#1BA0D7', via: '#049FD9', to: '#005073' } },
-              { src: 'https://svgl.app/library/intel.svg', alt: 'Intel', gradient: { from: '#0071C5', via: '#0095D9', to: '#00BCFF' } },
-              { src: 'https://svgl.app/library/nvidia.svg', alt: 'NVIDIA', gradient: { from: '#76B900', via: '#5F9900', to: '#3D6400' } },
+              { src: 'https://www.dropbox.com/scl/fi/kvnwfjr3bvjh9m2cv6lax/oracleLogo.png?rlkey=pdvjen1sp7pnkewfevcfrnouo&st=y16bmodo&raw=1', alt: 'Oracle', gradient: { from: '#F80000', via: '#C74634', to: '#A61108' } },
+              { src: 'https://www.dropbox.com/scl/fi/s462dsl3g3h7d428h52as/sap-logo.jpg?rlkey=igymohkzj6rhpqnlmcwrnundq&st=skfld2a2&raw=1', alt: 'SAP', gradient: { from: '#0070F2', via: '#0FAAFF', to: '#005FCE' } },
+              { src: 'https://www.dropbox.com/scl/fi/e7r2kjnfs9wjj60sb5wd9/vmware.jpeg?rlkey=8l0pwwdqm8ysvtdappsnd2ulm&st=7iqafwmr&raw=1', alt: 'VMware', gradient: { from: '#607078', via: '#96A2AA', to: '#464F54' } },
+              { src: 'https://www.dropbox.com/scl/fi/phr5u1cm7aad009v5ipm2/Cisco_logo.svg.png?rlkey=igx9ld4g7nvygjygez4fnji43&st=68gru0ru&raw=1', alt: 'Cisco', gradient: { from: '#1BA0D7', via: '#049FD9', to: '#005073' } },
+              { src: 'https://www.dropbox.com/scl/fi/hcb1kk0s4pffxcrywp5ib/intelLogo.avif?rlkey=k2ba8yh6h7dfzp1wguohzbk7r&st=x4lzw4x5&raw=1', alt: 'Intel', gradient: { from: '#0071C5', via: '#0095D9', to: '#00BCFF' } },
+              { src: 'https://www.dropbox.com/scl/fi/d0gjgagdrz4jlgbpdx5t8/nvidia-og-image-white-bg-1200x630.jpg?rlkey=rzfpfqepea4y8agodde86nxgv&st=f8htme3q&raw=1', alt: 'NVIDIA', gradient: { from: '#76B900', via: '#5F9900', to: '#3D6400' } },
             ]}
             className="border-0 rounded-none bg-transparent"
             style={{ background: 'transparent' }}
@@ -596,17 +635,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ═══════════════════════════════════════════════ */}
       <section
         id="section-services"
-        className="py-24 section-glow-top"
-        style={{ background: '#FFFFFF', borderTop: '1px solid rgba(0,0,0,0.06)' }}
+        className="py-12 md:py-24 section-glow-top relative bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.08]"
       >
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="mb-16"
+            className="mb-8 md:mb-16"
           >
             <p
               className="mb-4 text-[11px] font-medium uppercase tracking-wider"
@@ -616,7 +656,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
             <h2
               className="font-normal heading-gradient"
-              style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px', maxWidth: '580px' }}
+              style={{ fontSize: 'clamp(1.75rem, 7vw, 3.5rem)', lineHeight: 1.0, letterSpacing: 'clamp(-1px, -0.04em, -2.05px)', maxWidth: '580px' }}
             >
               Enterprise solutions that modernize, scale, and deliver.
             </h2>
@@ -628,17 +668,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4"
+            className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4"
           >
             {/* Card 1 — Enterprise Architecture */}
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8"
-              style={{
-                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
-                border: '1px solid rgba(0,0,0,0.06)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-              }}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Braces className="h-7 w-7 text-[#FF4800]" />
@@ -650,8 +686,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 ARCHITECTURE
               </span>
               <h3
-                className="mb-3 font-normal text-[#1a1a2e]"
-                style={{ fontSize: '32px', lineHeight: 1.15 }}
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
                 Enterprise Architecture
               </h3>
@@ -678,12 +714,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8"
-              style={{
-                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
-                border: '1px solid rgba(0,0,0,0.06)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-              }}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Compass className="h-7 w-7 text-[#FF4800]" />
@@ -695,8 +727,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 STRATEGY
               </span>
               <h3
-                className="mb-3 font-normal text-[#1a1a2e]"
-                style={{ fontSize: '32px', lineHeight: 1.15 }}
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
                 Technology Strategy
               </h3>
@@ -723,12 +755,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8"
-              style={{
-                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
-                border: '1px solid rgba(0,0,0,0.06)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-              }}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <ClipboardCheck className="h-7 w-7 text-[#FF4800]" />
@@ -740,8 +768,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 MANAGEMENT
               </span>
               <h3
-                className="mb-3 font-normal text-[#1a1a2e]"
-                style={{ fontSize: '32px', lineHeight: 1.15 }}
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
                 Management Consulting
               </h3>
@@ -767,12 +795,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
             <motion.div
               variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8"
-              style={{
-                background: 'linear-gradient(145deg, #FFFFFF 0%, rgba(255,72,0,0.01) 50%, #FFFFFF 100%)',
-                border: '1px solid rgba(0,0,0,0.06)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-              }}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
                 <Server className="h-7 w-7 text-[#FF4800]" />
@@ -784,8 +808,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 SOFTWARE
               </span>
               <h3
-                className="mb-3 font-normal text-[#1a1a2e]"
-                style={{ fontSize: '32px', lineHeight: 1.15 }}
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
                 Software Solutions
               </h3>
@@ -817,126 +841,146 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <WaveDivider color={isDark ? '#12121e' : '#f8f8fc'} flip />
 
       {/* ═══════════════════════════════════════════════ */}
-      {/* WHAT SETS US APART — HORIZONTAL SCROLLER         */}
+      {/* WHAT SETS US APART — CAPABILITY GRID             */}
       {/* ═══════════════════════════════════════════════ */}
-      <section id="section-capabilities" className="py-24 section-glow-top dot-grid-dense" style={{ background: isDark ? '#12121e' : '#f8f8fc' }}>
-        {/* Grid pattern overlay for texture */}
+      <section id="section-capabilities" className="py-12 md:py-24 section-glow-top relative" style={{ background: isDark ? '#12121e' : '#f8f8fc' }}>
         <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="mb-16"
+            className="mb-8 md:mb-16"
           >
             <p
-              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              className="mb-5 text-[11px] font-medium uppercase tracking-widest"
               style={{ color: '#FF4800' }}
             >
               WHAT SETS US APART
             </p>
-            <h2
-              className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
-              style={{ lineHeight: 0.95, letterSpacing: '-2.05px' }}
-            >
-              Enterprise-grade capabilities.
-            </h2>
+            <div className="flex items-start gap-5">
+              <div
+                className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full"
+                style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }}
+              />
+              <h2
+                className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
+                style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}
+              >
+                Enterprise-grade capabilities.
+              </h2>
+            </div>
           </motion.div>
 
-          {/* UPDATED: HORIZONTAL CONTAINER */}
-          <div className="relative">
+          {/* Horizontal Scroll Track */}
+          <div
+            className="relative -mx-6 lg:-mx-8 overflow-hidden"
+            style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}
+          >
             <motion.div
+              ref={capScrollRef}
+              onScroll={handleCapScroll}
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-100px' }}
-              className="flex gap-8 overflow-x-auto pb-12 px-4 no-scrollbar snap-x snap-mandatory"
+              className="flex gap-5 overflow-x-auto pb-6 px-6 lg:px-8 no-scrollbar snap-x snap-mandatory"
             >
               {bentoItems.map((item) => (
                 <motion.div
                   key={item.title}
-                  variants={{
-                    hidden: { opacity: 0, x: 50 },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 0.6, ease },
-                    },
-                  }}
-                  className={`relative flex-shrink-0 w-[85vw] md:w-[420px] snap-center overflow-hidden rounded-xl p-10 transition-all duration-300 flex gap-6 items-start ${item.size === 'large' ? 'bg-white dark:bg-[#12121e] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-black/[0.03] scale-105 z-10' : ''}`}
+                  variants={cardVariants}
+                  className="group relative flex-shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-300 cursor-default flex flex-col"
                   style={{
-                    background: item.size === 'large' ? (isDark ? '#12121e' : '#FFFFFF') : 'transparent',
-                    border: item.size === 'large' ? `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` : '1px solid transparent',
+                    width: 'clamp(260px, 78vw, 440px)',
+                    minHeight: '300px',
+                    padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)',
+                    background: isDark ? 'rgba(255,255,255,0.04)' : '#FFFFFF',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`,
+                    boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    const isLarge = item.size === 'large';
-                    e.currentTarget.style.borderColor = isLarge ? 'rgba(255,72,0,0.35)' : 'rgba(255,72,0,0.2)';
-                    e.currentTarget.style.boxShadow = isLarge
-                      ? '0 0 0 1px rgba(255,72,0,0.15), 0 8px 30px rgba(255,72,0,0.12), inset 0 1px 0 rgba(255,72,0,0.05)'
-                      : '0 8px 30px rgba(255,72,0,0.08)';
-                    e.currentTarget.style.transform = isLarge ? 'scale(1.05) translateY(-4px)' : 'translateY(-4px)';
-                    const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
-                    if (iconContainer) (iconContainer as HTMLElement).style.transform = 'scale(1.1)';
-                    const dot = e.currentTarget.querySelector('.bento-hover-dot');
-                    if (dot) (dot as HTMLElement).style.opacity = '1';
-                    const glow = e.currentTarget.querySelector('.bento-gradient-glow');
-                    if (glow) (glow as HTMLElement).style.opacity = '1';
+                    e.currentTarget.style.borderColor = 'rgba(255,72,0,0.35)';
+                    e.currentTarget.style.boxShadow = '0 12px 40px rgba(255,72,0,0.12), 0 2px 8px rgba(0,0,0,0.06)';
+                    e.currentTarget.style.transform = 'translateY(-6px)';
+                    const iconWrap = e.currentTarget.querySelector('.cap-icon-wrap');
+                    if (iconWrap) (iconWrap as HTMLElement).style.background = isDark ? 'rgba(255,72,0,0.2)' : 'rgba(255,72,0,0.14)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = item.size === 'large' ? (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)') : 'transparent';
-                    e.currentTarget.style.boxShadow = item.size === 'large' ? '0 30px 60px_-15px_rgba(0,0,0,0.1)' : 'none';
-                    e.currentTarget.style.transform = item.size === 'large' ? 'scale(1.05) translateY(0)' : 'translateY(0)';
-                    const iconContainer = e.currentTarget.querySelector('.bento-icon-wrap');
-                    if (iconContainer) (iconContainer as HTMLElement).style.transform = 'scale(1)';
-                    const dot = e.currentTarget.querySelector('.bento-hover-dot');
-                    if (dot) (dot as HTMLElement).style.opacity = '0';
-                    const glow = e.currentTarget.querySelector('.bento-gradient-glow');
-                    if (glow) (glow as HTMLElement).style.opacity = '0';
+                    e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+                    e.currentTarget.style.boxShadow = isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.05)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    const iconWrap = e.currentTarget.querySelector('.cap-icon-wrap');
+                    if (iconWrap) (iconWrap as HTMLElement).style.background = isDark ? 'rgba(255,72,0,0.12)' : 'rgba(255,72,0,0.08)';
                   }}
                 >
-                  {/* Brand orange dot — top-right corner on hover */}
-                  <div className="bento-hover-dot pointer-events-none absolute top-6 right-6 h-[6px] w-[6px] rounded-full transition-opacity duration-300" style={{ background: '#FF4800', opacity: 0 }} />
-                  
-                  {/* Large card gradient border glow */}
-                  {item.size === 'large' && (
-                    <div className="bento-gradient-glow pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 40%, rgba(255,72,0,0.02) 100%)', }} />
-                  )}
-
-                  <div className="bento-icon-wrap flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-xl transition-transform duration-300" style={{ background: isDark ? 'rgba(255,72,0,0.12)' : 'rgba(255,72,0,0.08)' }} >
+                  <div
+                    className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: 'linear-gradient(135deg, rgba(255,72,0,0.04) 0%, transparent 55%)' }}
+                  />
+                  <div
+                    className="cap-icon-wrap mb-8 flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300"
+                    style={{ background: isDark ? 'rgba(255,72,0,0.12)' : 'rgba(255,72,0,0.08)' }}
+                  >
                     <item.icon className="h-7 w-7" style={{ color: '#FF4800' }} />
                   </div>
-
-                  <div className="flex flex-col">
-                    <h3 className="mb-3 font-normal text-[clamp(1.25rem,2.5vw,2rem)]" style={{ lineHeight: 1.15, color: isDark ? '#f0f0f5' : '#1a1a2e' }} >
-                      {item.title}
-                    </h3>
-                    <p className="text-[15px] leading-[1.5]" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
-                      {item.description}
-                    </p>
-                  </div>
+                  <h3
+                    className="mb-4 font-normal"
+                    style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.6rem)', lineHeight: 1.15, letterSpacing: '-0.4px', color: isDark ? '#f0f0f5' : '#1a1a2e' }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-[15px] leading-[1.7] flex-grow" style={{ color: isDark ? '#9ca3af' : '#6b7280' }}>
+                    {item.description}
+                  </p>
+                  <div
+                    className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500 rounded-b-2xl"
+                    style={{ background: 'linear-gradient(90deg, #FF4800, rgba(255,72,0,0.15))' }}
+                  />
                 </motion.div>
               ))}
             </motion.div>
-
-            {/* Pagination Dots (Mock indicators) */}
-            <div className="flex justify-center items-center gap-4 mt-8">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} className={i === 2 ? "flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800" : "w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"}>
-                  {i === 2 && <div className="w-2 h-2 bg-[#FF4800] rounded-full" />}
-                </div>
-              ))}
-            </div>
           </div>
+
+          {/* Pagination dots */}
+          <div className="mt-10 flex items-center justify-center gap-3">
+            {bentoItems.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollCapTo(i)}
+                aria-label={`Go to card ${i + 1}`}
+                className="transition-all duration-300 flex items-center justify-center"
+                style={{
+                  width: capActiveIdx === i ? '36px' : '8px',
+                  height: capActiveIdx === i ? '36px' : '8px',
+                  borderRadius: '50%',
+                  border: capActiveIdx === i ? `1.5px solid ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.25)'}` : 'none',
+                  background: capActiveIdx === i ? 'transparent' : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.18)'),
+                  padding: 0,
+                  cursor: 'pointer',
+                }}
+              >
+                {capActiveIdx === i && (
+                  <div className="w-2 h-2 rounded-full" style={{ background: isDark ? '#f0f0f5' : '#1a1a2e' }} />
+                )}
+              </button>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════ */}
       {/* SECTION 1C — ABOUT / STATS                      */}
       {/* ═══════════════════════════════════════════════ */}
-      <section id="section-about" className="relative py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]" >
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 lg:flex-row lg:px-8">
+      <section id="section-about" className="relative py-12 md:py-24 bg-[#f8f8fc] dark:bg-[#0a0a14]" >
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 md:gap-16 px-6 lg:flex-row lg:px-8 relative">
           {/* LEFT — 40% */}
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[40%]" >
             <div className="counter-hover-gradient inline-block"><Counter target={14} suffix="+" /></div>

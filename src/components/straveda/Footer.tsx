@@ -116,8 +116,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   return (
     <footer
       ref={footerRef}
-      className="relative mt-auto bg-noise-subtle"
-      style={{ background: 'linear-gradient(135deg, #fafafa, #f5f5fa)' }}
+      className="relative mt-auto bg-noise-subtle bg-gradient-to-br from-[#fafafa] to-[#f5f5fa] dark:from-[#0a0a14] dark:to-[#0d0d1a]"
       onMouseEnter={() => setCursorStyle('nav')}
       onMouseLeave={() => setCursorStyle('default')}
     >
@@ -131,9 +130,16 @@ export default function Footer({ onNavigate }: FooterProps) {
 
       {/* ── Dot pattern background overlay (opacity 0.03) ── */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none dark:hidden"
         style={{
           backgroundImage: 'radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none hidden dark:block"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '20px 20px',
         }}
       />
@@ -191,8 +197,8 @@ export default function Footer({ onNavigate }: FooterProps) {
               }}
               onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link'); setBrandHovered(true); }}
               onMouseLeave={() => { setCursorStyle('nav'); setBrandHovered(false); }}
-              className="inline-block text-xl font-medium tracking-tight select-none mb-3"
-              style={{ ...brandStyle, color: '#1a1a2e' }}
+              className="inline-block text-xl font-medium tracking-tight select-none mb-3 text-[#1a1a2e] dark:text-white"
+              style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 20, transition: 'text-shadow 0.3s ease', textShadow: brandStyle.textShadow }}
             >
               Str<span style={{ color: '#FF4800' }}>a</span>veda
             </a>
@@ -214,11 +220,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="inline-flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.04)',
-                    color: '#6b7280',
-                  }}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 bg-black/[0.04] dark:bg-white/[0.06] text-[#6b7280]"
                   onMouseEnter={(e) => {
                     e.stopPropagation(); setCursorStyle('link');
                     e.currentTarget.style.background = 'transparent';
@@ -228,8 +230,8 @@ export default function Footer({ onNavigate }: FooterProps) {
                   }}
                   onMouseLeave={(e) => {
                     setCursorStyle('nav');
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
-                    e.currentTarget.style.color = '#6b7280';
+                    e.currentTarget.style.background = '';
+                    e.currentTarget.style.color = '';
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.boxShadow = 'none';
                   }}
@@ -269,10 +271,9 @@ export default function Footer({ onNavigate }: FooterProps) {
                       if (subscribeStatus === 'error') setSubscribeStatus('idle');
                     }}
                     placeholder="Enter your email"
-                    className="flex-1 rounded-lg border px-4 py-2.5 text-sm outline-none transition-all duration-200"
+                    className="flex-1 rounded-lg border px-4 py-2.5 text-sm outline-none transition-all duration-200 text-[#1a1a2e] dark:text-white dark:bg-white/[0.05] dark:placeholder-white/40"
                     style={{
                       borderColor: subscribeStatus === 'error' ? '#ef4444' : 'rgba(0,0,0,0.1)',
-                      color: '#1a1a2e',
                       minWidth: 0,
                     }}
                     onFocus={(e) => {
@@ -459,9 +460,8 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <a
                   href="mailto:info@straveda.com"
-                  className="inline-flex items-center gap-2 text-sm transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-sm transition-colors duration-200 text-[#1a1a2e] dark:text-[#e2e8f0]"
                   style={{
-                    color: '#1a1a2e',
                     textDecoration: 'underline',
                     textUnderlineOffset: 3,
                     textDecorationColor: '#FF4800',
@@ -472,7 +472,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   }}
                   onMouseLeave={(e) => {
                     setCursorStyle('nav');
-                    e.currentTarget.style.color = '#1a1a2e';
+                    e.currentTarget.style.color = '';
                   }}
                 >
                   <Mail size={14} style={{ color: '#FF4800', flexShrink: 0 }} />
@@ -497,10 +497,8 @@ export default function Footer({ onNavigate }: FooterProps) {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.3, ease }}
-        style={{
-          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-          padding: '20px 0',
-        }}
+        className="border-t border-black/[0.06] dark:border-white/[0.08]"
+        style={{ padding: '20px 0' }}
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs" style={{ color: '#9ca3af' }}>

@@ -33,6 +33,64 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
             from { transform: translateX(0); }
             to   { transform: translateX(-50%); }
           }
+          @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+          }
+          .logo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease, border-color 0.35s ease;
+            backdrop-filter: blur(8px);
+          }
+          .dark .logo-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+          }
+          .logo-card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+          }
+          .logo-card .gradient-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+          }
+          .logo-card:hover .gradient-bg {
+            opacity: 0.12;
+          }
+          .dark .logo-card:hover .gradient-bg {
+            opacity: 0.22;
+          }
+          .logo-card .glow-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 1px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+          }
+          .logo-card:hover .glow-border {
+            opacity: 1;
+          }
+          .logo-card .logo-name {
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+          .logo-card:hover .logo-name {
+            opacity: 1;
+            transform: translateY(0);
+          }
         `}</style>
 
         <section
@@ -41,22 +99,39 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
           className={cn('w-full overflow-hidden', className)}
           {...props}
         >
-          {/* ── Header ─────────────────────────────────── */}
-          {/* Spacing: 40px bottom per 8px scale (mb-10) */}
-          <div className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-[3fr_2fr] lg:gap-12">
-            <h2
-              className="font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
+          {/* Header */}
+          <div className="mb-10 md:mb-14 flex flex-col items-center text-center gap-3">
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-widest"
               style={{
-                fontSize: 'clamp(24px, 3vw, 32px)', /* sub-heading scale */
-                lineHeight: 1.15,
-                letterSpacing: '-0.5px',
+                color: '#FF4800',
+                background: 'rgba(255,72,0,0.08)',
+                border: '1px solid rgba(255,72,0,0.18)',
+              }}
+            >
+              <span
+                style={{
+                  width: 6, height: 6, borderRadius: '50%',
+                  background: '#FF4800',
+                  display: 'inline-block',
+                  animation: 'pulse-glow 2s ease-in-out infinite',
+                }}
+              />
+              Partners
+            </span>
+            <h2
+              className="font-normal heading-gradient"
+              style={{
+                fontSize: 'clamp(1.75rem, 7vw, 3.5rem)',
+                lineHeight: 1.0,
+                letterSpacing: 'clamp(-1px, -0.04em, -2.05px)',
                 fontWeight: 400,
               }}
             >
               {title}
             </h2>
             <p
-              className="self-start text-[16px] leading-[1.5] text-[#6b7280] dark:text-[#9ca3af] lg:text-right"
+              className="max-w-xl text-[15px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af]"
               style={{ fontWeight: 400 }}
             >
               {description}
@@ -65,22 +140,23 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
 
           {/* Divider */}
           <div
-            className="mb-8"
+            className="mb-12 mx-auto"
             style={{
               height: '1px',
-              background: 'linear-gradient(90deg, rgba(255,72,0,0.3), rgba(255,72,0,0.05) 60%, transparent)',
+              maxWidth: '120px',
+              background: 'linear-gradient(90deg, transparent, rgba(255,72,0,0.5), transparent)',
             }}
           />
 
-          {/* ── Marquee Track ──────────────────────────── */}
+          {/* Marquee Track */}
           <div
             className="w-full overflow-hidden"
             style={{
-              maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+              maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
             }}
           >
             <div
-              className="flex w-max items-center gap-4 py-2 pr-4"
+              className="flex w-max items-center gap-5 py-3 pr-5"
               style={{
                 animation: `marquee-scroll ${animationDuration} linear infinite`,
                 willChange: 'transform',
@@ -95,45 +171,49 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
               {[...logos, ...logos].map((logo, index) => (
                 <div
                   key={index}
-                  className="group relative shrink-0 overflow-hidden"
+                  className="logo-card group shrink-0 flex flex-col items-center justify-center gap-2"
                   style={{
-                    width: '160px',
-                    height: '80px',
-                    borderRadius: '8px', /* 8px base unit */
-                    background: 'rgba(0,0,0,0.03)',
-                    border: '1px solid rgba(0,0,0,0.06)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    width: 'clamp(130px, 16vw, 175px)',
+                    height: 'clamp(80px, 12vw, 105px)',
+                    padding: '14px 16px 10px',
                   }}
                 >
-                  {/* Gradient hover reveal */}
+                  {/* Gradient background fill */}
                   <div
+                    className="gradient-bg"
                     style={{
-                      position: 'absolute',
-                      inset: 0,
-                      opacity: 0,
-                      transition: 'opacity 0.5s ease, transform 0.5s ease',
-                      transform: 'scale(1.5)',
                       background: `linear-gradient(135deg, ${logo.gradient.from}, ${logo.gradient.via}, ${logo.gradient.to})`,
                     }}
-                    className="group-hover:opacity-100 group-hover:scale-100"
                   />
-                  {/* Logo via next/image */}
+
+                  {/* Glowing border */}
                   <div
-                    className="relative"
-                    style={{ width: '100px', height: '40px' }}
-                  >
+                    className="glow-border"
+                    style={{
+                      background: `linear-gradient(135deg, ${logo.gradient.from}, ${logo.gradient.via}, ${logo.gradient.to})`,
+                    }}
+                  />
+
+                  {/* Logo image */}
+                  <div className="relative z-10" style={{ width: '90px', height: '42px' }}>
                     <Image
                       src={logo.src}
                       alt={logo.alt}
                       fill
-                      style={{ objectFit: 'contain', opacity: 0.55, transition: 'opacity 0.3s' }}
-                      className="group-hover:opacity-100"
-                      sizes="100px"
-                      unoptimized /* external SVG URLs */
+                      style={{ objectFit: 'contain', transition: 'filter 0.3s ease' }}
+                      className="group-hover:brightness-110"
+                      sizes="90px"
+                      unoptimized
                     />
                   </div>
+
+                  {/* Logo name */}
+                  <span
+                    className="logo-name relative z-10 text-[10px] font-semibold tracking-wide uppercase text-[#6b7280] dark:text-[#9ca3af]"
+                    style={{ letterSpacing: '0.08em' }}
+                  >
+                    {logo.alt}
+                  </span>
                 </div>
               ))}
             </div>
