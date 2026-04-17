@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "scaffold-exercises": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "computedHash": "1127f69a77b48cb855067db4c9c42e7638e6672f1cb3fafb0ffd61a1ecdfae70"
+    }
+  }
+}

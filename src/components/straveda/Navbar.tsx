@@ -1,425 +1,441 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Menu, X, Search } from 'lucide-react';
-import { useTheme } from 'next-themes';
+/**
+ * Navbar — Floating Glass Pill
+ *
+ * Scroll DOWN → pill shrinks 45% from both sides, white glass + faint orange tint
+ * Scroll UP   → pill expands back to full, dark glass restored
+ * At top      → always full dark glass
+ *
+ * All transitions are pure CSS on the wrapper padding — no layout reflow,
+ * GPU-composited, zero Framer Motion scroll hooks.
+ */
+
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import ThemeToggle from '@/components/straveda/ThemeToggle';
 import { useCursorStyle } from '@/lib/cursor-context';
+import { useTheme } from 'next-themes';
 
 interface NavbarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
-  onSearchToggle: () => void;
+  onSearchToggle?: () => void;
 }
 
 const NAV_LINKS = [
-  { label: 'Services', page: 'services' },
-  { label: 'About', page: 'about' },
-  { label: 'Testimonials', page: 'testimonials' },
-  { label: 'Insights', page: 'insights' },
-  { label: 'Contact', page: 'contact' },
+  { label: 'Services',     page: 'services'    },
+  { label: 'About',        page: 'about'       },
+  { label: 'Testimonials', page: 'testimonials'},
+  { label: 'Insights',     page: 'insights'    },
+  { label: 'Contact',      page: 'contact'     },
 ] as const;
 
-const ease = [0.4, 0, 0.2, 1] as const;
-const stickyEase = [0.25, 0.1, 0.25, 1] as const;
+const EASE = [0.4, 0, 0.2, 1] as const;
 
-export default function Navbar({ currentPage, onNavigate, onSearchToggle }: NavbarProps) {
-  const { theme } = useTheme();
+// ─── Design tokens ────────────────────────────────────────────────────────
+// Light mode — Full state (white + orange warm glass)
+const FULL_LIGHT = {
+  bg:        'rgba(255, 255, 255, 0.88)',
+  border:    'rgba(255, 72, 0, 0.22)',
+  shadow:    '0 8px 40px rgba(255,72,0,0.10), 0 2px 12px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.90) inset',
+  text:      '#1a1a2e',
+  textMuted: '#6b7280',
+  ctaBg:     '#FF4800',
+  ctaColor:  '#FFFFFF',
+} as const;
+
+// Light mode — Compact state (85% transparent faint orange glass)
+const COMPACT_LIGHT = {
+  bg:        'rgba(255, 72, 0, 0.08)',
+  border:    'rgba(255, 72, 0, 0.22)',
+  shadow:    '0 4px 32px rgba(255,72,0,0.12), 0 1px 0 rgba(255,255,255,0.18) inset',
+  text:      '#1a1a2e',
+  textMuted: '#4b5563',
+  ctaBg:     '#FF4800',
+  ctaColor:  '#FFFFFF',
+} as const;
+
+// Dark mode — Full state (dark glass + orange tint)
+const FULL_DARK = {
+  bg:        'rgba(12, 12, 22, 0.90)',
+  border:    'rgba(255, 72, 0, 0.20)',
+  shadow:    '0 8px 40px rgba(0,0,0,0.4), 0 2px 12px rgba(255,72,0,0.06), 0 1px 0 rgba(255,255,255,0.06) inset',
+  text:      '#f0f0f5',
+  textMuted: '#9ca3af',
+  ctaBg:     '#FF4800',
+  ctaColor:  '#FFFFFF',
+} as const;
+
+// Dark mode — Compact state (very transparent dark glass)
+const COMPACT_DARK = {
+  bg:        'rgba(255, 72, 0, 0.05)',
+  border:    'rgba(255, 72, 0, 0.20)',
+  shadow:    '0 4px 32px rgba(255,72,0,0.08), 0 1px 0 rgba(255,255,255,0.06) inset',
+  text:      '#f0f0f5',
+  textMuted: '#9ca3af',
+  ctaBg:     '#FF4800',
+  ctaColor:  '#FFFFFF',
+} as const;
+
+// Legacy aliases kept for SSR skeleton
+const DARK = FULL_LIGHT;
+
+const ORANGE = '#FF4800';
+
+// Transition applied to the outer wrapper (width shrink via padding)
+const WRAPPER_TRANSITION = 'padding 0.42s cubic-bezier(0.4,0,0.2,1)';
+
+// Transition applied to the pill itself (colours, shadow, backdrop)
+const PILL_TRANSITION = [
+  'background 0.36s ease',
+  'border-color 0.36s ease',
+  'box-shadow 0.36s ease',
+].join(', ');
+
+export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const { setCursorStyle } = useCursorStyle();
+  const { resolvedTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [mounted,    setMounted]    = useState(false);
+  const [compact,    setCompact]    = useState(false);
+  const prevY = { current: 0 };
 
-  const isDark = theme === 'dark';
-
-  // ── Scroll-driven animations using Framer Motion ──
-  const { scrollY } = useScroll();
-
-  // Header padding transitions: "1.25rem 0" at top → "0.75rem 0" when scrolled (subtle compact)
-  const headerPadding = useTransform(scrollY, [0, 80], ['1.25rem 0', '0.75rem 0']);
-  // Nav content height: 64px at top → 60px when scrolled (minimal shrink)
-  const navHeight = useTransform(scrollY, [0, 80], [64, 60]);
-  // Wordmark font size: 18px at top → 16px when scrolled (minimal shrink)
-  const wordmarkSize = useTransform(scrollY, [0, 80], [18, 16]);
-  // Nav link font size: 14px at top → 13px when scrolled (very subtle)
-  const navLinkSize = useTransform(scrollY, [0, 80], [14, 13]);
-
-  // ── Hydration guard ──
+  // Hydration guard
   useEffect(() => {
     const id = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // ── Lock body scroll when mobile menu open ──
+  // Scroll direction → compact toggle
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
+    let lastY = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if      (y < 60)           setCompact(false);
+      else if (y > lastY + 4)    setCompact(true);
+      else if (y < lastY - 3)    setCompact(false);
+      lastY = y;
     };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Body scroll lock
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  // ── Close mobile menu on 'close-all' custom event (Escape key from page.tsx) ──
-  useEffect(() => {
-    const handleCloseAll = () => {
-      if (mobileOpen) setMobileOpen(false);
-    };
-    window.addEventListener('close-all', handleCloseAll);
-    return () => window.removeEventListener('close-all', handleCloseAll);
-  }, [mobileOpen]);
-
-  const handleMobileLinkClick = useCallback(
-    (page: string) => {
-      setMobileOpen(false);
-      onNavigate(page);
-    },
-    [onNavigate]
-  );
+  const closeThenNavigate = useCallback((page: string) => {
+    setMobileOpen(false);
+    onNavigate(page);
+  }, [onNavigate]);
 
   const isActive = (page: string) => currentPage === page;
 
-  // ── Theme-aware colors ──
-  const textPrimary = isDark ? '#f0f0f5' : '#1a1a2e';
-  const textSecondary = isDark ? '#9ca3af' : '#6b7280';
-  const bgTransparent = 'transparent';
-  const bgFrosted = isDark ? 'rgba(10, 10, 20, 0.85)' : 'rgba(255, 255, 255, 0.85)';
-  const bgSemi = isDark ? 'rgba(10, 10, 20, 0.6)' : 'rgba(255, 255, 255, 0.6)';
-  const borderColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
-  const shadowStyle = 'shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]';
+  // Derived colours — adapts to both scroll state and dark mode
+  const isDarkMode = resolvedTheme === 'dark';
+  const T = isDarkMode
+    ? (compact ? COMPACT_DARK : FULL_DARK)
+    : (compact ? COMPACT_LIGHT : FULL_LIGHT);
 
+  // SSR skeleton
   if (!mounted) {
-    // SSR skeleton — prevents layout shift (matches initial navbar dimensions: py-5 h-16 mx-[8%])
     return (
-      <header className="fixed top-4 left-0 right-0 z-50 py-5">
-        <div className="mx-[8%]">
-          <div className="rounded-3xl border border-transparent bg-transparent h-16 flex items-center justify-between px-6 md:px-8" />
-        </div>
+      <header
+        className="fixed top-4 left-0 right-0 z-50"
+        style={{ padding: '0 1rem' }}
+      >
+        <div
+          className="rounded-full"
+          style={{
+            height:     60,
+            background: DARK.bg,
+            border:     `1px solid ${DARK.border}`,
+            boxShadow:  DARK.shadow,
+          }}
+        />
       </header>
     );
   }
 
   return (
     <>
-      {/* ── Sticky Header ── */}
+      {/* ══════════════════════════════════════════
+          DESKTOP / TABLET NAVBAR
+      ══════════════════════════════════════════ */}
       <motion.header
         className="fixed top-4 left-0 right-0 z-50"
-        style={{ padding: headerPadding }}
-        transition={{ duration: 0.4, ease: stickyEase }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: EASE }}
+        style={{
+          /* ── KEY: padding drives the 45% shrink from both sides ── */
+          paddingLeft:  compact ? '22.5vw' : '1rem',
+          paddingRight: compact ? '22.5vw' : '1rem',
+          transition:   WRAPPER_TRANSITION,
+        }}
       >
-        {/* Inner rounded container */}
-        <motion.div
-          className="rounded-3xl border border-border/40 transition-shadow duration-500 mx-[8%]"
+        {/* ── Glass pill ─────────────────────────────────────────── */}
+        <div
+          role="banner"
+          className="relative flex items-center justify-between rounded-full"
           style={{
-            background: bgSemi,
-            backdropFilter: 'none',
-            WebkitBackdropFilter: 'none',
-            boxShadow: 'none',
-            transition: 'background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, box-shadow 0.4s ease',
+            height:               60,
+            padding:              '0 22px',
+            background:           T.bg,
+            backdropFilter:       compact ? 'blur(28px) saturate(1.6)' : 'blur(16px) saturate(1.2)',
+            WebkitBackdropFilter: compact ? 'blur(28px) saturate(1.6)' : 'blur(16px) saturate(1.2)',
+            border:               `1px solid ${T.border}`,
+            boxShadow:            T.shadow,
+            transition:           PILL_TRANSITION,
           }}
           onMouseEnter={() => setCursorStyle('nav')}
           onMouseLeave={() => setCursorStyle('default')}
         >
-          {/* Scroll-driven backdrop blur + background + shadow */}
-          <StickyHeaderEffects
-            scrollY={scrollY}
-            isDark={isDark}
-            bgFrosted={bgFrosted}
-            shadowStyle={shadowStyle}
+
+          {/* ── Orange glass bar — fades in when compact ────────── */}
+          {/* Creates the 85% transparent faint orange frosted look  */}
+          <span
+            aria-hidden="true"
+            style={{
+              position:     'absolute',
+              inset:        0,
+              borderRadius: 'inherit',
+              pointerEvents:'none',
+              opacity:       compact ? 1 : 0,
+              transition:    'opacity 0.42s ease',
+              // Horizontal orange wash — bright center, fades to edges
+              background:    'linear-gradient(90deg, transparent 0%, rgba(255,72,0,0.05) 20%, rgba(255,72,0,0.12) 50%, rgba(255,72,0,0.05) 80%, transparent 100%)',
+              // Bottom orange glow line + top white highlight
+              boxShadow:     [
+                'inset 0 -1px 0 rgba(255,72,0,0.40)',  // bottom orange line
+                'inset 0 1px 0 rgba(255,255,255,0.22)', // top white sheen
+                '0 0 24px rgba(255,72,0,0.08)',          // outer ambient orange haze
+              ].join(', '),
+            }}
           />
 
-          {/* Nav content */}
-          <nav
-            role="banner"
-            className="relative flex items-center justify-between px-6 md:px-8"
-            style={{ height: navHeight }}
+          {/* ── LEFT: Wordmark ─────────────────────────────────── */}
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); onNavigate('home'); }}
+            className="relative z-10 shrink-0 select-none"
+            style={{
+              fontFamily:    'Geist, sans-serif',
+              fontSize:      15,
+              fontWeight:    600,
+              letterSpacing: '-0.3px',
+              color:         T.text,
+              transition:    'color 0.3s ease',
+            }}
+            onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link'); }}
+            onMouseLeave={() => setCursorStyle('nav')}
           >
-            {/* ── Wordmark ── */}
-            <motion.a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onNavigate('home');
-              }}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease }}
-              className="font-medium text-lg tracking-tight select-none"
-              style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: wordmarkSize, color: textPrimary }}
-              onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
+            Str<span style={{ color: ORANGE }}>a</span>veda
+          </a>
+
+          {/* ── CENTER: Nav links (always visible) ─────────────── */}
+          <nav
+            aria-label="Primary navigation"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-7"
+          >
+            {NAV_LINKS.map(({ label, page }, i) => (
+              <motion.a
+                key={page}
+                href={`#${page}`}
+                onClick={(e) => { e.preventDefault(); onNavigate(page); }}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 + i * 0.055, ease: EASE }}
+                className="relative group text-[13px] whitespace-nowrap"
+                style={{
+                  fontWeight:  400,
+                  color:       isActive(page) ? T.text : T.textMuted,
+                  transition:  'color 0.22s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.stopPropagation();
+                  setCursorStyle('link');
+                  (e.currentTarget as HTMLElement).style.color = T.text;
+                }}
+                onMouseLeave={(e) => {
+                  setCursorStyle('nav');
+                  (e.currentTarget as HTMLElement).style.color =
+                    isActive(page) ? T.text : T.textMuted;
+                }}
+              >
+                {label}
+                {/* Active / hover underline */}
+                <span
+                  className="absolute -bottom-[3px] left-0 h-[1.5px] rounded-full transition-all duration-300 group-hover:w-full"
+                  style={{
+                    backgroundColor: ORANGE,
+                    width: isActive(page) ? '100%' : '0',
+                  }}
+                />
+              </motion.a>
+            ))}
+          </nav>
+
+          {/* ── RIGHT: ThemeToggle + CTA + Hamburger ───────────── */}
+          <div className="relative z-10 flex items-center gap-2">
+
+            {/* Theme toggle */}
+            <div
+              className="hidden md:block"
+              style={{ transition: 'opacity 0.22s ease' }}
+              onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link'); }}
               onMouseLeave={() => setCursorStyle('nav')}
             >
-              Str<span style={{ color: '#FF4800' }}>a</span>veda
-            </motion.a>
-
-            {/* ── Center-right nav links (desktop) ── */}
-            <div className="hidden md:flex items-center gap-8">
-              {NAV_LINKS.map(({ label, page }, index) => (
-                <motion.a
-                  key={page}
-                  href={`#${page}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onNavigate(page);
-                  }}
-                  initial={{ opacity: 0, y: -16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.08, ease }}
-                  className="nav-link relative text-sm transition-colors duration-200 group"
-                  style={{
-                    color: isActive(page) ? textPrimary : textSecondary,
-                    fontWeight: isActive(page) ? 500 : 400,
-                    fontSize: navLinkSize,
-                  }}
-                  onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
-                  onMouseLeave={() => setCursorStyle('nav')}
-                >
-                  {label}
-                  {/* Orange underline on hover/active */}
-                  <span
-                    className="absolute bottom-[-4px] left-0 h-[2px] rounded-full transition-all duration-300 group-hover:w-full"
-                    style={{
-                      backgroundColor: '#FF4800',
-                      width: isActive(page) ? '100%' : '0',
-                    }}
-                  />
-                </motion.a>
-              ))}
+              <ThemeToggle />
             </div>
 
-            {/* ── Search + CTA + Hamburger ── */}
-            <div className="flex items-center gap-3">
-              {/* Theme toggle — desktop */}
-              <motion.div
-                initial={{ opacity: 0, y: -16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5, ease }}
-                className="hidden md:block"
-                onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
-                onMouseLeave={() => setCursorStyle('nav')}
-              >
-                <ThemeToggle />
-              </motion.div>
+            {/* CTA pill — colour adapts with glass mode */}
+            <button
+              onClick={() => onNavigate('contact')}
+              className="hidden md:inline-flex items-center gap-2 rounded-full select-none cursor-pointer"
+              style={{
+                height:     36,
+                padding:    '0 18px',
+                fontSize:   13,
+                fontWeight: 500,
+                background: T.ctaBg,
+                color:      T.ctaColor,
+                border:     compact ? `1px solid rgba(255,72,0,0.3)` : '1px solid transparent',
+                transition: 'background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => {
+                e.stopPropagation();
+                setCursorStyle('link');
+                e.currentTarget.style.transform = 'scale(1.04)';
+                e.currentTarget.style.background = '#e03e00';
+              }}
+              onMouseLeave={(e) => {
+                setCursorStyle('nav');
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.background = '#FF4800';
+              }}
+            >
+              Start a project
+              <span style={{ color: '#ffffff', fontWeight: 700 }}>→</span>
+            </button>
 
-              {/* Search icon — desktop */}
-              <motion.button
-                initial={{ opacity: 0, y: -16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.55, ease }}
-                onClick={onSearchToggle}
-                className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 cursor-pointer"
-                style={{ color: textSecondary }}
-                onMouseEnter={(e) => {
-                  e.stopPropagation(); setCursorStyle('link');
-                  e.currentTarget.style.color = textPrimary;
-                  e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
-                }}
-                onMouseLeave={(e) => {
-                  setCursorStyle('nav');
-                  e.currentTarget.style.color = textSecondary;
-                  e.currentTarget.style.background = 'transparent';
-                }}
-                aria-label="Open search"
-              >
-                <Search className="h-[18px] w-[18px]" />
-              </motion.button>
-
-              {/* CTA — desktop */}
-              <motion.button
-                initial={{ opacity: 0, y: -16, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6, ease }}
-                onClick={() => onNavigate('contact')}
-                className="hidden md:block text-white transition-all duration-200 cursor-pointer btn-shine rounded-full"
-                style={{
-                  backgroundColor: '#FF4800',
-                  padding: '11px 22px',
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
-                onMouseEnter={(e) => {
-                  e.stopPropagation(); setCursorStyle('link');
-                  e.currentTarget.style.backgroundColor = '#e63f00';
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                }}
-                onMouseLeave={(e) => {
-                  setCursorStyle('nav');
-                  e.currentTarget.style.backgroundColor = '#FF4800';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                Start a project
-              </motion.button>
-
-              {/* Hamburger button */}
-              <button
-                className="md:hidden flex items-center justify-center w-10 h-10 cursor-pointer"
-                style={{ color: textPrimary }}
-                onClick={() => setMobileOpen((prev) => !prev)}
-                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-                onMouseEnter={(e) => { e.stopPropagation(); setCursorStyle('link') }}
-                onMouseLeave={() => setCursorStyle('nav')}
-              >
-                {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </nav>
-        </motion.div>
+            {/* Hamburger — mobile only */}
+            <button
+              className="md:hidden flex items-center justify-center w-8 h-8 rounded-full cursor-pointer"
+              style={{
+                color:      T.textMuted,
+                background: 'rgba(255,72,0,0.07)',
+                border:     `1px solid rgba(255,72,0,0.20)`,
+                transition: 'background 0.3s ease',
+              }}
+              onClick={() => setMobileOpen((p) => !p)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            >
+              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+          </div>
+        </div>
       </motion.header>
 
-      {/* ── Full-screen Mobile Menu ── */}
+      {/* ══════════════════════════════════════════
+          MOBILE FULL-SCREEN DRAWER
+      ══════════════════════════════════════════ */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-[55] md:hidden"
+            transition={{ duration: 0.22, ease: EASE }}
+            className="fixed inset-0 z-[55] md:hidden flex flex-col"
             style={{
-              background: isDark ? 'rgba(10, 10, 20, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              background:           'rgba(14, 12, 28, 0.97)',
+              backdropFilter:       'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
             }}
           >
-            {/* Close button */}
-            <div className="flex items-center justify-between px-6 pt-6">
-              <motion.a
+            {/* Top bar */}
+            <div
+              className="flex items-center justify-between px-6 pt-6 pb-4"
+              style={{ borderBottom: `1px solid rgba(255,255,255,0.08)` }}
+            >
+              <a
                 href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileOpen(false);
-                }}
-                className="font-medium text-lg tracking-tight select-none"
-                style={{ fontFamily: 'Geist, sans-serif', fontWeight: 500, fontSize: 18, color: textPrimary }}
+                onClick={(e) => { e.preventDefault(); setMobileOpen(false); }}
+                className="text-[16px] select-none"
+                style={{ fontFamily: 'Geist, sans-serif', fontWeight: 600, color: '#FFFFFF' }}
               >
-                Str<span style={{ color: '#FF4800' }}>a</span>veda
-              </motion.a>
-
+                Str<span style={{ color: ORANGE }}>a</span>veda
+              </a>
               <button
-                className="flex items-center justify-center w-10 h-10 cursor-pointer"
-                style={{ color: textPrimary }}
+                className="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
+                style={{
+                  color:      'rgba(255,255,255,0.50)',
+                  background: 'rgba(255,255,255,0.05)',
+                  border:     '1px solid rgba(255,255,255,0.08)',
+                }}
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
               >
-                <X size={24} />
+                <X size={18} />
               </button>
             </div>
 
-            {/* Centered nav links — staggered entrance */}
-            <div className="flex flex-col items-center justify-center flex-1 pt-24 gap-2">
-              {NAV_LINKS.map(({ label, page }, index) => (
+            {/* Nav links */}
+            <div className="flex flex-col items-center justify-center flex-1 gap-1 px-6">
+              {NAV_LINKS.map(({ label, page }, i) => (
                 <motion.a
                   key={page}
                   href={`#${page}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleMobileLinkClick(page);
-                  }}
-                  initial={{ opacity: 0, y: 30 }}
+                  onClick={(e) => { e.preventDefault(); closeThenNavigate(page); }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="text-3xl font-medium py-3 transition-colors duration-200"
-                  style={{
-                    color: isActive(page) ? textPrimary : textSecondary,
-                    fontWeight: isActive(page) ? 600 : 400,
-                  }}
+                  transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
+                  className="text-[30px] font-normal py-2.5 transition-colors duration-200"
+                  style={{ color: isActive(page) ? '#FFFFFF' : 'rgba(255,255,255,0.50)' }}
                 >
                   {label}
                   {isActive(page) && (
                     <span
-                      className="ml-1 inline-block w-2 h-2 rounded-full align-middle"
-                      style={{ backgroundColor: '#FF4800' }}
+                      className="ml-2 inline-block w-1.5 h-1.5 rounded-full align-middle"
+                      style={{ backgroundColor: ORANGE }}
                     />
                   )}
                 </motion.a>
               ))}
-
-              {/* Search link */}
-              <motion.button
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                className="flex items-center gap-3 text-3xl font-normal py-3"
-                style={{ color: textSecondary }}
-                onClick={() => {
-                  setMobileOpen(false);
-                  onSearchToggle();
-                }}
-              >
-                <Search className="h-7 w-7" />
-                Search
-              </motion.button>
             </div>
 
-            {/* Bottom: Theme toggle + CTA */}
-            <div className="absolute bottom-12 left-0 right-0 flex flex-col items-center gap-4 px-6">
-              {/* Theme toggle — mobile */}
+            {/* Bottom: theme + CTA */}
+            <div className="flex flex-col items-center gap-4 px-6 pb-12">
               <ThemeToggle />
-
-              {/* CTA — mobile */}
               <motion.button
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-                className="w-full max-w-[280px] text-white transition-all duration-200 cursor-pointer rounded-full"
+                transition={{ duration: 0.35, delay: 0.42 }}
+                className="w-full max-w-xs rounded-full font-normal cursor-pointer transition-all duration-200"
                 style={{
-                  backgroundColor: '#FF4800',
-                  padding: '14px 28px',
-                  fontSize: 16,
-                  fontWeight: 500,
+                  background: '#FFFFFF',
+                  color:      '#000000',
+                  padding:    '14px 28px',
+                  fontSize:   15,
                 }}
-                onClick={() => handleMobileLinkClick('contact')}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#f2f2f2'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = '#FFFFFF'; }}
+                onClick={() => closeThenNavigate('contact')}
               >
-                Start a project
+                Start a project{' '}
+                <span style={{ color: ORANGE, fontWeight: 700 }}>→</span>
               </motion.button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-/* ── Sub-component: Scroll-driven frosted glass effect ── */
-function StickyHeaderEffects({
-  scrollY,
-  isDark,
-  bgFrosted,
-  shadowStyle,
-}: {
-  scrollY: ReturnType<typeof useScroll>['scrollY'];
-  isDark: boolean;
-  bgFrosted: string;
-  shadowStyle: string;
-}) {
-  const [showEffect, setShowEffect] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = scrollY.on('change', (v) => {
-      setShowEffect(v > 80);
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
-
-  if (!showEffect) return null;
-
-  return (
-    <div
-      className="absolute inset-0 rounded-3xl pointer-events-none"
-      style={{
-        background: bgFrosted,
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: isDark
-          ? '0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)'
-          : '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
-        transition: 'background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, box-shadow 0.4s ease',
-        borderRadius: 'inherit',
-        zIndex: -1,
-      }}
-    />
   );
 }

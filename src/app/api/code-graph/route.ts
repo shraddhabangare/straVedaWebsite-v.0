@@ -3,6 +3,12 @@ import { readdir, readFile, stat } from 'fs/promises';
 import { join, extname, relative, dirname } from 'path';
 
 /* ------------------------------------------------------------------ */
+/*  In-memory cache — TTL 60 s to avoid expensive re-scans            */
+/* ------------------------------------------------------------------ */
+let _cache: { data: GraphData; expiresAt: number } | null = null;
+const CACHE_TTL_MS = 60_000; // 60 seconds
+
+/* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
 
@@ -39,16 +45,26 @@ const PROJECT_ROOT = process.cwd();
 const SRC_DIR = join(PROJECT_ROOT, 'src');
 
 const CATEGORY_CONFIG: Record<string, { color: string; priority: number }> = {
+  // ── App routes ────────────────────────────────────────────────────
   'app/page':       { color: '#FF4800', priority: 1 },
   'app/layout':     { color: '#FF4800', priority: 1 },
   'app/error':      { color: '#FF4800', priority: 1 },
   'app/api':        { color: '#FF6B33', priority: 2 },
-  'pages':          { color: '#7C3AED', priority: 3 },
-  'straveda':       { color: '#2B2358', priority: 4 },
-  'ui':             { color: '#0891B2', priority: 5 },
-  'blocks':         { color: '#059669', priority: 6 },
-  'hooks':          { color: '#D97706', priority: 7 },
-  'lib':            { color: '#DC2626', priority: 8 },
+  // ── Components ───────────────────────────────────────────────────
+  'sections/pages': { color: '#7C3AED', priority: 3 },
+  'sections':       { color: '#9D5CF7', priority: 4 },
+  'layout':         { color: '#2B2358', priority: 5 },
+  'forms':          { color: '#0D9488', priority: 6 },
+  'shared':         { color: '#DB2777', priority: 7 },
+  'seo':            { color: '#16A34A', priority: 8 },
+  'blog':           { color: '#CA8A04', priority: 9 },
+  'ui':             { color: '#0891B2', priority: 10 },
+  // ── App logic ────────────────────────────────────────────────────
+  'hooks':          { color: '#D97706', priority: 11 },
+  'lib':            { color: '#DC2626', priority: 12 },
+  'features':       { color: '#EA580C', priority: 13 },
+  'server':         { color: '#7F1D1D', priority: 14 },
+  'types':          { color: '#6B7280', priority: 15 },
 };
 
 /* ------------------------------------------------------------------ */
@@ -56,18 +72,34 @@ const CATEGORY_CONFIG: Record<string, { color: string; priority: number }> = {
 /* ------------------------------------------------------------------ */
 
 function categorize(filePath: string): string {
-  const rel = relative(SRC_DIR, filePath);
-  if (rel.startsWith('app') && (rel.includes('page.tsx') || rel.includes('layout.tsx') || rel.includes('error.tsx') || rel.includes('not-found.tsx'))) {
-    if (rel.includes('api')) return 'app/api';
-    return 'app/page';
-  }
-  if (rel.startsWith('app/api')) return 'app/api';
-  if (rel.includes('pages/')) return 'pages';
-  if (rel.includes('straveda/')) return 'straveda';
-  if (rel.includes('ui/')) return 'ui';
-  if (rel.includes('blocks/')) return 'blocks';
-  if (rel.includes('hooks/')) return 'hooks';
-  if (rel.includes('lib/')) return 'lib';
+  // Normalize to forward slashes for cross-platform compatibility (Windows uses backslashes)
+  const rel = relative(SRC_DIR, filePath).replace(/\\/g, '/');
+
+  // ── App routes ────────────────────────────────────────────────────
+  if (rel.startsWith('app/api') || rel.includes('/api/')) return 'app/api';
+  if (rel.startsWith('app') && (
+    rel.includes('page.tsx') || rel.includes('layout.tsx') ||
+    rel.includes('error.tsx') || rel.includes('not-found.tsx') ||
+    rel.includes('loading.tsx')
+  )) return 'app/page';
+
+  // ── Components ────────────────────────────────────────────────────
+  if (rel.includes('components/sections/pages/')) return 'sections/pages';
+  if (rel.includes('components/sections/'))       return 'sections';
+  if (rel.includes('components/layout/'))         return 'layout';
+  if (rel.includes('components/forms/'))          return 'forms';
+  if (rel.includes('components/shared/'))         return 'shared';
+  if (rel.includes('components/seo/'))            return 'seo';
+  if (rel.includes('components/blog/'))           return 'blog';
+  if (rel.includes('components/ui/'))             return 'ui';
+
+  // ── App logic ─────────────────────────────────────────────────────
+  if (rel.startsWith('features/'))  return 'features';
+  if (rel.startsWith('server/'))    return 'server';
+  if (rel.startsWith('hooks/'))     return 'hooks';
+  if (rel.startsWith('lib/'))       return 'lib';
+  if (rel.startsWith('types/'))     return 'types';
+
   return 'other';
 }
 
@@ -198,6 +230,21 @@ async function getAllFiles(dir: string, extensions: string[]): Promise<string[]>
 /* ------------------------------------------------------------------ */
 
 export async function GET() {
+  // Restrict in production — the graph exposes internal file paths
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json(
+      { error: 'Code graph is not available in production' },
+      { status: 403 }
+    );
+  }
+
+  // Serve from cache if still valid
+  if (_cache && Date.now() < _cache.expiresAt) {
+    return NextResponse.json(_cache.data, {
+      headers: { 'Cache-Control': 'private, max-age=60' },
+    });
+  }
+
   try {
     const allFiles = await getAllFiles(SRC_DIR, ['.tsx', '.ts']);
     
@@ -283,11 +330,16 @@ export async function GET() {
       },
     };
     
-    return NextResponse.json(graphData);
+    // Store in cache
+    _cache = { data: graphData, expiresAt: Date.now() + CACHE_TTL_MS };
+
+    return NextResponse.json(graphData, {
+      headers: { 'Cache-Control': 'private, max-age=60' },
+    });
   } catch (error) {
-    console.error('Code graph error:', error);
+    console.error('[code-graph] build error:', error instanceof Error ? error.message : 'unknown');
     return NextResponse.json(
-      { error: 'Failed to generate code graph', details: String(error) },
+      { error: 'Failed to generate code graph' },
       { status: 500 }
     );
   }

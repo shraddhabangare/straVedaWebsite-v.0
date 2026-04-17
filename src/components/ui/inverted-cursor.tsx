@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef } from "react"
-import { useCursorStyle, type CursorStyle } from "@/lib/cursor-context"
+import { useCursorStyle, type CursorStyle } from "@/lib/utils/cursor-context"
 import { useTheme } from "next-themes"
 
 /* ═══════════════════════════════════════════════════════════════════════

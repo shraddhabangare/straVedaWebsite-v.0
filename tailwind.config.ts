@@ -10,6 +10,14 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+  		fontSize: {
+  			'display': ['82px', { lineHeight: '1.00', letterSpacing: '-2.05px', fontWeight: '400' }],
+  			'h1': ['56px', { lineHeight: '0.95', letterSpacing: '-0.5px', fontWeight: '400' }],
+  			'h2': ['56px', { lineHeight: '0.95', letterSpacing: '-0.5px', fontWeight: '400' }],
+  			'h3': ['32px', { lineHeight: '1.15', fontWeight: '400' }],
+  			'card-title': ['30px', { lineHeight: '1.20', fontWeight: '400' }],
+  			'feature-title': ['24px', { lineHeight: '1.33', fontWeight: '400' }],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -53,20 +61,9 @@ const config: Config = {
   			}
   		},
   		borderRadius: {
-  			'none': '0px',
-  			'sm': '2px',
-  			DEFAULT: '4px',
-  			'md': '4px',
-  			'lg': '6px',
-  			'xl': '8px',
-  			'2xl': '10px',
-  			'3xl': '12px',
-  			'full': '9999px',
-  		},
-  		boxShadow: {
-  			'sm': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)',
-  			'card': '0 1px 3px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.06)',
-  			'lg': '0 4px 6px rgba(0,0,0,0.07), 0 10px 30px rgba(0,0,0,0.10), 0 40px 80px rgba(0,0,0,0.08)',
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
   		}
   	}
   },

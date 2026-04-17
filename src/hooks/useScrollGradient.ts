@@ -1,40 +1,44 @@
 'use client';
 
-import { useSyncExternalStore, useCallback } from 'react';
+import { useSyncExternalStore, useCallback, useRef } from 'react';
 
 /**
- * useScrollGradient — returns a boolean indicating whether the page
- * has scrolled past the given threshold. Used to toggle text-gradient
- * class on hero headings.
+ * useScrollGradient — returns true when page has scrolled past `threshold`.
  *
- * Uses useSyncExternalStore to avoid setState-in-effect ESLint errors.
+ * FIX: Previous version called onStoreChange() on EVERY native scroll event,
+ * triggering useSyncExternalStore snapshot checks on every Lenis tick even
+ * when the boolean result hadn't changed — wasted JS work every frame.
  *
- * @param threshold - scroll Y value at which to activate (default 100)
- * @returns `isScrolled` — true when scrollY > threshold
+ * New behaviour: only notifies React when the boolean actually flips
+ * (scrollY crosses the threshold boundary). Zero overhead mid-scroll.
  */
 export function useScrollGradient(threshold = 100): boolean {
+  const stateRef = useRef<boolean>(
+    typeof window !== 'undefined' ? window.scrollY > threshold : false
+  );
+
   const subscribe = useCallback(
     (onStoreChange: () => void) => {
-      const handleScroll = () => {
-        onStoreChange();
+      const check = () => {
+        const next = window.scrollY > threshold;
+        // Only wake React when the boolean flips — no-op while scrolling within a section
+        if (next !== stateRef.current) {
+          stateRef.current = next;
+          onStoreChange();
+        }
       };
-      const handlePageChange = () => {
-        onStoreChange();
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      window.addEventListener('page-change', handlePageChange);
+
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('page-change', check);
       return () => {
-        window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('page-change', handlePageChange);
+        window.removeEventListener('scroll', check);
+        window.removeEventListener('page-change', check);
       };
     },
     [threshold],
   );
 
-  const getSnapshot = useCallback(() => {
-    return window.scrollY > threshold;
-  }, [threshold]);
-
+  const getSnapshot = useCallback(() => window.scrollY > threshold, [threshold]);
   const getServerSnapshot = useCallback(() => false, []);
 
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

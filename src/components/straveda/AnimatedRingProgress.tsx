@@ -19,7 +19,7 @@ export default function AnimatedRingProgress({
   value,
   maxValue = 100,
   size = 140,
-  strokeWidth = 8,
+  strokeWidth = 10,
   duration = 2,
   label,
   suffix = '',
@@ -33,6 +33,11 @@ export default function AnimatedRingProgress({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = Math.min(value / maxValue, 1);
+
+  // Tip dot position (end of progress arc)
+  const tipAngle = progress * 2 * Math.PI - Math.PI / 2; // starts at top (-90°)
+  const tipX = size / 2 + radius * Math.cos(tipAngle);
+  const tipY = size / 2 + radius * Math.sin(tipAngle);
 
   // Counter animation
   useEffect(() => {
@@ -50,24 +55,47 @@ export default function AnimatedRingProgress({
     requestAnimationFrame(step);
   }, [inView, value, duration, decimals]);
 
-  // Unique gradient IDs to avoid SVG conflicts — deterministic based on label
-  const gradientId = useMemo(() => `ring-gradient-${label.replace(/[^a-z0-9]/gi, '').slice(0, 8)}`, [label]);
-  const glowId = useMemo(() => `ring-glow-${label.replace(/[^a-z0-9]/gi, '').slice(0, 8)}`, [label]);
+  // Unique IDs per ring — deterministic from label
+  const gradientId = useMemo(() => `ring-grad-${label.replace(/[^a-z0-9]/gi, '').slice(0, 10)}`, [label]);
+  const glowId     = useMemo(() => `ring-glow-${label.replace(/[^a-z0-9]/gi, '').slice(0, 10)}`, [label]);
+  const outerGlowId = useMemo(() => `ring-outer-${label.replace(/[^a-z0-9]/gi, '').slice(0, 10)}`, [label]);
+  const trackId    = useMemo(() => `ring-track-${label.replace(/[^a-z0-9]/gi, '').slice(0, 10)}`, [label]);
 
   return (
     <div ref={ref} className="flex flex-col items-center">
       {/* SVG Ring */}
       <div className="relative" style={{ width: size, height: size }}>
-        {/* Glow filter */}
-        <svg width="0" height="0" className="absolute">
+
+        {/* Hidden SVG defs — glow filters */}
+        <svg width="0" height="0" className="absolute overflow-hidden">
           <defs>
-            <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4" result="blur" />
+            {/* Tip glow */}
+            <filter id={glowId} x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            {/* Outer ambient glow */}
+            <filter id={outerGlowId} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="8" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* Track gradient (subtle warm track) */}
+            <linearGradient id={trackId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(255,72,0,0.12)" />
+              <stop offset="100%" stopColor="rgba(255,140,0,0.06)" />
+            </linearGradient>
+            {/* Main arc gradient — deep orange → vivid orange → amber */}
+            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stopColor="#FF2400" />
+              <stop offset="45%"  stopColor="#FF6B00" />
+              <stop offset="100%" stopColor="#FFB347" />
+            </linearGradient>
           </defs>
         </svg>
 
@@ -78,25 +106,57 @@ export default function AnimatedRingProgress({
           className="transform -rotate-90"
           style={{ overflow: 'visible' }}
         >
-          <defs>
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF4800" />
-              <stop offset="100%" stopColor="#ff6a33" />
-            </linearGradient>
-          </defs>
+          {/* Outer decorative ring — subtle dashes */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius + strokeWidth / 2 + 4}
+            fill="none"
+            stroke="rgba(255,72,0,0.08)"
+            strokeWidth={1}
+            strokeDasharray="3 6"
+            strokeLinecap="round"
+          />
 
-          {/* Background ring */}
+          {/* Background (track) ring */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
             fill="none"
-            className="text-border"
+            stroke={`url(#${trackId})`}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            style={{ opacity: 0.55 }}
+          />
+          {/* Fallback solid track for browsers without gradient support */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="none"
+            stroke="rgba(255,72,0,0.10)"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
 
-          {/* Progress ring with glow */}
+          {/* Ambient glow arc (thicker, blurred, behind main arc) */}
+          <motion.circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="none"
+            stroke="#FF5500"
+            strokeWidth={strokeWidth + 6}
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={inView ? { strokeDashoffset: circumference * (1 - progress) } : {}}
+            transition={{ type: 'spring', stiffness: 70, damping: 18, delay: 0.1 }}
+            style={{ filter: `url(#${outerGlowId})`, opacity: 0.25 }}
+          />
+
+          {/* Main progress arc */}
           <motion.circle
             cx={size / 2}
             cy={size / 2}
@@ -108,13 +168,22 @@ export default function AnimatedRingProgress({
             strokeDasharray={circumference}
             initial={{ strokeDashoffset: circumference }}
             animate={inView ? { strokeDashoffset: circumference * (1 - progress) } : {}}
-            transition={{
-              type: 'spring',
-              stiffness: 100,
-              damping: 20,
-            }}
-            style={{ filter: `url(#${glowId})` }}
+            transition={{ type: 'spring', stiffness: 70, damping: 18 }}
           />
+
+          {/* Tip dot — glowing cap at end of arc */}
+          {progress > 0.02 && (
+            <motion.circle
+              cx={tipX}
+              cy={tipY}
+              r={strokeWidth / 2 + 1}
+              fill="#FFB347"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.5, duration: 0.4, ease: 'backOut' }}
+              style={{ filter: `url(#${glowId})` }}
+            />
+          )}
         </svg>
 
         {/* Center content — counter + icon */}
@@ -125,11 +194,14 @@ export default function AnimatedRingProgress({
             </div>
           )}
           <span
-            className="counter-display font-bold"
+            className="counter-display font-bold tabular-nums"
             style={{
-              fontSize: size >= 140 ? '28px' : size >= 120 ? '24px' : '20px',
+              fontSize: size >= 140 ? '30px' : size >= 120 ? '25px' : '21px',
               lineHeight: 1,
-              color: 'var(--foreground)',
+              background: 'linear-gradient(135deg, #FF4800 0%, #FF8C00 60%, #FFB347 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
             }}
           >
             {count}{suffix}
@@ -138,9 +210,7 @@ export default function AnimatedRingProgress({
       </div>
 
       {/* Label */}
-      <span
-        className="mt-4 block text-center text-[13px] md:text-[14px] font-medium text-muted-foreground"
-      >
+      <span className="mt-4 block text-center text-[13px] md:text-[14px] font-medium text-muted-foreground">
         {label}
       </span>
     </div>

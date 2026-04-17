@@ -1,7 +1,15 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+/**
+ * ParallaxShowcase — WHY STRAVEDA dark feature-card section.
+ *
+ * FIX: Removed Framer Motion useScroll() + 7× useTransform() chains.
+ * Those created a native scroll listener that fired every frame independently
+ * of Lenis, causing two scroll systems to compete on the same RAF loop.
+ * Cards still entrance-animate via whileInView — zero scroll overhead at rest.
+ */
+
+import { motion } from 'framer-motion';
 import {
   Shield,
   Code,
@@ -19,36 +27,12 @@ interface ParallaxShowcaseProps {
 const ease = [0.4, 0, 0.2, 1] as const;
 
 const featureCards = [
-  {
-    title: 'Enterprise Grade',
-    icon: Shield,
-    description: 'Built for mission-critical workloads at scale',
-  },
-  {
-    title: 'Open Standards',
-    icon: Code,
-    description: 'No vendor lock-in, maximum flexibility',
-  },
-  {
-    title: 'Agile Delivery',
-    icon: Zap,
-    description: 'Iterative approach with rapid, measurable results',
-  },
-  {
-    title: '24/7 Support',
-    icon: Clock,
-    description: 'Round-the-clock enterprise support coverage',
-  },
-  {
-    title: 'Cost Effective',
-    icon: DollarSign,
-    description: 'Maximum ROI per dollar invested',
-  },
-  {
-    title: 'Proven Results',
-    icon: TrendingUp,
-    description: '99.9% uptime across all deployments',
-  },
+  { title: 'Enterprise Grade', icon: Shield,       description: 'Built for mission-critical workloads at scale' },
+  { title: 'Open Standards',   icon: Code,         description: 'No vendor lock-in, maximum flexibility' },
+  { title: 'Agile Delivery',   icon: Zap,          description: 'Iterative approach with rapid, measurable results' },
+  { title: '24/7 Support',     icon: Clock,        description: 'Round-the-clock enterprise support coverage' },
+  { title: 'Cost Effective',   icon: DollarSign,   description: 'Maximum ROI per dollar invested' },
+  { title: 'Proven Results',   icon: TrendingUp,   description: '99.9% uptime across all deployments' },
 ];
 
 const cardVariants = {
@@ -57,75 +41,33 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: {
-      duration: 0.7,
-      delay: i * 0.1,
-      ease,
-    },
+    transition: { duration: 0.7, delay: i * 0.1, ease },
   }),
 };
 
 export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Layer 1 (back): Large text moves slowly — translateY 0 → -60px
-  const backLayerY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-
-  // Layer 2 (mid): Each card gets slightly different parallax (-20px to -40px)
-  const card0Y = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const card1Y = useTransform(scrollYProgress, [0, 1], [0, -24]);
-  const card2Y = useTransform(scrollYProgress, [0, 1], [0, -28]);
-  const card3Y = useTransform(scrollYProgress, [0, 1], [0, -32]);
-  const card4Y = useTransform(scrollYProgress, [0, 1], [0, -36]);
-  const card5Y = useTransform(scrollYProgress, [0, 1], [0, -40]);
-
-  const cardParallaxYs = [card0Y, card1Y, card2Y, card3Y, card4Y, card5Y];
-
-  // Layer 3 (front): Content stays put for readability — translateY 0 → 0
-  const frontLayerY = useTransform(scrollYProgress, [0, 1], [0, 0]);
-
   return (
     <section
-      ref={sectionRef}
       className="relative overflow-hidden"
-      style={{
-        minHeight: '600px',
-        background: '#000000',
-      }}
+      style={{ minHeight: '600px', background: '#000000' }}
     >
-      {/* Subtle radial gradient glow centered on section */}
+      {/* Radial glow */}
       <div
         className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(255,72,0,0.03) 0%, transparent 70%)',
-        }}
+        style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(255,72,0,0.03) 0%, transparent 70%)' }}
       />
 
-      {/* ── Layer 1 (Back): Large semi-transparent "STRAVEDA" text ── */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center select-none"
-        style={{ y: backLayerY }}
-      >
+      {/* Background watermark — static, no scroll subscription */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden">
         <span
           className="whitespace-nowrap font-bold uppercase"
-          style={{
-            fontSize: 'clamp(80px, 12vw, 180px)',
-            color: 'rgba(255,255,255,0.03)',
-            letterSpacing: '0.15em',
-            lineHeight: 1,
-          }}
+          style={{ fontSize: 'clamp(80px, 12vw, 180px)', color: 'rgba(255,255,255,0.03)', letterSpacing: '0.15em', lineHeight: 1 }}
         >
           STRAVEDA
         </span>
-      </motion.div>
+      </div>
 
-      {/* ── Layer 2 (Mid): Glassmorphic feature cards in grid ── */}
+      {/* Feature cards grid */}
       <div className="relative z-10">
         <div className="mx-auto w-full max-w-7xl px-6 pt-20 lg:px-8 lg:pt-24">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -139,7 +81,6 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-80px' }}
-                  style={{ y: cardParallaxYs[i] }}
                 >
                   <div
                     className="group rounded-xl p-6 transition-all duration-300 hover:-translate-y-1"
@@ -158,19 +99,9 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
-                    <Icon
-                      className="mb-3 h-5 w-5 transition-colors duration-300"
-                      style={{ color: '#FF4800' }}
-                    />
-                    <h4
-                      className="mb-1 text-[15px] font-semibold text-white"
-                      style={{ fontWeight: 600 }}
-                    >
-                      {card.title}
-                    </h4>
-                    <p className="text-[13px] leading-relaxed" style={{ color: '#A1A1A1' }}>
-                      {card.description}
-                    </p>
+                    <Icon className="mb-3 h-5 w-5" style={{ color: '#FF4800' }} />
+                    <h4 className="mb-1 text-[15px] font-semibold text-white">{card.title}</h4>
+                    <p className="text-[13px] leading-relaxed" style={{ color: '#A1A1A1' }}>{card.description}</p>
                   </div>
                 </motion.div>
               );
@@ -179,13 +110,9 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
         </div>
       </div>
 
-      {/* ── Layer 3 (Front): Main content (stays put for readability) ── */}
-      <motion.div
-        className="relative z-10"
-        style={{ y: frontLayerY }}
-      >
+      {/* Front content — static wrapper (was useTransform y=0→0, literally no effect) */}
+      <div className="relative z-10">
         <div className="mx-auto w-full max-w-3xl px-6 pb-20 text-center lg:px-8 lg:pb-24">
-          {/* Label */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -197,23 +124,17 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
             WHY STRAVEDA
           </motion.p>
 
-          {/* Heading */}
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 0.1, ease }}
             className="mb-6 text-white"
-            style={{
-              fontWeight: 500,
-              fontSize: 'clamp(36px, 5vw, 56px)',
-              lineHeight: 1.15,
-            }}
+            style={{ fontWeight: 500, fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.15 }}
           >
             The partner enterprises trust.
           </motion.h2>
 
-          {/* Paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -223,11 +144,9 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
             style={{ color: '#A1A1A1', fontSize: '18px' }}
           >
             From Fortune 500 financial institutions to government agencies, we
-            deliver transformative results with unmatched expertise and
-            dedication.
+            deliver transformative results with unmatched expertise and dedication.
           </motion.p>
 
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,15 +164,12 @@ export default function ParallaxShowcase({ onNavigate }: ParallaxShowcaseProps) 
             </MagneticButton>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Bottom edge glow */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
-        style={{
-          background:
-            'linear-gradient(90deg, transparent 0%, rgba(255,72,0,0.3) 50%, transparent 100%)',
-        }}
+        style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,72,0,0.3) 50%, transparent 100%)' }}
       />
     </section>
   );
