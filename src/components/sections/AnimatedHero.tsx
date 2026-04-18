@@ -89,14 +89,16 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
     const gradient = gradientRef.current;
     if (!section || !gradient) return;
 
+    const el = gradient;
+
     function onMouseMove(e: MouseEvent) {
-      gradient.style.left = e.clientX - 192 + 'px';
-      gradient.style.top = e.clientY - 192 + 'px';
-      gradient.style.opacity = '1';
+      el.style.left = e.clientX - 192 + 'px';
+      el.style.top = e.clientY - 192 + 'px';
+      el.style.opacity = '1';
     }
 
     function onMouseLeave() {
-      gradient.style.opacity = '0';
+      el.style.opacity = '0';
     }
 
     section.addEventListener('mousemove', onMouseMove);

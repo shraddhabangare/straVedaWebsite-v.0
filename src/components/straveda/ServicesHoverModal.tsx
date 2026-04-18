@@ -57,15 +57,15 @@ const serviceData: ServiceItem[] = [
     icon: ClipboardCheck,
   },
   {
-    title: 'Software Solutions',
-    short: 'Red Hat middleware and virtualization at enterprise scale.',
+    title: 'Custom Software & AI Systems',
+    short: 'Bespoke software and AI-powered tools built for your workflow.',
     extended:
-      'We deploy Red Hat Enterprise Middleware and virtualization solutions that lower total cost of ownership and maximize application performance.',
+      'We design and build custom software — CRMs, ops dashboards, AI-integrated platforms — that replace off-the-shelf tools and fit your exact business process.',
     capabilities: [
-      'RHEL deployment',
-      'Containerization',
-      'Enterprise integration',
-      'ESB platforms',
+      'Custom CRM development',
+      'AI-powered dashboards',
+      'API integrations',
+      'LLM-integrated systems',
     ],
     icon: Server,
   },

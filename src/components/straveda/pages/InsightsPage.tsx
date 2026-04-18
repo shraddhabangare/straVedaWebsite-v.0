@@ -7,119 +7,108 @@ import { toast } from 'sonner';
 import TextReveal from '@/components/straveda/TextReveal';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
 
-const categories = ['All', 'Architecture', 'Cloud', 'Security', 'DevOps', 'Strategy', 'AI/ML'] as const;
+const categories = ['All', 'Automation', 'Custom Software', 'AI Strategy', 'Systems', 'Web Development'] as const;
 type FilterCategory = (typeof categories)[number];
 
-const featuredTopics = ['All', 'Architecture', 'Cloud', 'Security', 'DevOps', 'Strategy', 'AI/ML'] as const;
+const featuredTopics = ['All', 'Automation', 'Custom Software', 'AI Strategy', 'Systems', 'Web Development'] as const;
 
 const featuredPost = {
-  category: 'ENTERPRISE ARCHITECTURE',
-  filterCategory: 'Architecture' as FilterCategory,
-  title: 'The Case for Open Standards in Modern Enterprise Architecture',
-  date: 'March 2024',
+  category: 'AUTOMATION',
+  filterCategory: 'Automation' as FilterCategory,
+  title: 'The Manual Work Audit — How to Find 40% of Your Team\'s Time',
+  date: 'March 2025',
   excerpt:
-    'Why forward-thinking enterprises are choosing open-standards middleware over proprietary lock-in, and what this means for your technology roadmap.',
+    'Most growing companies don\'t know where their team\'s time actually goes. We\'ve audited 50+ businesses and found the same pattern: 40–50% of work is repetitive, manual, and eliminable. Here\'s how to find yours.',
   readTime: '8 min read',
-  author: { name: 'Raj Patel', title: 'Founder & CEO' },
+  author: { name: 'Straveda Team', title: 'AI Automation & Custom Software' },
   fullContent: [
-    'The enterprise technology landscape has undergone a fundamental shift in the past decade. Where proprietary solutions once dominated, open standards have emerged as the cornerstone of resilient, future-proof architecture. Organizations that embrace open standards benefit from a vibrant ecosystem of interoperable tools, reduced dependency on single vendors, and the collective innovation of global developer communities.',
-    'At the heart of this transition is middleware — the connective tissue between enterprise applications, data sources, and cloud services. Open-standards middleware, such as those built on Jakarta EE and MicroProfile specifications, provides enterprises with the flexibility to choose best-of-breed components without sacrificing integration capabilities. This approach eliminates the "rip and replace" cycles that characterize proprietary upgrades, enabling continuous evolution rather than disruptive overhauls.',
-    'Vendor lock-in remains one of the most significant risks facing enterprise IT. When an organization is tethered to a single vendor\'s proprietary stack, licensing costs escalate predictably year over year, while the ability to negotiate favorable terms diminishes. Open standards invert this dynamic by creating competitive markets where vendors must earn continued business through innovation and service quality rather than contractual obligation.',
-    'The total cost of ownership argument for open standards extends well beyond licensing fees. Organizations report 30-40% reductions in integration costs when adopting open-standards middleware, driven by standardized APIs, protocol compatibility, and the availability of open-source tooling. Combined with faster time-to-market for new capabilities and reduced risk during technology transitions, the business case for open standards has become compelling for enterprises of every size and industry.',
+    'Most growing companies don\'t know where their team\'s time actually goes. You hire smart people to drive growth. Instead, they spend 40% of their time on work that could be automated, doesn\'t require human judgment, repeats the same way every time, and kills their momentum.',
+    'Manual work is invisible. It lives in spreadsheets that sync data between tools, email follow-up sequences that someone sends manually, data entry that could be automated, status meetings that could be a dashboard, and approvals that ping-pong between people. None of it shows up as a discrete "job." So it gets ignored.',
+    'Step 1: Do a Time Audit (30 min). Ask your top 3 people: "Walk me through your day. Where does your time go?" You\'ll hear: "I spend 2 hours a day manually qualifying leads", "I copy data from our order system into accounting every afternoon", "I send the same check-in email to inactive customers." Write it all down.',
+    'Step 2: Calculate the Cost. If your top person spends 2 hours/day on manual qualifying: 2 hours × 20 working days = 40 hours/month. 40 hours × ₹500/hour = ₹20,000/month in lost capacity. ₹20,000 × 12 = ₹2.4L/year. That\'s just one person, one process. Most companies have 3–5 of these.',
+    'If you automate just your top 3 time-wasters, you reclaim 80–120 hours/month. That\'s 2–3 full-time people\'s worth of capacity. No hiring needed. Costs ₹5L–₹15L to build. Pays for itself in months. Book a strategy call and we\'ll run this audit with you in 30 minutes.',
   ],
 };
 
 const posts = [
   {
-    category: 'TECHNOLOGY STRATEGY',
-    filterCategory: 'Strategy' as FilterCategory,
-    title: 'How to Align IT Investment with Business Goals',
-    date: 'February 2024',
+    category: 'CUSTOM SOFTWARE',
+    filterCategory: 'Custom Software' as FilterCategory,
+    title: 'Custom CRM vs. Salesforce — When Off-the-Shelf Doesn\'t Fit',
+    date: 'March 2025',
     excerpt:
-      'Learn how enterprise leaders bridge the gap between IT spending and measurable business outcomes.',
+      'Salesforce works great — until it doesn\'t. Here\'s how to decide when a custom CRM actually saves you money.',
     readTime: '5 min read',
-    author: { name: 'Anika Sharma', title: 'VP of Technology Strategy' },
+    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
-      'Enterprise IT spending continues to reach record levels, yet many organizations struggle to demonstrate clear connections between technology investments and business value. The root cause often lies not in the technology itself, but in the governance frameworks that guide investment decisions. Without a structured approach to aligning IT expenditure with strategic business objectives, even well-intentioned technology initiatives can drift into cost centers rather than value drivers.',
-      'The most effective IT alignment frameworks begin with a thorough understanding of business capabilities and the technology services that enable them. By mapping each business capability to its supporting technology stack, organizations can identify redundancy, gaps, and opportunities for optimization. This capability-based approach ensures that every dollar of IT spend is traceable to a specific business outcome, whether that is revenue growth, operational efficiency, or risk mitigation.',
-      'Leading organizations are adopting technology investment committees that bring together business unit leaders, finance executives, and IT architects. These cross-functional bodies evaluate proposed investments against a balanced scorecard that considers financial return, strategic fit, operational risk, and innovation potential. This collaborative model replaces the traditional "IT budget" mindset with a shared responsibility for technology-enabled business outcomes.',
+      'Most businesses start with Salesforce or HubSpot because they\'re fast to set up and everyone knows them. That\'s a legitimate reason. But after 12-18 months, a pattern emerges: your team spends more time working around the CRM than inside it. Custom fields that don\'t quite fit. Automations that need 3 Zapier steps to do something that should be one click. Licensing costs that climb as your team grows.',
+      'A custom CRM built for your specific sales process isn\'t a luxury — it\'s often cheaper over a 3-year horizon. When you own the code, you pay for hosting (a few hundred dollars a month) instead of per-seat licenses. When your process changes, you change the software in days, not months of Salesforce consultant time.',
+      'The decision comes down to three questions: Does your sales or operations process have more than 5 custom stages or non-standard workflows? Do you pay more than ₹2L/month in SaaS licenses across your CRM and adjacent tools? Are you losing data fidelity because your CRM can\'t model your actual business? If the answer to two of three is yes, it\'s time to run the numbers on a custom build.',
+      'At Straveda, we\'ve built CRMs that replace Salesforce for businesses at 20-200 person scale. The typical project runs 6-10 weeks and pays for itself within 18 months on licensing savings alone — before you count the productivity gains from software that actually fits.',
     ],
   },
   {
-    category: 'MANAGEMENT',
-    filterCategory: 'Leadership' as FilterCategory,
-    title: 'Eliminating Enterprise Delivery Bottlenecks',
-    date: 'January 2024',
+    category: 'AI STRATEGY',
+    filterCategory: 'AI Strategy' as FilterCategory,
+    title: 'AI for Your Business — The ROI-First Framework',
+    date: 'February 2025',
     excerpt:
-      'Practical strategies for identifying and removing the obstacles that slow enterprise delivery.',
+      'Most AI projects fail not because the technology doesn\'t work, but because nobody defined what "working" means.',
     readTime: '6 min read',
-    author: { name: 'Marcus Chen', title: 'Director of Delivery' },
+    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
-      'Enterprise delivery bottlenecks are rarely caused by a single factor. Instead, they emerge from a complex interplay of organizational structure, process maturity, tooling choices, and cultural dynamics. The most persistent bottlenecks tend to cluster around environment provisioning, cross-team coordination, approval workflows, and testing infrastructure — areas where accumulated technical debt and bureaucratic overhead compound over time.',
-      'Value stream mapping has proven to be an invaluable diagnostic tool for identifying delivery bottlenecks. By tracing the flow of work from ideation through production deployment, organizations can quantify lead time at each stage, pinpoint queues and wait states, and measure the ratio of value-adding activities to overhead. This data-driven approach transforms bottleneck resolution from a subjective exercise into a systematic, continuous improvement process.',
-      'The most impactful bottleneck interventions often address organizational design rather than technology. Conway\'s Law — the observation that system architecture mirrors communication structures — means that team boundaries, reporting lines, and decision-making authority have a direct and measurable impact on delivery velocity. Restructuring teams around value streams rather than technical layers can eliminate entire categories of coordination overhead.',
-      'Automation plays a critical supporting role in bottleneck elimination, but it must be applied strategically. Premature automation of broken processes simply accelerates the delivery of poor outcomes. The most effective approach is to first streamline and simplify the underlying process, then automate the optimized workflow. This "simplify first, automate second" principle ensures that automation investments amplify efficiency gains rather than entrench inefficiencies.',
+      'AI implementation fails in a predictable way: leadership sees a demo, gets excited, approves a pilot, and 6 months later the team is still "experimenting." No production traffic. No metrics. No clear owner. The technology worked fine — the project management didn\'t.',
+      'The ROI-First Framework flips the sequence. Before writing a line of code, you answer three questions: What specific human decision or action is this AI replacing or augmenting? What\'s the cost of that decision today in time, money, or errors? What does success look like in the first 30 days of production use? If you can\'t answer all three, the project isn\'t ready to start.',
+      'The highest-ROI AI applications we see in small and mid-market businesses are not the glamorous ones. They\'re customer support triage that routes 60% of tickets without human review. Lead qualification that scores inbound inquiries before a salesperson picks them up. Document processing that turns a 20-minute manual task into a 30-second automated one. Unglamorous, measurable, and compounding.',
+      'Our standard engagement starts with a 2-hour audit of your current operations to find the highest-leverage AI insertion points. Most businesses have 3-5 automation opportunities that pay for the entire engagement within 90 days. We build those first, then expand based on what the data shows.',
     ],
   },
   {
-    category: 'SOFTWARE SOLUTIONS',
-    filterCategory: 'Cloud' as FilterCategory,
-    title: 'Red Hat Middleware: Lowering TCO at Scale',
-    date: 'December 2023',
+    category: 'AUTOMATION',
+    filterCategory: 'Automation' as FilterCategory,
+    title: 'Why Your Next Product Should Be Built for Speed, Not Perfection',
+    date: 'January 2025',
     excerpt:
-      'How Red Hat Enterprise Middleware delivers measurable cost savings for large-scale deployments.',
-    readTime: '7 min read',
-    author: { name: 'David Okonkwo', title: 'Senior Solutions Architect' },
+      'The companies winning right now ship in weeks, not quarters. Here\'s the operational system behind that.',
+    readTime: '5 min read',
+    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
-      'Total cost of ownership for enterprise middleware extends far beyond the initial licensing or subscription fees. A comprehensive TCO analysis must account for infrastructure requirements, operational staffing, training and certification, security compliance, integration development, and ongoing maintenance. For large-scale deployments spanning hundreds of applications and thousands of endpoints, these operational costs typically dwarf the software costs by a factor of three to five.',
-      'Red Hat Enterprise Middleware, built on open-source foundations like JBoss EAP, AMQ, and Fuse, offers a fundamentally different cost structure than proprietary alternatives. The subscription model provides predictable annual costs with no surprise licensing audits or escalating maintenance fees. More importantly, the open-source lineage means a deep talent pool, extensive community documentation, and a rich ecosystem of complementary tools that reduce integration and customization costs.',
-      'In comparative analyses across financial services, healthcare, and manufacturing sectors, Red Hat middleware deployments consistently demonstrate 25-45% lower five-year TCO compared to proprietary equivalents. The primary drivers of this advantage include reduced infrastructure footprint through container-native design, lower staffing costs due to standardized skillsets, and faster time-to-value for new integration projects.',
+      'There\'s a myth that quality and speed are in tension. They\'re not — but "perfection" and speed are. Perfection is a moving target defined by hypothetical future users. Quality is a baseline defined by your actual users today. The companies that ship fast have learned to build for quality without chasing perfection.',
+      'The operational system behind fast shipping has a few non-negotiable components: a strict scope boundary (what is and is not in v1), automated testing that catches regressions without slowing deploys, and a weekly ship cadence that forces prioritization decisions. When you commit to shipping every week, you can\'t let perfect be the enemy of shipped.',
+      'At Straveda, our standard engagement includes a deployment pipeline from day one. By week 2, something is in production — even if it\'s just a staging environment with the core data model. By week 4, real users are touching real software. This isn\'t recklessness; it\'s feedback compression. Every week you\'re not in production is a week you\'re building on assumptions.',
+      'The automation layer is what makes this sustainable. Automated tests, automated deployments, automated monitoring — these aren\'t nice-to-haves for a fast team, they\'re the infrastructure that allows speed without chaos. Without them, fast shipping becomes fast breaking. With them, your team spends time building features, not firefighting.',
     ],
   },
   {
-    category: 'ENTERPRISE ARCHITECTURE',
-    filterCategory: 'Architecture' as FilterCategory,
-    title: 'Microservices vs. Monolith: An Enterprise Decision Framework',
-    date: 'November 2023',
+    category: 'SYSTEMS',
+    filterCategory: 'Systems' as FilterCategory,
+    title: 'The Data Silo Problem — How to Build One Source of Truth',
+    date: 'December 2024',
     excerpt:
-      'A structured approach to choosing between microservices and monolithic architecture for your enterprise.',
+      'Your CRM says one thing, your spreadsheet says another, your ops team has a third number. Here\'s how to fix it.',
     readTime: '6 min read',
-    author: { name: 'Elena Vasquez', title: 'Principal Architect' },
+    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
-      'The microservices versus monolith debate has generated more heat than light in enterprise architecture circles. Both architectural styles have legitimate strengths and trade-offs, and the optimal choice depends on a constellation of factors including organizational maturity, team structure, deployment infrastructure, and the specific characteristics of the application portfolio. Dogmatic adherence to either approach is a recipe for architectural mismatch.',
-      'Microservices excel in environments characterized by autonomous teams, independent deployment pipelines, polyglot technology needs, and high scalability requirements for specific subsystems. However, they introduce significant complexity in service discovery, distributed data management, observability, and operational governance. Organizations without mature DevOps practices and robust platform engineering capabilities often find that microservices amplify operational overhead faster than they deliver agility benefits.',
-      'Monolithic architectures, often dismissed as legacy, offer compelling advantages for many enterprise contexts. They simplify development, testing, and deployment for organizations with constrained platform capabilities. They eliminate the network boundary as a failure domain and reduce latency for tightly coupled operations. The modular monolith pattern — organizing code into well-defined internal modules with explicit boundaries — can deliver many of microservices\' design benefits without the operational complexity.',
-      'The most pragmatic decision framework evaluates four dimensions: organizational scaling needs, deployment independence requirements, technology heterogeneity, and team autonomy. When these factors strongly favor decomposition, microservices with a robust service mesh and platform layer provide the foundation for sustainable scale. When they do not, a well-architected modular monolith preserves optionality for future decomposition while minimizing current operational burden.',
+      'Data silos aren\'t a storage problem — they\'re a trust problem. When the same metric shows different numbers in different systems, your team stops trusting any of them and falls back on gut feel and tribal knowledge. The result is decisions made on the loudest voice in the room, not the best data.',
+      'The root cause is usually fragmented tooling accumulated over time: a CRM for sales, a separate project management tool for delivery, spreadsheets for finance, WhatsApp threads for customer communication. Each tool has its own data model, its own export format, its own definition of "customer" or "deal" or "revenue." Reconciling them manually is a part-time job for someone on your team.',
+      'Building one source of truth doesn\'t mean replacing all your tools — it means creating a central data layer that pulls from each tool and enforces a single definition for shared concepts. A PostgreSQL database with automated sync jobs, a simple dashboard showing the metrics that matter, and a clear ownership model for data quality. This is a 4-6 week build, not a multi-year ERP implementation.',
+      'The businesses we\'ve helped with this problem typically see two immediate benefits: their weekly reporting goes from 3 hours of manual consolidation to a 10-minute dashboard review, and their cross-functional meetings stop being arguments about whose numbers are right. When everyone trusts the same data, the conversation shifts from "what is the number" to "what do we do about it."',
     ],
   },
   {
-    category: 'TECHNOLOGY STRATEGY',
-    filterCategory: 'Strategy' as FilterCategory,
-    title: 'Building a Digital Transformation Roadmap That Works',
-    date: 'October 2023',
+    category: 'WEB DEVELOPMENT',
+    filterCategory: 'Web Development' as FilterCategory,
+    title: 'Why Your Website Is Costing You Leads',
+    date: 'November 2024',
     excerpt:
-      'Step-by-step framework for creating and executing a digital transformation strategy.',
+      'Most business websites are digital brochures. Here\'s what a lead-generating website actually looks like.',
     readTime: '5 min read',
-    author: { name: 'Sarah Kim', title: 'Managing Consultant' },
+    author: { name: 'Dhiraj Harshe', title: 'Founder, Straveda Tech' },
     fullContent: [
-      'Digital transformation initiatives fail at alarming rates — industry estimates suggest that 70-80% of large-scale transformation programs do not achieve their stated objectives. The primary failure mode is not technology but strategy execution. Organizations often define ambitious transformation visions but lack the structured roadmaps, governance mechanisms, and adaptive planning processes needed to navigate the complexity of large-scale change.',
-      'An effective transformation roadmap must balance ambition with pragmatism. It should identify quick-win initiatives that demonstrate value within 60-90 days, building organizational momentum and stakeholder confidence. Simultaneously, it must lay the architectural foundations — data platforms, integration layer, cloud infrastructure — that enable subsequent capability releases. This dual-track approach ensures that transformation delivers tangible results while building the technical scaffolding for long-term vision.',
-      'Success measurement is the most commonly underestimated element of digital transformation roadmaps. Organizations that define clear, quantifiable success metrics at the outset — customer acquisition cost, order-to-cash cycle time, employee productivity, system uptime — are significantly more likely to sustain executive sponsorship and organizational commitment through the inevitable challenges of large-scale change.',
-    ],
-  },
-  {
-    category: 'MANAGEMENT',
-    filterCategory: 'Leadership' as FilterCategory,
-    title: 'Agile PMO: Bridging Traditional Governance and Modern Delivery',
-    date: 'September 2023',
-    excerpt:
-      'How to build a PMO that supports agile delivery without sacrificing governance and compliance.',
-    readTime: '5 min read',
-    author: { name: 'James Mitchell', title: 'Practice Lead, Management Consulting' },
-    fullContent: [
-      'The traditional Project Management Office was designed for a world of sequential, plan-driven delivery. In that context, its value was clear: centralized resource management, standardized reporting, risk governance, and organizational learning. However, as enterprises have adopted agile and product-centric operating models, the traditional PMO has become a source of friction rather than a catalyst for effective delivery.',
-      'The Agile PMO represents an evolution rather than an abandonment of traditional governance principles. Its mandate shifts from controlling project execution to enabling effective product delivery. This means lightweight portfolio management that aligns investment with strategic priorities, automated metrics collection that replaces manual status reporting, and embedded compliance checks that satisfy regulatory requirements without impeding team velocity.',
-      'Leading organizations are reconstituting their PMOs as "Delivery Enablement" functions that provide shared services — tooling, training, coaching, environment management — to autonomous delivery teams. This model preserves the coordination and governance benefits of centralized project management while respecting the autonomy and speed that agile delivery demands. The result is a governance model that scales with organizational complexity without becoming a bottleneck for innovation and delivery.',
+      'If your website\'s primary job is to "look professional," you\'ve already lost. Visitors don\'t come to your website to be impressed — they come because they have a problem and they\'re wondering if you can solve it. A website that leads with your company history, your team headshots, and your "values" is answering questions nobody asked.',
+      'A lead-generating website is organized around the visitor\'s decision journey, not your organizational chart. The first thing they see answers: what do you do, for whom, and what happens next? Every page has a clear next action. The contact form asks for the minimum information needed to have a useful conversation — not a 12-field qualification quiz.',
+      'Page speed is not optional. For every second of load time above 2 seconds, conversion rates drop measurably. On mobile, where over 60% of business website traffic now originates, a slow or poorly formatted page is an immediate exit. Next.js with server-side rendering, optimized images, and edge deployment typically cuts load times by 40-60% versus a typical WordPress or Webflow site.',
+      'The websites we build are designed to convert, not just impress. We start with conversion goals — contact form submissions, WhatsApp messages, discovery call bookings — and build backwards from there. Analytics are configured from day one so you know which pages are working and which are leaking visitors. Most of our clients see a meaningful increase in qualified inquiries within the first 60 days, without changing their traffic sources.',
     ],
   },
 ];

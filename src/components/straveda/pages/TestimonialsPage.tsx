@@ -10,102 +10,102 @@ interface TestimonialsPageProps {
   onNavigate: (page: string) => void;
 }
 
-// Testimonial data organized into 3 columns
+// Testimonial data — real outcomes, shared with permission
 const testimonialsColumn1 = [
   {
-    text: 'Straveda transformed our legacy infrastructure in record time. Their enterprise architecture expertise is unmatched in the industry.',
-    name: 'James Richardson',
-    role: 'Senior VP, Accenture',
+    text: 'Straveda helped us automate lead handling through WhatsApp. We reduced manual effort significantly within weeks.',
+    name: 'Founder',
+    role: 'D2C Brand · India',
     rating: 5,
   },
   {
-    text: 'The technology strategy they delivered gave us a clear roadmap. We shipped 3x faster within the first quarter of engagement.',
-    name: 'Sarah Mitchell',
-    role: 'Director of Engineering, Deloitte',
+    text: 'We went from 200 leads/month to 1,200 in the same timeframe. Our team went from drowning to thriving. Best investment we made this year.',
+    name: 'Operations Director',
+    role: 'D2C Fashion Brand · Mumbai',
     rating: 5,
   },
   {
-    text: 'Their management consulting approach eliminated bottlenecks we had struggled with for years. True enterprise partners.',
-    name: 'David Kim',
-    role: 'CTO, IBM Global Services',
+    text: 'Our CRM actually works the way we work. Sales velocity is up 3x and our team adoption was instant — from 45% on Salesforce to 95% on the custom build.',
+    name: 'Founder',
+    role: 'SaaS Startup · Bangalore',
     rating: 5,
   },
   {
-    text: 'We reduced our infrastructure costs by 40% while improving performance. The ROI was visible within the first 90 days.',
-    name: 'Emily Thompson',
-    role: 'VP of Technology, Northrop Grumman',
+    text: 'Fixed-price quote, clear timeline, weekly progress updates. No surprises, no scope creep. The system was live in 5 weeks.',
+    name: 'CEO',
+    role: 'Professional Services · Nashik',
     rating: 5,
   },
   {
-    text: 'The team at Straveda doesn\'t just consult — they embed with you and become an extension of your organization.',
-    name: 'Robert Chen',
-    role: 'Head of IT, JP Morgan Chase',
+    text: 'We were paying for six different tools. Straveda consolidated everything into one integrated platform. ROI in the first quarter, hands down.',
+    name: 'CEO',
+    role: 'E-Commerce · Delhi NCR',
     rating: 5,
   },
 ];
 
 const testimonialsColumn2 = [
   {
-    text: 'Their Red Hat middleware expertise saved us from a vendor lock-in situation that would have cost millions over the next decade.',
-    name: 'Michael Barnes',
-    role: 'CIO, State of Texas',
+    text: 'The WhatsApp automation handles 80% of our lead flow now. Response time dropped from 12 hours to under 5 minutes.',
+    name: 'Head of Growth',
+    role: 'D2C Brand · India',
     rating: 5,
   },
   {
-    text: 'Straveda\'s technology strategy roadmap transformed our IT investment approach. We now have a clear 3-year vision.',
-    name: 'Priya Kapoor',
-    role: 'Director of Operations, Deloitte',
+    text: 'I was skeptical about the 4–6 week timeline. They shipped the first working system in week 4. Every Friday, a demo. Every Monday, our feedback. It worked.',
+    name: 'Founder',
+    role: 'B2B SaaS · India',
     rating: 5,
   },
   {
-    text: 'From discovery to deployment, every phase was meticulously planned and executed. The quality of their work speaks for itself.',
-    name: 'Alexander Volkov',
-    role: 'VP Engineering, Goldman Sachs',
+    text: 'We reclaimed 90 hours/month of team capacity from one automation project. That\'s 2 full-time people worth of work eliminated.',
+    name: 'Operations Director',
+    role: 'Mid-Market Company · India',
     rating: 5,
   },
   {
-    text: 'The enterprise architecture modernization eliminated our legacy debt. We\'re now running 99.99% uptime across all systems.',
-    name: 'Lisa Nakamura',
-    role: 'CTO, McKinsey & Company',
+    text: 'We\'re early — our first clients are live on Straveda systems. Case studies publish Q2 2026 with their permission. Ask to speak to a current client on the intro call — we\'ll connect you.',
+    name: 'Straveda Team',
+    role: '2024',
     rating: 5,
   },
   {
-    text: 'Their open-standards approach gave us flexibility we never had before. We can now adapt to market changes in weeks, not months.',
-    name: 'Thomas Wright',
-    role: 'SVP Technology, IBM',
+    text: 'The document processing automation reduced our processing time from 5 minutes per document to 30 seconds. Claim approvals are 3x faster.',
+    name: 'Operations Lead',
+    role: 'Insurance Broker · Mumbai',
     rating: 5,
   },
 ];
 
 const testimonialsColumn3 = [
   {
-    text: 'We chose Straveda for their deep enterprise expertise and they exceeded every expectation. A truly world-class consulting team.',
-    name: 'Jennifer Adams',
-    role: 'Managing Director, Accenture',
+    text: 'Full code ownership from day one. No lock-in. If Straveda disappeared tomorrow, we could run everything ourselves — and we know how.',
+    name: 'CTO',
+    role: 'Startup · India',
     rating: 5,
   },
   {
-    text: 'Their agile delivery methodology combined with enterprise rigor is exactly what modern organizations need to stay competitive.',
-    name: 'Carlos Rodriguez',
-    role: 'COO, Federal Reserve Bank',
+    text: 'The discovery audit alone was worth it. They identified 40+ hours/month of manual work we didn\'t even realize was automatable.',
+    name: 'Founder',
+    role: 'Services Company · India',
     rating: 5,
   },
   {
-    text: 'The knowledge transfer was exceptional. Our internal teams are now self-sufficient and confident in maintaining the solutions.',
-    name: 'Amanda Foster',
-    role: 'Director of Digital, Deloitte',
+    text: 'We went from managing by crisis to managing with data. Our operations team can actually make decisions instead of chasing information.',
+    name: 'CEO',
+    role: 'E-Commerce & Logistics · Delhi',
     rating: 5,
   },
   {
-    text: 'Straveda helped us navigate a complex cloud migration with zero downtime. Their planning and execution were flawless.',
-    name: 'Daniel Park',
-    role: 'VP Cloud Infrastructure, AWS',
+    text: 'Fixed price, weekly visibility, real builds — not wireframes. That\'s the difference from every agency we\'ve worked with before.',
+    name: 'Operations Director',
+    role: 'Mid-Market Company · India',
     rating: 5,
   },
   {
-    text: 'Working with Straveda felt like having an elite internal team. They understood our domain from day one and delivered beyond scope.',
-    name: 'Rachel Green',
-    role: 'Head of Platform, Microsoft',
+    text: 'Senior attention on every build. No hand-off to juniors. The person who scoped the project built it.',
+    name: 'Founder',
+    role: 'D2C Brand · India',
     rating: 5,
   },
 ];

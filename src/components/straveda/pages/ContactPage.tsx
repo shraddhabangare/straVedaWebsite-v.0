@@ -495,7 +495,7 @@ export default function ContactPage() {
               <Mail className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
                 <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[18px] font-medium">
-                  info@straveda.com
+                  hello@straveda.com
                 </p>
               </div>
             </motion.div>
@@ -512,9 +512,9 @@ export default function ContactPage() {
               <MapPin className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
                 <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[16px] font-medium">
-                  Plano, TX 75024
+                  Nashik, Maharashtra 422001
                 </p>
-                <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">United States</p>
+                <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">India</p>
               </div>
             </motion.div>
 
@@ -533,7 +533,7 @@ export default function ContactPage() {
                   Monday &ndash; Friday
                 </p>
                 <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">
-                  9:00 AM &ndash; 6:00 PM CST
+                  9:00 AM &ndash; 6:00 PM IST
                 </p>
               </div>
             </motion.div>
@@ -588,9 +588,9 @@ export default function ContactPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4800]/10">
                     <MapPin className="h-5 w-5 text-[#FF4800] map-pin-pulse" />
                   </div>
-                  <p className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">Plano, TX 75024 · United States</p>
+                  <p className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">Nashik, Maharashtra 422001 · India</p>
                   <a
-                    href="https://maps.google.com/?q=Plano+TX+75024"
+                    href="https://maps.google.com/?q=Nashik+Maharashtra+422001"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[12px] text-[#FF4800] hover:text-[#e63f00] font-medium underline underline-offset-2 transition-colors"

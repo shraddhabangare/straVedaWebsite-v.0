@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useScrollGradient } from '@/hooks/useScrollGradient';
@@ -175,7 +176,7 @@ function StatCounter({ target, suffix }: { target: number; suffix: string }) {
 const testimonials = [
   {
     name: 'Straveda Team',
-    role: '2025',
+    role: '2024',
     company: '',
     quote: 'We\'re early. Our first clients are live on Straveda systems. Case studies publish in Q2 2026 with their permission. Want to talk to a current client? Ask on the intro call — we\'ll connect you.',
     stars: 5,
@@ -420,18 +421,18 @@ function FAQSection() {
           transition={{ duration: 0.8, ease }}
           className="mb-14 text-center"
         >
-          <p
-            className="mb-4 text-[11px] font-medium uppercase tracking-wider"
-            style={{ color: '#FF4800' }}
-          >
+          <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>
             FREQUENTLY ASKED QUESTIONS
           </p>
-          <h2
-            className="font-normal heading-gradient"
-            style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
-          >
-            Questions? Here&apos;s what mid-market teams ask first.
-          </h2>
+          <div className="flex items-start gap-5 justify-center">
+            <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+            <h2
+              className="font-normal heading-gradient"
+              style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
+            >
+              Questions? Here&apos;s what mid-market teams ask first.
+            </h2>
+          </div>
         </motion.div>
 
         {/* Accordion */}
@@ -555,34 +556,129 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.7, ease }}
-        className="py-12 md:py-16 bg-white dark:bg-[#0a0a14] relative border-t border-black/[0.06] dark:border-white/[0.06]"
+        className="py-16 md:py-24 bg-white dark:bg-[#0a0a14] relative border-t border-black/[0.06] dark:border-white/[0.06]"
       >
         <div className="mx-auto max-w-4xl px-6 lg:px-8 relative text-center">
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-widest" style={{ color: '#FF4800' }}>
+          <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>
             Where we stand
           </p>
-          <p
-            className="text-[22px] md:text-[28px] font-normal leading-[1.4] text-[#1a1a2e] dark:text-[#f0f0f5]"
-            style={{ letterSpacing: '-0.5px' }}
-          >
-            We&apos;re early — and we charge like it.
-          </p>
+          <div className="flex items-start gap-5 justify-center">
+            <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+            <h2
+              className="font-normal heading-gradient"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-2px' }}
+            >
+              We&apos;re early — and we charge like it.
+            </h2>
+          </div>
           <p className="mt-4 text-[16px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto">
-            Straveda launched in 2025. We take on a limited number of engagements each quarter so we can ship fast and stay accountable. Our current clients are in D2C, B2B SaaS, and professional services.
+            Straveda launched in 2024. We take on a limited number of engagements each quarter so we can ship fast and stay accountable. Our current clients are in D2C, B2B SaaS, and professional services.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {[
               { label: 'Fixed-price after discovery', icon: '✓' },
               { label: 'Weekly progress updates', icon: '✓' },
               { label: 'Full code ownership', icon: '✓' },
               { label: 'No long-term lock-in', icon: '✓' },
             ].map((item) => (
-              <div key={item.label} className="flex items-center gap-2">
+              <div
+                key={item.label}
+                className="flex items-center gap-2 rounded-full px-4 py-2"
+                style={{ background: 'rgba(255,72,0,0.06)', border: '1px solid rgba(255,72,0,0.12)' }}
+              >
                 <span className="text-[13px] font-semibold" style={{ color: '#FF4800' }}>{item.icon}</span>
-                <span className="text-[14px] text-[#6b7280] dark:text-[#9ca3af]">{item.label}</span>
+                <span className="text-[13px] font-medium text-[#6b7280] dark:text-[#9ca3af]">{item.label}</span>
               </div>
             ))}
           </div>
+        </div>
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* TECHNOLOGY PARTNERS                              */}
+      {/* ═══════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.7, ease }}
+        className="py-14 md:py-20 bg-white dark:bg-[#0a0a14] border-t border-black/[0.06] dark:border-white/[0.06]"
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-10">
+            <div className="flex items-start gap-5 mb-3">
+              <div
+                className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full"
+                style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }}
+              />
+              <h2
+                className="font-normal heading-gradient"
+                style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.0, letterSpacing: '-2px' }}
+              >
+                Built on enterprise-grade infrastructure
+              </h2>
+            </div>
+            <p className="text-[15px] leading-[1.65] text-[#6b7280] dark:text-[#9ca3af] max-w-lg lg:ml-6">
+              We use proven, scalable technologies — not experimental tools. Your systems will be maintainable and upgradeable for years.
+            </p>
+            {/* Orange accent divider */}
+            <div
+              className="mt-6 h-px"
+              style={{ width: 'min(340px, 50%)', background: 'linear-gradient(to right, #FF4800, rgba(255,72,0,0.15))' }}
+            />
+          </div>
+
+          {/* Logo cards */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4"
+          >
+            {[
+              { name: 'AWS',            brandColor: '#FF9900', src: '/logos/aws.png',        w: 80,  h: 40 },
+              { name: 'Google Cloud',   brandColor: '#4285F4', src: '/logos/gcp.png',        w: 100, h: 40 },
+              { name: 'Docker',         brandColor: '#2496ED', src: '/logos/docker.png',     w: 90,  h: 40 },
+              { name: 'Microsoft Azure',brandColor: '#0078D4', src: '/logos/azure.png',      w: 90,  h: 40 },
+              { name: 'Vercel',         brandColor: '#000000', src: '/logos/vercel.png',     w: 90,  h: 40 },
+              { name: 'PostgreSQL',     brandColor: '#336791', src: '/logos/postgresql.jpg', w: 90,  h: 40 },
+              { name: 'Next.js',        brandColor: '#000000', src: '/logos/nextjs.svg',     w: 90,  h: 40 },
+            ].map((partner) => (
+              <motion.div
+                key={partner.name}
+                variants={cardVariants}
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ duration: 0.25, ease }}
+                className="group relative flex flex-col items-center justify-center gap-3 rounded-xl px-6 py-6 overflow-hidden cursor-default"
+                style={{
+                  background: isDark ? 'rgba(255,255,255,0.04)' : '#f4f4f8',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
+                  transition: 'border-color 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${partner.brandColor}55`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+                }}
+              >
+                {/* Brand-color glow on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl"
+                  style={{ backgroundColor: partner.brandColor }}
+                />
+                {/* Logo — grayscale by default, full color on hover */}
+                <div className="relative flex items-center justify-center h-10 grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                  <Image src={partner.src} alt={partner.name} width={partner.w} height={partner.h} className="object-contain max-h-10 w-auto" />
+                </div>
+                <span className="relative text-[11px] font-medium tracking-wide text-[#9ca3af] dark:text-[#6b7280]">
+                  {partner.name}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </motion.section>
 
@@ -605,17 +701,23 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="mb-8 md:mb-16"
           >
             <p
-              className="mb-4 text-[11px] font-medium uppercase tracking-wider"
+              className="mb-5 text-[11px] font-medium uppercase tracking-widest"
               style={{ color: '#FF4800' }}
             >
               WHAT WE BUILD
             </p>
-            <h2
-              className="font-normal heading-gradient"
-              style={{ fontSize: 'clamp(1.75rem, 7vw, 3.5rem)', lineHeight: 1.0, letterSpacing: 'clamp(-1px, -0.04em, -2.05px)', maxWidth: '640px' }}
-            >
-              Four practice areas. One goal: systems that run without you.
-            </h2>
+            <div className="flex items-start gap-5">
+              <div
+                className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full"
+                style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }}
+              />
+              <h2
+                className="font-normal heading-gradient"
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
+              >
+                Four practice areas. One goal: systems that run without you.
+              </h2>
+            </div>
           </motion.div>
 
           {/* Card Grid */}
@@ -626,173 +728,118 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             viewport={{ once: true, margin: '-100px' }}
             className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4"
           >
-            {/* Card 1 — Enterprise Architecture */}
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <Braces className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
+            {[
+              {
+                icon: Braces,
+                badge: 'AUTOMATION',
+                title: 'AI & Business Automation',
+                body: 'WhatsApp flows that qualify leads and close sales. Email sequences triggered by user behavior. AI agents that handle tier-1 support. Workflow automation that removes 30–60% of manual operations in the first quarter.',
+                outcome: '30–60% of manual ops eliminated in 90 days.',
+                cta: 'See automation services',
+              },
+              {
+                icon: Compass,
+                badge: 'SOFTWARE',
+                title: 'Custom Software & Systems',
+                body: 'AI-powered CRMs your team will actually use. Real-time dashboards that replace five-tab monitoring. Internal tools built around your workflow — not rented from SaaS that bends your process.',
+                outcome: 'One source of truth, 3–5 SaaS subscriptions cancelled.',
+                cta: 'Explore custom builds',
+              },
+              {
+                icon: Brain,
+                badge: 'STRATEGY',
+                title: 'AI Strategy & Integration',
+                body: 'Deploy GPT-class models, vision APIs, and custom LLMs directly into your operations. We architect the integration, train the models, and wire them into your stack — so AI runs your workflows instead of sitting in a demo environment.',
+                outcome: 'AI embedded in operations, not stuck in a demo.',
+                cta: 'Talk AI strategy',
+              },
+              {
+                icon: Globe,
+                badge: 'DIGITAL',
+                title: 'Web Development & 3D Experiences',
+                body: 'High-performance websites built on Next.js. 3D interactive experiences that separate premium brands from commodity players. Landing pages optimized for conversion, not just aesthetics. Sub-second loads, SEO-ready architecture, deployed to edge.',
+                outcome: '2–4x lift on landing page conversion vs. template sites.',
+                cta: 'View web capabilities',
+              },
+            ].map((card) => (
+              <motion.div
+                key={card.badge}
+                variants={cardVariants}
+                className="card-hover glow-border card-premium flex flex-col rounded-xl p-7 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+                style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
               >
-                AUTOMATION
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                AI & Business Automation
-              </h3>
-              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                WhatsApp flows that qualify leads and close sales. Email sequences triggered by user behavior. AI agents that handle tier-1 support. Workflow automation that removes 30–60% of manual operations in the first quarter.
-              </p>
-              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
-                → Typical outcome: 30–60% of manual ops eliminated in 90 days.
-              </p>
-              <button
-                data-magnetic
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#FF4800')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}
-              >
-                See automation services
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
+                {/* Icon */}
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                  <card.icon className="h-6 w-6 text-[#FF4800]" />
+                </div>
 
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <Compass className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
-              >
-                SOFTWARE
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                Custom Software & Systems
-              </h3>
-              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                AI-powered CRMs your team will actually use. Real-time dashboards that replace five-tab monitoring. Internal tools built around your workflow — not rented from SaaS that bends your process.
-              </p>
-              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
-                → Typical outcome: one source of truth, 3–5 SaaS subscriptions cancelled.
-              </p>
-              <button
-                data-magnetic
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
-              >
-                Explore custom builds
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
+                {/* Badge */}
+                <span
+                  className="mb-3 inline-block self-start rounded-full px-3 py-1 text-[10px] font-semibold tracking-widest text-white"
+                  style={{ background: '#FF4800', letterSpacing: '0.08em' }}
+                >
+                  {card.badge}
+                </span>
 
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <Globe className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
-              >
-                WEB
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                Web & Digital Experiences
-              </h3>
-              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                High-performance websites, 3D interactive builds, and landing pages engineered to convert paid traffic. Built on Next.js, shipped to edge, measured against CAC.
-              </p>
-              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
-                → Typical outcome: 2–4x lift on landing page conversion vs. template sites.
-              </p>
-              <button
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
-              >
-                Explore web capabilities
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
+                {/* Title — fixed height so divider aligns across all cards */}
+                <h3
+                  className="mb-4 font-bold text-[#1a1a2e] dark:text-white"
+                  style={{ fontSize: 'clamp(1.35rem, 2.8vw, 1.65rem)', lineHeight: 1.2, letterSpacing: '-0.5px', minHeight: '4.2rem' }}
+                >
+                  {card.title}
+                </h3>
 
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <Target className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
-              >
-                DESIGN
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                Design Systems
-              </h3>
-              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                UI/UX, brand identity, and performance creatives. Design as a business lever — tested against conversion data, not design awards.
-              </p>
-              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
-                → Typical outcome: product interfaces buyers don&apos;t need a tutorial to use.
-              </p>
-              <button
-                data-magnetic
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
-              >
-                Talk design
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
+                {/* Divider 1 */}
+                <div className="-mx-7 mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" />
+
+                {/* Body — fixed height box */}
+                <p
+                  className="mb-5 text-[14.5px] leading-[1.7] overflow-hidden"
+                  style={{ color: '#6b7280', height: '152px' }}
+                >
+                  {card.body}
+                </p>
+
+                {/* Divider 2 */}
+                <div className="-mx-7 mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" />
+
+                {/* Outcome — fixed height so CTA always aligns */}
+                <p
+                  className="mb-4 overflow-hidden text-[12.5px] font-semibold leading-snug"
+                  style={{ color: '#FF4800', letterSpacing: '0.01em', height: '40px' }}
+                >
+                  → {card.outcome}
+                </p>
+
+                {/* CTA */}
+                <button
+                  data-magnetic
+                  onClick={() => onNavigate('services')}
+                  className="group flex items-center gap-2.5 transition-colors duration-200"
+                  onMouseEnter={(e) => {
+                    const label = e.currentTarget.querySelector('.cta-label') as HTMLElement;
+                    if (label) label.style.color = '#FF4800';
+                  }}
+                  onMouseLeave={(e) => {
+                    const label = e.currentTarget.querySelector('.cta-label') as HTMLElement;
+                    if (label) label.style.color = '#6b7280';
+                  }}
+                >
+                  <span
+                    className="cta-label text-[13px] font-medium tracking-wide transition-colors duration-200 whitespace-nowrap"
+                    style={{ color: '#6b7280' }}
+                  >
+                    {card.cta}
+                  </span>
+                  <span
+                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110"
+                    style={{ background: '#FF4800' }}
+                  >
+                    <ArrowRight className="h-3.5 w-3.5 text-white transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </span>
+                </button>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -945,7 +992,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[40%]" >
             <div className="flex flex-col gap-8">
               <div>
-                <div className="counter-hover-gradient inline-block"><Counter target={2025} suffix="" /></div>
+                <div className="counter-hover-gradient inline-block"><Counter target={2024} suffix="" /></div>
                 <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Year Founded</p>
               </div>
               <div>
@@ -961,9 +1008,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
           {/* RIGHT — 60% */}
           <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[60%]" >
-            <p className="mb-6 text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }} > WHO WE ARE </p>
-            <h2 className="mb-6 font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>Built by operators who got tired of bad software.</h2>
-            <p className="text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Straveda was founded in 2025 by a team that spent years watching mid-market businesses run on 14 disconnected tools, three spreadsheets nobody trusted, and a support inbox someone still answered at 11pm.</p>
+            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>WHO WE ARE</p>
+            <div className="flex items-start gap-5 mb-6">
+              <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>Built by operators who got tired of bad software.</h2>
+            </div>
+            <p className="text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Straveda was founded in 2024 by a team that spent years watching mid-market businesses run on 14 disconnected tools, three spreadsheets nobody trusted, and a support inbox someone still answered at 11pm.</p>
             <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Consultancies charged enterprise rates to map the problem. Freelancers charged startup rates and disappeared halfway. Neither actually fixed it. Straveda exists to be the third option: a small, senior team that ships real systems at a price mid-market companies can afford, on a timeline that respects how fast businesses need to move.</p>
             <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Based in Nashik, Maharashtra. Working with clients across India and a growing number in Southeast Asia and the Middle East.</p>
           </motion.div>
@@ -987,9 +1037,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="text-center mb-12 md:mb-16"
           >
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>THE REAL PROBLEM</p>
-            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
-              You&apos;re not short on software.<br />You&apos;re drowning in it.
-            </h2>
+            <div className="flex items-start gap-5 justify-center">
+              <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+                You&apos;re not short on software.<br />You&apos;re drowning in it.
+              </h2>
+            </div>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1040,9 +1093,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="mb-12 md:mb-16"
           >
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>HOW WE WORK</p>
-            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
-              From strategy call to live system in 6 weeks.
-            </h2>
+            <div className="flex items-start gap-5">
+              <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+                From strategy call to live system in 6 weeks.
+              </h2>
+            </div>
           </motion.div>
           <div className="relative">
             {/* Connector line */}
@@ -1092,9 +1148,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="text-center mb-12 md:mb-16"
           >
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>PRICING</p>
-            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
-              Priced for mid-market. Not enterprise.
-            </h2>
+            <div className="flex items-start gap-5 justify-center">
+              <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+                Priced for mid-market. Not enterprise.
+              </h2>
+            </div>
             <p className="mt-4 text-[17px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af] max-w-xl mx-auto">
               Fixed-price engagements. No hourly billing. No retainer until you see results.
             </p>

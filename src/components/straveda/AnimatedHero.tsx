@@ -76,14 +76,16 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
     const gradient = gradientRef.current;
     if (!section || !gradient) return;
 
+    const el = gradient;
+
     function onMouseMove(e: MouseEvent) {
-      gradient.style.left = e.clientX - 192 + 'px';
-      gradient.style.top = e.clientY - 192 + 'px';
-      gradient.style.opacity = '1';
+      el.style.left = e.clientX - 192 + 'px';
+      el.style.top = e.clientY - 192 + 'px';
+      el.style.opacity = '1';
     }
 
     function onMouseLeave() {
-      gradient.style.opacity = '0';
+      el.style.opacity = '0';
     }
 
     section.addEventListener('mousemove', onMouseMove);
@@ -292,13 +294,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             className="block cursor-default"
             style={{ color: colors.headline }}
           >
-            Mid-market teams don&apos;t need more tools.
+            AI that eliminates work.
           </span>
           <span
             className="block cursor-default"
             style={{ color: '#FF4800' }}
           >
-            They need systems that run without them.
+            Software that runs your operations.
           </span>
         </motion.h1>
 
@@ -335,7 +337,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-xl"
               style={{ background: '#FF4800' }}
             >
-              Book a 30-min working call
+              Book Strategy Call
               <ArrowRight className="h-4 w-4" />
             </motion.button>
           </MagneticButton>
@@ -348,7 +350,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               background: colors.secondaryBtnBg,
             }}
           >
-            See how we work
+            See What We Build
             <ArrowRight className="h-4 w-4" />
           </motion.button>
         </motion.div>
@@ -482,14 +484,14 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
                     name: 'James Whitfield',
                     role: 'VP of Engineering, FinServ Corp',
                     avatar: 'JW',
-                    date: 'March 2025',
+                    date: 'March 2024',
                     text: 'Straveda transformed our entire infrastructure strategy. Their enterprise architecture expertise is second to none — we modernized our core platform in under 6 months with zero disruption.',
                   },
                   {
                     name: 'Priya Nambiar',
                     role: 'CTO, HealthBridge Systems',
                     avatar: 'PN',
-                    date: 'January 2025',
+                    date: 'January 2024',
                     text: 'Outstanding team. They aligned our IT roadmap with business goals in ways we couldn\'t achieve internally. The ROI was evident within the first quarter. Highly recommend Straveda.',
                   },
                 ].map((review) => (

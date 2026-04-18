@@ -18,7 +18,7 @@ const jsonLd = {
       "logo": "https://straveda.com/logo.png",
       "description":
         "AI-powered business automation and custom software for mid-market companies in India.",
-      "foundingDate": "2025",
+      "foundingDate": "2024",
       "foundingLocation": {
         "@type": "Place",
         "name": "Nashik, Maharashtra, India"

@@ -66,13 +66,12 @@ interface BlogPost {
 }
 
 const BLOG_POSTS: BlogPost[] = [
-  { title: 'The Case for Open Standards in Modern Enterprise Architecture', category: 'Architecture', page: 'insights' },
-  { title: 'How to Align IT Investment with Business Goals', category: 'Strategy', page: 'insights' },
-  { title: 'Eliminating Enterprise Delivery Bottlenecks', category: 'Leadership', page: 'insights' },
-  { title: 'Red Hat Middleware: Lowering TCO at Scale', category: 'Cloud', page: 'insights' },
-  { title: 'Microservices vs. Monolith: An Enterprise Decision Framework', category: 'Architecture', page: 'insights' },
-  { title: 'Building a Digital Transformation Roadmap That Works', category: 'Strategy', page: 'insights' },
-  { title: 'Agile PMO: Bridging Traditional Governance and Modern Delivery', category: 'Leadership', page: 'insights' },
+  { title: 'The Manual Work Audit — How to Find 40% of Your Team\'s Time', category: 'Automation', page: 'insights' },
+  { title: 'Custom CRM vs. Salesforce — When Off-the-Shelf Doesn\'t Fit', category: 'Custom Software', page: 'insights' },
+  { title: 'AI for Your Business — The ROI-First Framework', category: 'AI Strategy', page: 'insights' },
+  { title: 'Why Your Next Product Should Be Built for Speed, Not Perfection', category: 'Automation', page: 'insights' },
+  { title: 'The Data Silo Problem — How to Build One Source of Truth', category: 'Systems', page: 'insights' },
+  { title: 'Why Your Website Is Costing You Leads', category: 'Web Development', page: 'insights' },
 ];
 
 function highlightMatch(text: string, query: string): React.ReactNode {

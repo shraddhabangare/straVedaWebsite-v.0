@@ -91,62 +91,62 @@ interface ServiceBlockData {
 
 const services: ServiceBlockData[] = [
   {
-    id: 'enterprise-architecture',
-    badge: 'ENTERPRISE ARCHITECTURE',
-    title: 'Enterprise Architecture',
-    body: 'We evolve your application portfolio using adaptive, open-standards architecture. Our solutions increase reliability, maintainability and interoperability — reducing technical debt while enabling agile practices.',
+    id: 'automation',
+    badge: 'AUTOMATION',
+    title: 'AI & Business Automation',
+    body: 'Manual work is invisible debt. Every process your team repeats by hand is a system that should exist. We audit your workflows, identify the biggest time-wasters, and replace them with AI agents and automation sequences that work 24/7.',
     capabilities: [
-      'Portfolio modernization & rationalization',
-      'Open standards & middleware integration',
-      'Scalable microservices & API architecture',
+      'WhatsApp Business Automation — AI-powered lead qualification & appointment booking',
+      'Email Sequence Automation — behavioral triggers that run without touching your CRM',
+      'AI Customer Support — tier-1 handled by AI, complex issues auto-escalate with full context',
     ],
     icon: <Braces size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
-    cta: ['Start a project', 'Learn more'],
+    cta: ['Book strategy call', 'See examples'],
     graphicLeft: true,
     number: '01',
   },
   {
-    id: 'technology-strategy',
-    badge: 'TECHNOLOGY STRATEGY',
-    title: 'Technology Strategy',
-    body: 'We align your IT investments with business goals, creating clear roadmaps that accelerate time to market and position you for sustainable growth.',
+    id: 'custom-software',
+    badge: 'SOFTWARE',
+    title: 'Custom Software & AI-Powered Systems',
+    body: 'Off-the-shelf software is built for average companies doing average things. If your operations are even slightly unique, you\'re forcing your workflow into a vendor\'s mold. We build software tailored to exactly how you operate.',
     capabilities: [
-      'Digital transformation roadmaps',
-      'IT investment & prioritization frameworks',
-      'Cloud strategy & vendor assessment',
+      'AI-Powered CRMs — built around your sales process, not a generic one',
+      'Operational Dashboards — real-time visibility into what actually matters',
+      'Customer Self-Service Portals — reduce support tickets by 40%',
     ],
     icon: <Compass size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
-    cta: ['Start a project'],
+    cta: ['Book strategy call'],
     graphicLeft: false,
     number: '02',
   },
   {
-    id: 'management-consulting',
-    badge: 'MANAGEMENT',
-    title: 'Management Consulting',
-    body: 'Expert Product, Program & Project management delivered through meticulous planning and execution. We eliminate bottlenecks and drive enterprise delivery.',
+    id: 'ai-strategy',
+    badge: 'STRATEGY',
+    title: 'AI Strategy & Model Integration',
+    body: 'AI is everywhere. But most companies treat it like a shiny new tool instead of infrastructure that should run core operations. We help you architect where AI actually adds value and integrate it into your workflows so AI is doing work, not sitting in a demo.',
     capabilities: [
-      'Product & program management',
-      'Agile & PMO delivery frameworks',
-      'Stakeholder alignment & governance',
+      'AI Architecture & Strategy — phased roadmap to deploy where it creates real ROI',
+      'Custom LLM Fine-Tuning — models trained on your specific data and business context',
+      'RAG Systems — AI that answers questions by retrieving from your actual data',
     ],
     icon: <ClipboardCheck size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
-    cta: ['Start a project'],
+    cta: ['Book strategy call'],
     graphicLeft: true,
     number: '03',
   },
   {
-    id: 'software-solutions',
-    badge: 'SOFTWARE SOLUTIONS',
-    title: 'Software Solutions',
-    body: 'We deploy Red Hat Enterprise Middleware and virtualization solutions that lower total cost of ownership and maximize application performance.',
+    id: 'web-development',
+    badge: 'DIGITAL',
+    title: 'Web Development & Digital Experiences',
+    body: 'Your website is your first impression. It should be fast, memorable, and convert. We build high-performance web experiences on Next.js that move inventory, qualify leads, and build brand credibility.',
     capabilities: [
-      'Red Hat Enterprise Middleware deployment',
-      'Virtualization & containerization',
-      'Enterprise integration & ESB platforms',
+      'High-Performance Websites — Next.js, sub-second loads, SEO-ready from day one',
+      '3D & Interactive Experiences — make your brand unforgettable with immersive builds',
+      'Landing Pages & Sales Funnels — conversion-optimized with A/B testing built in',
     ],
     icon: <Server size={120} className="text-[#FF4800]" strokeWidth={1.2} />,
-    cta: ['Start a project'],
+    cta: ['Book strategy call'],
     graphicLeft: false,
     number: '04',
   },
@@ -155,59 +155,59 @@ const services: ServiceBlockData[] = [
 const whyCards = [
   {
     icon: <Diamond size={40} className="text-[#FF4800]" />,
-    title: 'Exceptional Value',
-    body: 'Maximum business impact per dollar invested, with transparent pricing and zero hidden costs.',
+    title: 'Automation-First, Always',
+    body: 'Before we build feature one, we audit what can be removed or automated. Most agencies pad scope. We prune it — then automate what\'s left.',
   },
   {
     icon: <TrendingDown size={40} className="text-[#FF4800]" />,
-    title: 'Cost-Effective Solutions',
-    body: 'Solutions architected to lower total cost of ownership from day one through open standards.',
+    title: 'Weekly Shipping',
+    body: 'One-week sprints with visible builds every Friday. You see real working code, approve Monday, we ship Tuesday. No black-box builds.',
   },
   {
     icon: <ShieldCheck size={40} className="text-[#FF4800]" />,
-    title: 'Guaranteed Satisfaction',
-    body: 'Customer satisfaction is not a goal — it is our guarantee. We stand behind every engagement.',
+    title: 'Full Code Ownership',
+    body: 'Zero vendor lock-in. Complete documentation. If we disappear tomorrow, your team runs and maintains every system we built.',
   },
 ];
 
 const benefits = [
-  { title: 'Open Standards', description: 'No vendor lock-in. We build on open-source and open-standards technology.', icon: Globe },
-  { title: 'Proven Track Record', description: '14+ years delivering enterprise solutions for Fortune 500 companies.', icon: TrendingUp },
-  { title: 'Cost Effective', description: 'Exceptional value per dollar invested with zero hidden costs.', icon: CircleDollarSign },
-  { title: 'Knowledge Transfer', description: 'We upskill your teams and transfer knowledge for long-term self-sufficiency.', icon: Users },
+  { title: 'Weekly Shipping', description: 'One-week sprints with visible builds every Friday. You see real working code, not slide decks.', icon: TrendingUp },
+  { title: 'Fixed-Price Quotes', description: 'No hourly billing, no scope creep. Fixed price after discovery — you know your investment upfront.', icon: CircleDollarSign },
+  { title: 'Full Code Ownership', description: 'You own 100% of the code. Zero vendor lock-in. If we disappear tomorrow, your team runs it independently.', icon: Globe },
+  { title: 'Priced for ROI', description: 'Every engagement includes projected time savings or revenue lift. If it doesn\'t pay for itself in 90 days, we don\'t recommend it.', icon: Users },
 ];
 
 const processSteps = [
-  { step: '01', title: 'Assess', description: 'Evaluate your current architecture and identify opportunities' },
-  { step: '02', title: 'Plan', description: 'Create a tailored roadmap aligned with your business goals' },
-  { step: '03', title: 'Execute', description: 'Implement solutions using proven enterprise frameworks' },
-  { step: '04', title: 'Optimize', description: 'Continuously improve performance and reduce technical debt' },
+  { step: '01', title: 'Discovery', description: 'Deep audit of operations, bottlenecks, and tech stack. You get a written proposal in week 1.' },
+  { step: '02', title: 'Build', description: 'Weekly sprints. Working builds every Friday. Feedback Monday. Ship Tuesday.' },
+  { step: '03', title: 'Integrate', description: 'Integration testing with your existing tools. Documentation written as we go, not after.' },
+  { step: '04', title: 'Handoff', description: 'Full code ownership transfer, team training, and 30-day go-live support included.' },
 ];
 
 const faqItems = [
   {
-    question: 'What industries do you serve?',
-    answer: 'We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates across industries.',
+    question: 'What\'s the first step to work with you?',
+    answer: 'Book a 30-minute strategy call. We\'ll ask about your operations, biggest bottlenecks, and what you\'ve tried already. You\'ll walk away with a specific recommendation for what to automate/build first — whether or not you hire us. If it\'s a fit, we send a proposal within 48 hours.',
   },
   {
-    question: 'How long does a typical engagement last?',
-    answer: 'Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone.',
+    question: 'Can you integrate with our existing tools (Salesforce, Shopify, etc.)?',
+    answer: 'Yes. We build custom integrations or use platforms like Zapier/Make for standard connectors. During discovery, we audit your stack and design integration architecture. If you\'re worried about data silos, that\'s the first thing we solve.',
   },
   {
-    question: 'Do you work with existing IT teams?',
-    answer: 'Absolutely. We embed within your teams to upskill, mentor, and transfer knowledge. Our goal is to make your organization self-sufficient.',
+    question: 'How involved does our team need to be?',
+    answer: 'Minimal. We handle 90% of the build. Your team provides 1–2 hours in week 1 (discovery), 30 minutes every Friday (sprint feedback), and 2 hours in week 6 (training & go-live). That\'s ~4 hours total. We document everything so knowledge doesn\'t live in our heads.',
   },
   {
-    question: 'What makes Straveda different from other consultancies?',
-    answer: 'We deliver exceptional value per dollar invested with zero hidden costs. Our open-standards approach avoids vendor lock-in, and we guarantee customer satisfaction.',
+    question: 'What if scope expands mid-project?',
+    answer: 'We freeze scope at the proposal. If your requirements change, we document the change and send an addendum quote. No surprise invoices. You approve before we add work.',
   },
   {
-    question: 'Can you handle enterprise-scale deployments?',
-    answer: 'Yes. We specialize in Red Hat Enterprise Middleware and large-scale architecture. Our team has deployed solutions serving millions of users across Fortune 500 companies.',
+    question: 'Can you handle our enterprise security requirements?',
+    answer: 'It depends. If you need ISO 27001, SOC 2, or HIPAA compliance, we can meet that. During discovery, we ask about compliance needs. If it requires multi-month audit cycles, we\'ll be honest: you may need a larger firm. Most mid-market companies are fine with standard security practices + documented policies.',
   },
   {
-    question: 'How do we get started?',
-    answer: 'Simple — reach out via our contact form or email us at info@straveda.com. We offer a free initial consultation to assess your needs and propose a tailored approach.',
+    question: 'Do you offer ongoing support or just delivery?',
+    answer: 'Both. Delivery includes 30–90 days of support. After that, optional monthly retainers for system optimization, feature enhancements, automation tweaks, and emergency support. Most clients do 6–12 month retainers.',
   },
 ];
 
@@ -274,7 +274,7 @@ function HeroSection() {
         className={`mt-4 max-w-5xl text-[clamp(2rem,5vw,4.5rem)] font-normal leading-[1.0] transition-all ${heroScrolled ? 'text-gradient-brand' : 'text-[#1a1a2e] dark:text-[#f0f0f5]'}`}
         style={{ letterSpacing: '-2.05px', transitionDuration: '0.6s' }}
       >
-        <TextReveal delay={0.3} stagger={0.04}>Comprehensive enterprise services built to modernize and deliver.</TextReveal>
+        <TextReveal delay={0.3} stagger={0.04}>Four practice areas. One goal: Systems that run without you.</TextReveal>
       </h1>
 
       <motion.p
@@ -283,7 +283,7 @@ function HeroSection() {
         transition={{ duration: 0.8, delay: 0.8, ease }}
         className="mt-6 max-w-2xl text-lg text-[#6b7280] dark:text-[#d1d5db] sm:text-[20px]"
       >
-        From architecture to execution — we cover the full stack of enterprise IT transformation.
+        We design and deploy AI-powered workflows, custom software, and intelligent automation that replaces manual operations with structured systems built for speed, control, and measurable ROI.
       </motion.p>
     </section>
   );
@@ -450,7 +450,7 @@ function WhyStravedaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}
         >
           Why Straveda
         </motion.p>
@@ -459,7 +459,8 @@ function WhyStravedaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-16 text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: '-2.05px' }}
+          className="mb-16 font-normal heading-gradient"
+          style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
         >
           Why enterprises choose us.
         </motion.h2>
@@ -516,7 +517,7 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}
           >
             FAQ
           </motion.p>
@@ -525,7 +526,8 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: "-2.05px" }}
+            className="font-normal heading-gradient"
+            style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
           >
             Frequently asked questions.
           </motion.h2>
@@ -600,44 +602,44 @@ function FAQSection() {
 
 const techStack = [
   {
-    name: 'Red Hat Enterprise Linux',
-    description: 'Enterprise-grade Linux platform for mission-critical workloads with military-grade security.',
-    icon: <Server size={32} className="text-[#FF4800]" />,
-  },
-  {
-    name: 'JBoss EAP',
-    description: 'Enterprise application server for building, deploying, and hosting Java applications.',
-    icon: <Layers size={32} className="text-[#FF4800]" />,
-  },
-  {
-    name: 'OpenShift',
-    description: 'Enterprise Kubernetes platform for containerized application development and deployment.',
-    icon: <Container size={32} className="text-[#FF4800]" />,
-  },
-  {
-    name: 'Docker',
-    description: 'Containerization platform enabling consistent application environments across any infrastructure.',
+    name: 'Next.js',
+    description: 'High-performance React framework for web applications. Sub-second loads, SEO-ready, deployed to edge.',
     icon: <Code size={32} className="text-[#FF4800]" />,
   },
   {
-    name: 'Kubernetes',
-    description: 'Production-grade container orchestration for automated deployment, scaling, and management.',
+    name: 'OpenAI GPT-4o',
+    description: 'GPT-class models for language understanding, AI agents, and intelligent workflow automation.',
     icon: <Network size={32} className="text-[#FF4800]" />,
   },
   {
-    name: 'AWS',
-    description: 'Amazon Web Services cloud platform providing on-demand computing, storage, and analytics.',
+    name: 'AWS / GCP / Azure',
+    description: 'Cloud infrastructure selected based on your existing setup for reliability and scalability.',
     icon: <Cloud size={32} className="text-[#FF4800]" />,
   },
   {
-    name: 'Azure',
-    description: 'Microsoft Azure cloud platform for building, deploying, and managing enterprise applications.',
-    icon: <Shield size={32} className="text-[#FF4800]" />,
+    name: 'PostgreSQL',
+    description: 'Reliable, scalable relational database for structured business data and analytics.',
+    icon: <Database size={32} className="text-[#FF4800]" />,
   },
   {
-    name: 'PostgreSQL',
-    description: 'Advanced open-source relational database with powerful querying and extensibility features.',
-    icon: <Database size={32} className="text-[#FF4800]" />,
+    name: 'Docker',
+    description: 'Containerization for consistent, reproducible deployments across any environment.',
+    icon: <Container size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Vercel',
+    description: 'Global edge deployment for web applications with instant rollbacks and preview environments.',
+    icon: <Server size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Zapier / Make',
+    description: 'No-code integration platforms for connecting legacy tools when custom APIs aren\'t needed.',
+    icon: <Layers size={32} className="text-[#FF4800]" />,
+  },
+  {
+    name: 'Custom LLMs',
+    description: 'Fine-tuned language models trained on your specific data, contracts, and business context.',
+    icon: <Shield size={32} className="text-[#FF4800]" />,
   },
 ];
 
@@ -664,7 +666,7 @@ function WhyChooseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-center text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-5 text-center text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}
         >
           WHY STRAVEDA
         </motion.p>
@@ -673,8 +675,8 @@ function WhyChooseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-14 text-center text-[#1a1a2e] dark:text-[#f0f0f5] font-normal"
-          style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
+          className="mb-14 text-center font-normal heading-gradient"
+          style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
         >
           Why leading enterprises choose us
         </motion.h2>
@@ -732,7 +734,7 @@ function OurApproachSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease }}
-          className="mb-3 text-center text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
+          className="mb-5 text-center text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}
         >
           OUR APPROACH
         </motion.p>
@@ -741,8 +743,8 @@ function OurApproachSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mb-16 text-center font-normal text-[#1a1a2e] dark:text-[#f0f0f5]"
-          style={{ fontSize: '56px', lineHeight: 0.95, letterSpacing: '-2.05px' }}
+          className="mb-16 text-center font-normal heading-gradient"
+          style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
         >
           A proven 4-step process
         </motion.h2>
@@ -861,7 +863,7 @@ function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease }}
-            className="mb-4 text-[11px] font-normal uppercase tracking-[0.25em] text-[#FF4800]"
+            className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}
           >
             TECHNOLOGY STACK
           </motion.p>
@@ -870,7 +872,8 @@ function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-normal text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 0.95, letterSpacing: "-2.05px" }}
+            className="font-normal heading-gradient"
+            style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
           >
             Technologies we master.
           </motion.h2>
