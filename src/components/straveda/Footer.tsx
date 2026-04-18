@@ -12,21 +12,22 @@ interface FooterProps {
 const FOOTER_LINKS = {
   explore: [
     { label: 'Home', page: 'home' },
-    { label: 'Services', page: 'services' },
-    { label: 'About', page: 'about' },
+    { label: 'What We Build', page: 'services' },
+    { label: 'Why Straveda', page: 'about' },
     { label: 'Insights', page: 'insights' },
+    { label: 'Contact', page: 'contact' },
   ],
   services: [
-    { label: 'Enterprise Architecture', page: 'services' },
-    { label: 'Technology Strategy', page: 'services' },
-    { label: 'Management', page: 'services' },
-    { label: 'Software Solutions', page: 'services' },
+    { label: 'AI & Automation', page: 'services' },
+    { label: 'Custom Software', page: 'services' },
+    { label: 'AI Strategy & Integration', page: 'services' },
+    { label: 'Web Development & 3D', page: 'services' },
   ],
   resources: [
-    { label: 'Blog', page: 'insights' },
-    { label: 'Case Studies', page: 'insights' },
-    { label: 'Whitepapers', page: 'insights' },
-    { label: 'Contact', page: 'contact' },
+    { label: 'Insights (Blog)', page: 'insights' },
+    { label: 'Discovery Call Guide', page: 'contact' },
+    { label: 'Pricing & Timeline', page: 'contact' },
+    { label: 'Contact Us', page: 'contact' },
   ],
 } as const;
 
@@ -459,7 +460,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="mailto:info@straveda.com"
+                  href="mailto:hello@straveda.com"
                   className="inline-flex items-center gap-2 text-sm transition-colors duration-200 text-[#1a1a2e] dark:text-[#e2e8f0]"
                   style={{
                     textDecoration: 'underline',
@@ -476,15 +477,15 @@ export default function Footer({ onNavigate }: FooterProps) {
                   }}
                 >
                   <Mail size={14} style={{ color: '#FF4800', flexShrink: 0 }} />
-                  info@straveda.com
+                  hello@straveda.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm" style={{ color: '#6b7280' }}>
                 <MapPin size={14} style={{ color: '#FF4800', marginTop: 3, flexShrink: 0 }} />
                 <span className="leading-relaxed">
-                  Plano, TX 75024
+                  Nashik, Maharashtra 422001
                   <br />
-                  United States
+                  India
                 </span>
               </li>
             </ul>
@@ -502,7 +503,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs" style={{ color: '#9ca3af' }}>
-            &copy; {new Date().getFullYear()} Straveda LLC. All rights reserved.
+            &copy; 2025 Straveda Tech. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <button

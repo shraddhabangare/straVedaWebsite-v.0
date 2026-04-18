@@ -13,29 +13,29 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "name": "Straveda LLC",
+      "name": "Straveda Tech",
       "url": "https://straveda.com",
       "logo": "https://straveda.com/logo.png",
       "description":
-        "Enterprise IT consulting, technology strategy, and software solutions.",
-      "foundingDate": "2010",
+        "AI-powered business automation and custom software for mid-market companies in India.",
+      "foundingDate": "2025",
       "foundingLocation": {
         "@type": "Place",
-        "name": "Plano, Texas"
+        "name": "Nashik, Maharashtra, India"
       },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "",
-        "addressLocality": "Plano",
-        "addressRegion": "TX",
-        "postalCode": "75024",
-        "addressCountry": "US"
+        "addressLocality": "Nashik",
+        "addressRegion": "Maharashtra",
+        "postalCode": "422001",
+        "addressCountry": "IN"
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "info@straveda.com",
+        "email": "hello@straveda.com",
         "contactType": "customer service",
-        "availableLanguage": "English"
+        "availableLanguage": ["English", "Hindi", "Marathi"]
       },
       "sameAs": [
         "https://linkedin.com/company/straveda",
@@ -58,34 +58,34 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What industries do you serve?",
+          "name": "What does a typical engagement cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates across industries."
+            "text": "Engagements start at ₹5L for focused automation builds. Custom software and AI integrations run ₹15L–₹50L depending on scope. Fixed-price quotes after a discovery call — no hourly billing."
           }
         },
         {
           "@type": "Question",
-          "name": "How long does a typical engagement last?",
+          "name": "How long does a project take?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone."
+            "text": "Most projects ship their first working deployment in 4–6 weeks. We don't do 6-month black-box builds."
           }
         },
         {
           "@type": "Question",
-          "name": "Do you work with existing IT teams?",
+          "name": "Do you work with our existing team?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. We embed within your teams to upskill, mentor, and transfer knowledge. Our goal is to make your organization self-sufficient."
+            "text": "Yes. We integrate with your in-house developers, ops team, or IT partner. Either way, we document ruthlessly so knowledge doesn't live in our heads."
           }
         },
         {
           "@type": "Question",
-          "name": "What makes Straveda different from other consultancies?",
+          "name": "What makes Straveda different from other agencies?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We deliver exceptional value per dollar invested with zero hidden costs. Our open-standards approach avoids vendor lock-in, and we guarantee customer satisfaction."
+            "text": "Three things: (1) Priced for mid-market, not enterprise. (2) We ship weekly, not quarterly. (3) We automate before we build. Full code ownership, zero vendor lock-in."
           }
         },
         {
@@ -93,7 +93,7 @@ const jsonLd = {
           "name": "Can you handle enterprise-scale deployments?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. We specialize in Red Hat Enterprise Middleware and large-scale architecture. Our team has deployed solutions serving millions of users across Fortune 500 companies."
+            "text": "We build scale-ready architecture from day one and are sized for mid-market execution — ideal for 50–500 person companies that need to move fast."
           }
         },
         {
@@ -101,42 +101,42 @@ const jsonLd = {
           "name": "How do we get started?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Simple — reach out via our contact form or email us at info@straveda.com. We offer a free initial consultation to assess your needs and propose a tailored approach."
+            "text": "Book a 30-minute strategy call. You'll walk away with a working hypothesis for what to automate first. If it's a fit, we send a proposal within 48 hours."
           }
         }
       ]
     },
     {
       "@type": "Service",
-      "name": "Enterprise Architecture",
-      "provider": { "@type": "Organization", "name": "Straveda LLC" },
+      "name": "AI & Business Automation",
+      "provider": { "@type": "Organization", "name": "Straveda Tech" },
       "description":
-        "We evolve your application portfolio using adaptive, open-standards architecture. Our solutions increase reliability, maintainability and interoperability — reducing technical debt while enabling agile practices.",
-      "areaServed": "United States"
+        "WhatsApp flows, email sequences, AI support agents, and workflow automation that removes 30–60% of manual operations in the first quarter.",
+      "areaServed": "India"
     },
     {
       "@type": "Service",
-      "name": "Technology Strategy",
-      "provider": { "@type": "Organization", "name": "Straveda LLC" },
+      "name": "Custom Software & Systems",
+      "provider": { "@type": "Organization", "name": "Straveda Tech" },
       "description":
-        "We align your IT investments with business goals, creating clear roadmaps that accelerate time to market and position you for sustainable growth.",
-      "areaServed": "United States"
+        "AI-powered CRMs, real-time dashboards, and internal tools built around your workflow with zero subscription bloat.",
+      "areaServed": "India"
     },
     {
       "@type": "Service",
-      "name": "Management Consulting",
-      "provider": { "@type": "Organization", "name": "Straveda LLC" },
+      "name": "AI Strategy & Integration",
+      "provider": { "@type": "Organization", "name": "Straveda Tech" },
       "description":
-        "Expert Product, Program & Project management delivered through meticulous planning and execution. We eliminate bottlenecks and drive enterprise delivery.",
-      "areaServed": "United States"
+        "Deploy GPT-class models, vision APIs, and custom LLMs directly into your operations stack.",
+      "areaServed": "India"
     },
     {
       "@type": "Service",
-      "name": "Software Solutions",
-      "provider": { "@type": "Organization", "name": "Straveda LLC" },
+      "name": "Web Development & 3D Experiences",
+      "provider": { "@type": "Organization", "name": "Straveda Tech" },
       "description":
-        "We deploy Red Hat Enterprise Middleware and virtualization solutions that lower total cost of ownership and maximize application performance.",
-      "areaServed": "United States"
+        "High-performance Next.js websites, 3D interactive experiences, and conversion-optimised landing pages deployed to edge.",
+      "areaServed": "India"
     }
   ]
 };
@@ -159,40 +159,40 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Straveda — Enterprise IT Consulting & Technology Strategy",
+  title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
   description:
-    "Less complexity, more agility. Straveda delivers enterprise-grade IT consulting, technology strategy, and software solutions — from enterprise architecture to Red Hat middleware — helping organizations transform with confidence since 2010.",
+    "AI-powered business automation and custom software for growing companies in India. WhatsApp automation, AI CRMs, intelligent workflows. Engagements from ₹5L. Based in Nashik.",
   keywords: [
     "Straveda",
-    "Enterprise IT Consulting",
-    "Technology Strategy",
-    "Enterprise Architecture",
-    "Management Consulting",
-    "Software Solutions",
-    "Red Hat Middleware",
-    "Digital Transformation",
-    "Cloud Strategy",
-    "IT Modernization",
+    "AI automation India",
+    "business automation",
+    "custom software development India",
+    "WhatsApp automation",
+    "AI CRM",
+    "mid-market software",
+    "workflow automation",
+    "AI integration",
+    "Nashik tech company",
   ],
-  authors: [{ name: "Straveda LLC", url: "https://straveda.com" }],
+  authors: [{ name: "Straveda Tech", url: "https://straveda.com" }],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Straveda — Enterprise IT Consulting & Technology Strategy",
+    title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
     description:
-      "Less complexity, more agility. Enterprise IT consulting since 2010.",
+      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Nashik.",
     type: "website",
-    locale: "en_US",
-    siteName: "Straveda",
+    locale: "en_IN",
+    siteName: "Straveda Tech",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Straveda — Enterprise IT Consulting & Technology Strategy",
+    title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
     description:
-      "Less complexity, more agility. Enterprise IT consulting since 2010.",
+      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Nashik.",
   },
   alternates: {
     canonical: "https://straveda.com"

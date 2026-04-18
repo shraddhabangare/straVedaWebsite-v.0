@@ -28,7 +28,6 @@ interface AnimatedHeroProps {
  *   z-10 Scroll indicator
  */
 export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
-  const [titleNumber, setTitleNumber] = useState(0);
   const [reviewsOpen, setReviewsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
@@ -63,26 +62,13 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
     borderLine: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
   }), [isDark]);
 
-  const titles = useMemo(
-    () => ['agility.', 'resilience.', 'innovation.', 'scalability.', 'excellence.'],
-    []
-  );
-
   const taglineWords = useMemo(
     () =>
-      'Enterprise architecture, technology strategy, and management consulting for forward-thinking organizations. Based in Plano, Texas.'.split(
+      'AI-powered business systems and custom software for mid-market companies in India. We build the automation, CRMs, and workflows that cut manual work by 40%+ — and pay for themselves in 90 days.'.split(
         ' '
       ),
     []
   );
-
-  // Rotating words effect
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setTitleNumber((prev) => (prev + 1) % titles.length);
-    }, 2500);
-    return () => clearTimeout(timeoutId);
-  }, [titleNumber, titles.length]);
 
   // Mouse-following gradient glow — scoped to hero section
   useEffect(() => {
@@ -274,7 +260,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               className="text-xs font-medium"
               style={{ color: colors.badgeText }}
             >
-              Enterprise IT Consulting
+              Nashik, Maharashtra · Serving clients across India
             </span>
             <span
               className="block h-5 w-px shrink-0"
@@ -303,40 +289,16 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           {/* Replaced TextCursorProximity (2× useAnimationFrame at 60fps per letter)
               with CSS group-hover — zero JS overhead, same visual intent */}
           <span
-            className="block group cursor-default transition-colors duration-300"
+            className="block cursor-default"
             style={{ color: colors.headline }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = colors.headlineHover)}
-            onMouseLeave={(e) => (e.currentTarget.style.color = colors.headline)}
           >
-            Less complexity,
+            Mid-market teams don&apos;t need more tools.
           </span>
           <span
-            className="block group cursor-default transition-colors duration-300"
-            style={{ color: colors.headline }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = colors.headlineHover)}
-            onMouseLeave={(e) => (e.currentTarget.style.color = colors.headline)}
+            className="block cursor-default"
+            style={{ color: '#FF4800' }}
           >
-            more{' '}
-          </span>
-          {/* Rotating word */}
-          <span className="relative flex w-full justify-start overflow-hidden text-left md:pb-4 md:pt-1">
-            &nbsp;
-            {titles.map((title, index) => (
-              <motion.span
-                key={index}
-                className="absolute font-bold"
-                style={{ color: '#FF4800' }}
-                initial={{ opacity: 0, y: '-100%' }}
-                transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-                animate={
-                  titleNumber === index
-                    ? { y: 0, opacity: 1 }
-                    : { y: titleNumber > index ? -150 : 150, opacity: 0 }
-                }
-              >
-                {title}
-              </motion.span>
-            ))}
+            They need systems that run without them.
           </span>
         </motion.h1>
 
@@ -373,7 +335,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-xl"
               style={{ background: '#FF4800' }}
             >
-              Start a project
+              Book a 30-min working call
               <ArrowRight className="h-4 w-4" />
             </motion.button>
           </MagneticButton>
@@ -386,7 +348,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               background: colors.secondaryBtnBg,
             }}
           >
-            View our services
+            See how we work
             <ArrowRight className="h-4 w-4" />
           </motion.button>
         </motion.div>
@@ -402,29 +364,16 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
             className="mb-5 w-full max-w-[400px]"
             style={{ borderTop: `1px solid ${colors.borderLine}` }}
           />
-          <div className="flex items-center gap-[10px]">
-            <div className="flex items-center gap-[2px]">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 fill-current"
-                  style={{ color: '#FF4800' }}
-                />
-              ))}
-            </div>
+          <div className="flex items-center gap-3">
             <span
-              className="text-[15px] font-semibold"
-              style={{ color: colors.ratingNum }}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-medium"
+              style={{ background: 'rgba(255,72,0,0.08)', color: '#FF4800', border: '1px solid rgba(255,72,0,0.2)' }}
             >
-              5.0
+              Engagements from ₹5L
             </span>
-            <button
-              onClick={() => setReviewsOpen(true)}
-              className="text-[14px] underline underline-offset-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-              style={{ color: colors.ratingLabel, textDecorationColor: 'rgba(107,114,128,0.4)', background: 'none', border: 'none', padding: 0 }}
-            >
-              Google Reviews
-            </button>
+            <span className="text-[13px]" style={{ color: colors.ratingLabel }}>
+              · First deployment in 6 weeks
+            </span>
           </div>
         </motion.div>
       </div>

@@ -10,8 +10,7 @@ import {
   ChevronRight,
   Braces,
   Compass,
-  ClipboardCheck,
-  Server,
+
   MapPin,
   Star,
   ArrowRight,
@@ -28,6 +27,7 @@ import {
   Globe,
   GitBranch,
   Plus,
+  Users,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import ParallaxShowcase from '@/components/straveda/ParallaxShowcase';
@@ -35,7 +35,6 @@ import AnimatedRingProgress from '@/components/straveda/AnimatedRingProgress';
 import AnimatedHero from '@/components/straveda/AnimatedHero';
 import SubscribeSection from '@/components/straveda/SubscribeSection';
 import WaveDivider from '@/components/straveda/WaveDivider';
-import { MarqueeLogoScroller } from '@/components/marquee-logo-scroller';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -59,29 +58,34 @@ const cardVariants = {
 
 const bentoItems: { title: string; description: string; size: 'large' | 'normal'; icon: LucideIcon }[] = [
   {
-    title: "Real-Time Infrastructure Monitoring",
-    description: "Monitor every layer of your enterprise infrastructure with live dashboards, intelligent alerting, and automated incident remediation — minimizing downtime before it impacts revenue.",
+    title: "Weekly Shipping, Not Quarterly Roadmaps",
+    description: "One-week sprints with public progress logs. You see builds every Friday, approve Monday, ship Tuesday. No black-box discovery phases that last three months.",
     size: "large", icon: Activity,
   },
   {
-    title: "Cloud-Native Architecture",
-    description: "Design and deploy cloud-native workloads optimized for Kubernetes, Docker, and serverless platforms — delivering elastic scalability and operational resilience from day one.",
-    size: "normal", icon: Cloud,
-  },
-  {
-    title: "Zero-Trust Security",
-    description: "Enforce zero-trust security across every endpoint, workload, and data pipeline with continuous compliance automation aligned to NIST, SOC 2, and FedRAMP standards.",
-    size: "normal", icon: Shield,
-  },
-  {
-    title: "AI-Powered Analytics",
-    description: "Deploy predictive machine learning models that surface anomalies, forecast capacity demands, and accelerate data-driven decision-making across your enterprise technology stack.",
+    title: "Automation-First, Always",
+    description: "Before we build feature one, we audit what can be removed, integrated, or automated. Most agencies pad scope. We prune it — then automate what's left.",
     size: "normal", icon: Brain,
   },
   {
-    title: "Global-Scale Deployment",
-    description: "Run production workloads across multi-region, multi-cloud environments with 99.99% SLA guarantees, geo-redundant failover, and infrastructure that scales with your growth.",
+    title: "You Own Everything",
+    description: "Full code ownership. Complete documentation. Zero vendor lock-in. If we disappear tomorrow, you can run and maintain every system we built. That's non-negotiable.",
+    size: "normal", icon: Shield,
+  },
+  {
+    title: "Priced to ROI in 90 Days",
+    description: "Engagements run ₹5L–₹50L. Every proposal includes projected time savings, cost reduction, or revenue lift. If a system doesn't pay for itself in one quarter, we don't recommend building it.",
     size: "normal", icon: Globe,
+  },
+  {
+    title: "One Team, End to End",
+    description: "Strategy, AI engineering, design, and deployment under one roof. One Slack channel. One point of accountability. No vendor chains. No handoff loss.",
+    size: "normal", icon: Cloud,
+  },
+  {
+    title: "Small Team, Senior Execution",
+    description: "We cap engagements each quarter so we can ship fast and stay accountable. You get senior attention on every build — not a deck from partners and delivery from juniors.",
+    size: "normal", icon: Users,
   },
 ];
 
@@ -170,57 +174,10 @@ function StatCounter({ target, suffix }: { target: number; suffix: string }) {
 
 const testimonials = [
   {
-    name: 'James R.',
-    role: 'Senior VP',
-    company: 'Accenture',
-    quote: 'Straveda transformed our legacy infrastructure in record time. Their enterprise architecture expertise is unmatched.',
-    stars: 5,
-  },
-  {
-    name: 'Sarah M.',
-    role: 'Director of Engineering',
-    company: 'Deloitte',
-    quote: (
-      <>
-        The technology strategy they delivered gave us a clear roadmap.
-        We shipped{' '}
-        <span className="text-gradient-orange" style={{ fontWeight: 500 }}>3x faster</span>{' '}within the first quarter.
-      </>
-    ),
-    stars: 5,
-  },
-  {
-    name: 'David K.',
-    role: 'CTO',
-    company: 'IBM Global Services',
-    quote: (
-      <>
-        Their management consulting approach eliminated bottlenecks
-        we&apos;d struggled with for years.{' '}
-        <span className="text-gradient-orange" style={{ fontWeight: 500 }}>True enterprise partners.</span>
-      </>
-    ),
-    stars: 5,
-  },
-  {
-    name: 'Emily T.',
-    role: 'VP of Technology',
-    company: 'Northrop Grumman',
-    quote: 'Straveda\'s technology strategy roadmap transformed our IT investment approach. We now have a clear 3-year vision aligned with business outcomes.',
-    stars: 5,
-  },
-  {
-    name: 'Michael B.',
-    role: 'CIO',
-    company: 'State of Texas',
-    quote: 'The enterprise architecture modernization eliminated our legacy debt. We\'re now running 99.99% uptime across all critical systems.',
-    stars: 5,
-  },
-  {
-    name: 'Priya K.',
-    role: 'Director of Operations',
-    company: 'Deloitte',
-    quote: 'Their management consulting team embedded seamlessly with our staff. Knowledge transfer was exceptional — we\'re now self-sufficient.',
+    name: 'Straveda Team',
+    role: '2025',
+    company: '',
+    quote: 'We\'re early. Our first clients are live on Straveda systems. Case studies publish in Q2 2026 with their permission. Want to talk to a current client? Ask on the intro call — we\'ll connect you.',
     stars: 5,
   },
 ];
@@ -417,28 +374,28 @@ function TestimonialsCarousel() {
 
 const faqs = [
   {
-    question: 'What industries do you serve?',
-    answer: 'We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates seamlessly across industries.',
+    question: 'What does a typical engagement cost?',
+    answer: 'Engagements start at ₹5L for focused automation builds (WhatsApp flows, email sequences, single-process automation). Custom software and AI integrations run ₹15L–₹50L depending on scope. We provide fixed-price quotes after a discovery call — no hourly billing, no scope creep.',
   },
   {
-    question: 'How long does a typical engagement last?',
-    answer: 'Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone.',
+    question: 'How long does a project take?',
+    answer: 'Most projects ship their first working deployment in 4–6 weeks. Discovery: 1 week. Build sprints: 2–4 weeks. Automation layering: 1–2 weeks. Then monthly optimization retainers if needed. We don\'t do 6-month black-box builds.',
   },
   {
-    question: 'Do you work with existing IT teams?',
-    answer: 'Absolutely. We embed within your teams to upskill, mentor, and transfer knowledge. Our goal is to make your organization self-sufficient.',
+    question: 'Do you work with our existing team?',
+    answer: 'Yes. We integrate with your in-house developers, ops team, or IT partner. If you don\'t have technical capacity, we handle everything end-to-end. Either way, we document ruthlessly so knowledge doesn\'t live in our heads.',
   },
   {
-    question: 'What makes Straveda different?',
-    answer: 'We deliver exceptional value per dollar invested with zero hidden costs. Our open-standards approach avoids vendor lock-in, and we guarantee customer satisfaction.',
+    question: 'What makes Straveda different from other agencies?',
+    answer: 'Three things: (1) We\'re priced for mid-market, not enterprise. (2) We ship weekly, not quarterly. (3) We automate before we build — most firms do the opposite. We also give you full code ownership and zero vendor lock-in.',
   },
   {
     question: 'Can you handle enterprise-scale deployments?',
-    answer: 'Yes. We specialize in Red Hat Enterprise Middleware and large-scale architecture. Our team has deployed solutions serving millions of users across Fortune 500 companies.',
+    answer: 'We build for scale-ready architecture from day one — but we\'re sized for mid-market execution. If you\'re a 5,000+ person org with compliance/security layers that require multi-month audits, we\'ll refer you to a larger firm. If you\'re 50–500 people and need to move fast, we\'re the right call.',
   },
   {
     question: 'How do we get started?',
-    answer: 'Simple — reach out via our contact form or email us at info@straveda.com. We offer a free initial consultation to assess your needs and propose a tailored approach.',
+    answer: 'Book a 30-minute strategy call. We\'ll ask about your operations, biggest bottlenecks, and current stack. You\'ll walk away with a working hypothesis for what to automate first — whether or not you hire us. If it\'s a fit, we send a proposal within 48 hours.',
   },
 ];
 
@@ -473,7 +430,7 @@ function FAQSection() {
             className="font-normal heading-gradient"
             style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
           >
-            Questions? We&apos;ve got answers.
+            Questions? Here&apos;s what mid-market teams ask first.
           </h2>
         </motion.div>
 
@@ -590,43 +547,42 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
 
       {/* ═══════════════════════════════════════════════ */}
-      {/* TECHNOLOGY PARTNERS — MARQUEE SCROLLER          */}
+      {/* HONEST EARLY-STAGE PROOF STRIP                  */}
       {/* ═══════════════════════════════════════════════ */}
       <motion.section
         id="section-partners"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.8, ease }}
-        className="py-12 md:py-24 bg-white dark:bg-[#0a0a14] relative"
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.7, ease }}
+        className="py-12 md:py-16 bg-white dark:bg-[#0a0a14] relative border-t border-black/[0.06] dark:border-white/[0.06]"
       >
-        <div className="pointer-events-none absolute inset-0 grid-pattern" />
-        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
-          <MarqueeLogoScroller
-            title="Technology Partners"
-            description="Straveda partners with the world's leading enterprise technology providers to deliver modern, open-standards solutions."
-            speed="slow"
-            logos={[
-              { src: 'https://www.dropbox.com/scl/fi/05tvh664nd2eivo56vv7a/Azure-Database-MariaDB-Server.svg?rlkey=s0swm90cwzl3458r45drs7pm4&st=7afp7hat&raw=1', alt: 'Microsoft Azure', gradient: { from: '#0078D4', via: '#00BCF2', to: '#50E6FF' } },
-              { src: 'https://www.dropbox.com/scl/fi/0klrm4vry5vusyzy5id0u/AWS_Simple_Icons_AWS_Cloud.svg.png?rlkey=zh6tapbxpwp3tsgqn343jttdv&st=up07ra23&raw=1', alt: 'AWS', gradient: { from: '#FF9900', via: '#FFB84D', to: '#FFD700' } },
-              { src: 'https://svgl.app/library/google-cloud.svg', alt: 'Google Cloud', gradient: { from: '#4285F4', via: '#34A853', to: '#FBBC05' } },
-              { src: 'https://www.dropbox.com/scl/fi/33dniov3ozmzibus7038f/redHat.jpg?rlkey=cqj9ysxdgyp1g2htqeu55ylrq&st=lu2yae9g&raw=1', alt: 'Red Hat', gradient: { from: '#EE0000', via: '#CC0000', to: '#990000' } },
-              { src: 'https://www.dropbox.com/scl/fi/1iti6zfxfdm4wv4ghr2p1/dockerLogo.webp?rlkey=yfqk7xqnih2bxds2kx394dmz3&st=wdmjf0w3&raw=1', alt: 'Docker', gradient: { from: '#2496ED', via: '#0db7ed', to: '#086dd7' } },
-              { src: 'https://www.dropbox.com/scl/fi/zuox16vbg8x90rd2fmfuq/Kubernetes-Logo.jpg?rlkey=emlmzuvram0e5ayr68sxaulgi&st=k112wvmy&raw=1', alt: 'Kubernetes', gradient: { from: '#326CE5', via: '#5585E8', to: '#7BA3ED' } },
-              { src: 'https://www.dropbox.com/scl/fi/o0p4msk4k34c9uw94ocdn/Linux_Foundation_logo.png?rlkey=gyln1jhbavrq5pgnh2dyg8ciy&st=ebioy7aq&raw=1', alt: 'Linux', gradient: { from: '#333333', via: '#555555', to: '#111111' } },
-              { src: 'https://www.dropbox.com/scl/fi/s217efpown00nhr85i2q6/Color-IBM-Logo.jpg?rlkey=qv4ufawqv68f119zr0de3pa1x&st=25se6672&raw=1', alt: 'IBM', gradient: { from: '#1F70C1', via: '#0530AD', to: '#054ADA' } },
-              { src: 'https://svgl.app/library/salesforce.svg', alt: 'Salesforce', gradient: { from: '#00A1E0', via: '#0176D3', to: '#032D60' } },
-              { src: 'https://www.dropbox.com/scl/fi/kvnwfjr3bvjh9m2cv6lax/oracleLogo.png?rlkey=pdvjen1sp7pnkewfevcfrnouo&st=y16bmodo&raw=1', alt: 'Oracle', gradient: { from: '#F80000', via: '#C74634', to: '#A61108' } },
-              { src: 'https://www.dropbox.com/scl/fi/s462dsl3g3h7d428h52as/sap-logo.jpg?rlkey=igymohkzj6rhpqnlmcwrnundq&st=skfld2a2&raw=1', alt: 'SAP', gradient: { from: '#0070F2', via: '#0FAAFF', to: '#005FCE' } },
-              { src: 'https://www.dropbox.com/scl/fi/e7r2kjnfs9wjj60sb5wd9/vmware.jpeg?rlkey=8l0pwwdqm8ysvtdappsnd2ulm&st=7iqafwmr&raw=1', alt: 'VMware', gradient: { from: '#607078', via: '#96A2AA', to: '#464F54' } },
-              { src: 'https://www.dropbox.com/scl/fi/phr5u1cm7aad009v5ipm2/Cisco_logo.svg.png?rlkey=igx9ld4g7nvygjygez4fnji43&st=68gru0ru&raw=1', alt: 'Cisco', gradient: { from: '#1BA0D7', via: '#049FD9', to: '#005073' } },
-              { src: 'https://www.dropbox.com/scl/fi/hcb1kk0s4pffxcrywp5ib/intelLogo.avif?rlkey=k2ba8yh6h7dfzp1wguohzbk7r&st=x4lzw4x5&raw=1', alt: 'Intel', gradient: { from: '#0071C5', via: '#0095D9', to: '#00BCFF' } },
-              { src: 'https://www.dropbox.com/scl/fi/d0gjgagdrz4jlgbpdx5t8/nvidia-og-image-white-bg-1200x630.jpg?rlkey=rzfpfqepea4y8agodde86nxgv&st=f8htme3q&raw=1', alt: 'NVIDIA', gradient: { from: '#76B900', via: '#5F9900', to: '#3D6400' } },
-            ]}
-            className="border-0 rounded-none bg-transparent"
-            style={{ background: 'transparent' }}
-          />
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 relative text-center">
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-widest" style={{ color: '#FF4800' }}>
+            Where we stand
+          </p>
+          <p
+            className="text-[22px] md:text-[28px] font-normal leading-[1.4] text-[#1a1a2e] dark:text-[#f0f0f5]"
+            style={{ letterSpacing: '-0.5px' }}
+          >
+            We&apos;re early — and we charge like it.
+          </p>
+          <p className="mt-4 text-[16px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto">
+            Straveda launched in 2025. We take on a limited number of engagements each quarter so we can ship fast and stay accountable. Our current clients are in D2C, B2B SaaS, and professional services.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
+            {[
+              { label: 'Fixed-price after discovery', icon: '✓' },
+              { label: 'Weekly progress updates', icon: '✓' },
+              { label: 'Full code ownership', icon: '✓' },
+              { label: 'No long-term lock-in', icon: '✓' },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-2">
+                <span className="text-[13px] font-semibold" style={{ color: '#FF4800' }}>{item.icon}</span>
+                <span className="text-[14px] text-[#6b7280] dark:text-[#9ca3af]">{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </motion.section>
 
@@ -652,13 +608,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="mb-4 text-[11px] font-medium uppercase tracking-wider"
               style={{ color: '#FF4800' }}
             >
-              OUR SERVICES
+              WHAT WE BUILD
             </p>
             <h2
               className="font-normal heading-gradient"
-              style={{ fontSize: 'clamp(1.75rem, 7vw, 3.5rem)', lineHeight: 1.0, letterSpacing: 'clamp(-1px, -0.04em, -2.05px)', maxWidth: '580px' }}
+              style={{ fontSize: 'clamp(1.75rem, 7vw, 3.5rem)', lineHeight: 1.0, letterSpacing: 'clamp(-1px, -0.04em, -2.05px)', maxWidth: '640px' }}
             >
-              Enterprise solutions that modernize, scale, and deliver.
+              Four practice areas. One goal: systems that run without you.
             </h2>
           </motion.div>
 
@@ -683,31 +639,29 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
               >
-                ARCHITECTURE
+                AUTOMATION
               </span>
               <h3
                 className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
                 style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
-                Enterprise Architecture
+                AI & Business Automation
               </h3>
-              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                Modernize your application portfolio with adaptive,
-                open-standards architecture that scales.
+              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
+                WhatsApp flows that qualify leads and close sales. Email sequences triggered by user behavior. AI agents that handle tier-1 support. Workflow automation that removes 30–60% of manual operations in the first quarter.
+              </p>
+              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
+                → Typical outcome: 30–60% of manual ops eliminated in 90 days.
               </p>
               <button
                 data-magnetic
                 onClick={() => onNavigate('services')}
                 className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
                 style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#FF4800')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}
               >
-                Learn more
+                See automation services
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
@@ -724,98 +678,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
                 style={{ background: '#FF4800' }}
               >
-                STRATEGY
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                Technology Strategy
-              </h3>
-              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                Align IT investments with business goals to accelerate time to
-                market and increase product innovation.
-              </p>
-              <button
-                data-magnetic
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
-              >
-                Learn more
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <ClipboardCheck className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
-              >
-                MANAGEMENT
-              </span>
-              <h3
-                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
-                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
-              >
-                Management Consulting
-              </h3>
-              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                Expert Product, Program &amp; Project management through
-                meticulous planning and execution.
-              </p>
-              <button
-                onClick={() => onNavigate('services')}
-                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
-                style={{ color: '#6b7280' }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = '#FF4800')
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = '#6b7280')
-                }
-              >
-                Learn more
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
-            </motion.div>
-
-            <motion.div
-              variants={cardVariants}
-              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                <Server className="h-7 w-7 text-[#FF4800]" />
-              </div>
-              <span
-                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
-                style={{ background: '#FF4800' }}
-              >
                 SOFTWARE
               </span>
               <h3
                 className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
                 style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
               >
-                Software Solutions
+                Custom Software & Systems
               </h3>
-              <p className="mb-5 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
-                Red Hat Enterprise Middleware and virtualization to lower total
-                cost of ownership at enterprise scale.
+              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
+                AI-powered CRMs your team will actually use. Real-time dashboards that replace five-tab monitoring. Internal tools built around your workflow — not rented from SaaS that bends your process.
+              </p>
+              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
+                → Typical outcome: one source of truth, 3–5 SaaS subscriptions cancelled.
               </p>
               <button
                 data-magnetic
@@ -829,7 +704,92 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   (e.currentTarget.style.color = '#6b7280')
                 }
               >
-                Learn more
+                Explore custom builds
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+
+            <motion.div
+              variants={cardVariants}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
+            >
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <Globe className="h-7 w-7 text-[#FF4800]" />
+              </div>
+              <span
+                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
+                style={{ background: '#FF4800' }}
+              >
+                WEB
+              </span>
+              <h3
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
+              >
+                Web & Digital Experiences
+              </h3>
+              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
+                High-performance websites, 3D interactive builds, and landing pages engineered to convert paid traffic. Built on Next.js, shipped to edge, measured against CAC.
+              </p>
+              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
+                → Typical outcome: 2–4x lift on landing page conversion vs. template sites.
+              </p>
+              <button
+                onClick={() => onNavigate('services')}
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
+                style={{ color: '#6b7280' }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = '#FF4800')
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = '#6b7280')
+                }
+              >
+                Explore web capabilities
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+
+            <motion.div
+              variants={cardVariants}
+              className="card-hover glow-border card-premium rounded-xl p-8 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
+            >
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
+                <Target className="h-7 w-7 text-[#FF4800]" />
+              </div>
+              <span
+                className="mb-4 inline-block rounded-full px-3 py-1 text-[10px] font-medium text-white"
+                style={{ background: '#FF4800' }}
+              >
+                DESIGN
+              </span>
+              <h3
+                className="mb-3 font-normal text-[#1a1a2e] dark:text-white"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)', lineHeight: 1.15 }}
+              >
+                Design Systems
+              </h3>
+              <p className="mb-4 text-[16px] leading-[1.5]" style={{ color: '#6b7280' }}>
+                UI/UX, brand identity, and performance creatives. Design as a business lever — tested against conversion data, not design awards.
+              </p>
+              <p className="mb-5 text-[13px] font-medium" style={{ color: '#FF4800' }}>
+                → Typical outcome: product interfaces buyers don&apos;t need a tutorial to use.
+              </p>
+              <button
+                data-magnetic
+                onClick={() => onNavigate('services')}
+                className="group link-hover-underline flex items-center gap-1 text-[14px] transition-colors duration-200"
+                style={{ color: '#6b7280' }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = '#FF4800')
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = '#6b7280')
+                }
+              >
+                Talk design
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </motion.div>
@@ -860,7 +820,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="mb-5 text-[11px] font-medium uppercase tracking-widest"
               style={{ color: '#FF4800' }}
             >
-              WHAT SETS US APART
+              WHY STRAVEDA
             </p>
             <div className="flex items-start gap-5">
               <div
@@ -871,7 +831,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
                 style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}
               >
-                Enterprise-grade capabilities.
+                Mid-market capability at mid-market pricing.
               </h2>
             </div>
           </motion.div>
@@ -983,22 +943,296 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 md:gap-16 px-6 lg:flex-row lg:px-8 relative">
           {/* LEFT — 40% */}
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[40%]" >
-            <div className="counter-hover-gradient inline-block"><Counter target={14} suffix="+" /></div>
-            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="mt-3 h-[3px] w-8 rounded-full" style={{ background: '#FF4800', transformOrigin: 'left' }} />
-            <p className="mt-6 text-[16px] text-[#6b7280] dark:text-[#9ca3af]"> Years of Enterprise Excellence </p>
-            <p className="mt-2 text-[12px] font-medium uppercase tracking-wider" style={{ color: '#9ca3af' }} > Est. 2010 </p>
-            <div className="mt-6 flex items-center gap-2"> <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} /> <span className="text-[15px] text-[#6b7280] dark:text-[#9ca3af]"> Plano, Texas </span> </div>
+            <div className="flex flex-col gap-8">
+              <div>
+                <div className="counter-hover-gradient inline-block"><Counter target={2025} suffix="" /></div>
+                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Year Founded</p>
+              </div>
+              <div>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(36px, 7vw, 64px)', fontWeight: 600, lineHeight: 1 }}>₹5L+</p>
+                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Engagement Minimum</p>
+              </div>
+              <div>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(36px, 7vw, 64px)', fontWeight: 600, lineHeight: 1 }}>6 Wks</p>
+                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Avg. First Deployment</p>
+              </div>
+            </div>
+            <div className="mt-8 flex items-center gap-2"> <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} /> <span className="text-[15px] text-[#6b7280] dark:text-[#9ca3af]">Nashik, Maharashtra</span> </div>
           </motion.div>
           {/* RIGHT — 60% */}
           <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[60%]" >
-            <p className="mb-6 text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }} > ABOUT US </p>
-            <p className="text-[20px] leading-[1.6] text-[#1a1a2e] dark:text-[#f0f0f5]"> Straveda is an enterprise technology consulting firm specializing in high-performance architecture and strategy. We help Fortune 500 companies and government agencies modernize their digital infrastructure. </p>
+            <p className="mb-6 text-[11px] font-medium uppercase tracking-wider" style={{ color: '#FF4800' }} > WHO WE ARE </p>
+            <h2 className="mb-6 font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>Built by operators who got tired of bad software.</h2>
+            <p className="text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Straveda was founded in 2025 by a team that spent years watching mid-market businesses run on 14 disconnected tools, three spreadsheets nobody trusted, and a support inbox someone still answered at 11pm.</p>
+            <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Consultancies charged enterprise rates to map the problem. Freelancers charged startup rates and disappeared halfway. Neither actually fixed it. Straveda exists to be the third option: a small, senior team that ships real systems at a price mid-market companies can afford, on a timeline that respects how fast businesses need to move.</p>
+            <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Based in Nashik, Maharashtra. Working with clients across India and a growing number in Southeast Asia and the Middle East.</p>
           </motion.div>
         </div>
       </section>
 
       <TestimonialsCarousel />
       <FAQSection />
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* PROBLEM SECTION                                  */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-16 md:py-28 bg-[#f8f8fc] dark:bg-[#0a0a14] overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>THE REAL PROBLEM</p>
+            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+              You&apos;re not short on software.<br />You&apos;re drowning in it.
+            </h2>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {[
+              { num: '01', heading: 'The Tool Tax', body: 'You\'re paying 6–14 SaaS subscriptions. Half overlap. None talk to each other. Your team spends 2 hours a day moving data between them manually.' },
+              { num: '02', heading: 'The Integration Debt', body: 'Every new tool requires a Zapier hack. Every Zapier hack breaks monthly. IT says a "proper integration" is a 6-month project. So nothing gets built.' },
+              { num: '03', heading: 'The Visibility Gap', body: 'Leadership can\'t see pipeline health, ops can\'t see inventory, and finance finds out about problems when it\'s already too late to course-correct.' },
+            ].map((item) => (
+              <div
+                key={item.num}
+                className="rounded-xl p-8 border border-black/[0.06] dark:border-white/[0.08]"
+                style={{ background: 'rgba(255,72,0,0.02)' }}
+              >
+                <p className="text-[40px] font-light mb-4" style={{ color: 'rgba(255,72,0,0.25)', lineHeight: 1 }}>{item.num}</p>
+                <h3 className="text-[18px] font-medium mb-3 text-[#1a1a2e] dark:text-[#f0f0f5]">{item.heading}</h3>
+                <p className="text-[15px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af]">{item.body}</p>
+              </div>
+            ))}
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, delay: 0.25, ease }}
+            className="mt-10 text-center text-[17px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto"
+          >
+            Straveda exists to fix this. We audit first, eliminate what&apos;s redundant, automate what remains, and build only what genuinely can&apos;t be bought off the shelf.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* PROCESS SECTION                                  */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-16 md:py-28" style={{ background: isDark ? '#12121e' : '#ffffff' }}>
+        <div className="pointer-events-none absolute inset-0 dot-grid-dense" />
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-12 md:mb-16"
+          >
+            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>HOW WE WORK</p>
+            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+              From strategy call to live system in 6 weeks.
+            </h2>
+          </motion.div>
+          <div className="relative">
+            {/* Connector line */}
+            <div className="hidden md:block absolute top-6 left-6 right-6 h-px" style={{ background: 'linear-gradient(to right, #FF4800, rgba(255,72,0,0.1))' }} />
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+              {[
+                { step: '1', label: 'Discovery', desc: '30-min call. We map your ops, find the biggest time sinks, and identify what to automate first. You leave with a working hypothesis — not a sales pitch.' },
+                { step: '2', label: 'Architecture', desc: 'We spec the system, select the stack, and price the build. Fixed-price proposal within 48 hours. No hourly billing, no scope ambiguity.' },
+                { step: '3', label: 'Build', desc: 'Weekly sprints. You see progress every Friday, approve Monday, feedback integrated Tuesday. No black-box development phases.' },
+                { step: '4', label: 'Automate', desc: 'We wire in the automation layer — triggers, workflows, AI agents. The system starts running without human intervention before we hand over.' },
+                { step: '5', label: 'Scale', desc: 'Full handover with documentation. Your team owns it. We\'re available for retainer support if you need us — but you won\'t need us to operate it.' },
+              ].map((item) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.6, delay: parseInt(item.step) * 0.08, ease }}
+                  className="flex flex-col"
+                >
+                  <div
+                    className="flex items-center justify-center w-12 h-12 rounded-full mb-4 text-white text-[14px] font-semibold flex-shrink-0 relative z-10"
+                    style={{ background: '#FF4800' }}
+                  >
+                    {item.step}
+                  </div>
+                  <h3 className="text-[16px] font-semibold mb-2 text-[#1a1a2e] dark:text-[#f0f0f5]">{item.label}</h3>
+                  <p className="text-[14px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af]">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* PRICING SECTION                                  */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-16 md:py-28 bg-[#f8f8fc] dark:bg-[#0a0a14] overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 grid-pattern" />
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>PRICING</p>
+            <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+              Priced for mid-market. Not enterprise.
+            </h2>
+            <p className="mt-4 text-[17px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af] max-w-xl mx-auto">
+              Fixed-price engagements. No hourly billing. No retainer until you see results.
+            </p>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                tier: 'Automation Sprint',
+                price: '₹5L',
+                desc: 'One focused automation build. WhatsApp flows, email sequences, or a single-process AI agent. Ideal for teams ready to eliminate one manual bottleneck now.',
+                items: ['One automation workflow', 'Integration into existing stack', 'Full documentation + handover', 'First deployment in 4 weeks'],
+                cta: 'Start here',
+                highlight: false,
+              },
+              {
+                tier: 'Custom Software',
+                price: '₹15L–₹30L',
+                desc: 'AI-powered CRM, internal dashboard, or ops tool built around your workflow. Replaces 3–5 SaaS subscriptions and eliminates your integration debt.',
+                items: ['Full-stack custom build', 'AI layer included', 'Weekly progress reviews', 'Source code ownership'],
+                cta: 'Most popular',
+                highlight: true,
+              },
+              {
+                tier: 'Systems Transformation',
+                price: '₹30L+',
+                desc: 'End-to-end operations rebuild. Strategy, automation, software, and AI integrated into a single coherent system. For companies serious about moving fast.',
+                items: ['Multi-system integration', 'AI agents + automation', 'Dedicated senior team', 'Ongoing support available'],
+                cta: 'Book a call',
+                highlight: false,
+              },
+            ].map((plan) => (
+              <motion.div
+                key={plan.tier}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, ease }}
+                className={`rounded-xl p-8 border flex flex-col ${plan.highlight ? 'border-[#FF4800]/40' : 'border-black/[0.06] dark:border-white/[0.08]'}`}
+                style={{
+                  background: plan.highlight
+                    ? isDark ? 'linear-gradient(145deg, #1a1a2e 0%, rgba(255,72,0,0.06) 100%)' : 'linear-gradient(145deg, #ffffff 0%, rgba(255,72,0,0.04) 100%)'
+                    : isDark ? '#161625' : '#ffffff',
+                  boxShadow: plan.highlight ? '0 8px 32px rgba(255,72,0,0.12)' : '0 4px 20px rgba(0,0,0,0.04)',
+                }}
+              >
+                {plan.highlight && (
+                  <span className="inline-block mb-4 self-start rounded-full px-3 py-1 text-[10px] font-medium text-white" style={{ background: '#FF4800' }}>
+                    Most Popular
+                  </span>
+                )}
+                <p className="text-[12px] font-medium uppercase tracking-wider mb-2 text-[#6b7280] dark:text-[#9ca3af]">{plan.tier}</p>
+                <p className="text-[40px] font-light mb-3 text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ lineHeight: 1 }}>{plan.price}</p>
+                <p className="text-[14px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af] mb-6">{plan.desc}</p>
+                <ul className="flex flex-col gap-2 mb-8 flex-1">
+                  {plan.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">
+                      <span className="mt-1 flex-shrink-0 text-[10px]" style={{ color: '#FF4800' }}>●</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => onNavigate('contact')}
+                  className="w-full rounded-lg py-3 text-[14px] font-medium transition-all duration-200"
+                  style={{
+                    background: plan.highlight ? '#FF4800' : 'transparent',
+                    color: plan.highlight ? '#ffffff' : '#FF4800',
+                    border: plan.highlight ? 'none' : '1px solid rgba(255,72,0,0.3)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!plan.highlight) {
+                      e.currentTarget.style.background = 'rgba(255,72,0,0.06)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!plan.highlight) {
+                      e.currentTarget.style.background = 'transparent';
+                    }
+                  }}
+                >
+                  {plan.cta === 'Most popular' ? 'Book a call' : plan.cta}
+                </button>
+              </motion.div>
+            ))}
+          </div>
+          <p className="mt-8 text-center text-[13px] text-[#9ca3af]">
+            All engagements include full source code ownership and zero vendor lock-in. Fixed-price quote after a 30-min discovery call.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* CLOSING CTA                                      */}
+      {/* ═══════════════════════════════════════════════ */}
+      <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: isDark ? '#12121e' : '#1a1a2e' }}>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,72,0,0.12) 0%, transparent 70%)' }}
+        />
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease }}
+          >
+            <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>GET STARTED</p>
+            <h2 className="text-white font-normal text-[clamp(2rem,5vw,3.75rem)] mb-6" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
+              Stop paying a monthly tax on manual work.
+            </h2>
+            <p className="text-[17px] leading-[1.6] mb-10 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Book a 30-minute strategy call. You&apos;ll walk away with a working hypothesis for what to automate first. If it&apos;s a fit, we send a proposal within 48 hours.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => onNavigate('contact')}
+                className="glow-hover flex items-center gap-2 rounded-lg px-8 py-4 text-[15px] font-medium text-white shadow-lg shadow-orange-500/20"
+                style={{ background: '#FF4800' }}
+              >
+                Book a 30-min working call
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+              <button
+                onClick={() => onNavigate('services')}
+                className="flex items-center gap-2 rounded-lg px-8 py-4 text-[15px] transition-colors duration-200"
+                style={{ color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.12)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; }}
+              >
+                See how we work
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <SubscribeSection />
     </div>
   );

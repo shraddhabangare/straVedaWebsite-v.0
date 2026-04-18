@@ -129,21 +129,19 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
               className="text-[32px] md:text-[40px] font-normal mb-4"
               style={{ fontWeight: 400, color: isDark ? '#f0f0f5' : '#1a1a2e', lineHeight: 1.15, letterSpacing: '-1.5px' }}
             >
-              Stay ahead of the curve
+              Stay ahead on AI and automation.
             </h2>
             <p
               className="text-[16px] leading-[1.5] max-w-[440px]"
               style={{ color: isDark ? '#9ca3af' : '#6b7280', fontWeight: 400 }}
             >
-              Subscribe to our insights newsletter. Get expert analysis on enterprise IT trends, architecture patterns, and technology strategy delivered to your inbox.
+              Weekly insights on AI integration, automation strategy, and mid-market technology. No fluff. No vendor pitches. Unsubscribe anytime.
             </p>
 
             {/* Trust badges */}
             <div className="mt-8 flex items-center gap-6 justify-center md:justify-start">
               {[
-                { label: '2,000+ readers', icon: '◆' },
                 { label: 'Weekly digest', icon: '●' },
-                { label: 'No spam', icon: '★' },
               ].map((badge, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span style={{ color: '#FF4800', fontSize: '10px' }}>{badge.icon}</span>
@@ -170,10 +168,10 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
               }}
             >
               <h3 className="text-[22px] font-normal mb-4" style={{ fontWeight: 400, color: isDark ? '#f0f0f5' : '#1a1a2e', letterSpacing: '-0.5px' }}>
-                Subscribe to insights
+                Get Weekly Insights
               </h3>
               <p className="text-[14px] leading-[1.5] mb-6" style={{ color: isDark ? '#9ca3af' : '#6b7280', fontWeight: 400 }}>
-                Enterprise IT expertise delivered weekly.
+                AI and automation strategy, delivered weekly.
               </p>
 
               {isSuccess ? (
@@ -206,7 +204,7 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                     <input
                       type="email"
                       id="subscribe-email"
-                      placeholder="you@company.com"
+                      placeholder="your@company.com"
                       className={`subscribe-input text-[14px] w-full py-3 px-4 rounded-lg outline-none transition-all duration-200 placeholder:text-[#9ca3af] ${
                         emailError
                           ? 'border-red-500 focus:ring-1 focus:ring-red-500'
@@ -247,14 +245,14 @@ export default function SubscribeSection({ onNavigate }: SubscribeSectionProps) 
                       </>
                     ) : (
                       <>
-                        Subscribe
+                        Get Weekly Insights
                         <ArrowRight className="h-4 w-4" />
                       </>
                     )}
                   </motion.button>
 
                   <p className="text-[12px] text-center mt-1" style={{ color: '#9ca3af' }}>
-                    Unsubscribe anytime. We respect your privacy.
+                    One email per week. Real insights, not sales pitches.
                   </p>
                 </form>
               )}
