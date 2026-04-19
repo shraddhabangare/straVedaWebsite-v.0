@@ -15,7 +15,7 @@ const featuredTopics = ['All', 'Automation', 'Custom Software', 'AI Strategy', '
 const featuredPost = {
   category: 'AUTOMATION',
   filterCategory: 'Automation' as FilterCategory,
-  title: 'The Manual Work Audit — How to Find 40% of Your Team\'s Time',
+  title: 'The Manual Work Audit: How to Find 40% of Your Team\'s Time',
   date: 'March 2025',
   excerpt:
     'Most growing companies don\'t know where their team\'s time actually goes. We\'ve audited 50+ businesses and found the same pattern: 40–50% of work is repetitive, manual, and eliminable. Here\'s how to find yours.',
@@ -34,7 +34,7 @@ const posts = [
   {
     category: 'CUSTOM SOFTWARE',
     filterCategory: 'Custom Software' as FilterCategory,
-    title: 'Custom CRM vs. Salesforce — When Off-the-Shelf Doesn\'t Fit',
+    title: 'Custom CRM vs. Salesforce: When Off-the-Shelf Doesn\'t Fit',
     date: 'March 2025',
     excerpt:
       'Salesforce works great — until it doesn\'t. Here\'s how to decide when a custom CRM actually saves you money.',
@@ -50,7 +50,7 @@ const posts = [
   {
     category: 'AI STRATEGY',
     filterCategory: 'AI Strategy' as FilterCategory,
-    title: 'AI for Your Business — The ROI-First Framework',
+    title: 'AI for Your Business: The ROI-First Framework',
     date: 'February 2025',
     excerpt:
       'Most AI projects fail not because the technology doesn\'t work, but because nobody defined what "working" means.',
@@ -82,7 +82,7 @@ const posts = [
   {
     category: 'SYSTEMS',
     filterCategory: 'Systems' as FilterCategory,
-    title: 'The Data Silo Problem — How to Build One Source of Truth',
+    title: 'The Data Silo Problem: How to Build One Source of Truth',
     date: 'December 2024',
     excerpt:
       'Your CRM says one thing, your spreadsheet says another, your ops team has a third number. Here\'s how to fix it.',

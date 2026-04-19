@@ -60,22 +60,22 @@ const cardVariants = {
 const bentoItems: { title: string; description: string; size: 'large' | 'normal'; icon: LucideIcon }[] = [
   {
     title: "Weekly Shipping, Not Quarterly Roadmaps",
-    description: "One-week sprints with public progress logs. You see builds every Friday, approve Monday, ship Tuesday. No black-box discovery phases that last three months.",
+    description: "One week sprints with public progress logs. You see builds every Friday, approve Monday, ship Tuesday. No black-box discovery phases that last three months.",
     size: "large", icon: Activity,
   },
   {
     title: "Automation-First, Always",
-    description: "Before we build feature one, we audit what can be removed, integrated, or automated. Most agencies pad scope. We prune it — then automate what's left.",
+    description: "Before we build feature one, we audit what can be removed, integrated, or automated. Most agencies pad scope. We prune it then automate what's left.",
     size: "normal", icon: Brain,
   },
   {
     title: "You Own Everything",
-    description: "Full code ownership. Complete documentation. Zero vendor lock-in. If we disappear tomorrow, you can run and maintain every system we built. That's non-negotiable.",
+    description: "Full code ownership. Complete documentation. Zero vendor lock in. If we disappear tomorrow, you can run and maintain every system we built. That's non-negotiable.",
     size: "normal", icon: Shield,
   },
   {
-    title: "Priced to ROI in 90 Days",
-    description: "Engagements run ₹5L–₹50L. Every proposal includes projected time savings, cost reduction, or revenue lift. If a system doesn't pay for itself in one quarter, we don't recommend building it.",
+    title: "Priced to ROI in 60 Days",
+    description: "Every proposal includes projected time savings, cost reduction, or revenue lift. If a system doesn't pay for itself in one quarter, we don't recommend building it.",
     size: "normal", icon: Globe,
   },
   {
@@ -84,8 +84,8 @@ const bentoItems: { title: string; description: string; size: 'large' | 'normal'
     size: "normal", icon: Cloud,
   },
   {
-    title: "Small Team, Senior Execution",
-    description: "We cap engagements each quarter so we can ship fast and stay accountable. You get senior attention on every build — not a deck from partners and delivery from juniors.",
+    title: "Senior Execution",
+    description: "We cap engagements each quarter so we can ship fast and stay accountable. You get senior attention on every build not a deck from partners and delivery from juniors.",
     size: "normal", icon: Users,
   },
 ];
@@ -111,7 +111,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(48px, 10vw, 96px)', fontWeight: 600, lineHeight: 1 }}>
+    <span ref={ref} className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(32px, 6vw, 64px)', fontWeight: 600, lineHeight: 1 }}>
       {count}
       {suffix}
     </span>
@@ -178,7 +178,7 @@ const testimonials = [
     name: 'Straveda Team',
     role: '2024',
     company: '',
-    quote: 'We\'re early. Our first clients are live on Straveda systems. Case studies publish in Q2 2026 with their permission. Want to talk to a current client? Ask on the intro call — we\'ll connect you.',
+    quote: 'We\'re early. Our first clients are live on Straveda systems. Case studies publish in Q2 2026 with their permission. Want to talk to a current client? Ask on the intro call we\'ll connect you.',
     stars: 5,
   },
 ];
@@ -376,11 +376,11 @@ function TestimonialsCarousel() {
 const faqs = [
   {
     question: 'What does a typical engagement cost?',
-    answer: 'Engagements start at ₹5L for focused automation builds (WhatsApp flows, email sequences, single-process automation). Custom software and AI integrations run ₹15L–₹50L depending on scope. We provide fixed-price quotes after a discovery call — no hourly billing, no scope creep.',
+    answer: 'Engagements are designed for high-impact results, starting with focused automation builds like WhatsApp flows and email sequences. Comprehensive custom software and AI integrations are scaled to your specific operational needs. We provide fixed-price quotes after a discovery call eliminating hourly billing and preventing scope creep.',
   },
   {
     question: 'How long does a project take?',
-    answer: 'Most projects ship their first working deployment in 4–6 weeks. Discovery: 1 week. Build sprints: 2–4 weeks. Automation layering: 1–2 weeks. Then monthly optimization retainers if needed. We don\'t do 6-month black-box builds.',
+    answer: 'Most projects ship their first working deployment in 4–6 weeks.\n\n1. Discovery: 1 week.\n2. Build sprints: 2–4 weeks.\n3. Automation layering: 1–2 weeks.\n\nThen monthly optimization retainers if needed. We don\'t do 6-month black-box builds.',
   },
   {
     question: 'Do you work with our existing team?',
@@ -396,7 +396,7 @@ const faqs = [
   },
   {
     question: 'How do we get started?',
-    answer: 'Book a 30-minute strategy call. We\'ll ask about your operations, biggest bottlenecks, and current stack. You\'ll walk away with a working hypothesis for what to automate first — whether or not you hire us. If it\'s a fit, we send a proposal within 48 hours.',
+    answer: 'Book a 30 minute strategy call. We\'ll ask about your operations, biggest bottlenecks, and current stack. You\'ll walk away with a working hypothesis for what to automate first whether or not you hire us. If it\'s a fit, we send a proposal within 48 hours.',
   },
 ];
 
@@ -427,11 +427,11 @@ function FAQSection() {
           <div className="flex items-start gap-5 justify-center">
             <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
             <h2
-              className="font-normal heading-gradient"
-              style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', lineHeight: 0.95, letterSpacing: '-2.05px' }}
-            >
-              Questions? Here&apos;s what mid-market teams ask first.
-            </h2>
+                className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
+                style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}
+              >
+                Questions? Here's what teams ask first.
+              </h2>
           </div>
         </motion.div>
 
@@ -568,7 +568,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               className="font-normal heading-gradient"
               style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-2px' }}
             >
-              We&apos;re early — and we charge like it.
+              We&apos;re early, and we charge like it.
             </h2>
           </div>
           <p className="mt-4 text-[16px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto">
@@ -706,16 +706,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             >
               WHAT WE BUILD
             </p>
-            <div className="flex items-start gap-5">
+            <div className="flex items-center gap-5">
               <div
-                className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full"
-                style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }}
+                className="hidden lg:block flex-shrink-0 w-1 rounded-full"
+                style={{ height: '36px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }}
               />
               <h2
-                className="font-normal heading-gradient"
-                style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.0, letterSpacing: '-2.05px' }}
+                className="font-normal heading-gradient whitespace-nowrap"
+                style={{ fontSize: 'clamp(1.2rem, 2.6vw, 2.5rem)', lineHeight: 1.0, letterSpacing: '-1.5px' }}
               >
-                Four practice areas. One goal: systems that run without you.
+                One Goal: Systems That Run Without You.
               </h2>
             </div>
           </motion.div>
@@ -726,11 +726,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4"
+            className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-5"
           >
             {[
+              
               {
-                icon: Braces,
+                //icon: Braces,
                 badge: 'AUTOMATION',
                 title: 'AI & Business Automation',
                 body: 'WhatsApp flows that qualify leads and close sales. Email sequences triggered by user behavior. AI agents that handle tier-1 support. Workflow automation that removes 30–60% of manual operations in the first quarter.',
@@ -738,10 +739,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 cta: 'See automation services',
               },
               {
-                icon: Compass,
+                //icon: Compass,
                 badge: 'SOFTWARE',
                 title: 'Custom Software & Systems',
-                body: 'AI-powered CRMs your team will actually use. Real-time dashboards that replace five-tab monitoring. Internal tools built around your workflow — not rented from SaaS that bends your process.',
+                body: 'AI powered CRMs your team will actually use. Real time dashboards that replace five tab monitoring. Internal tools built around your workflow not rented from SaaS that bends your process.',
                 outcome: 'One source of truth, 3–5 SaaS subscriptions cancelled.',
                 cta: 'Explore custom builds',
               },
@@ -749,73 +750,73 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 icon: Brain,
                 badge: 'STRATEGY',
                 title: 'AI Strategy & Integration',
-                body: 'Deploy GPT-class models, vision APIs, and custom LLMs directly into your operations. We architect the integration, train the models, and wire them into your stack — so AI runs your workflows instead of sitting in a demo environment.',
+                body: 'Deploy GPT-class models, vision APIs, and custom LLMs directly into your operations. We architect the integration, train the models, and wire them into your stack  so AI runs your workflows instead of sitting in a demo environment.',
                 outcome: 'AI embedded in operations, not stuck in a demo.',
                 cta: 'Talk AI strategy',
               },
               {
-                icon: Globe,
+                //icon: Globe,
                 badge: 'DIGITAL',
                 title: 'Web Development & 3D Experiences',
-                body: 'High-performance websites built on Next.js. 3D interactive experiences that separate premium brands from commodity players. Landing pages optimized for conversion, not just aesthetics. Sub-second loads, SEO-ready architecture, deployed to edge.',
+                body: 'High Performance websites built on Next.js. 3D interactive experiences that separate premium brands from commodity players. Landing pages optimized for conversion, not just aesthetics. Sub-second loads, SEO Ready architecture, deployed to edge.',
                 outcome: '2–4x lift on landing page conversion vs. template sites.',
                 cta: 'View web capabilities',
+              },
+              {
+                badge: 'DIGITAL & DESIGN',
+                title: 'Brand & Experience Layer',
+                body: 'UI/UX design that converts leads into clients. Engaging web design and product interfaces that connect with your audience. Cohesive digital and design strategy for high Performance systems.',
+                outcome: 'Strategic digital and design layers. Integrated within 90 days.',
+                cta: 'See design services',
               },
             ].map((card) => (
               <motion.div
                 key={card.badge}
                 variants={cardVariants}
-                className="card-hover glow-border card-premium flex flex-col rounded-xl p-7 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
+                className="card-hover glow-border card-premium flex flex-col rounded-xl p-9 bg-[linear-gradient(145deg,#FFFFFF_0%,rgba(255,72,0,0.01)_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(145deg,#161625_0%,rgba(255,72,0,0.04)_50%,#161625_100%)] border border-black/[0.06] dark:border-white/[0.08]"
                 style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
               >
-                {/* Icon */}
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: 'linear-gradient(145deg, rgba(255,72,0,0.08) 0%, rgba(255,72,0,0.04) 100%)' }}>
-                  <card.icon className="h-6 w-6 text-[#FF4800]" />
-                </div>
-
                 {/* Badge */}
                 <span
-                  className="mb-3 inline-block self-start rounded-full px-3 py-1 text-[10px] font-semibold tracking-widest text-white"
+                  className="mb-3 inline-block self-start rounded-full px-3 py-1 text-[10px] font-semibold tracking-widest text-white whitespace-nowrap"
                   style={{ background: '#FF4800', letterSpacing: '0.08em' }}
                 >
                   {card.badge}
                 </span>
 
-                {/* Title — fixed height so divider aligns across all cards */}
-                <h3
-                  className="mb-4 font-bold text-[#1a1a2e] dark:text-white"
-                  style={{ fontSize: 'clamp(1.35rem, 2.8vw, 1.65rem)', lineHeight: 1.2, letterSpacing: '-0.5px', minHeight: '4.2rem' }}
-                >
-                  {card.title}
-                </h3>
+                {/* Title — wrapper enforces equal height across all cards */}
+                <div className="mb-4" style={{ minHeight: '8rem' }}>
+                  <h3
+                    className="font-bold text-[#1a1a2e] dark:text-white"
+                    style={{ fontSize: 'clamp(1.35rem, 2.8vw, 1.65rem)', lineHeight: 1.2, letterSpacing: '-0.5px' }}
+                  >
+                    {card.title}
+                  </h3>
+                </div>
 
-                {/* Divider 1 */}
-                <div className="-mx-7 mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" />
+                {/* Divider 1 — calc width avoids overflow:hidden clipping from .card-premium */}
+                <div className="mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" style={{ width: 'calc(100% + 4.5rem)', marginLeft: '-2.25rem' }} />
 
-                {/* Body — fixed height box */}
-                <p
-                  className="mb-5 text-[14.5px] leading-[1.7] overflow-hidden"
-                  style={{ color: '#6b7280', height: '152px' }}
-                >
+                {/* Body — flex-1 fills available space so divider 2 always aligns */}
+                <p className="flex-1 text-[14.5px] leading-[1.7]" style={{ color: '#6b7280' }}>
                   {card.body}
                 </p>
 
                 {/* Divider 2 */}
-                <div className="-mx-7 mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" />
+                <div className="mt-5 mb-5 h-px bg-black/[0.07] dark:bg-white/[0.07]" style={{ width: 'calc(100% + 4.5rem)', marginLeft: '-2.25rem' }} />
 
-                {/* Outcome — fixed height so CTA always aligns */}
+                {/* Outcome */}
                 <p
-                  className="mb-4 overflow-hidden text-[12.5px] font-semibold leading-snug"
-                  style={{ color: '#FF4800', letterSpacing: '0.01em', height: '40px' }}
+                  className="mb-4 text-[12.5px] font-semibold leading-snug"
+                  style={{ color: '#FF4800', letterSpacing: '0.01em' }}
                 >
                   → {card.outcome}
                 </p>
 
                 {/* CTA */}
                 <button
-                  data-magnetic
                   onClick={() => onNavigate('services')}
-                  className="group flex items-center gap-2.5 transition-colors duration-200"
+                  className="group flex w-full items-center gap-2.5 transition-colors duration-200"
                   onMouseEnter={(e) => {
                     const label = e.currentTarget.querySelector('.cta-label') as HTMLElement;
                     if (label) label.style.color = '#FF4800';
@@ -826,7 +827,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   }}
                 >
                   <span
-                    className="cta-label text-[13px] font-medium tracking-wide transition-colors duration-200 whitespace-nowrap"
+                    className="cta-label flex-1 min-w-0 truncate text-[13px] font-medium tracking-wide transition-colors duration-200"
                     style={{ color: '#6b7280' }}
                   >
                     {card.cta}
@@ -878,7 +879,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
                 style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}
               >
-                Mid-market capability at mid-market pricing.
+                Mid Market Capability at Mid Market Pricing.
               </h2>
             </div>
           </motion.div>
@@ -990,32 +991,58 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 md:gap-16 px-6 lg:flex-row lg:px-8 relative">
           {/* LEFT — 40% */}
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[40%]" >
-            <div className="flex flex-col gap-8">
+            <div
+              className="flex flex-col gap-4 pl-5"
+              style={{ borderLeft: '4px solid #FF4800' }}
+            >
               <div>
                 <div className="counter-hover-gradient inline-block"><Counter target={2024} suffix="" /></div>
-                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Year Founded</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">Year Founded</p>
               </div>
               <div>
-                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(36px, 7vw, 64px)', fontWeight: 600, lineHeight: 1 }}>₹5L+</p>
-                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Engagement Minimum</p>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(26px, 4.5vw, 45px)', fontWeight: 600, lineHeight: 1 }}>40%+</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">Manual Work Reduced</p>
               </div>
               <div>
-                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(36px, 7vw, 64px)', fontWeight: 600, lineHeight: 1 }}>6 Wks</p>
-                <p className="mt-2 text-[16px] text-[#6b7280] dark:text-[#9ca3af]">Avg. First Deployment</p>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(26px, 4.5vw, 45px)', fontWeight: 600, lineHeight: 1 }}>3–5x</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">Operational Efficiency</p>
+              </div>
+              <div>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(26px, 4.5vw, 45px)', fontWeight: 600, lineHeight: 1 }}>End-to-End</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">Strategy → Build → Deploy</p>
+              </div>
+              <div>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(26px, 4.5vw, 45px)', fontWeight: 600, lineHeight: 1 }}>4–6 Weeks</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">First System Live</p>
+              </div>
+              <div>
+                <p className="text-[#1a1a2e] dark:text-[#f0f0f5]" style={{ fontSize: 'clamp(26px, 4.5vw, 45px)', fontWeight: 600, lineHeight: 1 }}>100%</p>
+                <p className="mt-1 text-[14px] text-[#6b7280] dark:text-[#9ca3af]">Code Ownership</p>
               </div>
             </div>
-            <div className="mt-8 flex items-center gap-2"> <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} /> <span className="text-[15px] text-[#6b7280] dark:text-[#9ca3af]">Nashik, Maharashtra</span> </div>
+            <div className="mt-8 flex items-center gap-2"> <MapPin className="h-4 w-4" style={{ color: '#FF4800' }} /> <span className="text-[15px] text-[#6b7280] dark:text-[#9ca3af]">Pune, Maharashtra</span> </div>
           </motion.div>
           {/* RIGHT — 60% */}
           <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease }} className="flex w-full flex-col justify-center lg:w-[60%]" >
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>WHO WE ARE</p>
             <div className="flex items-start gap-5 mb-6">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>Built by operators who got tired of bad software.</h2>
+              <h2 className="font-normal heading-gradient" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-1px' }}>We Get It. Because We've Lived It.</h2>
             </div>
-            <p className="text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Straveda was founded in 2024 by a team that spent years watching mid-market businesses run on 14 disconnected tools, three spreadsheets nobody trusted, and a support inbox someone still answered at 11pm.</p>
-            <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Consultancies charged enterprise rates to map the problem. Freelancers charged startup rates and disappeared halfway. Neither actually fixed it. Straveda exists to be the third option: a small, senior team that ships real systems at a price mid-market companies can afford, on a timeline that respects how fast businesses need to move.</p>
-            <p className="mt-4 text-[17px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af]">Based in Nashik, Maharashtra. Working with clients across India and a growing number in Southeast Asia and the Middle East.</p>
+            <p className="text-[18px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] text-justify hyphens-auto">
+              Every growing company hits the same wall. Too many tools. Spreadsheets that don't sync. Your best people spending Friday afternoons doing work that 
+              shouldn't exist. You don't need another vendor; you need someone who 
+              actually understands the problem. We do. We've built companies. We've 
+              watched smart founders lose momentum to operational drag. We've felt the 
+              frustration of paying for five tools when you really need one well-designed 
+              system that your team understands. That's why Straveda is different. 
+              We're focused on one thing: building AI-powered systems that replace chaos 
+              with structure. Not another platform. Not enterprise bloat. Just technology 
+              that actually reduces complexity. We move fast. We're completely transparent. 
+              And we measure success the only way that matters—by what changes in your 
+              business: hours reclaimed, decisions accelerated, operations that scale 
+              without proportional headcount growth.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -1095,8 +1122,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <p className="mb-5 text-[11px] font-medium uppercase tracking-widest" style={{ color: '#FF4800' }}>HOW WE WORK</p>
             <div className="flex items-start gap-5">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
-                From strategy call to live system in 6 weeks.
+              <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-4px' }}>
+                From Strategy call to Live System in 4-5 Weeks.
               </h2>
             </div>
           </motion.div>

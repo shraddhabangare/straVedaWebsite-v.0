@@ -160,7 +160,7 @@ function MissionSection() {
           <span className="text-[clamp(3rem,8vw,6rem)] font-semibold leading-none tracking-tight text-[#1a1a2e]/80 dark:text-[#f0f0f5]/80">
             2024
           </span>
-          <span className="text-sm text-[#6b7280] dark:text-[#9ca3af]">Founded in Nashik, Maharashtra</span>
+          <span className="text-sm text-[#6b7280] dark:text-[#9ca3af]">Founded in Pune, Maharashtra</span>
           <div className="mt-1 h-[3px] w-8 bg-[#FF4800]" />
         </motion.div>
 
@@ -572,7 +572,7 @@ function CoreCompetenciesSection() {
 /* ------------------------------------------------------------------ */
 
 const milestones = [
-  { year: '2024', title: 'Founded', description: 'Straveda Tech founded in Nashik, Maharashtra. First clients onboarded in D2C, B2B SaaS, and professional services.' },
+  { year: '2024', title: 'Founded', description: 'Straveda Tech founded in Pune, Maharashtra. First clients onboarded in D2C, B2B SaaS, and professional services.' },
   { year: '2025', title: 'First Deployments Live', description: 'WhatsApp automation, custom CRMs, and AI workflows shipped to first cohort of mid-market clients.' },
   { year: '2025', title: 'Case Studies', description: 'Client case studies and measurable outcomes to be published Q2 2026 with client permission.' },
   { year: '2026', title: 'Expanding Reach', description: 'Growing presence across India and Southeast Asia. Taking on a limited number of engagements per quarter.' },

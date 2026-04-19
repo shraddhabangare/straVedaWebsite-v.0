@@ -10,20 +10,11 @@ import ProjectRequestWizard from '@/components/straveda/ProjectRequestWizard';
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
-const serviceOptions = [
-  'Enterprise Architecture',
-  'Technology Strategy',
-  'Management Consulting',
-  'Software Solutions',
-  "Not sure — let's talk",
-]
-
 interface FormData {
   name: string
   company: string
   email: string
   phone: string
-  service: string
   message: string
 }
 
@@ -32,7 +23,6 @@ const initialFormData: FormData = {
   company: '',
   email: '',
   phone: '',
-  service: '',
   message: '',
 }
 
@@ -199,9 +189,6 @@ export default function ContactPage() {
       setIsSubmitting(false)
     }
   }
-
-  const inputClasses =
-    'w-full bg-white dark:bg-white/[0.04] border border-[#e5e7eb] dark:border-white/[0.1] focus:border-[#FF4800] text-[#1a1a2e] dark:text-[#f0f0f5] rounded-lg px-4 py-3.5 text-[15px] outline-none transition-colors'
 
   return (
     <div className="bg-white dark:bg-[#0a0a14] min-h-screen">
@@ -403,40 +390,6 @@ export default function ContactPage() {
                 label="Phone (optional)"
               />
 
-              <div className="floating-input-group relative">
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  value={formData.service}
-                  onChange={handleChange}
-                  className={`${inputClasses} appearance-none cursor-pointer ${
-                    formData.service
-                      ? 'text-[#1a1a2e] dark:text-[#f0f0f5] border-[#FF4800]'
-                      : 'text-[#9ca3af] dark:text-[#6b7280] border-[#e5e7eb] dark:border-white/[0.1] hover:border-[#d1d5db] dark:hover:border-white/[0.15]'
-                  } transition-colors duration-200`}
-                >
-                  <option value="" disabled className="bg-white dark:bg-[#1a1a2e] text-[#9ca3af] dark:text-[#6b7280]">
-                    Select a service...
-                  </option>
-                  {serviceOptions.map((option) => (
-                    <option key={option} value={option} className="bg-white dark:bg-[#1a1a2e] text-[#1a1a2e] dark:text-[#f0f0f5]">
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <label
-                  htmlFor="service"
-                  className={`floating-label absolute left-4 transition-all duration-200 ease-out pointer-events-none ${
-                    formData.service
-                      ? 'floating-label-active'
-                      : 'floating-label-inactive'
-                  }`}
-                >
-                  Service Interest *
-                </label>
-              </div>
-
               <FloatingTextarea
                 id="message"
                 name="message"
@@ -512,7 +465,7 @@ export default function ContactPage() {
               <MapPin className="w-5 h-5 text-[#FF4800] mt-0.5 shrink-0" />
               <div>
                 <p className="text-[#1a1a2e] dark:text-[#f0f0f5] text-[16px] font-medium">
-                  Nashik, Maharashtra 422001
+                  Pune, Maharashtra 411001
                 </p>
                 <p className="text-[#6b7280] dark:text-[#9ca3af] text-[14px]">India</p>
               </div>
@@ -588,9 +541,9 @@ export default function ContactPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4800]/10">
                     <MapPin className="h-5 w-5 text-[#FF4800] map-pin-pulse" />
                   </div>
-                  <p className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">Nashik, Maharashtra 422001 · India</p>
+                  <p className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]">Pune, Maharashtra 411001 · India</p>
                   <a
-                    href="https://maps.google.com/?q=Nashik+Maharashtra+422001"
+                    href="https://maps.google.com/?q=Pune+Maharashtra+411001"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[12px] text-[#FF4800] hover:text-[#e63f00] font-medium underline underline-offset-2 transition-colors"

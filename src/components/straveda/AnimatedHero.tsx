@@ -64,7 +64,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
 
   const taglineWords = useMemo(
     () =>
-      'AI-powered business systems and custom software for mid-market companies in India. We build the automation, CRMs, and workflows that cut manual work by 40%+ — and pay for themselves in 90 days.'.split(
+      'AI  Powered  Business  Systems  and  Custom Software  for  Mid Market Companies in India. We build the Automation, CRMs, and Workflows that cut manual work by 50%.'.split(
         ' '
       ),
     []
@@ -262,7 +262,7 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
               className="text-xs font-medium"
               style={{ color: colors.badgeText }}
             >
-              Nashik, Maharashtra · Serving clients across India
+              Pune, Maharashtra · Serving clients across India
             </span>
             <span
               className="block h-5 w-px shrink-0"

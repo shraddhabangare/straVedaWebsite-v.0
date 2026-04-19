@@ -21,12 +21,12 @@ const jsonLd = {
       "foundingDate": "2024",
       "foundingLocation": {
         "@type": "Place",
-        "name": "Nashik, Maharashtra, India"
+        "name": "Pune, Maharashtra, India"
       },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "",
-        "addressLocality": "Nashik",
+        "addressLocality": "Pune",
         "addressRegion": "Maharashtra",
         "postalCode": "422001",
         "addressCountry": "IN"
@@ -137,6 +137,15 @@ const jsonLd = {
       "description":
         "High-performance Next.js websites, 3D interactive experiences, and conversion-optimised landing pages deployed to edge.",
       "areaServed": "India"
+    },
+    {
+      "@type": "Service",
+      "name": "Brand & Experience Layer",
+      "provider": { "@type": "Organization", "name": "Straveda Tech" },
+      "description":
+        "UI/UX design that converts leads into clients. Engaging web design and product interfaces that connect with your audience. Cohesive digital and design strategy for high-performance systems. Strategic digital and design layers integrated within 90 days.",
+      "serviceType": "Digital & Design",
+      "areaServed": "India"
     }
   ]
 };
@@ -161,7 +170,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
   description:
-    "AI-powered business automation and custom software for growing companies in India. WhatsApp automation, AI CRMs, intelligent workflows. Engagements from ₹5L. Based in Nashik.",
+    "AI-powered business automation and custom software for growing companies in India. WhatsApp automation, AI CRMs, intelligent workflows. Engagements from ₹5L. Based in Pune.",
   keywords: [
     "Straveda",
     "AI automation India",
@@ -172,7 +181,7 @@ export const metadata: Metadata = {
     "mid-market software",
     "workflow automation",
     "AI integration",
-    "Nashik tech company",
+    "Pune tech company",
   ],
   authors: [{ name: "Straveda Tech", url: "https://straveda.com" }],
   icons: {
@@ -183,16 +192,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
     description:
-      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Nashik.",
+      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Pune.",
     type: "website",
     locale: "en_IN",
     siteName: "Straveda Tech",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Straveda Tech — AI Automation & Custom Software for Mid-Market India",
+    title: "Straveda Tech AI Automation & Custom Software for Mid Market India",
     description:
-      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Nashik.",
+      "AI-powered business automation and custom software for growing companies in India. Engagements from ₹5L. Based in Pune.",
   },
   alternates: {
     canonical: "https://straveda.com"

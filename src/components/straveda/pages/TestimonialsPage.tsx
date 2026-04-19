@@ -33,7 +33,7 @@ const testimonialsColumn1 = [
   {
     text: 'Fixed-price quote, clear timeline, weekly progress updates. No surprises, no scope creep. The system was live in 5 weeks.',
     name: 'CEO',
-    role: 'Professional Services · Nashik',
+    role: 'Professional Services · Pune',
     rating: 5,
   },
   {
@@ -233,7 +233,7 @@ export default function TestimonialsPage({ onNavigate }: TestimonialsPageProps) 
             className="mb-4 text-[11px] font-medium uppercase tracking-[0.14em]"
             style={{ color: '#FF4800' }}
           >
-            — TESTIMONIALS
+            TESTIMONIALS
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}

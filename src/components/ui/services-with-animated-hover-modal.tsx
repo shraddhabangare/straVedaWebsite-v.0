@@ -21,26 +21,26 @@ const projects: Project[] = [
   {
     color: '#1a1a2e',
     src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=500&fit=crop&q=80',
-    title: 'Enterprise Architecture',
-    subtitle: 'Modernization & Design',
+    title: 'AI & Business Automation',
+    subtitle: 'Workflows · Agents · 24/7 Operations',
   },
   {
     color: '#2B2358',
     src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=500&fit=crop&q=80',
-    title: 'Technology Strategy',
-    subtitle: 'Digital Transformation',
+    title: 'Custom Software & AI Systems',
+    subtitle: 'CRMs · Dashboards · AI Platforms',
   },
   {
     color: '#3d3475',
     src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=500&fit=crop&q=80',
-    title: 'Management Consulting',
-    subtitle: 'Program Delivery',
+    title: 'AI Strategy & Model Integration',
+    subtitle: 'LLMs · RAG · Predictive Analytics',
   },
   {
     color: '#0f0f23',
     src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=500&fit=crop&q=80',
-    title: 'Software Solutions',
-    subtitle: 'Middleware & Cloud',
+    title: 'Web Development & Digital Experiences',
+    subtitle: 'Next.js · 3D · Conversion-Optimized',
   },
 ];
 
@@ -182,7 +182,7 @@ function Modal({ modal, projects, containerRef }: ModalProps) {
           className="absolute h-full w-full transition-[top] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
           style={{ top: `${index * -100}%` }}
         >
-          {projects.map((project, idx) => (
+          {projects.map((project) => (
             <div
               className="flex h-full w-full items-center justify-center"
               key={project.title}
