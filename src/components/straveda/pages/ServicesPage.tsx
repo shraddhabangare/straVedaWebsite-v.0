@@ -100,7 +100,7 @@ const services: ServiceBlockData[] = [
     id: 'automation',
     badge: 'AUTOMATION',
     title: 'AI & Business Automation',
-    body: 'Manual work is invisible debt. We audit your workflows, identify the biggest time-wasters, and replace them with AI agents and sequences that work 24/7.',
+    body: ' WhatsApp flows that qualify leads and drive conversions. Behavior-triggered email sequences for engagement and retention. AI agents handling tier-1 customer support. Workflow automation reducing manual operational load. 30–60% reduction in manual operations within the first 90 days',
     capabilities: [
       'WhatsApp Automation: AI-powered lead qualification & instant booking',
       'Email Sequences: Behavioral triggers that run without touching your CRM',
@@ -112,7 +112,7 @@ const services: ServiceBlockData[] = [
     id: 'custom-software',
     badge: 'SOFTWARE',
     title: 'Custom Software & Systems',
-    body: "Off-the-shelf software forces your workflow into a vendor's mold. We build high-performance software tailored exactly to how your enterprise operates.",
+    body: "AI-powered CRMs designed for real team adoption. Real-time dashboards replacing fragmented monitoring tools. Internal systems built around your workflows (not rigid SaaS tools). Centralized data systems for better decision-making.",
     capabilities: [
       'AI-Powered CRMs: Built around your specific sales process',
       'Operational Dashboards: Real-time visibility into your core metrics',
@@ -124,7 +124,7 @@ const services: ServiceBlockData[] = [
     id: 'ai-strategy',
     badge: 'STRATEGY',
     title: 'AI Strategy & Integration',
-    body: 'AI should be infrastructure, not a shiny demo. We architect where AI actually adds value and integrate it into your existing stacks securely.',
+    body: 'Deployment of GPT-class models and advanced AI APIs. Custom LLM integration tailored to business workflows. End-to-end AI architecture, training, and deployment. Seamless integration into your existing tech stack.',
     capabilities: [
       'AI Architecture: Phased roadmap to deploy where it creates real ROI',
       'LLM Fine-Tuning: Models trained on your specific business context',
@@ -136,7 +136,7 @@ const services: ServiceBlockData[] = [
     id: 'web-development',
     badge: 'DIGITAL',
     title: 'Web Design & Experiences',
-    body: 'Your website is your digital storefront. We build high-performance experiences on Next.js that move inventory, qualify leads, and build credibility.',
+    body: 'High-performance websites built using modern frameworks (e.g., Next.js). 3D interactive experiences for premium brand differentiation. Conversion-focused landing pages (not just visual design). Fast-loading, SEO-ready, edge-deployed architecture. 2–4x improvement in conversion rates compared to template-based sites',
     capabilities: [
       'Next.js Performance: Sub-second loads and global edge deployment',
       '3D & Interactive: Make your brand unforgettable with immersive builds',

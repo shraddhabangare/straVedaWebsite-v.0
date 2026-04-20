@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import {
   ArrowRight, Zap, Lock, Clock, Eye, TrendingUp, Users,
-  Search, FileText, PlayCircle, Quote, MapPin, CheckCircle2
+  Quote, CheckCircle2
 } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 
@@ -45,7 +45,7 @@ const fadeUp = {
 };
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 1. Hero Section (Step 1)                                                */
+/* 1. Hero Section                                                         */
 /* ─────────────────────────────────────────────────────────────────────── */
 
 function HeroSection() {
@@ -64,7 +64,7 @@ function HeroSection() {
             <h1 className="masked-title font-normal uppercase" style={{ fontSize: 'clamp(2rem, 7vw, 4.8rem)', lineHeight: 1.1, letterSpacing: '-2.05px' }}>
               We Get It. <br /> Because We've Lived It.
             </h1>
-            <p className="mt-6 md:mt-8 text-base md:text-xl text-[#666] dark:text-[#9ca3af] max-w-3xl leading-relaxed">
+            <p className="mt-6 md:mt-8 text-base md:text-xl text-[#666] dark:text-[#9ca3af] max-w-3xl leading-relaxed text-left">
               A small team of operators and builders who've been through the chaos of scaling.
               We've felt the frustration of bloated software, long implementation timelines, and vendors who don't understand your business.
               So we built Straveda as the antidote.
@@ -77,50 +77,121 @@ function HeroSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 2. Our Story (Step 2)                                                   */
+/* 2. Our Story — Compact Narrative & Side-by-Side Cards                  */
 /* ─────────────────────────────────────────────────────────────────────── */
+
+const chaosItems = [
+  "Paying for 5 tools. None of them talk.",
+  "Fridays spent on reports that should write themselves.",
+  "A decision needs 2 days just to get the data.",
+  "Implementation started 6 months ago. Still setting it up.",
+  "Your best hire is doing data entry.",
+];
+
+const clarityItems = [
+  "One platform, built for how you actually work.",
+  "Reports run overnight. Your Fridays are yours again.",
+  "Every decision backed by live data — instantly.",
+  "You're live in 5 weeks. Paying back in 90 days.",
+  "Your best hire is doing their best work.",
+];
 
 function StorySection() {
   return (
-    <section className="bg-white dark:bg-[#030303] py-16 md:py-32 px-6 border-y border-black/5 dark:border-white/5">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-32">
-            <div className="relative pl-8">
-              <div className="absolute left-0 top-0 h-full w-[2px] bg-[#FF4800]" />
-              <h2 className="masked-title text-2xl md:text-3xl font-normal uppercase tracking-[-1.8px] leading-tight">
-                From frustration to a different kind of software company.
-              </h2>
-            </div>
+    <section className="bg-[#f5f5f0] dark:bg-[#030303] py-24 md:py-36 px-6 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
+      {/* Grid Background Overlay */}
+      <div className="absolute inset-0 opacity-[0.025] pointer-events-none
+        [background-image:linear-gradient(#000_1px,transparent_1px),linear-gradient(90deg,#000_1px,transparent_1px)]
+        dark:[background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)]
+        [background-size:50px_50px]" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+          
+          {/* LEFT: Compact Narrative */}
+          <div className="lg:w-[35%]">
+            <motion.div {...fadeUp} className="mb-8">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="h-[1px] w-6 bg-[#FF4800]" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">Our Story</span>
+              </div>
+              <div className="relative pl-6">
+                <div className="absolute left-0 top-0 h-full w-[1.5px] bg-[#FF4800]" />
+                <h2 className="masked-title font-normal uppercase leading-tight"
+                  style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', letterSpacing: '-1px' }}>
+                  Two paths. One choice.
+                </h2>
+              </div>
+            </motion.div>
+
+            <motion.div {...fadeUp} transition={{ delay: 0.2 }}>
+              <div className="flex flex-col gap-8 max-w-2xl">
+  <div className="flex flex-col gap-10 max-w-2xl">
+  {/* Paragraph 1 */}
+  <p className="text-[#888] text-[13px] md:text-[12px] leading-[1.3] text-justify hyphens-auto tracking-tight">
+    Every growing company eventually hits the same wall. Too many tools. Spreadsheets that don't 
+    sync. Your best people spending Friday afternoons doing work that shouldn't exist. You don't 
+    need another vendor; you need someone who actually understands the problem. We do. We've built companies. We've watched smart founders lose momentum to operational drag. We've felt the frustration of paying for five tools when you really need one well-designed 
+system that your team understands.That's why Straveda is different. We're focused on one thing: building AI-powered systems that replace chaos with structure. Not another platform. Not enterprise bloat. Just technology that actually reduces complexity. We move fast. We're completely transparent. And we measure success the only way that matters—by what changes in your business: 
+    hours reclaimed, decisions accelerated, operations that scale without proportional headcount growth.
+  </p>
+</div>
+</div>
+            </motion.div>
           </div>
-        </div>
-        <div className="lg:col-span-7 space-y-8 text-[#666] dark:text-[#9ca3af] text-base md:text-lg leading-relaxed">
-          <p>
-            Every growing company hits the same wall. Too many tools. Spreadsheets that don't sync.
-            Your best people spending Friday afternoons doing work that shouldn't exist. Decisions
-            delayed because information lives in the last person who touched it, not in a system.
-          </p>
-          <p>
-            We've been there—on both sides. We've built companies. We've watched smart, ambitious founders
-            lose momentum to operational drag. We've felt the frustration of paying for five tools when
-            you really need one well-designed system that your team actually understands.
-          </p>
-          <p>
-            That experience shaped everything we do.
-          </p>
-          <p className="text-black dark:text-white font-medium">
-            We started Straveda because we got tired of watching growing companies struggle with bad software.
-            The kind that forces your process into a vendor's mold instead of supporting how you actually work.
-            The kind that takes six months to implement while your best people are stuck in "the project."
-          </p>
-          <p>
-            So we built something different: a small, focused team that specializes in one thing—replacing
-            chaos with structure through AI-powered automation and custom software.
-          </p>
-          <p>
-            We're not trying to be everything to everyone. We're sized for mid-market speed. We're built to move fast.
-            And we measure success the only way that matters: what changes in your business.
-          </p>
+
+          {/* RIGHT: Side-by-Side Comparison Cards */}
+          <div className="lg:w-[65%] grid md:grid-cols-2 gap-4 h-full">
+            
+            {/* Chaos Card (The Old Way) */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.9, ease }}
+              className="relative rounded-2xl overflow-hidden border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-md p-7 md:p-9 flex flex-col"
+            >
+              <div className="mb-6">
+                <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800]/60 border border-[#FF4800]/20 px-2.5 py-1 rounded-full mb-3">
+                  The Old Way
+                </span>
+                <h3 className="text-lg font-bold uppercase tracking-tight text-black/70 dark:text-white/60">Chaos</h3>
+              </div>
+              
+              <div className="space-y-5 flex-1">
+                {chaosItems.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 opacity-50 hover:opacity-100 transition-opacity">
+                    <span className="mt-[5px] w-1.5 h-1.5 rounded-full border border-[#FF4800]/40 shrink-0" />
+                    <span className="text-[13px] leading-snug text-black dark:text-white">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Structure Card (The Straveda Way) */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2, ease }}
+              className="relative rounded-2xl overflow-hidden border border-[#FF4800]/30 bg-[#FF4800]/[0.06] dark:bg-[#FF4800]/[0.08] backdrop-blur-xl p-7 md:p-9 shadow-[0_15px_40px_rgba(255,72,0,0.08)] flex flex-col"
+            >
+              <div className="mb-6">
+                <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800] bg-[#FF4800]/15 px-2.5 py-1 rounded-full mb-3">
+                  The Straveda Way
+                </span>
+                <h3 className="text-lg font-bold uppercase tracking-tight text-black dark:text-white">Structure</h3>
+              </div>
+
+              <div className="space-y-5 flex-1">
+                {clarityItems.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle2 size={14} className="mt-[2px] text-[#FF4800] shrink-0" />
+                    <span className="text-[13px] font-medium leading-snug text-black dark:text-white/90">{item}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-[#FF4800]/15 blur-3xl rounded-full" />
+            </motion.div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -128,7 +199,7 @@ function StorySection() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 3. Operating Principles (Step 3)                                        */
+/* 3. Operating Principles                                                 */
 /* ─────────────────────────────────────────────────────────────────────── */
 
 const principles = [
@@ -163,7 +234,7 @@ function PrinciplesSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 4. Company Stats (Step 5)                                               */
+/* 4. Company Stats                                                        */
 /* ─────────────────────────────────────────────────────────────────────── */
 
 const stats = [
@@ -198,9 +269,7 @@ function AnimatedStatValue({ stat }: { stat: typeof stats[0] }) {
     requestAnimationFrame(step);
   }, [inView, stat.count]);
 
-  if (stat.count === null) {
-    return <span ref={ref}>{stat.value}</span>;
-  }
+  if (stat.count === null) return <span ref={ref}>{stat.value}</span>;
   return <span ref={ref}>{stat.prefix}{count}{stat.suffix}</span>;
 }
 
@@ -251,7 +320,6 @@ function StatsSection() {
             </div>
           ))}
         </div>
-
         <div className="mt-8 md:mt-12 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-[0.2em] text-[#555] gap-3 md:gap-0">
           <p>Typical Client Size: <span className="text-[#888]">₹1Cr–₹50Cr Annual Revenue</span></p>
           <p>Location: <span className="text-[#888]">Pune, Maharashtra</span></p>
@@ -262,30 +330,27 @@ function StatsSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 5. Results / Testimonials (Step 6)                                      */
+/* 5. Results Section                                                      */
 /* ─────────────────────────────────────────────────────────────────────── */
 
 const testimonials = [
   {
-    quote: "We were drowning in manual lead qualification work. Straveda built a WhatsApp bot that handles 80% of our lead flow now. We went from 200 monthly leads processed to 1,200 in the same time. It's been a total game-changer.",
+    quote: "We were drowning in manual lead qualification work. Straveda built a WhatsApp bot that handles 80% of our lead flow now.",
     impact: "80% manual work reduction / 6x lead throughput",
     company: "D2C Fashion Brand, Mumbai",
-    role: "Operations Director",
-    timeline: "4 weeks"
+    role: "Operations Director"
   },
   {
-    quote: "Our CRM was killing us—it didn't match our sales process. We had to make the process fit the software. Straveda built us a custom CRM in 8 weeks. Our team adoption was instant because it actually makes sense to us. Sales velocity is up 3x.",
+    quote: "Our CRM was killing us—it didn't match our sales process. Straveda built us a custom CRM in 8 weeks. Team adoption was instant.",
     impact: "3x sales velocity / 90% team adoption",
     company: "SaaS Startup, Bangalore",
-    role: "Founder",
-    timeline: "8 weeks"
+    role: "Founder"
   },
   {
-    quote: "We were paying for six different tools. Straveda consolidated everything into one integrated platform. It's faster, cheaper, and our team actually understands how it works. ROI in first quarter, hands down.",
-    impact: "50% cost reduction / Unified data / Faster decisions",
+    quote: "We were paying for six different tools. Straveda consolidated everything into one integrated platform. ROI in first quarter.",
+    impact: "50% cost reduction / Unified data",
     company: "E-Commerce, Delhi NCR",
-    role: "CEO",
-    timeline: "10 weeks"
+    role: "CEO"
   }
 ];
 
@@ -304,8 +369,7 @@ function ResultsSection() {
               <p className="text-[#555] dark:text-[#9ca3af] text-base md:text-lg italic leading-relaxed mb-8 flex-grow">"{t.quote}"</p>
               <div className="border-t border-black/5 dark:border-white/5 pt-6">
                 <p className="text-[#FF4800] text-[10px] font-bold uppercase tracking-widest mb-1">{t.impact}</p>
-                <p className="text-black dark:text-white text-xs font-medium uppercase tracking-widest opacity-60 mb-1">— {t.role}, {t.company}</p>
-                <p className="text-[#FF4800]/60 text-[10px] uppercase tracking-widest">Timeline: {t.timeline}</p>
+                <p className="text-black dark:text-white text-xs font-medium uppercase tracking-widest opacity-60">— {t.role}, {t.company}</p>
               </div>
             </div>
           ))}
@@ -316,13 +380,13 @@ function ResultsSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
-/* 6. Work With Us (Step 7)                                                */
+/* 6. Work With Us Section                                                 */
 /* ─────────────────────────────────────────────────────────────────────── */
 
 const roadmap = [
-  { step: "01", title: "Book a Strategy Call", meta: "30 min, free", desc: "We audit your operations and biggest bottlenecks, recommend what to automate or build first. You get value even if you don't hire us.", cta: "Book Now" },
-  { step: "02", title: "Get a Custom Proposal", meta: "48 hours", desc: "Fixed-price quote for your specific project. Timeline and success metrics included. No surprises, no fine print.", cta: "Request Proposal" },
-  { step: "03", title: "Start Building", meta: "4–6 weeks", desc: "Weekly sprints with visible progress. Your team, our team, one shared goal. Go live and reclaim your time.", cta: null },
+  { step: "01", title: "Book a Strategy Call", meta: "30 min, free", desc: "We audit your operations and biggest bottlenecks, recommend what to build first.", cta: "Book Now" },
+  { step: "02", title: "Get a Custom Proposal", meta: "48 hours", desc: "Fixed-price quote for your project. Timeline and success metrics included.", cta: "Request Proposal" },
+  { step: "03", title: "Start Building", meta: "4–6 weeks", desc: "Weekly sprints with visible progress. Go live and reclaim your time.", cta: null },
 ];
 
 function WorkWithUsSection({ onNavigate }: { onNavigate: (page: string) => void }) {
@@ -378,7 +442,3 @@ export default function AboutPage({ onNavigate }: { onNavigate: (page: string) =
     </main>
   );
 }
-
-
-
-

@@ -564,12 +564,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </p>
           <div className="flex items-start gap-5 justify-center">
             <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
-            <h2
-              className="font-normal heading-gradient"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-2px' }}
-            >
-              We&apos;re early, and we charge like it.
-            </h2>
+           <h2
+  className="font-normal heading-gradient"
+  style={{ 
+    fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+    lineHeight: 1.05, 
+    letterSpacing: '-2px',
+    whiteSpace: 'nowrap' // This forces the text onto one line
+  }}
+>
+  A Strong Foundation for Scalable Growth.
+</h2>
           </div>
           <p className="mt-4 text-[16px] leading-[1.7] text-[#6b7280] dark:text-[#9ca3af] max-w-2xl mx-auto">
             Straveda launched in 2024. We take on a limited number of engagements each quarter so we can ship fast and stay accountable. Our current clients are in D2C, B2B SaaS, and professional services.
@@ -879,7 +884,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]"
                 style={{ lineHeight: 1.0, letterSpacing: '-2.05px' }}
               >
-                Mid Market Capability at Mid Market Pricing.
+                Enterprise-Grade Execution, Without the Complexity.
               </h2>
             </div>
           </motion.div>
@@ -1178,11 +1183,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <div className="flex items-start gap-5 justify-center">
               <div className="mt-2 hidden lg:block flex-shrink-0 w-1 rounded-full" style={{ height: '52px', background: 'linear-gradient(180deg, #FF4800 0%, rgba(255,72,0,0.15) 100%)' }} />
               <h2 className="font-normal heading-gradient text-[clamp(2rem,5vw,3.5rem)]" style={{ lineHeight: 1.05, letterSpacing: '-2px' }}>
-                Priced for mid-market. Not enterprise.
+                Flexible Engagement Models
               </h2>
             </div>
             <p className="mt-4 text-[17px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af] max-w-xl mx-auto">
-              Fixed-price engagements. No hourly billing. No retainer until you see results.
+              Tailored systems built around your business goals not predefined packages.
             </p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

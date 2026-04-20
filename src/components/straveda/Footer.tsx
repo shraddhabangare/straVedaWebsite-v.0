@@ -59,7 +59,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           style={{ 
             color: 'rgba(15, 23, 42, 0.06)', // Slightly darker for visibility
             fontFamily: 'Inter, sans-serif',
-            lineHeight: '0.8',
+            lineHeight: '0.6',
             marginBottom: '20px',
           }}>
           Straveda
