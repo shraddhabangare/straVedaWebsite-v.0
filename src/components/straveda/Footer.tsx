@@ -37,7 +37,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   return (
     <footer
       ref={footerRef}
-      className="relative mt-auto overflow-hidden bg-[#fffaf8] py-20 pb-12 dark:bg-[#0a0a14]"
+      className="relative mt-auto overflow-hidden bg-[#fffaf8] py-10 pb-6 dark:bg-[#0a0a14]"
       onMouseEnter={() => setCursorStyle('nav')}
       onMouseLeave={() => setCursorStyle('default')}
     >
@@ -70,7 +70,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         
         {/* Back to Top */}
-        <div className="flex justify-end mb-12">
+        <div className="flex justify-end mb-6">
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
             className="group flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#0f172a] hover:text-[#FF4800] transition-colors"
@@ -80,20 +80,20 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
 
         {/* The Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-y-12 gap-x-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-8 mb-8">
           
           {/* Brand Column */}
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-4 space-y-4">
             <div>
-              <span className="text-3xl font-black tracking-tighter text-[#0f172a] dark:text-white">
+              <span className="text-2xl font-black tracking-tighter text-[#0f172a] dark:text-white">
                 Str<span className="text-[#FF4800]">a</span>veda
               </span>
-              <p className="mt-4 text-[16px] text-[#0f172a] dark:text-gray-300 font-bold leading-snug max-w-[280px]">
+              <p className="mt-2 text-[14px] text-[#0f172a] dark:text-gray-300 font-bold leading-snug max-w-[280px]">
                 Exceptional value.<br/>Cost-effective solutions.
               </p>
             </div>
-            
-            <div className="flex gap-4">
+
+            <div className="flex gap-3">
                {['LN', 'GH'].map(icon => (
                 <div key={icon} className="w-11 h-11 rounded-full border-2 border-[#0f172a]/10 flex items-center justify-center font-black text-[11px] text-[#0f172a] hover:bg-[#FF4800] hover:text-white hover:border-[#FF4800] transition-all cursor-pointer">
                     {icon}
@@ -104,14 +104,14 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Links Columns */}
           {Object.entries(FOOTER_LINKS).map(([title, links]) => (
-            <div key={title} className="lg:col-span-2 space-y-8">
+            <div key={title} className="lg:col-span-2 space-y-3">
               <h3 className="text-[11px] font-black uppercase tracking-widest text-[#FF4800]">{title}</h3>
-              <ul className="space-y-4">
+              <ul className="space-y-2">
                 {links.map(link => (
                   <li key={link.label}>
-                    <button 
+                    <button
                       onClick={() => onNavigate(link.page)}
-                      className="text-[15px] font-bold text-[#0f172a] dark:text-gray-200 hover:text-[#FF4800] transition-colors text-left"
+                      className="text-[13px] font-bold text-[#0f172a] dark:text-gray-200 hover:text-[#FF4800] transition-colors text-left"
                     >
                       {link.label}
                     </button>
@@ -122,9 +122,9 @@ export default function Footer({ onNavigate }: FooterProps) {
           ))}
 
           {/* Contact Details */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-3">
             <h3 className="text-[11px] font-black uppercase tracking-widest text-[#FF4800]">CONTACT US</h3>
-            <div className="space-y-6 text-[15px] font-bold text-[#0f172a] dark:text-gray-200">
+            <div className="space-y-3 text-[13px] font-bold text-[#0f172a] dark:text-gray-200">
                 <a href="mailto:hello@straveda.com" className="flex items-center gap-3 group">
                     <Mail size={18} className="text-[#FF4800] shrink-0" />
                     <span className="border-b-2 border-[#0f172a]/10 group-hover:border-[#FF4800] transition-all">hello@straveda.com</span>
@@ -138,7 +138,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t-2 border-[#0f172a]/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] font-black text-[#0f172a]/40 uppercase tracking-[0.2em]">
+        <div className="pt-5 border-t-2 border-[#0f172a]/5 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] font-black text-[#0f172a]/40 uppercase tracking-[0.2em]">
           <p>© 2026 Straveda Tech. All rights reserved.</p>
           <div className="flex gap-10">
             <button className="hover:text-[#FF4800]">Privacy Policy</button>

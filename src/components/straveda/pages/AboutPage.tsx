@@ -378,3 +378,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (page: string) =
     </main>
   );
 }
+
+
+
+
