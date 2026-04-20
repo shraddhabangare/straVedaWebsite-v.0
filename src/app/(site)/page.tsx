@@ -21,7 +21,7 @@ type Page = typeof pages[number]
 const pageComponents: Record<Page, React.LazyExoticComponent<React.ComponentType<{ onNavigate: (page: string) => void }>>> = {
   home: lazy(() => import('@/components/sections/pages/HomePage')),
   services: lazy(() => import('@/components/sections/pages/ServicesPage')),
-  about: lazy(() => import('@/components/sections/pages/AboutPage')),
+  about: lazy(() => import('@/components/straveda/pages/AboutPage')),
   insights: lazy(() => import('@/components/sections/pages/InsightsPage')),
   contact: lazy(() => import('@/components/sections/pages/ContactPage')),
   testimonials: lazy(() => import('@/components/sections/pages/TestimonialsPage')),
@@ -139,17 +139,32 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [currentPage, handleNavigate, codeGraphOpen])
 
-  // ── Update document title & announce to screen readers ──
+  // ── Update document title & meta description ──
   useEffect(() => {
     const titles: Record<Page, string> = {
       home: 'Straveda — Enterprise IT Consulting & Technology Strategy',
       services: 'Services — Straveda',
-      about: 'About — Straveda',
+      about: 'About Straveda — AI Automation & Custom Software | Nashik, India',
       insights: 'Insights — Straveda',
       contact: 'Contact — Straveda',
       testimonials: 'Testimonials — Straveda',
     }
+    const descriptions: Record<Page, string> = {
+      home: 'Straveda — AI-powered automation and custom software for growing businesses.',
+      services: 'Explore Straveda\'s AI automation and custom software services.',
+      about: "We're a small team of builders in Nashik, India. We've built companies. We've lived operational chaos. We build systems that eliminate it.",
+      insights: 'Insights and resources from the Straveda team.',
+      contact: 'Get in touch with Straveda to start your automation journey.',
+      testimonials: 'See what clients say about working with Straveda.',
+    }
     document.title = titles[currentPage]
+    let metaDesc = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta')
+      metaDesc.name = 'description'
+      document.head.appendChild(metaDesc)
+    }
+    metaDesc.content = descriptions[currentPage]
   }, [currentPage])
 
   const CurrentPageComponent = pageComponents[currentPage]
