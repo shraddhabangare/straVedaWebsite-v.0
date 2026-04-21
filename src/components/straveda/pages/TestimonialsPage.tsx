@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 
@@ -147,7 +147,7 @@ function TestimonialScrollColumn({
             {testimonials.map(({ text, name, role, rating }, i) => (
               <motion.div
                 key={`${index}-${i}`}
-                className="rounded-2xl p-6 md:p-8 max-w-[360px] w-full transition-all duration-300 group cursor-default bg-white dark:bg-white/[0.04] border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm"
+                className="glass-card rounded-2xl p-6 md:p-8 max-w-[360px] w-full transition-all duration-300 group cursor-default"
                 whileHover={{
                   scale: 1.02,
                   borderColor: 'rgba(255,72,0,0.2)',

@@ -245,7 +245,7 @@ function ServiceBlock({ service, index }: { service: ServiceBlockData; index: nu
             {service.capabilities.map((cap, i) => {
               const [label, desc] = cap.split(':');
               return (
-                <div key={i} className="group rounded-2xl border border-[#e5e7eb] bg-white/50 p-7 backdrop-blur-sm transition-colors hover:border-[#FF4800]/30 dark:border-white/5 dark:bg-white/[0.02]">
+                <div key={i} className="group glass-card rounded-2xl p-7 transition-colors hover:border-[#FF4800]/30">
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#FF4800]/10 text-[#FF4800]">
                     <ArrowRight size={20} />
                   </div>
@@ -298,7 +298,7 @@ function WhyStravedaSection() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="rounded-2xl border border-[#e5e7eb] bg-white p-8 shadow-sm transition-all hover:border-[#FF4800]/20 dark:border-white/5 dark:bg-white/[0.01]"
+              className="glass-card rounded-2xl p-8 transition-all hover:border-[#FF4800]/20"
             >
               <div className="mb-6">{card.icon}</div>
               <h4 className="text-xl font-normal tracking-[-0.02em] text-[#1a1a2e] dark:text-white">{card.title}</h4>

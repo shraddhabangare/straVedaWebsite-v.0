@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+import { sendContactEmail } from '@/lib/email'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -46,17 +47,22 @@ export async function POST(request: Request) {
       )
     }
 
+    const cleanData = {
+      name: String(name).trim(),
+      company: String(company).trim(),
+      email: String(email).trim().toLowerCase(),
+      phone: phone ? String(phone).trim() : '',
+      service: String(service).trim(),
+      message: String(message).trim(),
+    }
+
     // Save to database
-    await db.contactSubmission.create({
-      data: {
-        name: String(name).trim(),
-        company: String(company).trim(),
-        email: String(email).trim().toLowerCase(),
-        phone: phone ? String(phone).trim() : '',
-        service: String(service).trim(),
-        message: String(message).trim(),
-      },
-    })
+    await db.contactSubmission.create({ data: cleanData })
+
+    // Send email notification (non-blocking — don't fail the request if SMTP is misconfigured)
+    sendContactEmail(cleanData).catch((err) =>
+      console.error('[contact] email error:', err instanceof Error ? err.message : err)
+    )
 
     return NextResponse.json(
       { success: true, message: 'Message sent successfully' },

@@ -104,7 +104,7 @@ export default function BackToTop() {
           onClick={scrollToTop}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="fixed bottom-6 right-6 z-40 flex items-center justify-center cursor-pointer"
+          className="fixed bottom-6 right-[88px] z-40 flex items-center justify-center cursor-pointer"
           style={{ background: 'transparent', border: 'none', padding: 0 }}
           aria-label="Back to top"
         >

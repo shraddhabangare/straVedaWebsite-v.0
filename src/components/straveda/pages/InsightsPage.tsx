@@ -349,7 +349,7 @@ export default function InsightsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease }}
-            className="bg-white dark:bg-white/[0.04] rounded-xl overflow-hidden cursor-pointer group border border-[#e5e7eb] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-shadow"
+            className="glass-card rounded-xl overflow-hidden cursor-pointer group hover:shadow-md transition-shadow"
             onClick={() => setSelectedPost(-1)}
           >
             <div className="flex flex-col lg:flex-row">
@@ -456,7 +456,7 @@ export default function InsightsPage() {
                       y: 10,
                       transition: { duration: 0.25, ease },
                     }}
-                    className="bg-white dark:bg-white/[0.04] rounded-xl p-8 border border-[#e5e7eb] dark:border-white/[0.08] hover:bg-[#f8f8fc] dark:hover:bg-white/[0.06] hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md min-h-[320px] flex flex-col"
+                    className="glass-card rounded-xl p-8 hover:border-[#FF4800]/20 transition-all duration-300 cursor-pointer group hover:shadow-md min-h-[320px] flex flex-col"
                     onClick={() => setSelectedPost(originalIndex)}
                   >
                     <span className="inline-block text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF4800] bg-[#FF4800]/10 px-2.5 py-1 rounded-full mb-4">

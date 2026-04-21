@@ -147,7 +147,7 @@ system that your team understands.That's why Straveda is different. We're focuse
             <motion.div
               initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.9, ease }}
-              className="relative rounded-2xl overflow-hidden border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-md p-7 md:p-9 flex flex-col"
+              className="glass-card relative rounded-2xl overflow-hidden p-7 md:p-9 flex flex-col"
             >
               <div className="mb-6">
                 <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800]/60 border border-[#FF4800]/20 px-2.5 py-1 rounded-full mb-3">
@@ -170,7 +170,8 @@ system that your team understands.That's why Straveda is different. We're focuse
             <motion.div
               initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2, ease }}
-              className="relative rounded-2xl overflow-hidden border border-[#FF4800]/30 bg-[#FF4800]/[0.06] dark:bg-[#FF4800]/[0.08] backdrop-blur-xl p-7 md:p-9 shadow-[0_15px_40px_rgba(255,72,0,0.08)] flex flex-col"
+              className="glass-card relative rounded-2xl overflow-hidden border-[#FF4800]/30 p-7 md:p-9 shadow-[0_15px_40px_rgba(255,72,0,0.08)] flex flex-col"
+              style={{ background: 'rgba(255,72,0,0.05)', backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', border: '1px solid rgba(255,72,0,0.25)' }}
             >
               <div className="mb-6">
                 <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800] bg-[#FF4800]/15 px-2.5 py-1 rounded-full mb-3">
@@ -221,7 +222,7 @@ function PrinciplesSection() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {principles.map((p, i) => (
-            <motion.div key={i} {...fadeUp} className="group p-6 md:p-10 rounded-2xl border border-black/5 dark:border-white/5 bg-white dark:bg-white/[0.01] hover:border-[#FF4800]/20 transition-all">
+            <motion.div key={i} {...fadeUp} className="group glass-card p-6 md:p-10 rounded-2xl hover:border-[#FF4800]/20 transition-all">
               <div className="text-[#FF4800] mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">{p.icon}</div>
               <h4 className="text-black dark:text-white text-lg md:text-xl font-normal mb-3 md:mb-4 tracking-tight">{p.title}</h4>
               <p className="text-[#666] dark:text-[#8a8a8a] text-sm leading-relaxed">{p.desc}</p>

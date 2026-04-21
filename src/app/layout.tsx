@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from 'next-themes';
+import GlobalWidgets from '@/components/straveda/GlobalWidgets';
 
 /* ------------------------------------------------------------------ */
 /*  JSON-LD Structured Data for SEO                                   */
@@ -231,6 +232,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           {children}
+          <GlobalWidgets />
           <Toaster />
         </ThemeProvider>
       </body>

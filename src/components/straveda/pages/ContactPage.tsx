@@ -327,7 +327,7 @@ export default function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease }}
-                className="flex items-center gap-3 rounded-lg bg-white dark:bg-white/[0.04] px-5 py-3.5 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm"
+                className="glass-card flex items-center gap-3 rounded-lg px-5 py-3.5"
               >
                 {card.icon}
                 <span className="text-[14px] font-medium text-[#1a1a2e] dark:text-[#f0f0f5] whitespace-nowrap">{card.title}</span>
@@ -349,7 +349,7 @@ export default function ContactPage() {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-white dark:bg-white/[0.04] rounded-xl p-5 sm:p-8 space-y-6 border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm magnetic-border"
+              className="glass-card rounded-xl p-5 sm:p-8 space-y-6 magnetic-border"
             >
               <FloatingInput
                 id="name"
