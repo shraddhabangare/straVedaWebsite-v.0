@@ -306,6 +306,7 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
       <div
         ref={messagesRef}
         className="chatbot-messages"
+        onWheel={(e) => e.stopPropagation()}
         style={{
           flex:             1,
           minHeight:        0,

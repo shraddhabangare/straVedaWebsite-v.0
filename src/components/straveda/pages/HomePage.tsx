@@ -660,21 +660,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { tier: 'Focused Automation Builds', coreValue: 'Streamline key workflows and reduce manual effort.', keyServices
-                
-                
-                : 'WhatsApp automation, lead flows, and process optimization.', bestFor: 'Solving high-impact operational bottlenecks with precision.', items: ['One custom automation workflow', 'Seamless integration into your existing tech stack', 'Comprehensive documentation and structured handover'], timeline: 'First deployment completed within 4 weeks.', cta: 'Start here', highlight: false },
-              { tier: 'Custom Software & AI Systems', coreValue: 'Build scalable, business-specific digital infrastructure.', keyServices: 'AI workflows, internal dashboards, and full-scale platform development.', bestFor: 'Long-term performance, high adaptability, and specialized technical needs.', items: ['End-to-end custom software architecture', 'Bespoke AI system integration', 'Scalable codebase with full ownership'], timeline: 'Custom milestones based on project scope.', cta: 'Book a call', highlight: true },
-              { tier: 'Ongoing Optimization & Scale', coreValue: 'Continuously improve and expand existing systems to stay ahead.', keyServices: 'Feature enhancements, third-party integrations, and performance upgrades.', bestFor: 'Supporting businesses in active growth phases that require evolving tech.', items: ['Regular system health checks and monitoring', 'Priority deployment of new features', 'Iterative workflow refinements and scaling support'], timeline: 'Ongoing monthly partnership.', cta: 'Book a call', highlight: false },
+              { tier: 'Focused Automation Builds', coreValue: 'Streamline key workflows and reduce manual effort.', items: ['One custom automation workflow', 'Seamless integration with your tools', 'Documentation & handover'], timeline: '2-3 weeks', cta: 'Start here', highlight: false },
+              { tier: 'Custom Software & AI Systems', coreValue: 'Build scalable, business-specific systems.', items: ['End-to-end custom development', 'AI workflow integration', 'Scalable, ownership-ready code'], timeline: 'Based on scope', cta: 'Book a call', highlight: true },
+              { tier: 'Ongoing Optimization & Scale', coreValue: 'Improve, upgrade, and scale your systems.', items: ['Performance monitoring', 'Feature enhancements', 'Continuous optimization'], timeline: 'Monthly', cta: 'Book a call', highlight: false },
             ].map((plan) => (
               <motion.div key={plan.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7, ease }} className={`rounded-xl p-8 border flex flex-col ${plan.highlight ? 'border-[#FF4800]/40' : 'border-black/[0.06] dark:border-white/[0.08]'}`} style={{ background: plan.highlight ? isDark ? 'rgba(255,72,0,0.08)' : 'rgba(255,72,0,0.04)' : isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.68)', backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', boxShadow: plan.highlight ? '0 8px 32px rgba(255,72,0,0.12), inset 0 1px 0 rgba(255,72,0,0.1)' : '0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)' }}>
                 {plan.highlight && <span className="inline-block mb-4 self-start rounded-full px-3 py-1 text-[10px] font-medium text-white" style={{ background: '#FF4800' }}>Most Popular</span>}
                 <p className="text-[11px] font-semibold uppercase tracking-widest mb-2 text-[#FF4800]">{plan.tier}</p>
                 <p className="text-[15px] font-medium leading-[1.5] mb-5 text-[#1a1a2e] dark:text-[#f0f0f5]">{plan.coreValue}</p>
-                <div className="flex flex-col gap-3 mb-5">
-                  <div><p className="text-[11px] font-semibold uppercase tracking-wider mb-1 text-[#6b7280] dark:text-[#9ca3af]">Key Services</p><p className="text-[13px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af]">{plan.keyServices}</p></div>
-                  <div><p className="text-[11px] font-semibold uppercase tracking-wider mb-1 text-[#6b7280] dark:text-[#9ca3af]">Best For</p><p className="text-[13px] leading-[1.6] text-[#6b7280] dark:text-[#9ca3af]">{plan.bestFor}</p></div>
-                </div>
                 <div className="border-t border-black/[0.06] dark:border-white/[0.08] pt-4 mb-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wider mb-3 text-[#6b7280] dark:text-[#9ca3af]">Deliverables</p>
                   <ul className="flex flex-col gap-2 flex-1">
