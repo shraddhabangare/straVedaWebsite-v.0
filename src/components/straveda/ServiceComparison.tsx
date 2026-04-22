@@ -86,7 +86,6 @@ const criteria = [
   { label: 'Typical Duration', key: 'duration' as const },
   { label: 'Ideal For', key: 'idealFor' as const },
   { label: 'Key Deliverables', key: 'deliverables' as const },
-  { label: 'Starting Investment', key: 'investment' as const },
   { label: 'Success Rate', key: 'successRate' as const },
 ];
 
@@ -147,15 +146,7 @@ function CellContent({
     return <SuccessRateBar rate={service.successRate} isDark={isDark} />;
   }
 
-  if (criterion.key === 'investment') {
-    return (
-      <span className="text-sm font-semibold text-[#FF4800]">
-        {service.investment}
-      </span>
-    );
-  }
-
-  const value = service[criterion.key];
+const value = service[criterion.key];
 
   if (typeof value === 'string') {
     return <span className="text-sm" style={{ color: isDark ? '#f0f0f5' : '#4a4a5a' }}>{value}</span>;
@@ -215,8 +206,8 @@ export default function ServiceComparison() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="text-[clamp(1.75rem,4vw,2.625rem)] font-medium"
-            style={{ color: isDark ? '#f0f0f5' : '#1a1a2e' }}
+            className="masked-title font-normal"
+            style={{ fontSize: 'clamp(1.5rem, 4vw, 2.8rem)', lineHeight: 1.1, letterSpacing: '-2.05px' }}
           >
             Find the right solution for your enterprise.
           </motion.h2>

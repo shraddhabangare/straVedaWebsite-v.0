@@ -126,7 +126,8 @@ export default function ServicesHoverModal({ onNavigate }: ServicesHoverModalPro
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="mt-3 text-[clamp(1.75rem,3.5vw,2.5rem)] font-medium text-[#1a1a2e] dark:text-[#f0f0f5]"
+            className="mt-3 masked-title font-normal"
+            style={{ fontSize: 'clamp(1.5rem, 4vw, 2.8rem)', lineHeight: 1.1, letterSpacing: '-2.05px' }}
           >
             Explore our service capabilities
           </motion.h2>

@@ -104,7 +104,7 @@ export const Cursor: React.FC = () => {
   })
 
   // ─── Context ──────────────────────────────────────────────────────
-  const { cursorStyle } = useCursorStyle()
+  const { cursorStyle, setCursorStyle } = useCursorStyle()
   const { theme } = useTheme()
 
   // Sync theme to ref
@@ -119,6 +119,40 @@ export const Cursor: React.FC = () => {
     s.targetOuterOp = OPACITIES[cursorStyle][0]
     s.targetInnerOp = OPACITIES[cursorStyle][1]
   }, [cursorStyle])
+
+  // ─── Auto-detect interactive element hovers ───────────────────────
+  // Switches to 'link' mode on <a>, <button>, [data-cursor-hover],
+  // and restores the previous style when leaving.
+  useEffect(() => {
+    const INTERACTIVE = 'a, button, [data-cursor-hover]'
+    const prevStyleRef = { current: 'default' as CursorStyle }
+    let isHovering = false
+
+    const onOver = (e: MouseEvent) => {
+      if (isHovering) return
+      if (!(e.target as HTMLElement).closest(INTERACTIVE)) return
+      isHovering = true
+      prevStyleRef.current = state.current.style === 'link' ? prevStyleRef.current : state.current.style
+      setCursorStyle('link')
+    }
+
+    const onOut = (e: MouseEvent) => {
+      if (!isHovering) return
+      const target = e.target as HTMLElement
+      if (!target.closest(INTERACTIVE)) return
+      const related = e.relatedTarget as HTMLElement | null
+      if (related?.closest(INTERACTIVE)) return
+      isHovering = false
+      setCursorStyle(prevStyleRef.current)
+    }
+
+    document.addEventListener('mouseover', onOver, { passive: true })
+    document.addEventListener('mouseout', onOut, { passive: true })
+    return () => {
+      document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseout', onOut)
+    }
+  }, [setCursorStyle])
 
   // ─── Main animation loop (runs once, never restarts) ──────────────
   useEffect(() => {

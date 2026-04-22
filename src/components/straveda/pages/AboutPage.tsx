@@ -106,93 +106,75 @@ function StorySection() {
         [background-size:50px_50px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-          
-          {/* LEFT: Compact Narrative */}
-          <div className="lg:w-[35%]">
-            <motion.div {...fadeUp} className="mb-8">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="h-[1px] w-6 bg-[#FF4800]" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">Our Story</span>
-              </div>
-              <div className="relative pl-6">
-                <div className="absolute left-0 top-0 h-full w-[1.5px] bg-[#FF4800]" />
-                <h2 className="masked-title font-normal uppercase leading-tight"
-                  style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', letterSpacing: '-1px' }}>
-                  Two paths. One choice.
-                </h2>
-              </div>
-            </motion.div>
 
-            <motion.div {...fadeUp} transition={{ delay: 0.2 }}>
-              <div className="flex flex-col gap-8 max-w-2xl">
-  <div className="flex flex-col gap-10 max-w-2xl">
-  {/* Paragraph 1 */}
-  <p className="text-[#888] text-[13px] md:text-[12px] leading-[1.3] text-justify hyphens-auto tracking-tight">
-    Every growing company eventually hits the same wall. Too many tools. Spreadsheets that don't 
-    sync. Your best people spending Friday afternoons doing work that shouldn't exist. You don't 
-    need another vendor; you need someone who actually understands the problem. We do. We've built companies. We've watched smart founders lose momentum to operational drag. We've felt the frustration of paying for five tools when you really need one well-designed 
-system that your team understands.That's why Straveda is different. We're focused on one thing: building AI-powered systems that replace chaos with structure. Not another platform. Not enterprise bloat. Just technology that actually reduces complexity. We move fast. We're completely transparent. And we measure success the only way that matters—by what changes in your business: 
-    hours reclaimed, decisions accelerated, operations that scale without proportional headcount growth.
-  </p>
-</div>
-</div>
-            </motion.div>
+        {/* TOP: Section Header */}
+        <motion.div {...fadeUp} className="mb-12 md:mb-16 text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="h-[1px] w-6 bg-[#FF4800]" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#FF4800]">Our Story</span>
+            <span className="h-[1px] w-6 bg-[#FF4800]" />
           </div>
+          <h2 className="masked-title font-normal uppercase leading-tight mx-auto"
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-2px' }}>
+            Two paths. One choice.
+          </h2>
+          <p className="mt-6 text-[#888] text-[14px] md:text-[15px] leading-[1.7] max-w-2xl mx-auto">
+            Every growing company eventually hits the same wall. Too many tools. Spreadsheets that don&apos;t sync. Your best people spending Friday afternoons doing work that shouldn&apos;t exist. You don&apos;t need another vendor; you need someone who actually understands the problem. We do. We&apos;ve built companies. We&apos;ve felt the frustration of paying for five tools when you really need one well-designed system that your team understands. That&apos;s why Straveda is different — building AI-powered systems that replace chaos with structure.
+          </p>
+        </motion.div>
 
-          {/* RIGHT: Side-by-Side Comparison Cards */}
-          <div className="lg:w-[65%] grid md:grid-cols-2 gap-4 h-full">
-            
-            {/* Chaos Card (The Old Way) */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.9, ease }}
-              className="glass-card relative rounded-2xl overflow-hidden p-7 md:p-9 flex flex-col"
-            >
-              <div className="mb-6">
-                <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800]/60 border border-[#FF4800]/20 px-2.5 py-1 rounded-full mb-3">
-                  The Old Way
-                </span>
-                <h3 className="text-lg font-bold uppercase tracking-tight text-black/70 dark:text-white/60">Chaos</h3>
-              </div>
-              
-              <div className="space-y-5 flex-1">
-                {chaosItems.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 opacity-50 hover:opacity-100 transition-opacity">
-                    <span className="mt-[5px] w-1.5 h-1.5 rounded-full border border-[#FF4800]/40 shrink-0" />
-                    <span className="text-[13px] leading-snug text-black dark:text-white">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+        {/* BOTTOM: Side-by-Side Comparison Cards */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
-            {/* Structure Card (The Straveda Way) */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2, ease }}
-              className="glass-card relative rounded-2xl overflow-hidden border-[#FF4800]/30 p-7 md:p-9 shadow-[0_15px_40px_rgba(255,72,0,0.08)] flex flex-col"
-              style={{ background: 'rgba(255,72,0,0.05)', backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', border: '1px solid rgba(255,72,0,0.25)' }}
-            >
-              <div className="mb-6">
-                <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800] bg-[#FF4800]/15 px-2.5 py-1 rounded-full mb-3">
-                  The Straveda Way
-                </span>
-                <h3 className="text-lg font-bold uppercase tracking-tight text-black dark:text-white">Structure</h3>
-              </div>
+          {/* Chaos Card (The Old Way) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.9, ease }}
+            className="glass-card relative rounded-2xl overflow-hidden p-7 md:p-9 flex flex-col"
+          >
+            <div className="mb-6">
+              <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800]/60 border border-[#FF4800]/20 px-2.5 py-1 rounded-full mb-3">
+                The Old Way
+              </span>
+              <h3 className="text-lg font-bold uppercase tracking-tight text-black/70 dark:text-white/60">Chaos</h3>
+            </div>
 
-              <div className="space-y-5 flex-1">
-                {clarityItems.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 size={14} className="mt-[2px] text-[#FF4800] shrink-0" />
-                    <span className="text-[13px] font-medium leading-snug text-black dark:text-white/90">{item}</span>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-[#FF4800]/15 blur-3xl rounded-full" />
-            </motion.div>
+            <div className="space-y-5 flex-1">
+              {chaosItems.map((item, i) => (
+                <div key={i} className="flex items-start gap-3 opacity-50 hover:opacity-100 transition-opacity">
+                  <span className="mt-[5px] w-1.5 h-1.5 rounded-full border border-[#FF4800]/40 shrink-0" />
+                  <span className="text-[13px] leading-snug text-black dark:text-white">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
-          </div>
+          {/* Structure Card (The Straveda Way) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15, ease }}
+            className="glass-card relative rounded-2xl overflow-hidden p-7 md:p-9 shadow-[0_15px_40px_rgba(255,72,0,0.08)] flex flex-col"
+            style={{ background: 'rgba(255,72,0,0.05)', backdropFilter: 'blur(18px) saturate(1.6)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', border: '1px solid rgba(255,72,0,0.25)' }}
+          >
+            <div className="mb-6">
+              <span className="inline-block text-[8px] font-bold uppercase tracking-[0.4em] text-[#FF4800] bg-[#FF4800]/15 px-2.5 py-1 rounded-full mb-3">
+                The Straveda Way
+              </span>
+              <h3 className="text-lg font-bold uppercase tracking-tight text-black dark:text-white">Structure</h3>
+            </div>
+
+            <div className="space-y-5 flex-1">
+              {clarityItems.map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <CheckCircle2 size={14} className="mt-[2px] text-[#FF4800] shrink-0" />
+                  <span className="text-[13px] font-medium leading-snug text-black dark:text-white/90">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-[#FF4800]/15 blur-3xl rounded-full" />
+          </motion.div>
+
         </div>
       </div>
     </section>
@@ -239,7 +221,7 @@ function PrinciplesSection() {
 /* ─────────────────────────────────────────────────────────────────────── */
 
 const stats = [
-  { label: "Founded", value: "2024", count: 2024, suffix: "", prefix: "", barClass: "h-12 md:h-32" },
+  { label: "Clients", value: "15+", count: 15, suffix: "+", prefix: "", barClass: "h-12 md:h-32" },
   { label: "Projects", value: "20+", count: 20, suffix: "+", prefix: "", barClass: "h-24 md:h-56" },
   { label: "Avg ROI", value: "3–5x", count: null, suffix: "", prefix: "", barClass: "h-20 md:h-44" },
   { label: "Retention", value: "88%+", count: 88, suffix: "%+", prefix: "", barClass: "h-28 md:h-64" },

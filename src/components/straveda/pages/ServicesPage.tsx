@@ -3,14 +3,22 @@
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
-  Diamond, 
-  TrendingDown, 
-  ShieldCheck, 
-  ArrowRight, 
-  Cloud, 
-  Database, 
-  Code, 
-  Network
+  Diamond,
+  TrendingDown,
+  ShieldCheck,
+  ArrowRight,
+  Cloud,
+  Database,
+  Code,
+  Network,
+  Cpu,
+  Globe,
+  Lock,
+  GitBranch,
+  Layers,
+  Zap,
+  BarChart3,
+  Workflow
 } from 'lucide-react';
 import MagneticButton from '@/components/straveda/MagneticButton';
 import ServiceComparison from '@/components/straveda/ServiceComparison';
@@ -312,31 +320,69 @@ function WhyStravedaSection() {
 }
 
 function TechStackSection() {
-  const techStackItems = [
-    { name: 'Next.js', icon: <Code size={24} className="text-[#FF4800]" /> },
-    { name: 'OpenAI GPT-4o', icon: <Network size={24} className="text-[#FF4800]" /> },
-    { name: 'AWS/GCP', icon: <Cloud size={24} className="text-[#FF4800]" /> },
-    { name: 'PostgreSQL', icon: <Database size={24} className="text-[#FF4800]" /> },
+  const techCategories = [
+    {
+      label: 'Frontend',
+      items: [
+        { name: 'Next.js', icon: <Code size={24} className="text-[#FF4800]" /> },
+        { name: 'React', icon: <Layers size={24} className="text-[#FF4800]" /> },
+        { name: 'TypeScript', icon: <Code size={24} className="text-[#FF4800]" /> },
+        { name: 'Tailwind CSS', icon: <Zap size={24} className="text-[#FF4800]" /> },
+      ],
+    },
+    {
+      label: 'AI & Automation',
+      items: [
+        { name: 'OpenAI GPT-4o', icon: <Network size={24} className="text-[#FF4800]" /> },
+        { name: 'Claude API', icon: <Cpu size={24} className="text-[#FF4800]" /> },
+        { name: 'LangChain', icon: <Workflow size={24} className="text-[#FF4800]" /> },
+        { name: 'Vector DBs', icon: <BarChart3 size={24} className="text-[#FF4800]" /> },
+      ],
+    },
+    {
+      label: 'Infrastructure',
+      items: [
+        { name: 'AWS / GCP', icon: <Cloud size={24} className="text-[#FF4800]" /> },
+        { name: 'Docker', icon: <Globe size={24} className="text-[#FF4800]" /> },
+        { name: 'CI/CD', icon: <GitBranch size={24} className="text-[#FF4800]" /> },
+        { name: 'Security', icon: <Lock size={24} className="text-[#FF4800]" /> },
+      ],
+    },
+    {
+      label: 'Data & Backend',
+      items: [
+        { name: 'PostgreSQL', icon: <Database size={24} className="text-[#FF4800]" /> },
+        { name: 'Redis', icon: <Database size={24} className="text-[#FF4800]" /> },
+        { name: 'Node.js', icon: <Zap size={24} className="text-[#FF4800]" /> },
+        { name: 'REST / GraphQL', icon: <Network size={24} className="text-[#FF4800]" /> },
+      ],
+    },
   ];
 
   return (
     <section className="bg-[#fcfcfd] py-24 dark:bg-[#080808]">
       <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 
-          className="masked-title mb-16 font-normal"
-          style={{ 
-            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', 
-            lineHeight: 1.1, 
-            letterSpacing: '-2.05px' 
-          }}
+        <h2
+          className="masked-title mb-4 font-normal"
+          style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.1, letterSpacing: '-2.05px' }}
         >
           Mastered Technologies
         </h2>
-        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {techStackItems.map((tech, i) => (
-            <div key={i} className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-transparent bg-white p-8 shadow-sm transition-all hover:border-[#FF4800]/10 dark:bg-white/[0.03]">
-              {tech.icon}
-              <span className="text-sm font-bold uppercase tracking-widest text-[#1a1a2e] dark:text-white">{tech.name}</span>
+        <p className="mb-16 text-sm text-[#6b7280] dark:text-[#9ca3af]">
+          A full-stack toolkit — from interface to inference.
+        </p>
+        <div className="flex flex-col gap-10">
+          {techCategories.map((category) => (
+            <div key={category.label}>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#FF4800]">{category.label}</p>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                {category.items.map((tech, i) => (
+                  <div key={i} className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-transparent bg-white p-8 shadow-sm transition-all hover:border-[#FF4800]/10 dark:bg-white/[0.03]">
+                    {tech.icon}
+                    <span className="text-sm font-bold uppercase tracking-widest text-[#1a1a2e] dark:text-white">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -366,29 +412,6 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (page: string
       <TechStackSection />
       <ServiceComparison />
       
-      <section className="relative overflow-hidden bg-[#030303] py-40 text-center text-white">
-        <div className="absolute left-1/2 top-0 h-full w-full -translate-x-1/2 bg-[radial-gradient(circle_at_center,_#FF48001a_0%,_transparent_70%)]" />
-        <div className="relative z-10 flex flex-col items-center px-6">
-            <h2 
-              className="masked-title mb-10 font-normal"
-              style={{ 
-                fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', 
-                lineHeight: 1.1, 
-                letterSpacing: '-2.05px' 
-              }}
-            >
-              Ready to modernize?
-            </h2>
-            <MagneticButton>
-              <button 
-                onClick={() => onNavigate('contact')} 
-                className="rounded-xl bg-[#FF4800] px-12 py-5 font-bold uppercase tracking-widest text-white transition-transform hover:scale-105 hover:bg-[#e03e00]"
-              >
-                Start Your Discovery
-              </button>
-            </MagneticButton>
-        </div>
-      </section>
     </main>
   );
 }

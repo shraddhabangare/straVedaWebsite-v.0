@@ -353,24 +353,47 @@ export default function InsightsPage() {
             onClick={() => setSelectedPost(-1)}
           >
             <div className="flex flex-col lg:flex-row">
-              {/* Image placeholder */}
+              {/* Featured visual */}
               <div className="lg:w-[60%] w-full">
-                <div className="relative w-full aspect-video lg:aspect-[16/9] bg-[#f8f8fc] dark:bg-white/[0.03]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#f8f8fc] via-[#f0f0f5] to-[#f8f8fc] dark:from-white/[0.03] dark:via-white/[0.06] dark:to-white/[0.03]" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full border-2 border-[#e5e7eb] dark:border-white/[0.1] flex items-center justify-center">
-                      <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-[#FF4800] border-b-8 border-b-transparent ml-1" />
-                    </div>
+                <div className="relative w-full aspect-video lg:aspect-[16/9] overflow-hidden" style={{ background: 'linear-gradient(135deg, #0e0c1c 0%, #1a1535 60%, #0e0c1c 100%)' }}>
+                  {/* Dot grid */}
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+                  {/* Orange glow */}
+                  <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(255,72,0,0.18) 0%, transparent 70%)' }} />
+                  {/* Architecture node diagram */}
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 480 270" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                    {/* Connector lines */}
+                    <line x1="240" y1="60" x2="120" y2="135" stroke="rgba(255,72,0,0.35)" strokeWidth="1" strokeDasharray="4 3" />
+                    <line x1="240" y1="60" x2="360" y2="135" stroke="rgba(255,72,0,0.35)" strokeWidth="1" strokeDasharray="4 3" />
+                    <line x1="120" y1="135" x2="80" y2="210" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 4" />
+                    <line x1="120" y1="135" x2="180" y2="210" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 4" />
+                    <line x1="360" y1="135" x2="300" y2="210" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 4" />
+                    <line x1="360" y1="135" x2="400" y2="210" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 4" />
+                    {/* Root node */}
+                    <rect x="210" y="38" width="60" height="28" rx="6" fill="rgba(255,72,0,0.15)" stroke="#FF4800" strokeWidth="1.2" />
+                    <text x="240" y="56" textAnchor="middle" fill="#FF4800" fontSize="9" fontFamily="monospace" fontWeight="600">CORE API</text>
+                    {/* Mid nodes */}
+                    <rect x="88" y="120" width="64" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <text x="120" y="138" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8" fontFamily="monospace">Services</text>
+                    <rect x="328" y="120" width="64" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <text x="360" y="138" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8" fontFamily="monospace">Gateway</text>
+                    {/* Leaf nodes */}
+                    {[48, 148, 268, 368].map((x, i) => (
+                      <g key={i}>
+                        <rect x={x} y="197" width="64" height="24" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
+                        <text x={x + 32} y="212" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="monospace">{['Auth', 'Cache', 'Queue', 'Store'][i]}</text>
+                      </g>
+                    ))}
+                    {/* Pulse circle on root */}
+                    <circle cx="240" cy="52" r="28" stroke="rgba(255,72,0,0.2)" strokeWidth="1" fill="none">
+                      <animate attributeName="r" values="26;34;26" dur="3s" repeatCount="indefinite" />
+                      <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                  </svg>
+                  {/* Label */}
+                  <div className="absolute bottom-4 left-5">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: 'rgba(255,72,0,0.7)' }}>Enterprise Architecture</span>
                   </div>
-                  {/* Subtle grid pattern */}
-                  <div
-                    className="absolute inset-0 opacity-10"
-                    style={{
-                      backgroundImage:
-                        'linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)',
-                      backgroundSize: '40px 40px',
-                    }}
-                  />
                 </div>
               </div>
 

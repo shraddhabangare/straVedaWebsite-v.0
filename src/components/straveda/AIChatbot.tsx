@@ -65,6 +65,7 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const bg = isDark ? BRAND_BG_DARK : BRAND_BG_LIGHT;
@@ -77,7 +78,10 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 80);
+      setTimeout(() => {
+        const el = messagesRef.current;
+        if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      }, 80);
     }
   }, [messages, isOpen]);
 
@@ -274,7 +278,7 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
             Straveda Assistant
           </p>
           <p style={{ fontSize: 11, color: textMuted }}>
-            Powered by Groq · Usually instant
+            Usually instant
           </p>
         </div>
         <button
@@ -300,16 +304,18 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
 
       {/* Messages */}
       <div
+        ref={messagesRef}
         className="chatbot-messages"
         style={{
-          flex:          1,
-          minHeight:     0,
-          overflowY:     'scroll',
-          padding:       '12px 14px',
-          display:       'flex',
-          flexDirection: 'column',
-          gap:           10,
-          scrollBehavior: 'smooth',
+          flex:             1,
+          minHeight:        0,
+          overflowY:        'scroll',
+          overscrollBehavior: 'contain',
+          padding:          '12px 14px',
+          display:          'flex',
+          flexDirection:    'column',
+          gap:              10,
+          scrollBehavior:   'smooth',
         }}
       >
         {messages.map((msg) => (
@@ -500,7 +506,7 @@ export default function AIChatbot({ isOpen, onToggle, isDark }: AIChatbotProps) 
           flexShrink: 0,
         }}
       >
-        Str<span style={{ color: ORANGE }}>a</span>veda AI · Powered by Groq
+        Str<span style={{ color: ORANGE }}>a</span>veda AI
       </p>
     </div>
   );

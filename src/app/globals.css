@@ -1232,8 +1232,11 @@ html {
 
 /* ============================================
    Custom Cursor — hide native cursor on desktop
+   Excluded for users who prefer reduced motion so the
+   native cursor remains visible when the custom cursor
+   animation is disabled.
    ============================================ */
-@media (pointer: fine) {
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   * {
     cursor: none !important;
   }

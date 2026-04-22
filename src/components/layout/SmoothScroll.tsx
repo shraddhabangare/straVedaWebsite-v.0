@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const lenis = new Lenis({
       // Premium smooth-scroll feel — inspired by mcshannock.design
       // Slightly longer duration for that "buttery" momentum feel

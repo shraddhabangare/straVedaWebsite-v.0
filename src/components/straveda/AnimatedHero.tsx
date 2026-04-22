@@ -362,19 +362,9 @@ export default function AnimatedHero({ onNavigate }: AnimatedHeroProps) {
           transition={{ duration: 0.5, delay: 0.4, ease }}
           className="mt-10"
         >
-          <div
-            className="mb-5 w-full max-w-[400px]"
-            style={{ borderTop: `1px solid ${colors.borderLine}` }}
-          />
+          
           <div className="flex items-center gap-3">
-            <span
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-medium"
-              style={{ background: 'rgba(255,72,0,0.08)', color: '#FF4800', border: '1px solid rgba(255,72,0,0.2)' }}
-            >
-              Engagements from ₹5L
-            </span>
             <span className="text-[13px]" style={{ color: colors.ratingLabel }}>
-              · First deployment in 6 weeks
             </span>
           </div>
         </motion.div>

@@ -86,7 +86,6 @@ const criteria = [
   { label: 'Typical Duration', key: 'duration' as const },
   { label: 'Ideal For', key: 'idealFor' as const },
   { label: 'Key Deliverables', key: 'deliverables' as const },
-  { label: 'Starting Investment', key: 'investment' as const },
   { label: 'Success Rate', key: 'successRate' as const },
 ];
 
@@ -145,14 +144,6 @@ function CellContent({
 
   if (criterion.key === 'successRate') {
     return <SuccessRateBar rate={service.successRate} isDark={isDark} />;
-  }
-
-  if (criterion.key === 'investment') {
-    return (
-      <span className="text-sm font-semibold text-[#FF4800]">
-        {service.investment}
-      </span>
-    );
   }
 
   const value = service[criterion.key];

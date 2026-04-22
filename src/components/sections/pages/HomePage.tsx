@@ -392,12 +392,12 @@ function TestimonialsCarousel() {
 
 const faqs = [
   {
-    question: 'What industries do you serve?',
-    answer: 'We work across financial services, healthcare, government, energy, and technology sectors. Our deep enterprise expertise translates seamlessly across industries.',
+    question: 'What services does Straveda Tech offer?',
+    answer: 'We provide AI automation, custom software development, cloud & DevOps, cybersecurity, and data analytics solutions built to reduce manual work and scale your operations.',
   },
   {
-    question: 'How long does a typical engagement last?',
-    answer: 'Engagements vary from focused 4-week assessments to multi-year transformation programs. We scope each project to deliver measurable results at every milestone.',
+    question: 'How can AI automation benefit my business?',
+    answer: 'AI automation reduces repetitive tasks, lowers costs, and improves decision-making.Common use cases include lead qualification, customer support, and workflow automation.',
   },
   {
     question: 'Do you work with existing IT teams?',
